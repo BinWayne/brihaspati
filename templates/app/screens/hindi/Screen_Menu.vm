@@ -1,0 +1,113 @@
+#*
+ * @(#) Screen_Menu.vm
+ * Copyright (c) 2005-2006, 2009 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ *
+ * @author<a href="mailto:aktri@iitk.ac.in">Awadhesh Kumar Trivedi</a>
+ * @author<a href="mailto:singhnk@iitk.ac.in">Nagendra Kumar Singh</a>
+ * @author<a href="mailto:singh_jaivir@rediffmail.com">Jaivir Singh</a>
+ * @author<a href="mailto:shaistashekh@hotmail.com">Shaista </a>
+ * @modified:Date 29-10-2009, 07-04-2010
+ *
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+ *#
+<table width="100%" bgcolor="$ui.tableColor">
+<tr bgcolor="$ui.menuColor">
+<td><i><center><font size=4>$data.getUser().getTemp("course_name")</font></center></i><hr/></td>
+</tr>
+#######################################
+#set($lang = $data.getUser().getTemp("lang" ).toString())
+####################################
+
+ #if($data.getUser().getTemp("role") == "instructor")
+                <tr>
+                        <td>
+                                ##<a href=$link.setPage("call,CourseMgmt_User,CourseManagement.vm")>विषय   प्रबंधन</a> 
+                                ##<a href=$link.setPage("call,CourseMgmt_User,CourseManagement.vm").addPathInfo("count","1") style=text-decoration:none>विषय   प्रबंधन</a> 
+                                <a href=$link.setPage("call,CourseMgmt_User,CourseContent.vm").addPathInfo("count","1") style=text-decoration:none>विषय   प्रबंधन</a> 
+                         </td>
+                </tr>
+                <tr bgcolor="$ui.menuColor">
+                        <td>
+                        ##<a href=$link.setPage("call,UserMgmt_User,StudentManagement.vm")>विधार्थी  प्रबंधन</a>
+                        <a href=$link.setPage("call,UserMgmt_User,StudentManagement.vm").addPathInfo("count","1") style=text-decoration:none>विधार्थी  प्रबंधन</a>
+			</td> ##today28july
+                </tr>
+                <tr>
+                        <td>
+                        ##<a href=$link.setPage("call,Question_Bank,Question_bank.vm")>Frage Bank</a>
+                        <a href=$link.setPage("call,Question_Bank,Question_bank.vm").addPathInfo("count","1") style=text-decoration:none>प्रश्न  संग्रह (बैंक )</a>
+                        </td>
+                </tr>
+                <tr bgcolor="$ui.menuColor">
+                        <td>
+                        ##<a href=$link.setPage("call,UserMgmt_User,UploadMarks.vm")>अपलोड  करें  अंक</a>
+                        <a href=$link.setPage("call,UserMgmt_User,UploadMarks.vm").addPathInfo("count","1") style=text-decoration:none>अंक अपलोड  करें  </a>
+                        </td>
+                </tr>
+                <tr>
+                        <td>
+                        ##<a href=$link.setPage("call,Backups,BackupIns.vm")>बैकअप</a>
+                        <a href=$link.setPage("call,Backups,BackupIns.vm").addPathInfo("count","1") style=text-decoration:none>बैकअप</a>
+                        </td>
+                </tr>
+ #end
+ #if($data.getUser().getTemp("role") == "student")
+                <tr bgcolor="$ui.menuColor">
+                        <td>
+                        ##<a href=$link.setPage("call,CourseMgmt_User,CourseContent.vm")>विषय   विषयवस्तु</a>
+                        <a href=$link.setPage("call,CourseMgmt_User,CourseContent.vm").addPathInfo("count","1") style=text-decoration:none> #if($lang =="hindi") विषयवस्तु #else विषय   विषयवस्तु #end </a>
+			</td> ##today28july
+                </tr>
+		#if($data.getUser().getUserName() != "guest") ##guest is not login
+                <tr>
+                        <td>
+                        ##<a href=$link.setPage("call,UserMgmt_User,ViewMarks.vm")>अवलोकन  करें  अंक</a>
+                        <a href=$link.setPage("call,UserMgmt_User,ViewMarks.vm").addPathInfo("count","1") style=text-decoration:none>अवलोकन  करें  अंक</a>
+                        </td>
+                </tr>
+		#end
+        #end
+                <tr bgcolor="$ui.menuColor">
+                        <td>
+                        ##<a href=$link.setPage("call,CourseMgmt_User,Communication.vm")>संचार</a>
+                        ##<a href=$link.setPage("call,CourseMgmt_User,Communication.vm")>Communication</a>
+                        <a href=$link.setPage("call,Local_Mail,Mail.vm").addPathInfo("count","1") style=text-decoration:none>संचार</a>
+                        </td>
+                </tr>
+	#if($data.getUser().getUserName() != "guest") ##guest is not login
+                <tr>
+                        <td>
+                        ##<a href=$link.setPage("call,Quiz_Mgmt,Quiz_Start.vm")>क्विज</a>
+                        <a href=$link.setPage("call,Quiz_Mgmt,Quiz_Start.vm").addPathInfo("count","1") style=text-decoration:none>क्विज</a>
+                        </td>
+                </tr>
+                <tr bgcolor="$ui.menuColor">
+                        <td>
+                        ##<a href=$link.setPage("call,Calendar_Mgmt,Calendar_Display.vm").addPathInfo("path","fromcourse")>पंजीकरण का गणक</a>
+                        <a href=$link.setPage("call,Calendar_Mgmt,Calendar_Display.vm").addPathInfo("path","fromcourse") style=text-decoration:none>पंजीकरण का गणक</a>
+                        </td>
+                </tr>
+                <tr>
+			 <td>
+                        ##<a href=$link.setPage("call,Wiki,Wiki.vm")>वाइकी </a>
+                        <a href=$link.setPage("call,Wiki,Wiki.vm").addPathInfo("count","1") style=text-decoration:none>वाइकी </a>
+                        </td>
+                </tr>
+		<tr bgcolor="$ui.menuColor">
+                         <td>
+                        <a href=$link.setPage("call,Group_Mgmt,Grpmgmt.vm").addPathInfo("count","1") style=text-decoration:none>समूह प्रबंधन</a>
+                        </td>
+                </tr>
+                <tr>
+                         <td>
+                        <a href=$link.setPage("call,Assignment,ASS_subm.vm").addPathInfo("count","1") style=text-decoration:none>असाइनमेंट</a>
+                        </td>
+                </tr>
+
+
+	#end
+## --------------------
+##end
+## ---------------------
+</table>

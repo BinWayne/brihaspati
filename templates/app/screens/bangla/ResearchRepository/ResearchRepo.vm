@@ -1,0 +1,420 @@
+#*
+ * @(#)ResearchRepo.vm
+ * Copyright (c) 2008-2010 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ *
+ *  @author <a href="mailto:seema_020504@yahoo.com ">Seema Pal</a>
+ *  @author <a href="mailto:kshuklak@rediffmail.com ">Kishore kumar shukla</a>
+ *  @author <a href="mailto:singh_jaivir@rediffmail.com ">Jaivir Singh</a>
+ * @modified date: 31-12-2009
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+*#
+<head>
+<script type="text/javascript">
+        _editor_url = "../../../../../../../../../scrpts/";
+        _editor_lang = "en";
+</script>
+<script type="text/javascript" src="../../../../../../../../../scrpts/htmlarea.js"></script>
+<script type="text/javascript">
+        var editor = null;
+        function initEditor() {
+                editor = new HTMLArea("ta");
+                editor.generate();
+                return false;
+                var cfg = editor.config;
+                cfg.registerButton({
+                        id        : "my-hilite",
+                        tooltip   : "Highlight text",
+                        image     : "ed_custom.gif",
+                        textMode  : false,
+                        action    : function(editor) {
+                                editor.surroundHTML("<span class=\"hilite\">", "</span>");
+                        },
+                        context   : 'table'
+                });
+                cfg.toolbar.push(["linebreak", "my-hilite"]); var cfg = editor.config;
+                function clickHandler(editor, buttonId) {
+                        switch (buttonId) {
+                                case "my-toc":
+                                        editor.insertHTML("<h1>Table Of Contents</h1>");
+                                break;
+                                case "my-date":
+                                        editor.insertHTML((new Date()).toString());
+                                break;
+                                case "my-bold":
+                                        editor.execCommand("bold");
+                                        editor.execCommand("italic");
+                                break;
+                                case "my-hilite":
+                                        editor.surroundHTML("<span class=\"hilite\">", "</span>");
+                                break;
+                        }
+                };
+                Cfg.registerButton("my-toc",  "Insert TOC", "ed_custom.gif", false, clickHandler);
+                cfg.registerButton("my-date", "Insert date/time", "ed_custom.gif", false, clickHandler);
+                cfg.registerButton("my-bold", "Toggle bold/italic", "ed_custom.gif", false, clickHandler);
+                cfg.registerButton("my-hilite", "Hilite selection", "ed_custom.gif", false, clickHandler);
+                cfg.registerButton("my-sample", "Class: sample", "ed_custom.gif", false,
+                        function(editor) {
+                                if (HTMLArea.is_ie) {
+                                        editor.insertHTML("<span class=\"sample\">&nbsp;&nbsp;</span>");
+                                        var r = editor._doc.selection.createRange();
+                                        r.move("character", -2); r.moveEnd("character", 2); r.select();
+                                } else {
+                                        var n = editor._doc.createElement("span"); n.className = "sample"; editor.insertNodeAtSelection(n);
+                                        var sel = editor._iframe.contentWindow.getSelection();  sel.removeAllRanges(); var r = editor._doc.createRange();
+                                        r.setStart(n, 0); r.setEnd(n, 0); sel.addRange(r);
+                                }
+                        }
+                );
+                cfg.pageStyle = "body { background-color:  } .hilite { background-color: yellow; } "+ ".sample { color: green; font-family: monospace; }";
+                cfg.toolbar.push(["linebreak", "my-toc", "my-date", "my-bold", "my-hilite", "my-sample"]);
+               editor.generate();
+        }
+        function insertHTML() { var html = prompt("Enter some HTML code here"); if (html) { editor.insertHTML(html); } }
+        function highlight() { editor.surroundHTML('<span style="background-color: yellow">', '</span>'); }
+</script>
+</head>
+<body onload="initEditor()">
+
+$page.setTitle("Res Repo Page")
+$page.setBgColor("bgcolor")
+$!data.getMessage()
+#set($lang = $data.getUser().getTemp("lang" ).toString())
+<table bgcolor="$ui.menuColor" width=100%>
+<tr>
+<td>
+	<a href=$link.setPage("Index.vm")><b>মুখ্য় পৃষূঠা</a> | 
+	#if($mode=="createResgroup")
+	সৃষ্িট কর Research ভান্ডার
+	#else
+	Research ভান্ডার দল
+	#end
+</td>
+</table>
+<table  bgcolor="$ui.tableColor" width=100%>
+<tr>
+		#if($tdcolor!="1")
+    		<td>
+		#elseif($tdcolor=="1")
+		<td bgcolor="#AFDCEC">
+		#end
+		<a href=$link.setPage("call,ResearchRepository,ResearchRepo.vm").addPathInfo("count","1")>Research ভান্ডার দল</a></td>
+		#if($tdcolor!="2")
+    		<td>
+		#elseif($tdcolor=="2")
+		<td bgcolor="#AFDCEC">
+		#end
+		#if($data.getUser().getUserName()!= "admin" && $data.getUser().getUserName()!= "guest")
+		<a href=$link.setPage("call,ResearchRepository,ResearchRepo.vm").addPathInfo("mode","createResgroup").addPathInfo("username",$username).addPathInfo("count","2")>সৃষ্িট কর Research ভান্ডার</a></td>
+		#end
+		<td><img src="$content.getURI("/images/hand.gif")"><a href=javascript:popupWin("/brihaspati2/docs/ResearchRepository.html","newWin");>সাহায্য়</a></td>
+</tr>
+</table>
+<form name="frm" method="post" enctype="multipart/form-data" action=$link.setPage("call,ResearchRepository,ResearchRepo.vm").setAction("ResearchRepo_Action")>
+#*<table bgcolor="$ui.tableColor" width="100%">
+	<tr>
+		<td><b>
+		#if($data.getUser().getUserName()!= "admin" && $data.getUser().getUserName()!= "guest")
+		<a href=$link.setPage("call,ResearchRepository,ResearchRepo.vm").addPathInfo("mode","createResgroup").addPathInfo("username",$username)>সৃষ্িট কর Research ভান্ডার</a>&nbsp;&nbsp;&nbsp;&nbsp;
+		#end
+    		<a href=$link.setPage("call,ResearchRepository,ResearchRepo.vm")>Research ভান্ডার দল</a></b>&nbsp;&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+</table>
+<br>*#
+<table bgcolor="$ui.tableColor" width="100%" > ## table 3 start
+#if($mode == "createResgroup")
+                        ##<tr><td><b>সৃষ্িট কর Research ভান্ডার</b></td></tr>
+                        <tr><td>
+                                <table bgcolor="$ui.tableColor" width="100%">
+                                        <tr><td><b><font color=red>*</font> Research দল নাম :</b></td>
+                                        <td><input type="text" name="topicname" size="30" value=""/></td>
+                                        </tr>
+                                        <tr><td><b> বর্ণনা:</b></td>
+                                        <td width="2"><textarea id="ta" name="description" rows="10" cols="80" ></textarea></td>
+                                        </tr>
+                                </table>
+                        </td></tr>
+                ## end of usage create ##
+              <tr><td> ## td tr 8 start
+                <table width="100%"> ## table 7 start
+                        <tr><td>
+                          <input type="button" name="eventSubmit_doCreate_resrepo" value="সৃষ্িট কর" onClick="checkField(document.frm,this);"/>
+                           <input type="submit" name="eventSubmit_doCancel" value="বাদ দাও"/>
+                        </tr></td>
+                </table> ## end of table 7
+        </tr></td> ## end od td tr 8
+#else
+#if($content1 == "value" || $stat=="Search")
+<tr><td vlaign="top">
+<table bgcolor="$ui.tableColor" width="100%"> ## table 5 start
+<tr bgcolor="$ui.menuColor">
+	<td><b>দারা েখাঁজ</b>
+        	<select name="queryList">
+               	<option value="Author Name">রচিয়তা নাম</option>
+               	<option value="Research Group">Research দল</option>
+               	</select>
+        </td>
+        <td><b>অনুরুত পঁক্িত</b>
+        	<input align=center type="text" name="valueString" value="">
+        ##</td>
+        ##<td>
+        <input type="button" name="eventSubmit_doSearch" value="েখাঁজ" onClick="checkNull(document.frm,this);">
+       </td>
+</tr>
+</table>
+</td></tr>
+#end
+<tr><td vlaign="top">
+<table bgcolor="$ui.tableColor" width="100%"> ## table 5 start
+#if($NoSearch=="NoSearch" && $content1=="value")
+<tr>
+        <td>
+        <b>বািছয়া নাও</b></td>
+        <td><b>Research দল</b></td>
+        <td colspan="6"><b>উপস্িথত কার্জ</td>
+        <td colspan="6"><b>পাঠাও</td>
+</tr>
+#end
+#if($stat == "Search" && $actionName == "eventSubmit_doSearch" && $check == "Noblank")
+<tr>
+        <td><b>বািছয়া নাও</b></td>
+        <td><b>Research দল</b></td>
+        <td colspan="6"><b>উপস্িথত কার্জ</td>
+        <td colspan="6"><b>পাঠাও</td>
+</tr>
+#end
+	#if($NoSearch=="NoSearch" )
+	#if($content1 =="value")
+        #set ( $counter="" )
+        	#foreach($Restopics in $allTopics)
+<tr>
+        <td align ="left" >
+	#if($Restopics.UserName == $username ||$data.getUser().getUserName() == "admin")
+        <input type=checkbox name="$!Restopics.Topic" onClick="addDeleteList(this,document.frm);">
+	#else
+	<input type="CHECKBOX" disabled="true">
+        #end
+        </td>
+        <td>$Restopics.Topic</td>
+            #foreach($usertype in $collect)
+           <td colspan="3"><font color="blue">$usertype.Name</font></td>
+          #end 
+	#if($data.getUser().getUserName()!= "guest" && $data.getUser().getUserName()!= "admin")
+	 #if($Restopics.UserName != $username)
+        <td><a href="$link.setPage("call,ResearchRepository,ResearchRepo.vm").setAction("ResearchRepo_Action").addPathInfo("topicname",$Restopics.Topic).addPathInfo("actionName","eventSubmit_doJoinUser").addPathInfo("count",$tdcolor)">েযাগ িদন</a></td>
+	#else
+        <td><u><font color="white">েযাগ িদন</font></u></td>
+	#end
+	#if($Restopics.UserName == $username)
+	##<td> <a href="$link.setPage("call,ResearchRepository,ResearchRepo.vm").addPathInfo("type","Unjoin").addPathInfo("topicname",$Restopics.Topic).addPathInfo("owner",$Restopics.UserName)">Unjoin</a></td>
+	<td> <a href="$link.setPage("call,ResearchRepository,ResearchRepo.vm").addPathInfo("type","Unjoin").addPathInfo("tname",$Restopics.Topic).addPathInfo("owner",$Restopics.UserName).addPathInfo("count",$tdcolor)">Unjoin</a></td>
+
+	#else
+       <td><u><font color="white">Unjoin</font></u></td>
+	#end
+        <td><a href="$link.setPage("call,ResearchRepository,Post_Reply_topic.vm").addPathInfo("topicname",$Restopics.Topic).addPathInfo("mode","view").addPathInfo("count",$tdcolor).addPathInfo("username",$username)">েদেখা</a></td>&nbsp;&nbsp;
+        <td align="center"><a href="$link.setPage("call,ResearchRepository,ResearchRepo.vm").setAction("ResearchRepo_Action").addPathInfo("topicname",$Restopics.Topic).addPathInfo("mode","post").addPathInfo("actionName","eventSubmit_doPost").addPathInfo("count",$tdcolor)">পাঠাও</a></td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <td colspan="7"><b>$Restopics.studentno</b></td>
+	#else
+        <td><u><font color="white">েযাগ িদন</font></u></td>
+	#if($data.getUser().getUserName() == "admin")
+	<td> <a href="$link.setPage("call,ResearchRepository,ResearchRepo.vm").addPathInfo("type","Unjoin").addPathInfo("tname",$Restopics.Topic).addPathInfo("owner",$Restopics.UserName).addPathInfo("count",$tdcolor)">Unjoin</a></td>    
+	#else
+       <td align="center"><u><font color="white">Unjoin</font></u></td>
+	#end
+        <td><a href="$link.setPage("call,ResearchRepository,Post_Reply_topic.vm").addPathInfo("topicname",$Restopics.Topic).addPathInfo("mode","view").addPathInfo("count",$tdcolor).addPathInfo("username",$username)">েদেখা</a></td>&nbsp;&nbsp;
+       <td><u><font color="white">পাঠাও</font></td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <td colspan="7"><b>$Restopics.studentno</b></td>
+	#end
+</tr>
+        #set ( $counter= "$counter$!Restopics.Topic^")
+        #end
+	#else
+	Research দল is not exists...!!	
+        #end
+	#end
+	#if($stat == "Search" && $actionName == "eventSubmit_doSearch")
+	#if($check == "Noblank")
+        	#foreach($topics in $Searchtopics)
+	<tr>
+        <td>
+        #if($topics.UserName == $username || $data.getUser().getUserName()=="admin")
+        <input type=checkbox name="$!topics.Topic" onClick="addDeleteList(this,document.frm);">
+        #else
+        <input type="CHECKBOX" disabled="true">
+        #end
+        </td>
+        <td>$topics.Topic</td>
+	#if($data.getUser().getUserName()!= "guest" && $data.getUser().getUserName()!= "admin")
+	 #if($topics.UserName != $username)
+	<td><a href="$link.setPage("call,ResearchRepository,ResearchRepo.vm").setAction("ResearchRepo_Action").addPathInfo("topicname",$topics.Topic).addPathInfo("actionName","eventSubmit_doJoinUser").addPathInfo("count",$tdcolor)">েযাগ িদন</a></td>
+	#else
+       <td><u><font color="white">েযাগ িদন</font></u></td>
+	#end
+	 #if($topics.UserName == $username)
+	<td> <a href="$link.setPage("call,ResearchRepository,ResearchRepo.vm").addPathInfo("type","Unjoin").addPathInfo("tname",$topics.Topic).addPathInfo("owner",$topics.UserName).addPathInfo("count",$tdcolor)">Unjoin</a></td>
+	#else
+	<td><u><font color="white">Unjoin</font></u></td>
+	#end
+        <td><a href="$link.setPage("call,ResearchRepository,Post_Reply_topic.vm").addPathInfo("topicname",$topics.Topic).addPathInfo("mode","view").addPathInfo("count",$tdcolor).addPathInfo("username",$username)">েদেখা</a></td>&nbsp;&nbsp;
+        <td><a href="$link.setPage("call,ResearchRepository,ResearchRepo.vm").setAction("ResearchRepo_Action").addPathInfo("topicname",$topics.Topic).addPathInfo("mode","post").addPathInfo("actionName","eventSubmit_doPost").addPathInfo("count",$tdcolor)">পাঠাও</a></td>&nbsp;&nbsp;
+        <td colspan="7"><b>$topics.studentno</b></td>
+	#else
+	<td><u><font color="white">েযাগ িদন</font></u></td>
+	#if($data.getUser().getUserName() == "admin")
+        <td><a href="$link.setPage("call,ResearchRepository,ResearchRepo.vm").addPathInfo("type","Unjoin").addPathInfo("tname",$topics.Topic).addPathInfo("owner",$topics.UserName).addPathInfo("count",$tdcolor)">Unjoin</a></td>
+        #else
+	<td align="center"><u><font color="white">Unjoin</font></u></td>
+	#end
+        <td><a href="$link.setPage("call,ResearchRepository,Post_Reply_topic.vm").addPathInfo("topicname",$topics.Topic).addPathInfo("mode","view").addPathInfo("count",$tdcolor).addPathInfo("username",$username)">েদেখা</a></td>&nbsp;&nbsp;
+        <td></u><font color="white">পাঠাও</font></td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <td colspan="7"><b>$topics.studentno</b></td>
+	#end
+</tr>
+        	#set ( $counter= "$counter$!topics.Topic^")
+		#end
+	#else
+		#if($select=="Author Name")
+		ব্য়বহারকর্তা is not exists...!!
+		#end
+		#if($select=="Research Group")
+		প্রসংগ is not exists...!!
+		#end
+	#end
+	#end
+#if($type == "Unjoin")
+<table bgcolor="$ui.tableColor" width="100%"> ## table 5 start
+#if($value=="yesvalue") 
+<tr>
+        <td><b>বািছয়া নাও</b></td>
+        <td><b>Research দল</b></td>
+        <td colspan="3"><b>Owner এর দল</td>
+        <td colspan="3"><b>Joinedব্য়বহারকর্তা</td>
+</tr>
+	#set ( $counts="" )
+                #foreach($usertype in $collect)
+<tr>
+        <td><input type=checkbox name="$!usertype.Name" onClick="addDeleteList(this,document.frm);"></td>
+        <td>$usertype.Topic</td>
+        <td colspan="3">$usertype.UserName</td>
+        <td colspan="3"><font color="blue">$usertype.Name</font></td>
+	#if($value1 == "balnk")
+	ব্য়বহারকর্তা is not exists ..!!
+	#end
+</tr>
+        #set ( $counts= "$counts$!usertype.Name^")
+        #end
+#else
+##User is not exists ..!!
+ব্য়বহারকর্তা is not exists ..!!
+#end
+#end
+</table>
+<tr bgcolor="$ui.menuColor">
+        <td>&nbsp;&nbsp; ## td 5 start
+	##if($check=="Noblank" || $NoSearch=="NoSearch")
+	#if($check=="Noblank" || $content1=="value")
+        <input type="button" name="eventSubmit_doDeleteTopic" value="মুিছয়া েফেলা দল" onClick="deleteConfirm(document.frm,this);"/>
+	#end
+	#if($type=="Unjoin" && $value=="yesvalue")
+        <input type="button" name="eventSubmit_doUnjoinUser" value="Unjoin ব্য়বহারকর্তা" onClick="deleteConfirm(document.frm,this);"/>
+	#end
+	#if($stat!="Search" && $type!="Unjoin" && $content1=="value")
+        #if($total_size <= $userConf)
+        <u><font color="white">প্রথম</font></u> &nbsp;
+        <u><font color="white">পূর্ববর্তী</font></u> &nbsp;
+        <u><font color="white">এরপর</font></u> &nbsp;
+        <u><font color="white">অন্িতম</font></u> &nbsp;
+        #elseif($startIndex == $userConf_string)
+        <u><font color="white">প্রথম</font></u> &nbsp;
+        <u><font color="white">পূর্ববর্তী</font></u> &nbsp;
+        <a href="$link.setPage("call,ResearchRepository,ResearchRepo.vm").addPathInfo("startIndex",$startIndex).addPathInfo("count",$tdcolor)">এরপর</a> &nbsp;
+        <a href="$link.setPage("call,ResearchRepository,ResearchRepo.vm").addPathInfo("startIndex",$check_last).addPathInfo("count",$tdcolor)">অন্িতম</a> &nbsp;
+        #elseif($endIndex == $total_size || $endIndex > $total_size)
+        <a href="$link.setPage("call,ResearchRepository,ResearchRepo.vm").addPathInfo("startIndex",$check_first).addPathInfo("count",$tdcolor)">প্রথম</a>&nbsp;
+        <a href="$link.setPage("call,ResearchRepository,ResearchRepo.vm").addPathInfo("startIndex",$check_pre).addPathInfo("count",$tdcolor)">পূর্ববর্তী</a> &nbsp;
+        <u><font color="white">এরপর</font></u> &nbsp;
+        <u><font color="white">অন্িতম</font></u> &nbsp;
+        #else
+        <a href="$link.setPage("call,ResearchRepository,ResearchRepo.vm").addPathInfo("startIndex",$check_first).addPathInfo("count",$tdcolor)">প্রথম</a>&nbsp;
+        <a href="$link.setPage("call,ResearchRepository,ResearchRepo.vm").addPathInfo("startIndex",$check_pre).addPathInfo("count",$tdcolor)">পূর্ববর্তী</a> &nbsp;
+        <a href="$link.setPage("call,ResearchRepository,ResearchRepo.vm").addPathInfo("startIndex",$startIndex).addPathInfo("end",$endIndex).addPathInfo("count",$tdcolor)">এরপর</a> &nbsp;
+        <a href="$link.setPage("call,ResearchRepository,ResearchRepo.vm").addPathInfo("startIndex",$check_last).addPathInfo("count",$tdcolor)">অন্িতম</a> &nbsp;
+        #end
+    	#end
+        </td>
+</tr>
+</td></tr>
+#end ##end of else mode(creatRes)
+        <input type="hidden" name="actionName" >
+        <input type="hidden" name="deleteFileNames" value="">
+        <input type="hidden" name="stat" value="Search">
+        <input type="hidden" name="tname" value="$tname"> 
+        <input type="hidden" name="count" value="$tdcolor"> 
+
+</table> ## end of table 3
+</form>
+</body>
+<SCRIPT LANGUAGE="javascript">
+function checkField(frm,field)
+{
+	editor.setMode("textmode");
+	if(frm.topicname.value!="")
+        {
+                frm.actionName.value=field.name;
+                frm.submit();
+        }
+        else
+                alert("Please fill the Mandatory(*) Fields.!!");
+	editor.setMode("wysiwyg");
+}
+function deleteConfirm(frm,field)
+{
+	var delfiles;
+        delfiles=frm.deleteFileNames.value;
+        if(delfiles.length!=0)
+        {
+        	if(confirm("Selected Group will be Deleted"))
+                {
+                	frm.actionName.value=field.name;
+                        frm.submit();
+                }
+        }
+        else
+        	alert("Please Select check box  !!");
+}
+function addDeleteList(field,frm)
+{
+	if(field.checked)
+        {
+        	frm.deleteFileNames.value=frm.deleteFileNames.value+field.name+"^";
+        }
+        else
+        {
+        	var rmFile,index,actualString,preString,postString;
+                actualString=frm.deleteFileNames.value;
+                index=actualString.indexOf(field.name+"^",0);
+                preString=actualString.substring(0,index);
+                postString=actualString.substring(index+field.name.length+1);
+                actualString=preString+postString;
+                frm.deleteFileNames.value=actualString;
+        }
+
+}
+function popupWin(url,popupName)
+{
+	Win1=window.open(url,popupName,"resizable=0,scrollbars=1,height=400,width=400,align=left");
+}
+function checkNull(frm,field)
+{
+	if(frm.valueString.value!="")
+	{
+		frm.actionName.value=field.name;
+                frm.submit();
+        }
+        else
+        	alert("The 'Match String' text box can not be NULL");
+}
+</SCRIPT>

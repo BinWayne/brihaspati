@@ -1,0 +1,151 @@
+#* * @(#)AdminParam.vm
+ * Copyright (c) 2005,2009 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * @author <a href="mailto:chitvesh@yahoo.com">Chitvesh Dutta</a>
+ * @author <a href="mailto:awadhk_t@yahoo.com">Awadhesh Kumar Trivedi</a>
+ * @author <a href="mailto:shaistashekh@hotmail.com">Shaista Bano</a>
+ * modified date: 17-10-2009
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+*#
+$page.setTitle("Admin Home | Change Parameters")
+
+$page.setBgColor($ui.bgcolor)
+$!data.getMessage()
+#set($lang=$data.getUser().getTemp("lang").toString())
+<table bgcolor="$ui.tableColor" width=100%>
+<tr bgcolor="$ui.menuColor">
+	<td colspan="2">
+	<font face="$ui.sansSerifFonts" size=3>
+	<b>
+     	<a href=$link.setPage("Index.vm")>நிர்வாகியின்  முகப்பு</a> | நிர்வாகியின் குறிப்பு
+	</td>
+</tr>
+<form name="frm" method="post" action="$link.setPage("call,AdminProfile,AdminParam.vm").setAction("changeAParam")">
+    ##<tr><td bgcolor="#AFDCEC"><font size=4>நிர்வாகியின் குறிப்பு</font></td></tr>
+    <tr><td><font size=4>நிர்வாகியின் குறிப்பு</font></td></tr>
+    <tr bgcolor="$ui.menuColor">
+      ##formCell("முதல் பெயர்" "AFName" "$!afname")
+	<td width="30"> <font face="$ui.sansSerifFonts"> முதல் பெயர் </font></td> 
+	<td width="50"> <font face="$ui.sansSerifFonts"> <input type="text" size="30" name="AFName" value="$!afname"> </font></td>
+    </tr>
+    <tr bgcolor="$ui.tableColor">
+      ##formCell("கடைசி பெயர்" "ALName" "$!alname")	
+	<td width="30"> <font face="$ui.sansSerifFonts"> கடைசி பெயர் </td>   
+	<td width="50"> <font face="$ui.sansSerifFonts"><input type="text" size="30" name="ALName" value="$!alname"> </font></td>
+    </tr>
+    <tr bgcolor="$ui.menuColor">
+      ##formCell("பட்டியல் வடிவமைப்பு மதிப்பு (பட்டியலின் வரம்பு 1-100)" "AdminConf" "$!AdminConf")	
+	<td width="30"> <font face="$ui.sansSerifFonts">பட்டியல் வடிவமைப்பு மதிப்பு (பட்டியலின் வரம்பு 1-100) </font></td>
+        <td width="50"> <font face="$ui.sansSerifFonts"> <input type="text" size="30" name="AdminConf" value="$!AdminConf"> </font></td>
+    </tr>
+    <tr bgcolor="$ui.tableColor">
+      ##formCell("பாடம் காலாவதியாகும் நேரம் (நாட்களில்)" "AdminCrsExp" "$!CrsExp")	
+	<td width="30"> <font face="$ui.sansSerifFonts"> பாடம் காலாவதியாகும் நேரம் (நாட்களில்) </font></td>	
+        <td width="50"> <font face="$ui.sansSerifFonts"> <input type="text" size="30" name="AdminCrsExp" value="$!CrsExp"> </font></td>
+    </tr>
+    <tr bgcolor="$ui.menuColor">
+      ##formCell("Mail Server பெயர்" "mailServ" "$!mServer")	
+	<td width="30"> <font face="$ui.sansSerifFonts"> #if($lang != "english") மின்னஞ்சல் வழங்கன் உடைய பெயர் #else மின்னஞ்சல் வழங்கன் பெயர் #end </font></td>
+        <td width="50"> <font face="$ui.sansSerifFonts"> <input type="text" size="30" name="mailServ" value="$!mServer"> </font></td>
+    </tr>
+    <tr bgcolor="$ui.tableColor">
+	<td width="30"> <font face="$ui.sansSerifFonts"> #if($lang != "english") மின்னஞ்சல் வழங்கன் உடைய पोर्ट #else மின்னஞ்சல் வழங்கன் पोर्ट #end </font></td>
+        <td width="50"> <font face="$ui.sansSerifFonts"> <input type="text" size="30" name="mailServPort" value="$!mServerPort"> </font></td>
+    </tr>
+
+    <tr bgcolor="$ui.menuColor">
+      ##formCell("Mail From" "mailFrom" "$!mFrom")	
+	<td width="30"> <font face="$ui.sansSerifFonts"> மின்னஞ்சல் அனுப்புநர் </font></td>
+        <td width="50"> <font face="$ui.sansSerifFonts">  <input type="text" size="30" name="mailFrom" value="$!mFrom"> </font></td>
+    </tr>
+    <tr bgcolor="$ui.tableColor">
+      ##formCell("உள் Domain பெயர்" "mailDomain" "$!dName")	
+	<td width="30"> <font face="$ui.sansSerifFonts"> #if($lang != "english") உள் களம் உடைய பெயர் #else  உள் களம் பெயர் #end </font></td>
+        <td width="50"> <font face="$ui.sansSerifFonts"> <input type="text" size="30" name="mailDomain" value="$!dName"> </font> </td>
+    </tr>
+    <tr bgcolor="$ui.menuColor">
+      ##formCell("Mail பயனர்பெயர் பெயர்" "muName" "$!muname")	
+	<td width="30"> <font face="$ui.sansSerifFonts"> #if($lang !="english") மின்னஞ்சல் चे பயனர்பெயர் உடைய பெயர் #else  மின்னஞ்சல் பயனர்பெயர் பெயர் #end </font></td>
+        <td width="50"> <font face="$ui.sansSerifFonts"> <input type="text" size="30" name="muName" value="$!muname"> </font> </td>
+    </tr>
+    <tr bgcolor="$ui.tableColor">
+      ##formPasswordCell("Mail கடவுச்சொல்" "mPass" "$!mPassword")	
+	<td width="30"> <font face="$ui.sansSerifFonts"> #if($lang !="english") மின்னஞ்சல் உடைய கடவுச்சொல் #else மின்னஞ்சல் கடவுச்சொல் #end</font></td>	
+        <td width="50"> <font face="$ui.sansSerifFonts"> <input type="password" size="30" name="mPass" value="$!mPassword"> </font></td>
+    </tr>
+    <tr bgcolor="$ui.menuColor">
+	<td width=30><font face="$ui.sansSerifFonts">பாடம் ஒதுக்கீடு (இல் MB)</td>	
+	<td width="50"><font face="$ui.sansSerifFonts"> <input type="text" size="30" name="cquota" value="$!cquota"></font></td>
+</tr>
+    <tr bgcolor="$ui.tableColor">
+	<td width=30><font face="$ui.sansSerifFonts">பயனர்பெயர் ஒதுக்கீடு (இல் MB)</td>	
+	<td width="50"><font face="$ui.sansSerifFonts"> <input type="text" size="30" name="uquota" value="$!uquota"></font></td>
+    </tr>
+    <tr bgcolor="$ui.menuColor">
+
+	<td width=30><font face="$ui.sansSerifFonts">முகப்பு கோப்பகம் </td>	
+	<td width="50"><font face="$ui.sansSerifFonts"> <input type="text" size="30" name="hdir" value="$!hdir"></font></td>
+</tr>
+    <tr bgcolor="$ui.tableColor">
+      <td colspan=2 bgcolor="$ui.menuColor">	
+	  <input type="hidden" name="actionName">
+          <input type="button" name="eventSubmit_doUpdate" value="சமர்பிக்கவும்" onClick="checkValues(document.frm,this);"/>
+	  <input type="reset" name="reset" value="மீட்டமை" onClick="checkClear(document.frm,this);"/>
+	  <input type="hidden" name="count" value="$tdcolor">
+      </td>
+    </tr>
+</form>
+</table>
+
+<SCRIPT LANGUAGE="javascript">
+function checkValues(frm,field)
+{
+	if((frm.AFName.value!="") && (frm.ALName.value!="") && (frm.AdminConf.value!=""))
+        {
+		if(frm.AdminConf.value>=1 && frm.AdminConf.value<=100)
+		{
+			if(isNumberString(frm.AdminCrsExp.value))
+                        {
+				if(isNumberString(frm.cquota.value))
+                        	{
+					if(isNumberString(frm.uquota.value))
+		                        {
+                		               	frm.actionName.value=field.name;
+                                		frm.submit();
+                        		}
+                        	}
+			}
+		}	
+		else
+		{
+			alert("List Config. Value should be between 1 to 100");
+		}
+	}
+        else
+        {
+		alert("None of the fields can be empty !!");
+	}
+}
+
+function checkClear(frm,field)
+{
+	frm.AFName.value="";
+        frm.ALName.value="";
+}
+function isNumberString(chString)
+{
+	if(chString.length==0)
+        return false;
+        var RefString="0123456789";
+        for(count=0;count<chString.length;count++)
+        {
+        	tempChar=chString.charAt(count);
+                	if(RefString.indexOf(tempChar)==-1)
+                        {
+                                alert("Value should be numeric")
+                                return false;
+                        }
+        }
+        return true;
+}
+</SCRIPT>

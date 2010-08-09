@@ -1,0 +1,223 @@
+#*
+*
+ * @(#) ScormPlayerList.vm
+ * Copyright (c) 2008-2009 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+ * @author <a href="mailto:kishore.shukla@gmail.com">Kishore Kumar shukla</a>
+ * @author: <a href="mailto:seema_020504@yahoo.com">Seemapal</a>
+ * @author <a href="mailto:omprakashkgp@gmail.com">Om Prakash</a>
+ * @author <a href="mailto:shaistashekh@hotmail.com">shaista</a>
+ * @modified date: 30-03-2010
+*#
+
+$page.setBgColor($ui.bgcolor)
+$page.setTitle("Scorm content Upload")
+$!data.getMessage()
+#set($lang=$data.getUser().getTemp("lang").toString())
+<table bgcolor="$ui.menuColor" width=100%>
+	<tr>
+		<td>
+		#if($user_role == "instructor")
+        	<font face="$ui.sansSerifFonts"><b>
+        	<a href=$link.setPage("call,IndexHome.vm")>पृष्ठ</a> |
+        	<a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")>$course</a> |
+        	<a href=$link.setPage("call,CourseMgmt_User,CourseManagement.vm")>विषय   प्रबंधन</a> | अपलोड  करें  स्कोर्म पैकेज
+        	</font>
+        	</td>
+		#else
+        	<td>
+        	<font face="$ui.sansSerifFonts"><b>
+        	<a href=$link.setPage("call,IndexHome.vm")>पृष्ठ</a> |
+        	<a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")>$course</a> | #if($lang == "hindi") विषयवस्तु देखें #else देखें स्कोर्म विषयवस्तु #end
+        	</font>
+       		</td>
+		#end
+  		<td align=right>
+               	#if( $total_size!=0 )
+                       	#if( $endIndex < $total_size )
+                              #if( $endIndex < $userConf )
+                              [$k - $total_size] of $total_size
+                               #elseif($k == $j)
+                               [$k - $total_size] of $total_size
+                               #else
+                               [$k - $endIndex] of $total_size
+                               #end
+                       	#else
+                       	[$k - $total_size] of $total_size
+                       	#end
+               	#end
+        	</td>
+	</tr>
+</table>
+         #if($user_role == "instructor")
+  <table width=100% bgcolor="$ui.tableColor">
+        <tr bgcolor="$ui.menuColor">
+        <tr>
+                #if($tdcolor != "1")
+                <td>
+                #elseif($tdcolor == "1")
+                <td bgcolor="#AFDCEC">
+                #end
+                <a href=$link.setPage("call,CourseMgmt_User,CourseManagement.vm").addPathInfo("count","1") > #if($lang == "english") अपलोड  करें  विषय   विषयवस्तु #else विषयवस्तु अपलोड  करें  #end </a></td>
+                #if($tdcolor != "2")
+                <td>
+                #elseif($tdcolor == "2")
+                <td bgcolor="#AFDCEC">
+                #end
+                <a href=$link.setPage("call,CourseMgmt_User,CourseContent.vm").addPathInfo("count","2") > #if($lang == "english") विषय   विषयवस्तु #else विषयवस्तु #end </a></td>
+ 		#if($tdcolor != "3")
+                <td>
+                #elseif($tdcolor == "3")
+                <td bgcolor="#AFDCEC">
+                #end
+             <a href=$link.setPage("call,CourseMgmt_User,Configuration.vm").addPathInfo("cName",$course).addPathInfo("count","3") >विषय   की विन्यास  व्यवस्था</a></td>
+                #if($tdcolor != "4")
+                <td>
+                #elseif($tdcolor == "4")
+                <td bgcolor="#AFDCEC">
+                #end
+                <a href=$link.setPage("call,CourseMgmt_User,UploadImage.vm").addPathInfo("count","4") > #if($lang == "english") अपलोड  करें  विषय   प्रवेशिका #else विषय   की प्रवेशिका अपलोड  करें  #end </a></td>
+                #if($tdcolor != "5")
+                <td>
+                #elseif($tdcolor == "5")
+                <td bgcolor="#AFDCEC">
+                #end
+             <a href=$link.setPage("call,CourseMgmt_User,UploadImage.vm").addPathInfo("mode","NotUploadImage").addPathInfo("count","5") > #if($lang == "english") की विन्यास  व्यवस्था ग्रेड #else ग्रेड की विन्यास  व्यवस्था #end</a></td>
+                #if($tdcolor != "6")
+                <td>
+                #elseif($tdcolor == "6")
+                <td bgcolor="#AFDCEC">
+                #end
+                 <a href=$link.setPage("call,CourseMgmt_User,BrihaspatiEditor.vm").addPathInfo("count","6") >स्कोर्म पैकेजर</a></td>
+               #if($tdcolor != "7")
+                <td>
+                #elseif($tdcolor == "7")
+                <td bgcolor="#AFDCEC">
+                #end
+                <a href=$link.setPage("call,CourseMgmt_User,ScormPlayerList.vm").addPathInfo("count","7")>स्कोर्म प्लेयर</a>
+                </td>
+        </tr>
+</table>
+#end
+<form name="frm" method="post" enctype="multipart/form-data"  action="$link.setPage("call,CourseMgmt_User,ScormPlayerList.vm").setAction("ScormPlayer")">
+<table width="100%" >
+        #if($user_role == "instructor")
+        <tr bgcolor="$ui.menuColor" width="100%"><td align="left" colspan="5">
+        <b> #if($lang == "english") अपलोड  करें  पैकेज आदान - प्रदान प्रारूप लेख्यपत्र  (जिप ) #else पैकेज आदान - प्रदान प्रारूप लेख्यपत्र  (जिप ) अपलोड  करें  #end </b>
+        </td>
+	<td align="right">
+	#if($user_role == "instructor")
+        <img src="$content.getURI("/images/hand.gif")"> <a href=javascript:popupWin("/brihaspati/docs/ScormPlayerInst.html","newWin");>सहायता</a>
+	#else
+        <img src="$content.getURI("/images/hand.gif")"> <a href=javascript:popupWin("/brihaspati/docs/ScormPlayerStu.html","newWin");>सहायता</a>
+	#end
+	</td>
+	</tr>
+        <tr bgcolor="$ui.tableColor" width="100%">
+        #fileUpload ("फाइल  संलग्न  करें" "file")
+	<td colspan="6">
+	</td>
+        </tr>
+        <tr bgcolor="$ui.menuColor" width="100%"><td colspan="6">
+        <input type="submit" name="eventSubmit_doUpload" value="अपलोड  करें " onClick="checkselect(document.frm,this);"/>
+        </td></tr>
+        #else
+	#if($Mode == "NoBlank")
+        <tr bgcolor="$ui.menuColor" width="100%"><td align="left" colspan="5"><b> #if($lang == "english") लान्च करें स्कोर्म विषयवस्तु #else विषयवस्तु लान्च करें #end </b>
+	#else
+	यहँा नही है #if($lang =="hindi") विषयवस्तु #else स्कोर्म विषयवस्तु #end
+        #end
+        #end
+        <table width="100%" border="0">
+        #if($user_role == "instructor" )
+	#if($Mode == "NoBlank")
+        <tr bgcolor="$ui.menuColor"><td align="left">लेख्यपत्र  </td>
+        <td align="left" colspan="5" > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;उपलब्ध  कार्य  का                      </td></tr>
+                #foreach($topicList in $allTopics)
+		#if($velocityCount%2==0)
+                <tr bgcolor="$ui.menuColor">
+                #else
+                <tr bgcolor="$ui.tableColor">
+		#end
+  		<td align="left">
+                #if($topicList.Alias=="Launch")
+                $topicList.Name<blink><font color="Green" size="5"><b>*</b></font></blink>
+                #else
+                $topicList.Name
+                #end
+		</td>
+                <td align="left"><a href=$link.setPage("call,CourseMgmt_User,ScormPlayerList.vm").addPathInfo("ziptopic",$topicList.Name).setAction("ScormPlayer").addPathInfo("actionName","eventSubmit_doDelete") onclick="javascript:return confirm('Do you want to delete this package')"><b>हटायें   </b></a></td>
+                <td align="left"><a href=$link.setPage("call,CourseMgmt_User,Launchcontent.vm").addPathInfo("package",$topicList.Name)><b> #if($lang == "hindi") विषयवस्तु देखें #else देखेंविषयवस्तु #end </b></a></td>
+                #if($topicList.Alias=="Launch")
+                <td align="left"><u><font color="grey">लान्च करें</font></u></td>
+                <td align="left"><a href=$link.setPage("call,CourseMgmt_User,ScormPlayerList.vm").addPathInfo("ziptopic",$topicList.Name).addPathInfo("type","Unlaunch").setAction("ScormPlayer").addPathInfo("actionName","eventSubmit_doLaunch")><b>अनलान्च करें</b></a><div></td>
+                #else
+                <td align="left"><a href=$link.setPage("call,CourseMgmt_User,ScormPlayerList.vm").addPathInfo("ziptopic",$topicList.Name).addPathInfo("type","Launch").setAction("ScormPlayer").addPathInfo("actionName","eventSubmit_doLaunch")><b>लान्च करें</b></a></div></td>
+                <td align="left"><u><font color="grey">अनलान्च करें</font></u></td>
+                #end
+                #end
+                </tr>
+		#end
+         #end
+        </table>
+        <table width="100%" border="0">
+        #if($user_role == "student")
+                #foreach($topicList in $allTopics)
+			#if($velocityCount%2==0)
+                	<tr bgcolor="$ui.menuColor">
+                	#else
+                	<tr bgcolor="$ui.tableColor">
+                	#end
+                	#if($topicList.Alias=="Launch")
+                	<td align="left">$topicList.Name</td>
+        		<td align="left"><a href=$link.setPage("call,CourseMgmt_User,Launchcontent.vm").addPathInfo("package",$topicList.Name)><b>प्ले विषयवस्तु</b></a></td>
+        		#end
+        	#end
+        	</tr>
+       #end
+      </table>
+	#if($Mode == "NoBlank")
+	<table bgcolor="#e5e5e5" width="100%"><tr bgcolor="$ui.menuColor"><td align="left">&nbsp;&nbsp;
+        #if($total_size <= $userConf)
+                <u><font color="white">पहला</font></u> &nbsp;
+                <u><font color="white">पिछला</font></u> &nbsp;
+                <u><font color="white">अगला</font></u> &nbsp;
+                <u><font color="white">अंतिम</font></u> &nbsp;
+                #elseif($startIndex == $userConf_string)
+                <u><font color="white">पहला</font></u> &nbsp;
+                <u><font color="white">पिछला</font></u> &nbsp;
+                <a href="$link.setPage("call,CourseMgmt_User,ScormPlayerList.vm").addPathInfo("startIndex",$startIndex)">अगला</a>&nbsp;
+               	<a href="$link.setPage("call,CourseMgmt_User,ScormPlayerList.vm").addPathInfo("startIndex",$check_last)">अंतिम</a>&nbsp;
+                #elseif($endIndex == $total_size || $endIndex > $total_size)
+                <a href="$link.setPage("call,CourseMgmt_User,ScormPlayerList.vm").addPathInfo("startIndex",$check_first)">पहला</a>&nbsp;
+                <a href="$link.setPage("call,CourseMgmt_User,ScormPlayerList.vm").addPathInfo("startIndex",$check_pre)">पिछला</a> &nbsp;
+                <u><font color="white">अगला</font></u> &nbsp;
+                <u><font color="white">अंतिम</font></u> &nbsp;
+                #else
+                <a href="$link.setPage("call,CourseMgmt_User,ScormPlayerList.vm").addPathInfo("startIndex",$check_first)">पहला</a>&nbsp;
+                <a href="$link.setPage("call,CourseMgmt_User,ScormPlayerList.vm").addPathInfo("startIndex",$check_pre)">पिछला</a> &nbsp;
+                <a href="$link.setPage("call,CourseMgmt_User,ScormPlayerList.vm").addPathInfo("startIndex",$startIndex).addPathInfo("end",$endIndex)">अगला</a> &nbsp;
+                <a href="$link.setPage("call,CourseMgmt_User,ScormPlayerList.vm").addPathInfo("startIndex",$check_last)">अंतिम</a> &nbsp;
+                #end
+                </td></tr></table>
+                #end
+</table>
+</form>
+       <input type="hidden" name="actionName">
+        <input type="hidden" name="type" value="$type">
+<SCRIPT LANGUAGE="javascript">
+function checkselect(frm,field)
+{
+        frm.actionName.value=field.name;
+        frm.submit();
+}
+function popupWin(url,popupName)
+{
+        Win1=window.open(url,popupName,"resizable=0,scrollbars=1,height=400,width=400");
+}
+function checkNull(frm,field)
+{
+		frm.submit();
+}
+</script>

@@ -1,0 +1,8 @@
+$page.setTitle("System Error")
+
+<h2>系统误差： </h2>
+<b>请稍后再试...</b>
+	#if ( $data.getMessage() )
+		$data.getMessage()
+	#end
+

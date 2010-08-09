@@ -1,0 +1,8 @@
+$page.setTitle("System Error")
+
+<h2>िव्यवस्थेत    त्रुटी          </h2>
+<b>कृपया   परत   प्रयत्न   करा..........</b>
+	#if ( $data.getMessage() )
+		$data.getMessage()
+	#end
+

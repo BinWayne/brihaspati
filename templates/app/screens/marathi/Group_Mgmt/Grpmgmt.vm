@@ -1,0 +1,470 @@
+#*
+ * @(#)Grpmgmt.vm
+ * Copyright (c) 2006,2007,2009,2010 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ *  @author <a href="mailto:seema_020504@yahoo.com ">Seema Pal</a>
+ *  @author <a href="mailto:kshuklak@rediffmail.com ">Kishore kumar shukla</a>
+ *  @author <a href="mailto:singh_jaivir@rediffmail.com ">Jaivir Singh</a>
+ *  @author <a href="mailto:sunil.singh6094@gmail.com">Sunil Kumar</a>
+ * @modified date: 31-12-2009
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+*#
+<head>
+<script type="text/javascript">
+        _editor_url = "../../../../../scrpts/";
+        _editor_lang = "en";
+</script>
+<script type="text/javascript" src="../../../../../scrpts/htmlarea.js"></script>
+<script type="text/javascript">
+        var editor = null;
+        function initEditor() {
+                editor = new HTMLArea("ta");
+                editor.generate();
+                return false;
+                var cfg = editor.config;
+                cfg.registerButton({
+                        id        : "my-hilite",
+                        tooltip   : "Highlight text",
+                        image     : "ed_custom.gif",
+                        textMode  : false,
+                        action    : function(editor) {
+                                editor.surroundHTML("<span class=\"hilite\">", "</span>");
+                        },
+                        context   : 'table'
+                });
+                cfg.toolbar.push(["linebreak", "my-hilite"]); var cfg = editor.config;
+                function clickHandler(editor, buttonId) {
+                        switch (buttonId) {
+                                case "my-toc":
+                                        editor.insertHTML("<h1>Table Of Contents</h1>");
+                                break;
+                                case "my-date":
+                                        editor.insertHTML((new Date()).toString());
+                                break;
+                                case "my-bold":
+                                        editor.execCommand("bold");
+                                        editor.execCommand("italic");
+                                break;
+                                case "my-hilite":
+                                        editor.surroundHTML("<span class=\"hilite\">", "</span>");
+                                break;
+                        }
+                };
+                Cfg.registerButton("my-toc",  "Insert TOC", "ed_custom.gif", false, clickHandler);
+                cfg.registerButton("my-date", "Insert date/time", "ed_custom.gif", false, clickHandler);
+                cfg.registerButton("my-bold", "Toggle bold/italic", "ed_custom.gif", false, clickHandler);
+                cfg.registerButton("my-hilite", "Hilite selection", "ed_custom.gif", false, clickHandler);
+                cfg.registerButton("my-sample", "Class: sample", "ed_custom.gif", false,
+                        function(editor) {
+                                if (HTMLArea.is_ie) {
+                                        editor.insertHTML("<span class=\"sample\">&nbsp;&nbsp;</span>");
+                                        var r = editor._doc.selection.createRange();
+                                        r.move("character", -2); r.moveEnd("character", 2); r.select();
+                                } else {
+                                        var n = editor._doc.createElement("span"); n.className = "sample"; editor.insertNodeAtSelection(n);
+                                        var sel = editor._iframe.contentWindow.getSelection();  sel.removeAllRanges(); var r = editor._doc.createRange();
+                                        r.setStart(n, 0); r.setEnd(n, 0); sel.addRange(r);
+                                }
+                        }
+                );
+                cfg.pageStyle = "body { background-color:  } .hilite { background-color: yellow; } "+ ".sample { color: green; font-family: monospace; }";
+                cfg.toolbar.push(["linebreak", "my-toc", "my-date", "my-bold", "my-hilite", "my-sample"]);
+               editor.generate();
+        }
+        function insertHTML() { var html = prompt("Enter some HTML code here"); if (html) { editor.insertHTML(html); } }
+        function highlight() { editor.surroundHTML('<span style="background-color: yellow">', '</span>'); }
+</script>
+</head>
+<body onload="initEditor()">
+
+#set($lang = $data.getUser().getTemp("lang" ).toString()) 
+$page.setTitle("Home | $courseName | $brih_grpmgmt")
+$!data.getMessage()
+
+<table bgcolor="$ui.menuColor" width=100%>
+<tr><td>
+	<a href=$link.setPage("call,IndexHome.vm")><b>पान</a> | 
+	<a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")> $coursename </a>|	गट व्यवस्था	
+</td></tr>
+</table>
+<table width=100% bgcolor="$ui.tableColor">
+<tr>
+#if($user_role == "instructor")
+	#if($tdcolor != "1")
+	<td>
+	#elseif($tdcolor=="1")
+	<td bgcolor="#AFDCEC">
+	#end
+	<a href=$link.setPage("call,Group_Mgmt,Grpmgmt.vm").addPathInfo("count","1")>तयार   करा  गट</a></td>
+	#if($tdcolor != "2")
+	<td>
+	#elseif($tdcolor=="2")
+	<td bgcolor="#AFDCEC">
+	#end
+    	<a href=$link.setPage("call,Group_Mgmt,Addmembers.vm").addPathInfo("count","2")>मीळवा/दाखवा  सभासद</a></td>
+	#if($tdcolor != "3")
+	<td>
+	#elseif($tdcolor=="3")
+	<td bgcolor="#AFDCEC">
+	#end
+    	<a href=$link.setPage("call,Group_Mgmt,Grp_View_Delete.vm").addPathInfo("count","3")>दाखवा /िमटवा गट</a></td>
+	#if($tdcolor != "4")
+	<td>
+	#elseif($tdcolor=="4")
+	<td bgcolor="#AFDCEC">
+	#end
+    	<a href=$link.setPage("call,Group_Mgmt,Editgroup.vm").addPathInfo("count","4")>ईडीट / मिटवा/नाहिसे     करा  सभासद</a></td>
+	#if($tdcolor != "5")
+	<td>
+	#elseif($tdcolor=="5")
+	<td bgcolor="#AFDCEC">
+	#end
+    	<a href=$link.setPage("call,Group_Mgmt,Activitygroup.vm").addPathInfo("count","5")>गट कायॆ</a></td>
+	<td><img src="$content.getURI("/images/hand.gif")"><a href=javascript:popupWin("/brihaspati2/docs/Creategrp.html","newWin");>मदत</a></td>
+#else
+	#if($tdcolor != "1")
+	<td>
+	#elseif($tdcolor=="1")
+	<td bgcolor="#AFDCEC">
+	#end
+    	<a href=$link.setPage("call,Group_Mgmt,Signupform.vm").addPathInfo("count","1")>प्वेशकेला गट</a></td>
+	#if($tdcolor != "2")
+	<td>
+	#elseif($tdcolor=="2")
+	<td bgcolor="#AFDCEC">
+	#end
+    	<a href=$link.setPage("call,Group_Mgmt,ViewActivity.vm").addPathInfo("count","2")>दाखवा  कायॆ</a></td>
+	<td><img src="$content.getURI("/images/hand.gif")"><a href=javascript:popupWin("/brihaspati2/docs/joingroupactivity.html","newWin");>मदत</a></td>
+#end
+</tr>
+</table>
+############################Creategroup.vm add by jai
+#if($user_role=="instructor")
+##<form name="frm" method="post" action=$link.setPage("call,Group_Mgmt,Creategroup.vm").setAction("Groupmanagement")>
+<form name="frm" method="post" action=$link.setPage("call,Group_Mgmt,Grpmgmt.vm").setAction("Groupmanagement")>
+<table bgcolor="$ui.tableColor" width=100% > ## table 3 start
+<tr bgcolor="$ui.menuColor"><td colspan=5 valign="top"> ## td tr 1 satart
+                        ##<b><font size=5><I>विषय गट</I></font></b>
+                        #if($lang == "english")
+                        <b><font size=5><I>तयार   करा  गट </I></font></b>
+                        #else
+                        <b><font size=5><I>गट तयार   करा </I></font></b>
+                        #end
+                </td></tr> ##tr 1 end
+                #if($flag == "true")
+                        <tr><td> ## tr td 2 start
+                                <br>
+                                #if($lang=="english")
+                                &nbsp;&nbsp;<b>तयार   करा  गट : तुम्हाला  गटात  सभासद  कसे  मिळवायला  आवडेल ?</b><br><br>
+                                #else
+                                &nbsp;&nbsp;<b>गट तयार   करा  : तुम्हाला  गटात  सभासद  कसे  मिळवायला  आवडेल ?</b><br><br>
+                                #end
+                                #if($lang=="english")
+                                <input type="radio" checked="true" name="grouptype" value="usagegroup">तयार   करा  उपयोग गट<br>
+                                #else
+                                <input type="radio" checked="true" name="grouptype" value="usagegroup">उपयोग गट तयार   करा <br>
+                                #end
+                                &nbsp;&nbsp;(एक  गट  तयार  करा  आणि  त्यात  ज्यांना  मिळवायच  आहे  त्या  विद्याथ्याॆंना  निवडा.)<br><br>
+                                #if($lang=="english")
+                                <input type="radio" name="grouptype" value="Multiplegroup">तयार   करा  अनेक  १ गट<br>
+                                &nbsp;&nbsp;(रिकामे  गट  तयार  करा, सभासद  नंतर  मिळवा किंवा गट   तयार  करा  ज्यात  विद्याथीॆ  आहे,<br>
+                                &nbsp;&nbsp;सहजपणे  पसरवा)<br><br>
+                                #else
+                                <input type="radio" name="grouptype" value="Multiplegroup">अनेक  १ गट तयार   करा <br>
+                                &nbsp;&nbsp;(रिकामे  गट  तयार  करा, सभासद  नंतर  मिळवा किंवा गट   तयार  करा  ज्यात  विद्याथीॆ  आहे,) <br><br>
+				#end
+                                #if($lang=="english")
+                                <input type="radio" name="grouptype" value="signupgroup">तयार   करा  गट सोबत  सही  केलेला  नमुन्याच्या  छापीतील  कागद (फॉमॆ)<br>
+                                #else
+                                <input type="radio" name="grouptype" value="signupgroup">गट सोबत  सही  केलेला  नमुन्याच्या  छापीतील  कागद (फॉमॆ) तयार   करा <br>
+                                #end
+                                &nbsp;&nbsp;(ज्या  गटात  सहभागी  होण्याची  विद्याथ्याॆंची  इच्छा  असेल  तो  गट  सही  केलेला  नमुन्याच्या  छापीतील  कागद (फॉमॆ)  वापरुन  निवडण्याची  त्यांना  परवानगी द्या.)
+                                <tr bgcolor="$ui.tableHeaderColor"><td colspan="5">
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="button" name="eventSubmit_doCreategrouptype" value="सुरु  ठेवा" onClick="checkField1(document.frm, this);"/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="eventSubmit_doCancel" value="मिटवा">
+                        </tr></td> ## tr td 2 end
+                #end
+                #if($actionName == "eventSubmit_doCreategrouptype" && $grouptype == "usagegroup")
+                        <tr><td>
+                                #if($lang=="english")
+                                <center><b><font size=4>&nbsp;&nbsp;तयार   करा  उपयोग गट</font></b><br>
+                                #else
+                                <br>&nbsp<center><font size=4>उपयोग गट तयार   करा </font>
+                                #end
+                                <table  border="0" bgcolor="$ui.tableColor" width="100%" colspan=3>
+                                        <tr>
+                                        <td><b><font color=red>*</font>नाव ची गट :</b></td>
+                                        <td align="left"><input type="text"  size="31" name="groupname"  value=""/></td>
+                                        </tr>
+                                        <tr>
+                                        <td><b>वणॆन ची गट:</b></td>
+                                        <td align="left" width="2"><textarea id="ta" name="groupdesc" rows=10 cols=80 ></textarea></td>
+                                        </tr>
+                                </table>
+                        </td></tr>
+                #end
+		## end of usage create ##
+                ## start of multiple group ##
+                #if($actionName == "eventSubmit_doCreategrouptype" &&  $grouptype == "Multiplegroup" || $actionName == "eventSubmit_doCreategrouptype" &&  $grouptype == "signupgroup" )
+                <tr><td>
+                        #if($grouptype == "Multiplegroup")
+                                #if($lang=="english")
+                                <br><b>&nbsp;&nbsp;तयार   करा  अनेक  १ गट :</b><br>
+                                #else
+                                <br><b>&nbsp;&nbsp;अनेक  १ गट तयार   करा  :</b><br>
+                               #end
+                        #else
+                                #if($lang=="english")
+                                <br><b>&nbsp;&nbsp;तयार   करा  गट सोबत  सही  केलेला  नमुन्याच्या  छापीतील  कागद (फॉमॆ) :</b><br>
+                                #else
+                                <br><b>&nbsp;&nbsp; गट सोबत  सही  केलेला  नमुन्याच्या  छापीतील  कागद (फॉमॆ) तयार   करा  :</b><br>
+                                #end
+                        #end
+                        &nbsp;&nbsp;सवॆ  गटांची  नाव  सारख्या  शब्दाने  सुरू  होऊन  शेवटी  आगळी - वेगळी  संख्या  राहील.        <br>
+                        &nbsp;&nbsp;उदा. जर  तुम्ही  ग्राफीक  हा  शब्द  टाकला  तर  आपोआप  गटाचे  नाव  ग्राफीक१  ग्राफीक२  इत्यादी  होइल.<br><br>
+                        <table  border="0" bgcolor="$ui.tableColor" width="100%" colspan=5>
+                        #if($grouptype =="Multiplegroup")
+                                <tr>
+                                <input type="radio" name="groupmode" value="Mgroup"onClick="this.form.studentno.disabled=true;this.form.studentno.focus();" />
+                                रिकामे  गट  तयार  करा, सभासद  नंतर  मिळवा<br><br>
+                                <input type="radio"  checked="true" name="groupmode" value="MRgroup"onClick="this.form.studentno.disabled=false;this.form.studentno.focus();" />
+                                #if($lang=="english")
+                                रिकामे  गट  तयार  करा, सहजपणे  पसरवा विद्याथीॆ
+                                #else
+                                रिकामे  गट  तयार  करा, सहजपणे  पसरवा
+                                #end
+                                </tr>
+                        #end
+                        <tr>
+			<td><b>
+                                <font color=red>*</font>
+                                नाव ची गट:</b>
+                                </td>
+                                <td>
+                                <input type="text"  size="31" name="groupname"  value=""/>
+                                </td>
+                        </tr>
+                        <tr>
+                                <td>
+                                &nbsp;<b>चूकीने वणॆन :</b>
+                                </td>
+                                <td width="2">
+                                <textarea id="ta" name="groupdesc"  rows=10 cols=80 ></textarea>
+                                </td>
+                        </tr>
+                        <tr>
+                                <td><b>
+                                <font color=red>*</font>
+                                ##ची  संख्या $brih_groups :</b>
+                                #if($lang=="english")
+                                ची  संख्या गट :</b>
+                                #else
+                                गट ची ची  संख्या :</b>
+                                #end
+                                </td>
+                                <td>
+                                <input type="text" size="31" name="groupno" value="" onChange="validate(this)">
+                                </td>
+                        </tr>
+                        <tr>
+                                <td><b><font color=red>*</font>
+                                ##ची  संख्या विद्याथीॆ ഓരോ സമൂഹത്തിനും جماعتے:</b>
+                                #if($lang=="english")
+                                ची  संख्या विद्याथीॆ ഓരോ സമൂഹത്തിനും :</b>
+                                #else
+				ഓരോ സമൂഹത്തിനും गट आत विद्याथीॆ ची ची  संख्या:</b>
+                                #end
+                                </td>
+                                <td>
+                                ##<input type="text" size="20" name="studentno" value="" onKeyUp="if (this.disabled) this.value=''" onChange="validate(this)">
+                                #if($grouptype == "Multiplegroup")
+                                <input type="text" size="31" name="studentno"  onClick="this.form.disabled=true" onChange="validate(this)">
+                                #else
+                                <input type="text" size="31" name="studentno" onClick="this.form.enabled=true" onChange="validate(this)">
+                                #end
+                                </td>
+                        </tr>
+                </table>
+        </tr></td>
+        #end
+        <br><br>
+        ## end of multiple group
+        <br>
+        #if($actionName == "eventSubmit_doCreategrouptype" )
+        #*<tr><td> ## td tr of 7
+               <I><b><font size="3">विद्याथीॆ വിവരങ്ങള്‍:</b></font>$brih_grpmsg4</b></I><br>
+        </tr></td>*#
+        <tr><td> ## td tr 8 start
+                <table bgcolor="$ui.tableColor" colspan="5" width="100%"> ## table 7 start
+                        <tr><td align="left" >&nbsp;&nbsp;&nbsp;
+                        #if($grouptype=="usagegroup")
+                          <input type="button" name="eventSubmit_doSavegroup" value="ठेवा" onClick="checkField(document.frm,this);"/>
+                        #end
+                        #if($grouptype=="Multiplegroup")
+                          <input type="button" name="eventSubmit_doSavegroup" value="ठेवा" onClick="checkField3(document.frm,this);"/>
+                        #end
+			#if($grouptype=="signupgroup")
+                          <input type="button" name="eventSubmit_doSavegroup" value="ठेवा" onClick="checkField2(document.frm,this);"/>
+                        #end
+                                <input type="submit" name="eventSubmit_doCancel" value="मिटवा"/>
+                        </tr></td>
+                </table> ## end of table 7
+        </tr></td> ## end od td tr 8
+        #end ## end if
+        <input type="hidden" name="actionName" >
+        <input type="hidden" name="grouptype" value="$grouptype" >
+        <input type="hidden" name="groupdesc" value="$groupdesc" >
+        <input type="hidden" name="deleteFileNames" value="">
+        <input type="hidden" name="stat" value="grpmgmt">
+        <input type="hidden" name="val" value="$val">
+</form>
+</table> ## end of table 3
+</body>
+#end
+###########################################
+<SCRIPT LANGUAGE="javascript">
+        function popupWin(url,popupName)
+        {
+                Win1=window.open(url,popupName,"resizable=0,scrollbars=1,height=400,width=400,align=left");
+        }
+	function checkField1(frm,field)
+{
+                frm.actionName.value=field.name;
+                frm.submit();
+}
+function checkField(frm,field)
+{
+	editor.setMode("textmode");
+        if(frm.groupname.value!="")
+        {
+                frm.actionName.value=field.name;
+                frm.submit();
+        }
+        else
+                alert("Please fill the Mandatory(*) Fields !!");
+	editor.setMode("wysiwyg");
+}
+function checkselect(frm,field)
+{
+        var items;
+        items=frm.deleteFileNames.value;
+        if(items.length!=0)
+        {
+                frm.actionName.value=field.name;
+                frm.submit();
+        }
+        else
+                alert("Please check box");
+}
+function deleteConfirm(frm,field)
+{
+        var delfiles;
+        delfiles=frm.deleteFileNames.value;
+        if(delfiles.length!=0)
+        {
+                if(confirm("Selected Group will be Deleted"))
+                {
+                        frm.actionName.value=field.name;
+                        frm.submit();
+                }
+
+        }
+        else
+                alert("Please Select check box  !!");
+}
+function addDeleteList(field,frm)
+{
+        if(field.checked)
+        {
+                frm.deleteFileNames.value=frm.deleteFileNames.value+field.name+"^";
+        }
+        else
+        {
+                 var rmFile,index,actualString,preString,postString;
+                 actualString=frm.deleteFileNames.value;
+                 index=actualString.indexOf(field.name+"^",0);
+                 preString=actualString.substring(0,index);
+                 postString=actualString.substring(index+field.name.length+1);
+                 actualString=preString+postString;
+                 frm.deleteFileNames.value=actualString;
+         }
+
+}
+function validate(obj)
+{
+        value = obj.value;
+        for (n = 0; n < value.length; n++)
+        if ( ! isDigit(value.charAt(n)))
+        {
+                alert("Field must be numeric !!");
+                return;
+        }
+}
+function isDigit(ch)
+{
+        if (ch >= '0' && ch <= '9')
+        return true;
+        return false;
+}
+function Changegroup(frm,field)
+{
+        frm.val.value=document.frm.activity.value;
+        alert(frm.val.value);
+}
+function checkField2(frm,field)
+{
+	editor.setMode("textmode");
+        if((frm.groupname.value!="") && (frm.groupno.value!="") && (frm.studentno.value!=""))
+        {
+                if((frm.studentno.value>=1) && (frm.groupno.value>=1))
+                {
+                        frm.actionName.value=field.name;
+                        frm.submit();
+                }
+                else
+                        alert("Number of student per group and Number of groups should not be less than 1");
+        }
+        else
+                alert("Please fill the Mandatory(*) Fields !!");
+	editor.setMode("wysiwyg");
+}
+function checkField3(frm,field)
+{
+	editor.setMode("textmode");
+        if(frm.groupmode[1].checked)
+        {
+                if((frm.groupname.value!="") && (frm.groupno.value!="") && (frm.studentno.value!=""))
+                {
+                        if((frm.studentno.value>=1) && (frm.groupno.value>=1))
+                        {
+                                frm.actionName.value=field.name;
+                                frm.submit();
+                        }
+                        else
+                                alert("Number of student per group and Number of groups should not be less than 1");
+                }
+                else
+                {
+                        alert("Please fill the Mandatory(*) Fields !!");
+                }
+           }
+           if(frm.groupmode[0].checked)
+           {
+                if((frm.groupname.value!="") && (frm.groupno.value!=""))
+                {
+                        if(frm.groupno.value>=1)
+                        {
+                                frm.actionName.value=field.name;
+                                frm.submit();
+                        }
+                        else
+                                alert("Number of groups should not be less than 1 ");
+                }
+                else
+                {
+                        alert("Please fill the Mandatory(*) Fields.!!");
+                }
+          }
+	editor.setMode("wysiwyg");
+}	
+</SCRIPT>

@@ -1,0 +1,2 @@
+Mon Aug 09 17:07:07 IST 2010---fm from usage details==SELECT MIN(ENTRY_ID) FROM USAGE_DETAILS WHERE USER_ID=0
+Mon Aug 09 17:07:07 IST 2010---acl in mylogin action==org.apache.turbine.util.security.TurbineAccessControlList@dc024a

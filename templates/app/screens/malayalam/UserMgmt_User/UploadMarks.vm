@@ -1,0 +1,115 @@
+#*
+ * @(#) UploadMarks.vm
+ * Copyright (c) 2005,2009 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+ * @author <a href="mailto:awadhesh_trivedi@yahoo.co.in ">Awadhesh Kumar Trivedi</a>
+*#
+
+$page.setBgColor($ui.bgcolor)
+$page.setTitle("Upload Marks")
+$!data.getMessage()
+#set ($lang=$data.getUser().getTemp("lang" ).toString())
+
+<table bgcolor="$ui.tableColor" width=100%>
+<tr bgcolor="$ui.menuColor"><td colspan=3>
+	<b>
+	<a href=$link.setPage("call,IndexHome.vm")>പൂമുഖം</a> | 
+	<a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")>$course</a> | 
+	#if($lang=="hindi")
+		മാര്‍ക്സ് അപ്‌ലോഡ്‌ ചെയ്യുക
+	#else
+		അപ്‌ലോഡ്‌ ചെയ്യുക മാര്‍ക്സ്
+	#end
+	</b>	
+</td></tr>
+##</table>
+  <tr><td colspan=3>
+		<font color=red>അറ്റാച്ച് ചെയ്തിരിക്കുന്ന പ്രമാണത്തില്‍ വിദ്യാര്‍ത്ഥികളുടെ മാര്‍ക്കുകളുടെ പട്ടിക ഉചിതമായ ഘടനയിലുണ്ട്</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<img src="$content.getURI("/images/hand.gif")"><a href=javascript:popupWin("/brihaspati2/docs/MarkList.html","newWin");>സഹായം</a>
+  	</td></tr>
+<form name="uploadform" method="post" enctype="multipart/form-data" action="$link.setPage("call,UserMgmt_User,UploadMarks.vm").setAction("UploadMarksAction")">
+
+#if($fileExists=="true")
+##<table align="left" width=100% bgcolor="$ui.tableColor">
+<tr>
+<td><a href=javascript:popupWin("$link.setPage("call,ViewFileContent.vm").addPathInfo("type","marks").addPathInfo("filename",$fileName)","newWin");> #if($lang=="hindi") മാര്‍ക്സ് പട്ടിക ന്‍റെ കാണുക #else കാണുക മാര്‍ക്സ് #end </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</td>
+<td><a href="$link.setPage("call,ViewFileContent.vm").addPathInfo("type","marks").addPathInfo("dl",1).addPathInfo("filename",$fileName)"> #if($lang=="hindi") മാര്‍ക്സ് പട്ടിക ന്‍റെ ഡൌണ്‍ലോഡ് #else ഡൌണ്‍ലോഡ് മാര്‍ക്സ് #end </a>&nbsp;&nbsp;
+</td>
+</tr>
+##</table>
+#end
+	
+	##<table width=100% bgcolor="$ui.bgcolor" align="center">
+      	#if ($errorTemplate)
+      	<tr>
+        <td colspan="4">
+          <table bgcolor="$ui,bgcolor">
+            <tr>
+              <td>
+                <img src="$ui.image($ui.alertImage,$data)">
+              </td>
+              <td>
+                #parse ($errorTemplate)
+              </td>
+            </tr>
+          </table>
+        </td>
+      	</tr>
+      	#end
+	#*<tr>
+	<td>
+		<font color="brown"><b>$!data.getMessage()</b></font>
+	</td>
+	</tr>*#
+        ##</table>
+
+	##<table bgcolor="$ui.tableColor" width="100%" align="left">
+	<tr bgcolor="$ui.menuColor">
+	<td colspan=3><b>
+	#if(($data.getUser().getTemp("lang" ).toString())=="hindi")
+		മാര്‍ക്സ് അപ്‌ലോഡ്‌ ചെയ്യുക
+	#else
+		അപ്‌ലോഡ്‌ ചെയ്യുക മാര്‍ക്സ്
+	#end
+	</b>
+	</td></tr>
+      	<tr>
+        	#fileUpload ("വിവരങ്ങള്‍ കുട്ടിചേര്‍ക്കുക <font color=Red>*</font>" "file")
+      	</tr>
+      	<tr bgcolor="$ui.menuColor">
+        <td colspan=3>
+          #*
+            Check for a mode, the update and delete buttons
+            shouldn't appear when inserting a new user.
+          *#
+
+          <font face="$ui.sansSerifFonts">
+	  <input type="hidden" name="actionName">
+          <input type="button" name="eventSubmit_doUpload" value="അപ്‌ലോഡ്‌ ചെയ്യുക" onClick="checkFile(document.uploadform,this);"/>
+	  <input type="hidden" name="count" value="$tdcolor">
+          </font>
+        </td>
+      </tr>
+      
+    </table>
+</form>
+<SCRIPT language="JavaScript">
+        function popupWin(urlName,popupName)
+        {
+                window.open(urlName,popupName,"resizable,height=500,width=800,menubar=yes,toolbar=yes,scrollbars=yes");
+        }
+	function checkFile(uploadform,field)
+	{
+		if(uploadform.file.value!="")
+		{
+			uploadform.actionName.value=field.name;
+			uploadform.submit();
+		}
+		else
+		{
+			alert("File could not empty !!");
+		}
+	}
+</SCRIPT>

@@ -1,0 +1,181 @@
+#*
+ * @(#) Backups.vm
+ * Copyright(c)2006 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+ * @author <a href="mailto:singh_jaivir@rediffmail.com">Jaivir Singh</a>
+ * @author <a href="mailto:mann_singh2004@yahoo.com">Manvendra Singh</a>	
+*#
+
+#set($lang = $data.getUser().getTemp("lang" ).toString())
+
+$page.setTitle("Backups")
+$page.setBgColor("#ffffff")
+$!data.getMessage()
+
+<table bgcolor="$ui.menuColor" width=100% cellspacing=0>
+	<tr><td>
+		<font face="$ui.sansSerifFonts" size=3>
+		<a href=$link.setPage("Index.vm") style=text-decoration:none>Admin's 家</a> | 
+		<a href=$link.setPage("call,Backups,Backups.vm").addPathInfo("count","1") style=text-decoration:none>备份</a> |
+		#if(($mode=="")&&($actionName==""))
+		#if ($lang=="hindi") 课程 的 备份 #else 课程 Wise 备份 #end
+		#elseif($mode=="blist") 备份 列表 #end
+		#if($actionName == "eventSubmit_doCompleteBackup")
+		系统 备份
+		#elseif($actionName == "eventSubmit_doGlossaryBackup")
+		Glossaroy 备份
+		#end
+		</font>
+	</td></tr>
+</table>
+<table width=100% bgcolor="$ui.tableColor">
+<tr><td>
+<table width=100% align=left bgcolor="$ui.tableColor">
+<tr>
+		#if($tdcolor!="1")
+		<td width=25%>
+		#elseif($tdcolor=="1")
+		<td width=25% bgcolor="#AFDCEC">
+		#end
+    		<a href=$link.setPage("call,Backups,Backups.vm").addPathInfo("count","1") style=text-decoration:none>备份 内容</a></td>
+		#if($tdcolor!="2")
+		<td width=25%>
+		#elseif($tdcolor=="2")
+		<td width=25% bgcolor="#AFDCEC">
+		#end
+		<a href=$link.setPage("call,Backups,Backups.vm").setAction("BackupAction").addPathInfo("actionName","eventSubmit_doCompleteBackup").addPathInfo("count","2") style=text-decoration:none>系统 备份</a></td>
+		#if($tdcolor!="3")
+		<td width=25%>
+		#elseif($tdcolor=="3")
+		<td width=25% bgcolor="#AFDCEC">
+		#end
+    		<a href=$link.setPage("call,Backups,Backups.vm").addPathInfo("mode","blist").addPathInfo("count","3") style=text-decoration:none>备份 列表</a></td>
+		#if($tdcolor!="4")
+		<td width=25%>
+		#elseif($tdcolor=="4")
+		<td width=25% bgcolor="#AFDCEC">
+		#end
+		<a href=$link.setPage("call,Backups,Backups.vm").setAction("BackupAction").addPathInfo("actionName","eventSubmit_doGlossaryBackup").addPathInfo("count","4") style=text-decoration:none>Glossaroy 备份</td>
+</tr>
+##</form>
+</table></td></tr>
+<tr><td>
+<table width=100% align=left bgColor="$ui.tableColor">
+#if(($mode=="") && ($mode != "blist"))
+<tr>
+	<left><blink><font color="red"><b>请不要数据库备份为“所有”课程</b></font></blink></left>
+<form name=frm method="post" action="$link.setAction("BackupAction").setPage("call,Backups,Backups.vm")">
+        <div align="left">
+        <table width=100% align=left>
+
+      #if ($errorTemplate)
+</tr>
+      <tr bgColor="$ui.menuColor">
+        <td colspan="4">
+          <table width=100%>
+            <tr>
+              <td>
+                <img src="$ui.image($ui.alertImage,$data)">
+              </td>
+              <td>
+                #parse ($errorTemplate)
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      #end
+
+                <tr bgColor="$ui.menuColor"><td colspan="3">
+                        <font size=4><b>选择课程的备份你想利用</b></font>
+                </td></tr>
+                <tr><td>
+                        <select name="courses">
+                                <option value="Courses">全部 课程</option>
+                        #foreach($group in $courseList)
+				#if($data.getUser().getUserName() == "admin")
+                                	#if(($group.Name !="global") && ($group.Name !="author"))
+                               		<option value="$group.Name">$group.Name</option>
+                                	#end
+				#else
+                			#if($data.getUser().getTemp("role")=="institute_admin")
+                                        <option value="$group.getGroupName()">$group.getGroupName()</option>
+					#end
+				#end
+                        #end
+                        </select>
+                </td>
+                <td>
+                        <font face="$ui.sansSerifFonts">
+                        <input type="button" name="eventSubmit_doCourseBackup" value="内容  备份" onClick="checkField(document.frm,this);"/>
+                        <input type="button" name="eventSubmit_doStudent_db_backup" value="数据库 备份" onClick="checkField(document.frm,this);"/>
+                        <input type="hidden" name="actionName">
+                        <input type="hidden" name="count" value="$tdcolor">
+                        </font>
+                </td></tr>
+
+        </table>
+</div>
+</form>
+#end
+</table></td></tr>
+<tr><td>
+#if(($mode == "blist")||($actionName=="eventSubmit_doDeletebackup"))
+	<table bgcolor="$ui.tableColor" align="left" width=100%>
+        <tr bgcolor="$ui.menuColor"><td colspan="5" align=left>
+	#if(!($list=="navil"))
+		#if($lang!="english") 可用的 备份 کی 列表 #else 名单的 可用的 备份
+		 #end 
+		</td></tr>
+		<tr>
+	        #if($st != "ins")
+	        <td>Sr.No.</td>
+	        #end
+                <td> 
+		#if($lang!="english") 
+		备份 文件 的 名字 
+		#else 
+		名字 of 备份 文件 
+		#end 
+		</td>
+		<td>可用的动作 </td>
+		</tr>
+	        #set ($i=1)
+	        	#foreach($lst in $list)
+                		#if($st=="ins")
+					#if($lst.getName().startsWith($data.getUser().getTemp("course_id" ).toString()))
+					<tr>
+	                		## <td>$i</td>
+                        		<td>$lst.getName()</td>
+                        		<td>
+					<a href=$link.setPage("call,Backups,getZipfile.vm").addPathInfo("fName",$lst.getName()).addPathInfo("count",$tdcolor) style=text-decoration:none>下载</a>
+					</td>
+                        		</tr>
+                			#end
+                		#else
+				#if($velocityCount%2==0)	
+				<tr bgcolor="$ui.tableColor">
+				#else
+				<tr bgcolor="$ui.menuColor">
+				#end
+				<td>$i</td>
+                		<td>$lst.getName() </td>
+       	<td><a href=$link.setPage("call,Backups,getZipfile.vm").addPathInfo("fName",$lst.getName()).addPathInfo("count",$tdcolor) style=text-decoration:none>下载</a> &nbsp;&nbsp;
+				<a href=$link.setAction("BackupAction").addPathInfo("actionName","eventSubmit_doDeletebackup").addPathInfo("fName",$lst.getName()).addPathInfo("count",$tdcolor) style=text-decoration:none>删除删除</a></td>
+                </tr>
+                		#end
+			#set ($i=$i+1)
+        		#end
+#end
+</table>
+#end
+</td></tr></table>
+
+<SCRIPT LANGUAGE="javascript">
+	function checkField(frm,field)
+        {
+		frm.actionName.value=field.name;
+                frm.submit();
+        }
+</SCRIPT>

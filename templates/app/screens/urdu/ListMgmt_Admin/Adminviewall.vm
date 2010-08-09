@@ -1,0 +1,178 @@
+#*
+ * @(#) Adminviewall.vm
+ *  Copyright (c) 2005 ETRG,IIT Kanpur.
+ *  All Rights Reserved.
+ *  Contributors: Members of ETRG, I.I.T. Kanpur
+ * @author <a href="mailto:awadhesh_trivedi@yahoo.co.in ">Awadhesh Kumar Trivedi</a>
+ * @author  <a href="sweetshaista00@yahoo.com">Shaista Shekh</a>  
+ *#
+
+$page.setTitle("Admin Home | User Management | View All Users")
+$page.setBgColor($ui.bgcolor)
+$!data.getMessage()
+
+<table bgcolor="$ui.tableColor" width=100% cellspacing=0>
+<tr align="right">
+	<td width="30%" align="left">
+	#if( $total_size!=0 )
+	#if( $endIndex < $total_size )
+		#if( $endIndex < $AdminConf )
+                [$k - $total_size]کل $total_size مڍں سے 
+		#else
+		 [$k - $endIndex] کل $total_size مڍں سے 
+		#end
+	#else
+	[$k - $endIndex] کل $total_size مڍں سے 
+	#end
+	#end
+	</td>
+	<td>
+	<font face="$ui.sansSerifFonts" size=3>
+	<b>
+     	<a href=$link.setPage("call,Admin.vm")>منتظم کا صفحہ</a> | 
+	<a href=$link.setPage("call,ListMgmt_Admin,ListManagement.vm")>نظامِ فہرست</a> | 
+	#if($mode!="Search")
+	 منزرِ کل مصارف 
+	#else
+	منتخب کرے ٥وۓ نصابِ منزر 
+	#end
+	</b>
+	</font>
+	</td>
+</tr>
+</table>
+#set ( $headings = ["موجود٥ کارواہئ ", "اىمڍل آئڈى ", "نام", "مصارف  کا نام"] )
+<br>
+<br>
+<form name=frm method="post" action="$link.setPage("call,ListMgmt_Admin,Adminviewall.vm").addPathInfo("status","ForallUser")">
+<table border=1 align=center bgcolor="$ui.tableColor" cellpadding=1 cellspacing=1>
+        <tr>
+                <td align=center><b>مشاہداۓ زريہ </b></td>
+                <td align=left>
+                        <select name="queryList">
+                                <option value="User Name">مصارف  کا نام</option>
+                                <option value="First Name">پہلا نام</option>
+                                <option value="Last Name">آخری نام</option>
+                                <option value="Email">اىمڍل</option>
+                        </select>
+                </td>
+                <td align=center><b>مشاہد٥ کے لۓ الفاظ ڈالڍں  </b></td>
+                <td align=left>
+                        <input align=center type="text" name="valueString" value="">
+                </td>
+                <td>
+                        <input type="button" name="Search" value="مشاہد٥" onClick="checkNull(document.frm,this);">
+                        <input type="hidden" name="mode" value="Search">
+                </td>
+		<td>
+			<b><a href="$link.setPage("call,ListMgmt_Admin,Adminviewall.vm").addPathInfo("mode","All")">کل  مشتعمل کى فہرست</a></b>
+		<td>
+        </tr>
+</table>
+<br>
+#if($status=="notempty")
+<table align=center bgcolor="$ui.tableColor">
+  <tr>
+    <td align=center>
+      <table border=1 cellspacing=1>
+        <tr>
+          #foreach ($heading in $headings)
+		#headerCell($heading)
+          #end
+        </tr>
+	#foreach ($urecord in $userlist)
+	<tr>
+              <td>
+              <font face="$ui.sansSerifFonts">
+		<a href="$link.setPage("call,UserMgmt_Admin,UserForm.vm").addPathInfo("username",$urecord.getLoginName()).addPathInfo("Process","modify").addPathInfo("mode","All")">تکمڍل</a> &nbsp;
+                <a href="$link.setPage("call,UserMgmt_Admin,UpdatePass_Admin.vm").addPathInfo("username",$urecord.getLoginName()).addPathInfo("mode",$mode)">کلماۓ  رمز تبدڍل کرڍں  </a> &nbsp;
+		<a href="$link.setPage("call,UserMgmt_Admin,UserForm.vm").addPathInfo("username",$urecord.getLoginName()).addPathInfo("Process","delete").addPathInfo("mode","All")">برطرف</a> &nbsp;
+		<a href="$link.setPage("call,UserMgmt_Admin,Adminusertime_display.vm").addPathInfo("username",$urecord.getLoginName())">استعمال کى تفصىلات</a> &nbsp
+              </font>
+            </td>
+              #entryCell ("<a href=mailto:$!urecord.getEmail()>$!urecord.getEmail()</a>")
+              #entryCell ($!urecord.getUserName())
+              #entryCell ($!urecord.getLoginName())
+        </tr>
+        #end
+      </table>
+         <tr>
+	      <td align=center bgcolor="$ui.menuColor">
+	 #if($mode!="Search")
+	 #if($total_size<= $AdminConf)
+	 <u><font color="white">پہلا</font></u> &nbsp;
+	 <u><font color="white">اگلا</font></u> &nbsp;
+	 <u><font color="white">پچھلا</font></u> &nbsp;
+	 <u><font color="white">آخری</font></u> &nbsp;
+	  #elseif($startIndex== $AdminConf_str)
+	  <u><font color="white">پہلا</font></u> &nbsp;
+	  <u><font color="white">پچھلا</font></u> &nbsp;
+	  <a href="$link.setPage("call,ListMgmt_Admin,Adminviewall.vm").addPathInfo("startIndex",$startIndex).addPathInfo("mode",$mode)">اگلا</a> &nbsp;
+	  <a href="$link.setPage("call,ListMgmt_Admin,Adminviewall.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode",$mode)">آخری</a> &nbsp;
+	 #elseif($endIndex == $total_size || $endIndex > $total_size)
+         <a href="$link.setPage("call,ListMgmt_Admin,Adminviewall.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode",$mode)">پہلا</a> &nbsp;
+ 	 <a href="$link.setPage("call,ListMgmt_Admin,Adminviewall.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode",$mode)">پچھلا</a> &nbsp;
+	 <u><font color="white">اگلا</font></u> &nbsp;
+         <u><font color="white">آخری</font></u> &nbsp;
+	  #else
+	   <a href="$link.setPage("call,ListMgmt_Admin,Adminviewall.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode",$mode)">پہلا</a> &nbsp;
+	   <a href="$link.setPage("call,ListMgmt_Admin,Adminviewall.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode",$mode)">پچھلا</a> &nbsp;
+	   <a href="$link.setPage("call,ListMgmt_Admin,Adminviewall.vm").addPathInfo("startIndex",$startIndex).addPathInfo("end",$endIndex).addPathInfo("mode",$mode)">اگلا</a> &nbsp;
+	    <a href="$link.setPage("call,ListMgmt_Admin,Adminviewall.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode",$mode)">آخری</a> &nbsp;
+     #end
+     #else
+	 #if($total_size<= $AdminConf)
+	 <u><font color="white">پہلا</font></u> &nbsp;
+	 <u><font color="white">اگلا</font></u> &nbsp;
+	 <u><font color="white">پچھلا</font></u> &nbsp;
+	 <u><font color="white">آخری</font></u> &nbsp;
+	  #elseif($startIndex== $AdminConf_str)
+	  <u><font color="white">پہلا</font></u> &nbsp;
+	  <u><font color="white">پچھلا</font></u> &nbsp;
+	  <a href="$link.setPage("call,ListMgmt_Admin,Adminviewall.vm").addPathInfo("startIndex",$startIndex).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString)">اگلا</a> &nbsp;
+	  <a href="$link.setPage("call,ListMgmt_Admin,Adminviewall.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString)">آخری</a> &nbsp;
+	 #elseif($endIndex == $total_size || $endIndex > $total_size)
+         <a href="$link.setPage("call,ListMgmt_Admin,Adminviewall.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString)">پہلا</a> &nbsp;
+ 	 <a href="$link.setPage("call,ListMgmt_Admin,Adminviewall.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString)">پچھلا</a> &nbsp;
+	 <u><font color="white">اگلا</font></u> &nbsp;
+         <u><font color="white">آخری</font></u> &nbsp;
+	  #else
+	   <a href="$link.setPage("call,ListMgmt_Admin,Adminviewall.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString)">پہلا</a> &nbsp;
+	   <a href="$link.setPage("call,ListMgmt_Admin,Adminviewall.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString)">پچھلا</a> &nbsp;
+	   <a href="$link.setPage("call,ListMgmt_Admin,Adminviewall.vm").addPathInfo("startIndex",$startIndex).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString)">اگلا</a> &nbsp;
+	    <a href="$link.setPage("call,ListMgmt_Admin,Adminviewall.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString)">آخری</a> &nbsp;
+     #end
+    #end
+    </td>
+ </tr>
+</table>
+ #end
+</form>
+<br>
+<table width=60% border=1 bgcolor="$ui.tableColor" align=center>
+        #foreach( $entry in $error_Messages )
+        <tr bgcolor="WHITE">
+        <td align=center>
+        <font face="$ui.sansSerifFonts">$entry.getErr_Type()</font>
+        </td>
+        <td align=center>
+        <font color="brown">"$entry.getErr_User()"</font> <font face="$ui.sansSerifFonts">مصارف  کا نام</font>
+        </td>
+        </tr>
+        #end
+</table>
+
+<SCRIPT language="JavaScript">
+        function popupWin(url,popupName)
+        {
+                Win1=window.open(url,popupName,"resizable,height=200,width=300");
+        }
+	function checkNull(frm,field){
+                if(frm.valueString.value!=""){
+                        frm.submit();
+                }
+                else{
+                        alert("The 'Match String' text box can not be NULL");
+                }
+        }
+</SCRIPT>

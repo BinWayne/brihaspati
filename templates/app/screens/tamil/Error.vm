@@ -1,0 +1,8 @@
+$page.setTitle("System Error")
+
+<h2>முறைமை பிழை :  </h2>
+<b>தயவு செய்து மீண்டும் முயற்சி செய்க...</b>
+	#if ( $data.getMessage() )
+		$data.getMessage()
+	#end
+

@@ -1,0 +1,259 @@
+#*
+ * @(#)Track_Report.vm
+ * Copyright (c) 2009 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ *
+ *  @author <a href="mailto:seema_020504@yahoo.com ">Seema Pal</a>
+ *  @author <a href="mailto:kshuklak@rediffmail.com ">Kishore kumar shukla</a>
+ *
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+*#
+$page.setTitle("Tracking Report")
+$page.setBgColor("bgcolor")
+$!data.getMessage()
+#set($lang = $data.getUser().getTemp("lang" ).toString())
+<table bgcolor="$ui.tableColor" width=100%>
+<tr><td><b>
+	<font face="$ui.sansSerifFonts">
+	#if($data.getUser().getUserName() == "admin")
+	<a href=$link.setPage("Index.vm")>Admin's Heim</a> |
+	#if($mode == "repotype")
+	Spurhaltung Berichte 
+	#end
+	#if($type =="user")
+	<a href=$link.setPage("call,TrackingReport,Track_Report.vm").addPathInfo("mode","repotype")>Spurhaltung Berichte </a> |
+	Benutzer Berichte
+	#end
+	#else
+	<a href=$link.setPage("call,IndexHome.vm")>Heim</a> |
+        <a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")>$coursename </a> | 
+	#if($mode == "repotype")
+	Spurhaltung Berichte
+	#end
+	#if($type =="user")
+	<a href=$link.setPage("call,TrackingReport,Track_Report.vm").addPathInfo("mode","repotype")>Spurhaltung Berichte </a> |
+	Benutzer Berichte
+	#end
+	#if($type =="course")
+	<a href=$link.setPage("call,TrackingReport,Track_Report.vm").addPathInfo("mode","repotype")>Spurhaltung Berichte </a> |
+	Kurs Berichte
+	#end
+	#if($type =="quiz")
+	<a href=$link.setPage("call,TrackingReport,Track_Report.vm").addPathInfo("mode","repotype")>Spurhaltung Berichte </a> |
+	Quiz Berichte
+	#end
+	#end
+	</font>
+</b></td></tr>
+</table>
+<table width="100%">
+<tr><td align=right>
+	#if($data.getUser().getUserName() == "admin")
+	<img src="$content.getURI("/images/hand.gif")"><a href=javascript:popupWin("/brihaspati2/docs/Trackadminreport.html","newWin");>Hilfe </a>
+	#else
+	<img src="$content.getURI("/images/hand.gif")"><a href=javascript:popupWin("/brihaspati2/docs/TrackInstreport.html","newWin");>Hilfe </a>
+	#end
+</td></tr>
+</table>
+<form name="frm" method="post" action=$link.setPage("call,TrackingReport,Track_Report.vm").setAction("TrackingReport")>
+<table width=100%>
+#if($mode == "repotype")
+##<tr bgcolor="$ui.menuColor"><b><i> Spurhaltung Berichte</i></b></tr>
+<tr bgcolor="$ui.tableColor"><td><b><i><a href=$link.setPage("call,TrackingReport,Track_Report.vm").addPathInfo("type","user")>Benutzer Berichte</a></i></b></td>
+#if($data.getUser().getUserName()!= "admin")
+<td><b><i><a href=$link.setPage("call,TrackingReport,Track_Report.vm").addPathInfo("type","course")>Kurs/Lektion Berichte</a></i></b></td>
+<td><b><i><a href=$link.setPage("call,TrackingReport,Track_Report.vm").addPathInfo("type","quiz")>Test/Quiz Berichte</a></i></b></td>
+#end
+#if($data.getUser().getUserName() == "admin")
+<td><b><i><a href=$link.setPage("call,TrackingReport,Track_Reportquiz.vm").addPathInfo("type","System").addPathInfo("mode","repoinfo")>System Berichte</a></i></b></td>
+<td><b><i><a href=$link.setPage("call,TrackingReport,Track_ReportCourses.vm").addPathInfo("type","active").addPathInfo("mode","repoinfo")>Äußerst AktiveBenutzer /AktiveKurs </a></i></b></td></tr>
+#end
+#end
+#if($mode !="repotype" && $type !="System")
+<tr bgcolor="$ui.menuColor" width="100%">
+        <td>
+        <b>Match String </b>
+              <input align=center type="text" name="valueString" value="" >
+              <input type="button" name="eventSubmit_doSearchvalue" value="Suche" onClick="checkNull(document.frm,this);">
+              <input type="hidden" name="status" value="Search">
+        </td>
+        <td><b>Auserwät Benutzer Für Berichte:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="uname" size="1" onChange="Changename(document.frm,this);"/>
+        <option>  - Auserwät - </option>
+                                #if($data.getUser().getUserName() == "admin")
+                                #foreach($usrname in $userList1)
+                                <option value="$usrname.getLoginName()">$usrname.getLoginName()
+                                #end
+                                </option>
+                                #else
+                                #foreach($usrname in $userList)
+                                <option value="$usrname">$usrname
+                                #end
+                                #end
+                                </option>
+                        </select>
+        <input type="button" name="eventSubmit_doSelectValue" value="unterbreiten" onClick="Checkfield(document.frm,this);">
+         </td>
+</tr>
+#end
+#if($status == "Search")
+<tr bgcolor="$ui.tableColor" width="100%"><td width="100%" colspan="5"><b> Auserwät Benutzer Für Berichte :</b>&nbsp;
+#if($data.getUser().getUserName() == "admin")
+#foreach($usrname1 in $userList2)
+#if($type =="user")
+<a href=$link.setPage("call,TrackingReport,Track_Report.vm").addPathInfo("mode","repoinfo").addPathInfo("type",$type).addPathInfo("usrname",$usrname1)>$usrname1</a>
+#end
+#end
+#else
+#foreach($usrname1 in $userList2)
+#if($type =="user")
+<a href=$link.setPage("call,TrackingReport,Track_Report.vm").addPathInfo("mode","repoinfo").addPathInfo("type",$type).addPathInfo("usrname",$usrname1)>$usrname1</a>
+#end
+#if($type =="course")
+<a href=$link.setPage("call,TrackingReport,Track_ReportCourses.vm").addPathInfo("mode","repoinfo").addPathInfo("type",$type).addPathInfo("usrname",$usrname1)>$usrname1</a>
+#end
+#if($type =="quiz")
+<a href=$link.setPage("call,TrackingReport,Track_Reportquiz.vm").addPathInfo("mode","repoinfo").addPathInfo("type",$type).addPathInfo("usrname",$usrname1)>$usrname1</a>
+#end
+#end
+#end
+</td></tr>
+##end
+#else
+#if($mode == "repoinfo" && $usrname!="")
+#if($type =="user")
+<tr><td><b><i>Benutzer Berichte $usrname</font></i></b></td></tr>
+<table bgcolor="$ui.tableColor" width="100%" align="left" cellsapacing="0" cellpadding ="0">
+<tr bgcolor="$ui.menuColor" width="100%"><td width="100%" colspan="5"><b>Benutzer General Informationen</b></td></tr>
+<tr bgclor="$ui.tableColor" align="left">
+        <td align="left" width="50%">Benutzer Name:
+        <td align="left" width="50%"><b>$usrname</b>
+</tr>
+<tr bgclor="$ui.menuColor" >
+        <td align="left" width="50%">Benutzer Role:
+        <td align="left" width="50%"><b>$Rolename</b>
+</tr>
+<tr bgclor="$ui.menuColor">
+        <td align="left" width="50%">Kurs/Themen:
+	#if($data.getUser().getUserName() == "admin")
+        <td align="left" width="50%"><b>$dc</b>
+	#else
+	#if($value=="noempty")
+        <td align="left" width="50%"><b>$dc</b>
+	#else
+        <td align="left" width="50%">Dieser Kurs ist leer .... 
+	#end
+	#end
+</tr>
+<tr bgclor="$ui.menuColor" width="100%" aligh="left">
+        <td align="left" width="50%">Sprache:</td>
+        <td align="left" width="50%"><b>Englisch</td>
+</tr>
+<tr bgclor="$ui.menuColor" width="100%" aligh="left">
+        <td align="left" width="50%">Aktive:</td>
+        <td align="left" width="50%"><b>$Active</td>
+</tr>
+<tr bgclor="$ui.menuColor" width="100%" aligh="left">
+        <td align="left" width="50%">Beitritt:</td>
+        <td align="left" width="50%"><b>$jdate</td>
+</tr>
+<tr bgcolor="$ui.menuColor" width="100%"><td td width="100%" colspan="5"><b>Benutzer Information auf Sprache Kommunikation</b></td></tr>
+<tr bgclor="$ui.menuColor" width="100%" aligh="left">
+        <td align="left" width="50%">Persöche Anzeigen:</td>
+        <td align="left" width="50%"><b>$personalmess</td>
+</tr>
+<tr bgclor="$ui.menuColor" width="100%" aligh="left">
+        <td align="left" width="50%">Gelesen Anzeigen:</td>
+        <td align="left" width="50%"><b>$readmess</td>
+</tr>
+<tr bgclor="$ui.menuColor" width="100%" aligh="left">
+        <td align="left" width="50%">Unread Anzeigen:</td>
+        <td align="left" width="50%"><b>$unreadmess</td>
+</tr>
+<tr bgclor="$ui.menuColor" width="100%" aligh="left">
+        <td align="left" width="50%">DiscussionBoard Anzeigen:</td>
+        <td align="left" width="50%"><b>$DB</td>
+</tr>
+<tr bgclor="$ui.menuColor" width="100%" aligh="left">
+        <td align="left" width="50%">Gelesen DiscussionBoardAnzeigen:</td>
+        <td align="left" width="50%"><b>$readDB</td>
+</tr>
+<tr bgclor="$ui.menuColor" width="100%" aligh="left">
+        <td align="left" width="50%">Unread DiscussionBoardAnzeigen:</td>
+        <td align="left" width="50%"><b>$unreadDB</td>
+</tr>
+<tr bgclor="$ui.menuColor" width="100%" aligh="left">
+        <td align="left" width="50%">Anzahl von Notices:</td>
+        <td align="left" width="50%"><b>$notices</td>
+</tr>
+<tr bgcolor="$ui.menuColor" width="100%"><td td width="100%" colspan="5"><b>Benutzer Gruppe details</b></td></tr>
+<tr bgclor="$ui.menuColor" width="100%" aligh="left">
+        <td align="left" width="50%">Gruppe Name:</td>
+	#if($name =="yes")
+        <td align="left" width="50%"><b>$gname</td>
+	#else
+        <td align="left" width="50%"><b>__</td>
+	#end
+</tr>
+<tr bgclor="$ui.menuColor" width="100%" aligh="left">
+        <td align="left" width="50%">Gruppe Führer:</td>
+	#if($name2=="yes")
+        <td align="left" width="50%"><b>$sname</td>
+	#else
+        <td align="left" width="50%"><b>__</td>
+	#end
+</tr>
+#if($data.getUser().getUserName() == "admin")
+<tr bgcolor="$ui.menuColor" width="100%"><td width="100%" colspan="5"><b>Benutzer Information auf Sprache System Usage </b></td></tr>
+<tr bgclor="$ui.menuColor" width="100%" aligh="left">
+        <td align="left" width="50%">Letztes Anmeldung :</td>
+        <td align="left" width="50%"><b>$ldate</td>
+</tr>
+<tr bgclor="$ui.menuColor" width="100%" aligh="left">
+        <td align="left" width="50%">Anmeldung  Letztes Monat:</td>
+        <td align="left" width="50%"><b>$lastdate</td>
+</tr>
+#end
+#end
+#end
+#end
+</table>
+	<input type="hidden" name="actionName" >
+        <input type="hidden" name="type" value="$type">
+        <input type="hidden" name="mode" value="$mode">
+        <input type="hidden" name="status" value="$status">
+        <input type="hidden" name="usrname" value="$usrname">
+        <input type="hidden" name="valdir">
+</form>
+<SCRIPT LANGUAGE="javascript">
+function Changename(frm,field)
+        {
+                frm.valdir.value=document.frm.uname.value;
+
+        }
+function checkNull(frm,field)
+{
+        if(frm.valueString.value!="")
+        {
+		frm.actionName.value=field.name;
+                frm.submit();
+        }
+        else
+                alert("The 'Match String' text box can not be NULL");
+}
+function Checkfield(frm,field)
+        {
+                var items;
+                items=frm.valdir.value;
+                if(items.length!=0)
+                {
+                        frm.actionName.value=field.name;
+                        frm.submit();
+                }
+                        else
+                        alert("Please select option");
+        }
+function popupWin(url,popupName)
+{
+        Win1=window.open(url,popupName,"resizable=0,scrollbars=1,height=400,width=400,align=left");
+}
+</script>

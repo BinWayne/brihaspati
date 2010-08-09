@@ -1,0 +1,245 @@
+#*
+ * @(#) Author.vm
+ *  Copyright (c) 2005-2006,2009-2010 ETRG,IIT Kanpur.
+ *  All Rights Reserved.
+ *  @author <a href="mailto:seema_020504@yahoo.com">Seema Pal</a>
+ *  @author <a href="mailto:kshuklak@rediffmail.com">Kishore kumar shukla</a>
+ *  @author <a href="mailto:manjaripal@yahoo.co.in">Manjaripal</a>
+ *  @author <a href="mailto:singh_jaivir@redimail.com">Jaivir Singh</a>
+ *  Contributors: Members of ETRG, I.I.T. Kanpur
+ *#
+
+$page.setTitle("Author Interface") 
+$page.setBgColor($ui.bgcolor)
+#set($lang=$data.getUser().getTemp("lang").toString())
+
+<table width=100% bgcolor="$ui.menuColor">
+<tr>
+	<td align="center"><b>രചയിതാവ് പ്രൊഫൈല്‍ </b></td>
+</tr>
+<tr>
+	<td>
+		<marquee scrollamount="3" direction="left" loop="0" width="100%" behaviour="rotation">
+		<b> #if($lang=="hindi") #UNAME() സ്വാഗതം  #else സ്വാഗതം #UNAME() #end
+        </td>
+</tr>
+</table>
+$!data.getMessage()
+<table bgcolor="$ui.tableColor" width=100%>
+<tr><td><b>
+<a href=$link.setPage("call,Repository_Mgmt,Author.vm").addPathInfo("count","1") style=text-decoration:none>രചയിതാവിന്‍റെ പൂമുഖം </a> |
+#if($lang == "hindi")
+        ഉള്ളടക്കം അപ്‌ലോഡ്‌ ചെയ്യുക
+#else
+        അപ്‌ലോഡ്‌ ചെയ്യുക ഉള്ളടക്കം
+#end
+</b>
+</td></tr>
+</table>
+#if($check == "disable")
+<table width="100%" bgcolor="$ui.tableColor">
+<tr bgcolor="$ui.menuColor"><td>അപ്‌ലോഡിങ്ങിനു വേണ്ടിയുള്ള സ്ഥലം  $!SpaceKb എംബി</td><td align="right">ഉപയോഗിച്ച സ്ഥലം   $!TUSize എംബി </td></tr></table>
+#end
+<table bgcolor="$ui.tableColor" width=100%>
+#if($check == "disable")
+<tr>
+	#if($tdcolor!="1")
+	<td>
+	#elseif($tdcolor=="1")
+	<td bgcolor="#AFDCEC">
+	#end
+	<a href=$link.setPage("call,Repository_Mgmt,Author.vm").addPathInfo("count","1") style=text-decoration:none>അപ്‌ലോഡ്‌ ചെയ്യുക ഉള്ളടക്കം</a></td>
+	#if($tdcolor!="2")
+	<td>
+	#elseif($tdcolor=="2")
+	<td bgcolor="#AFDCEC">
+	#end
+        <a href=$link.setPage("call,Repository_Mgmt,RepositoryList.vm").addPathInfo("status","fromViewContent").addPathInfo("count","2") style=text-decoration:none>കാണുക ഉള്ളടക്കം</a></td>
+	#if($tdcolor!="3")
+	<td>
+	#elseif($tdcolor=="3")
+	<td bgcolor="#AFDCEC">
+	#end
+        <a href=$link.setPage("call,Repository_Mgmt,RepositoryBrowser.vm").addPathInfo("count","3") style=text-decoration:none>കലവറ ബ്രൌസര്‍</a></td>
+	#if($tdcolor!="4")
+	<td>
+	#elseif($tdcolor=="4")
+	<td bgcolor="#AFDCEC">
+	#end
+	<a href=$link.setPage("call,Calendar_Mgmt,Calendar_Display.vm").addPathInfo("path","personal").addPathInfo("count","4") style=text-decoration:none>വ്യക്തിപരമായ കലണ്ടര്‍</a></td>
+	<td><img src="$content.getURI("/images/hand.gif")"><a href=javascript:popupWin("/brihaspati2/docs/ContentUpload.html","newWin"); style=text-decoration:none>സഹായം</a></td>
+</tr>
+#else
+<tr>
+<td align=center>
+        	<font face="$ui.sansSerifFonts" size=3>
+        	<a href=$link.setPage("call,Repository_Mgmt,Author.vm").setAction("RepositoryAction").addPathInfo("actionName","eventSubmit_doCreate_Repo").addPathInfo("count","1") style=text-decoration:none>സൃഷ്ടിക്കുക കലവറ</a> &nbsp;&nbsp;
+		</font>
+        </td>
+        </tr>
+        #end
+</table>
+####################################UploadSCO
+#if($check == "disable")
+<table bgcolor="$ui.tableColor" width=100%>
+#if($errorMess!="")
+     <tr>
+           <td><b>അപ്പ്‌ലോടിങ്ങില്‍ തെറ്റുണ്ട് : </b>$!errorMess </td>
+     </tr>
+#else
+        <tr>
+        #if($uploadStatus=="full")
+                <td>
+                താങ്കളുടെ പ്രമാണം വിജയകരമായി അപ്‌ലോഡ്‌ ചെയ്തു
+                </td>
+        #else
+                #if($uploadStatus=="partial")
+                        <td>
+                       ## Some of the files have been uploaded
+                        ചില പ്രമാണങ്ങള്‍ അപ്‌ലോഡ്‌ ചെയ്തിട്ടുണ്ട്  <br>
+
+                       ## Following files already existed, so were not uploaded :
+                        താഴെപ്പറഞ്ഞിരിക്കുന്ന പ്രമാണങ്ങള്‍ ഇതിനകം തന്നെ നിലനില്‍ക്കുന്നു . അതിനാല്‍ അപ്‌ലോഡ്‌ ചെയ്തില്ല :<br>
+
+                #elseif($totalFilesEntries.Count>0)
+                        <td>
+                        ##None of the files were Uploaded <br>
+                        ##All of the following  Existed at Server :
+                        പ്രമാണങ്ങള്‍ ഒന്നും തന്നെ അപ്‌ലോഡ്‌ ചെയ്തില്ല  <br>
+                        ഈ പേരിലുള്ള പ്രമാണങ്ങള്‍‍  ഇതിനകം തന്നെ സെര്‍വറില്‍ നിലനില്‍ക്കുന്നു :      <br>
+                #elseif($uploadStatus!="")
+                        <td>
+                        ##There is nothing to Upload
+                        ഒന്നും തന്നെ അപ്‌ലോഡ്‌ ചെയ്യാനില്ല  <br>
+                #end
+                <br>
+                #set($count=1)
+                #foreach($File in $failedFiles)
+                        <tr>
+			 <td>$count.  $File</td>
+                        </tr>
+                        #set($count=$count+1)
+                #end
+               </td>
+        #end
+        </tr>
+#end
+</table>
+##<form name=uploadform method="post" enctype="multipart/form-data" action="$link.setPage("call,Repository_Mgmt,UploadSCO.vm").setAction("UserAreaAction").addPathInfo("actionName","eventSubmit_doUpload")" >
+<form name=uploadform method="post" enctype="multipart/form-data" action="$link.setPage("call,Repository_Mgmt,Author.vm").setAction("UserAreaAction").addPathInfo("actionName","eventSubmit_doUpload")" >
+<table bgcolor="$ui.tableColor" width=100%>
+<tr bgcolor="$ui.menuColor"><img src="$content.getURI("/images/hand.gif")"><font color="red">താങ്കളുടെ പ്രമാണങ്ങളുടെ പേരിലോ താങ്കള്‍ അപ്‌ലോഡ്‌ ചെയ്യുന്ന പ്രമാണത്തിലോ  <b>'+'</b> എന്നി അക്ഷരങ്ങള്‍ ഇല്ലെന്നു ദയവായി ഉറപ്പു വരുത്തുക !!  </font></tr>
+      <tr>
+        <td colspan=5>
+        <input type="RADIO" name=topicExisting checked=true value="OLDTOPIC" onClick=blurTopicName(document.uploadform)>നിലവിലുളള വിഷയം
+        <SELECT name=topicList onFocus=changeTopic(document.uploadform) onChange=changeTopic(document.uploadform)>
+          <option></option>
+          #foreach($topic in $allTopics)
+                <option>$topic</option>
+          #end
+        </SELECT>
+        <input type="RADIO" name=topicExisting value="NEWTOPIC" >പുതിയ വിഷയം
+        </td>
+        </tr>
+
+      <tr bgcolor="$ui.menuColor">
+        <td>വിഷയം പേര്</td>
+        <td colspan=5><input type="text" name=contentTopic onFocus=checkRadio() size=26></td>
+      <tr>
+              #fileUpload ("1.&nbsp; വിവരങ്ങള്‍ കുട്ടിചേര്‍ക്കുക " "file1")</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>#fileUpload ("6.&nbsp; വിവരങ്ങള്‍ കുട്ടിചേര്‍ക്കുക  &nbsp;" "file6")
+      </tr>
+      <tr bgcolor="$ui.menuColor">
+              #fileUpload ("2.&nbsp; വിവരങ്ങള്‍ കുട്ടിചേര്‍ക്കുക " "file2")</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>#fileUpload ("7.&nbsp; വിവരങ്ങള്‍ കുട്ടിചേര്‍ക്കുക  &nbsp;" "file7")
+      </tr>
+	<tr>
+              #fileUpload ("3.&nbsp; വിവരങ്ങള്‍ കുട്ടിചേര്‍ക്കുക " "file3")</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>#fileUpload ("8.&nbsp; വിവരങ്ങള്‍ കുട്ടിചേര്‍ക്കുക  &nbsp;" "file8")
+      </tr>
+      <tr bgcolor="$ui.menuColor">
+              #fileUpload ("4.&nbsp; വിവരങ്ങള്‍ കുട്ടിചേര്‍ക്കുക " "file4")</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>#fileUpload ("9.&nbsp; വിവരങ്ങള്‍ കുട്ടിചേര്‍ക്കുക  &nbsp;" "file9")
+      </tr>
+      <tr>
+              #fileUpload ("5.&nbsp; വിവരങ്ങള്‍ കുട്ടിചേര്‍ക്കുക " "file5")</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>#fileUpload ("10.&nbsp; വിവരങ്ങള്‍ കുട്ടിചേര്‍ക്കുക  &nbsp;" "file10")
+      </tr>
+
+      <tr bgcolor="$ui.menuColor">
+        <td colspan=5>
+        <input type="button" name="eventSubmit_doUpload" value="അപ്‌ലോഡ്‌ ചെയ്യുക" onClick="validate(document.uploadform,this);"/>
+        <input type="hidden" name="actionName" value="">
+        <input type="hidden" name="count" value="$tdcolor">
+
+        </td>
+      </tr>
+
+    </table>
+</form>
+#end
+
+###########################################
+<SCRIPT language="JavaScript">
+        function popupWin(url,popupName)
+        {
+                Win1=window.open(url,popupName,"resizable=0,scrollbars=1,height=400,width=400");
+        }
+	function blurTopicName(frm)
+        {
+                //document.uploadform.topicExisting.value="OLDTOPIC";
+
+                frm.contentTopic.value=frm.topicList.options[frm.topicList.selectedIndex].text;
+        }
+
+        function changeTopic(frm)
+        {
+                if(frm.topicExisting[0].checked)
+                {
+                        frm.contentTopic.value=frm.topicList.options[frm.topicList.selectedIndex].text;
+                }
+                else
+                {
+                        frm.contentTopic.focus();
+                }
+        }
+
+        function checkRadio()
+        {
+                if(document.uploadform.topicExisting[0].checked)
+                {
+                        document.uploadform.contentTopic.blur();
+                }
+
+        }
+	function validate(uploadform,field)
+        {
+                var tList=uploadform.topicList;
+                var cTopic=uploadform.contentTopic;
+                if(uploadform.contentTopic.value!="")
+                {
+                        var totNamedEntries=uploadform.topicList.length;
+                        for(i=1;i<totNamedEntries;i++)
+                        {
+                                if(tList.options[i].text==cTopic.value)
+                                {
+                                        if(uploadform.topicExisting[1].checked)
+                                        {
+                                                if(confirm("The topic already exists. Pressing OK will put the file/s in existing Topic"))
+                                                {
+                                                uploadform.actionName.value=field.name;
+                                                uploadform.submit();
+                                                }
+                                                else
+                                                {
+                                                return;
+                                                }
+
+                                        }
+                                }
+                        }
+                        uploadform.actionName.value=field.name;
+                        uploadform.submit();
+                }
+                else
+                {
+                        alert("Topic Name Can not Empty !!");
+                }
+        }
+
+</SCRIPT>

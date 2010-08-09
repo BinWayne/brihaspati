@@ -1,0 +1,255 @@
+#*
+ * @(#) Adminwiki.vm
+ * Copyright(c)2005,2009 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * @author <a href="mailto:manav_cv@yahoo.co.in">Manvendra Baghel</a>
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+*#
+
+$page.setTitle("$brih_home|$course|$brih_Wiki | $Wikimain5")
+$page.setBgColor($ui.bgcolor)
+$!data.getMessage()
+
+<style type="text/css"> input{ width:170px; } </style>
+
+<table bgcolor="$ui.tableColor" width=100%>
+<tr bgcolor="$ui.menuColor"><td>
+        <b>
+        <a href=$link.setPage("call,IndexHome.vm")>মুখ্য় পৃষূঠা</a> |
+        <a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")>$course</a> |
+        <a href=$link.setPage("call,Wiki,Wiki.vm")>উয়াইিক</a> | উয়াইিকর িনয়ন্িণ
+        </b>
+</td>
+</tr>
+##</table>
+## Representation of HELP link
+##<table width=100% align=left bgcolor="$ui.tableColor">
+        <tr>
+                <td align=right colspan=3>
+                       <img src="$content.getURI("/images/hand.gif")"> <a href=javascript:popupWin("/brihaspati2/docs/Wikiusermanual.html","newWin");>সাহায্য়</a>
+                </td>
+        </tr>
+##</table>
+#if($mypage=="empty")
+	<h3><b>উয়াইিকর মধ্েয় আপনার েকােনা পৃষ্ঠা েনই,সুতরাং নুতন পৃষ্ঠার রচনা করুন</b></h3>
+#else
+##<table width="100%" align="left" bgcolor="$ui.tableColor">
+			<tr bgcolor="$ui.menuColor">
+				<td>
+        				<marquee scrollamount="3" direction="left" loop="0" width="100%" behaviour="slide">
+        				<b>যিদ আপনীন সক্রীয়/ িনস্ক্রীয় েসার কর বটন েদখেত না পােরন, তাহােল দৃশ্য় পৃষ্ঠােত ঔ্িলক করুন | িবলয়নপুর্ণ হওবার পর িবলয়ন কর, পিরবর্তনসরাও েত ক্িলক কর | পৃষ্ঠর পর সমাপুর্ন কার্য হেয় জাবার চর সঠীক িবকল্প েত ক্িলক দাও | তাপর আেগর পৃষ্ঠােত যাও |</b>
+        				</marquee>
+					##<br>
+				</td></tr>
+				<td><tr bgcolor="$ui.tableColor">
+					#if($num != 0)
+						<p align=center><b><font color="red">অক্খম পৃষ্ঠাগুেলার সম্পাদন কর ( $num ) $dispage</font></b></p>
+					#end
+				</td>
+			</tr>
+		##</table>
+
+
+
+
+		<FORM  name=frm method="POST" action="$link.setPage("call,Wiki,Adminwiki.vm").setAction("Wikieditaction")">
+		##<table align="left" bgcolor="$ui.tableColor" width="100%" >
+			<tr>
+				<td>
+					<p align=center>
+					<input type="hidden" name="actionName" >
+		 			#if($merge == "false")
+						<input type="submit" name="eventSubmit_doShowhistory" value="পৃষ্ঠা প্রদর্িশত কর"/>
+						<input type="submit" name="eventSubmit_doShowhistory" value="অংগীভূত পৃষ্ঠাগুেলা েক প্রদর্িশত কর"/>
+						<input type="submit" name="eventSubmit_doDiff" value="পিরবর্তনগুেলা প্রদর্িশত কর"/>
+						<input type="submit" name="eventSubmit_doDiff" value="অংগীভূত পিরবর্তনগুেলা প্রদর্িশত কর"/>
+ 						<input type="submit" name="eventSubmit_doShoworiginal" value="আসলিট প্রদর্িশত কর"/>
+						<input type="button" name="eventSubmit_doRevert" value="আসল পৃষ্ঠািট সংচয় কর "  onClick="checktextName(document.frm,this);"/>
+						<input type="button" name="eventSubmit_doDelpage" value="পৃষ্ঠািট বাদ দাও" onClick="doAskPage(document.frm,this);"/>
+						#if($fname!="")
+        						#if($traffic == "stop")
+                						<input disabled type="submit" name="eventSubmit_doStoptraffic" value="সম্পাদনা অক্খম কর"/>
+               							<input type="submit" name="eventSubmit_doStoptraffic" value="সম্পাদনা সক্খম কর"/>
+        						#end
+        						#if($traffic == "start")
+                						<input type="submit"  name="eventSubmit_doStoptraffic" value="সম্পাদনা অক্খম কর"/>
+                						<input disabled type="submit" name="eventSubmit_doStoptraffic" value="সম্পাদনা সক্খম কর"/>
+        						#end
+						#end
+					#end
+ 	                               	#if(($traffic == "stop")&&($merge != "true"))
+
+
+						<input type="button" name="eventSubmit_doDelversion" value="পিরবর্তনগুেলা বাদ দাও" onClick="doAskVersion(document.frm,this);"/>
+
+					#end
+					#if($traffic == "stop")
+						<input type="button" name="eventSubmit_doMergenow" value="এক্খােন অংগীভূত কর" onClick="checkVersion(document.frm,this);"/>
+					#end
+        	        		#if(($fname!="")&&($merge == "true"))
+						<input type="submit" name="eventSubmit_doMergedone" value="অংগীভূত হইয়া েগল"/>
+                				<input type="submit" name="eventSubmit_doShoworiginal" value="অংগীভূেতর কন্ফ্িলক্ট প্রদর্িশত কর"/>
+                				<input type="submit" name="eventSubmit_doRevert" value="এক্খােন পৃষ্ঠািট সংচয় কর"/>
+        				#end
+					</p>
+				</td>
+			</tr>
+			<tr bgcolor="$ui.menuColor">
+				<td>
+					<p align ="center">
+					পৃষ্ঠার নাম <SELECT  name="fname" >
+					#if($fname!="")
+						<OPTION >$fname</OPTION>
+					#end
+					#foreach($file in $mypage)			
+						<OPTION >$file</OPTION>
+					#end
+					</SELECT>
+					ভাষান্তর সংখ্য়া  <INPUT type="text" name="vname" 
+					#if($vname!="")
+						value ="$vname" 
+					#end
+					size="25">
+					<input type="submit" name="eventSubmit_doShoworiginal" value="লগ প্রদর্িশত কর"  />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p align =center>
+#*
+* Setting of textarea tag  contents below may seem untidy but don't touch them
+* as they work properly only in this way
+*#
+<TEXTAREA  name="text" rows="25"  cols="90" >
+#if($pad!="")
+$pad
+#end
+#foreach($t in $first)
+$t
+#end
+</TEXTAREA>
+					##<br><br>
+					</p>	
+				</td>
+			</tr>
+			<tr bgcolor="$ui.menuColor">
+				<td>
+					<p align=center>
+		 			#if($merge == "false")
+						<input type="submit" name="eventSubmit_doShowhistory" value="পৃষ্ঠা প্রদর্িশত কর"/>
+						<input type="submit" name="eventSubmit_doShowhistory" value="অংগীভূত পৃষ্ঠাগুেলা েক প্রদর্িশত কর"/>
+						<input type="submit" name="eventSubmit_doDiff" value="পিরবর্তনগুেলা প্রদর্িশত কর"/>
+						<input type="submit" name="eventSubmit_doDiff" value="অংগীভূত পিরবর্তনগুেলা প্রদর্িশত কর"/>
+ 						<input type="submit" name="eventSubmit_doShoworiginal" value="আসলিট প্রদর্িশত কর"/>
+						<input type="button" name="eventSubmit_doRevert" value="আসল পৃষ্ঠািট সংচয় কর "  onClick="checktextName(document.frm,this);"/>
+						<input type="button" name="eventSubmit_doDelpage" value="পৃষ্ঠািট বাদ দাও" onClick="doAskPage(document.frm,this);"/>
+
+						#if($fname!="")
+
+        						#if($traffic == "stop")
+                						<input type="submit" disabled name="eventSubmit_doStoptraffic" value="সম্পাদনা অক্খম কর"/>
+                						<input type="submit" name="eventSubmit_doStoptraffic" value="সম্পাদনা সক্খম কর"/>
+        						#else
+               							<input type="submit" name="eventSubmit_doStoptraffic" value="সম্পাদনা অক্খম কর"/>
+                						<input type="submit" disabled  name="eventSubmit_doStoptraffic" value="সম্পাদনা সক্খম কর"/>
+        						#end
+						#end
+		  			#end
+					
+					#if(($traffic == "stop")&&($merge != "true"))
+
+						<input type="button" name="eventSubmit_doDelversion" value="পিরবর্তনগুেলা বাদ দাও" onClick="doAskVersion(document.frm,this);"/>
+
+					#end
+					#if($traffic == "stop")
+
+						<input type="button" name="eventSubmit_doMergenow" value="এক্খােন অংগীভূত কর" onClick="checkVersion(document.frm,this);"/>
+		   			#end
+        	   			#if(($fname!="")&&($merge == "true"))
+						<input type="submit" name="eventSubmit_doMergedone" value="অংগীভূত হইয়া েগল"/>
+                				<input type="submit" name="eventSubmit_doShoworiginal" value="অংগীভূেতর কন্ফ্িলক্ট প্রদর্িশত কর"/>
+                				<input type="submit" name="eventSubmit_doRevert" value="এক্খােন পৃষ্ঠািট সংচয় কর"/>
+        	    			#end
+					</p>
+		
+				</td>
+			</tr>
+			<tr>
+				<td>
+## This space is for look and feel
+
+				</td>
+			</tr>
+
+		</table>
+		</FORM>
+#end   #* end of #if($mypage=="empty")*#
+
+
+
+
+<SCRIPT LANGUAGE="javascript">
+        function popupWin(url,popupName)
+        {
+                Win1=window.open(url,popupName,"scrollbars=1,height=400,width=400");
+        }
+
+        function checkVersion(frm,field)
+        {
+                if(frm.vname.value!="") 
+                {
+                                frm.actionName.value=field.name;
+                                frm.submit();
+                }
+                else
+                {
+                        alert("Please Fill Page Version Field");
+                }
+        }
+	function checktextName(frm,field)
+        {
+                if(frm.text.value!="")
+                {
+                                frm.actionName.value=field.name;
+                                frm.submit();
+                }
+                else
+                {
+                        alert("Please write something on the page ");
+                }
+        }
+
+
+      function doAskPage(frm,field)
+        {
+                if(confirm('Are you sure you want to delete?'))
+                {
+                                frm.actionName.value=field.name;
+                                frm.submit();
+                }
+        }
+
+
+
+      function doAskVersion(frm,field)
+        {
+                if(confirm('Are you sure ,all current versions will be deleted by this?'))
+                {
+                                frm.actionName.value=field.name;
+                                frm.submit();
+                }
+        }
+
+	 function doAskMerge(frm,field)
+        {
+                if(confirm('Are you sure , you have  clicked on merge now before ?'))
+                {
+                                frm.actionName.value=field.name;
+                                frm.submit();
+                }
+        }
+
+
+</SCRIPT>

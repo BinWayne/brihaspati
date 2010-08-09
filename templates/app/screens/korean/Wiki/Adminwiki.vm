@@ -1,0 +1,255 @@
+#*
+ * @(#) Adminwiki.vm
+ * Copyright(c)2005,2009 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * @author <a href="mailto:manav_cv@yahoo.co.in">Manvendra Baghel</a>
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+*#
+
+$page.setTitle("$brih_home|$course|$brih_Wiki | $Wikimain5")
+$page.setBgColor($ui.bgcolor)
+$!data.getMessage()
+
+<style type="text/css"> input{ width:170px; } </style>
+
+<table bgcolor="$ui.tableColor" width=100%>
+<tr bgcolor="$ui.menuColor"><td>
+        <b>
+        <a href=$link.setPage("call,IndexHome.vm")>집</a> |
+        <a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")>$course</a> |
+        <a href=$link.setPage("call,Wiki,Wiki.vm")>위키</a> | 제어 위키
+        </b>
+</td>
+</tr>
+##</table>
+## Representation of HELP link
+##<table width=100% align=left bgcolor="$ui.tableColor">
+        <tr>
+                <td align=right colspan=3>
+                       <img src="$content.getURI("/images/hand.gif")"> <a href=javascript:popupWin("/brihaspati2/docs/Wikiusermanual.html","newWin");>도움</a>
+                </td>
+        </tr>
+##</table>
+#if($mypage=="empty")
+	<h3><b>지금 당신은 위키 페이지를 작성하십시오 페이지가없습니다</b></h3>
+#else
+##<table width="100%" align="left" bgcolor="$ui.tableColor">
+			<tr bgcolor="$ui.menuColor">
+				<td>
+        				<marquee scrollamount="3" direction="left" loop="0" width="100%" behaviour="slide">
+        				<b>볼 수없는 경우를 활성화 / 비활성화,보기 페이지에서 '수정'버튼을 클릭하십시오. Diasble 편집을 클릭하면 페이지에 대한 작업을 시작했다. MergeDone을 클릭하면 병합을 완료했습니다. 제거 변경을 클릭하는 경우에만 모든 변경 사항을 방문했다. 사용을 클릭하면 해당 페이지에서 수정 작업을 완료하고 다음 페이지에 일하러 가야</b>
+        				</marquee>
+					##<br>
+				</td></tr>
+				<td><tr bgcolor="$ui.tableColor">
+					#if($num != 0)
+						<p align=center><b><font color="red">편집장애 인용 페이지 ( $num ) $dispage</font></b></p>
+					#end
+				</td>
+			</tr>
+		##</table>
+
+
+
+
+		<FORM  name=frm method="POST" action="$link.setPage("call,Wiki,Adminwiki.vm").setAction("Wikieditaction")">
+		##<table align="left" bgcolor="$ui.tableColor" width="100%" >
+			<tr>
+				<td>
+					<p align=center>
+					<input type="hidden" name="actionName" >
+		 			#if($merge == "false")
+						<input type="submit" name="eventSubmit_doShowhistory" value="페이지보기"/>
+						<input type="submit" name="eventSubmit_doShowhistory" value="쇼 합치기 페이지"/>
+						<input type="submit" name="eventSubmit_doDiff" value="쇼는 변화한다"/>
+						<input type="submit" name="eventSubmit_doDiff" value="쇼 합치기는 변화한다"/>
+ 						<input type="submit" name="eventSubmit_doShoworiginal" value="보이다 기존 "/>
+						<input type="button" name="eventSubmit_doRevert" value="저장 기존 페이지 "  onClick="checktextName(document.frm,this);"/>
+						<input type="button" name="eventSubmit_doDelpage" value="제거 페이지" onClick="doAskPage(document.frm,this);"/>
+						#if($fname!="")
+        						#if($traffic == "stop")
+                						<input disabled type="submit" name="eventSubmit_doStoptraffic" value="사용 안 함 편집 "/>
+               							<input type="submit" name="eventSubmit_doStoptraffic" value="편집 활성화 "/>
+        						#end
+        						#if($traffic == "start")
+                						<input type="submit"  name="eventSubmit_doStoptraffic" value="사용 안 함 편집 "/>
+                						<input disabled type="submit" name="eventSubmit_doStoptraffic" value="편집 활성화 "/>
+        						#end
+						#end
+					#end
+ 	                               	#if(($traffic == "stop")&&($merge != "true"))
+
+
+						<input type="button" name="eventSubmit_doDelversion" value="제거 변경" onClick="doAskVersion(document.frm,this);"/>
+
+					#end
+					#if($traffic == "stop")
+						<input type="button" name="eventSubmit_doMergenow" value="병합하세요" onClick="checkVersion(document.frm,this);"/>
+					#end
+        	        		#if(($fname!="")&&($merge == "true"))
+						<input type="submit" name="eventSubmit_doMergedone" value="합치기 하는"/>
+                				<input type="submit" name="eventSubmit_doShoworiginal" value="보이다 충돌을 흡수 합병 "/>
+                				<input type="submit" name="eventSubmit_doRevert" value="할인 병합된 페이지"/>
+        				#end
+					</p>
+				</td>
+			</tr>
+			<tr bgcolor="$ui.menuColor">
+				<td>
+					<p align ="center">
+					페이지 이름 <SELECT  name="fname" >
+					#if($fname!="")
+						<OPTION >$fname</OPTION>
+					#end
+					#foreach($file in $mypage)			
+						<OPTION >$file</OPTION>
+					#end
+					</SELECT>
+					버전 번호 <INPUT type="text" name="vname" 
+					#if($vname!="")
+						value ="$vname" 
+					#end
+					size="25">
+					<input type="submit" name="eventSubmit_doShoworiginal" value="쇼 통나무 "  />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p align =center>
+#*
+* Setting of textarea tag  contents below may seem untidy but don't touch them
+* as they work properly only in this way
+*#
+<TEXTAREA  name="text" rows="25"  cols="90" >
+#if($pad!="")
+$pad
+#end
+#foreach($t in $first)
+$t
+#end
+</TEXTAREA>
+					##<br><br>
+					</p>	
+				</td>
+			</tr>
+			<tr bgcolor="$ui.menuColor">
+				<td>
+					<p align=center>
+		 			#if($merge == "false")
+						<input type="submit" name="eventSubmit_doShowhistory" value="페이지보기"/>
+						<input type="submit" name="eventSubmit_doShowhistory" value="쇼 합치기 페이지"/>
+						<input type="submit" name="eventSubmit_doDiff" value="쇼는 변화한다"/>
+						<input type="submit" name="eventSubmit_doDiff" value="쇼 합치기는 변화한다"/>
+ 						<input type="submit" name="eventSubmit_doShoworiginal" value="보이다 기존 "/>
+						<input type="button" name="eventSubmit_doRevert" value="저장 기존 페이지 "  onClick="checktextName(document.frm,this);"/>
+						<input type="button" name="eventSubmit_doDelpage" value="제거 페이지" onClick="doAskPage(document.frm,this);"/>
+
+						#if($fname!="")
+
+        						#if($traffic == "stop")
+                						<input type="submit" disabled name="eventSubmit_doStoptraffic" value="사용 안 함 편집 "/>
+                						<input type="submit" name="eventSubmit_doStoptraffic" value="편집 활성화 "/>
+        						#else
+               							<input type="submit" name="eventSubmit_doStoptraffic" value="사용 안 함 편집 "/>
+                						<input type="submit" disabled  name="eventSubmit_doStoptraffic" value="편집 활성화 "/>
+        						#end
+						#end
+		  			#end
+					
+					#if(($traffic == "stop")&&($merge != "true"))
+
+						<input type="button" name="eventSubmit_doDelversion" value="제거 변경" onClick="doAskVersion(document.frm,this);"/>
+
+					#end
+					#if($traffic == "stop")
+
+						<input type="button" name="eventSubmit_doMergenow" value="병합하세요" onClick="checkVersion(document.frm,this);"/>
+		   			#end
+        	   			#if(($fname!="")&&($merge == "true"))
+						<input type="submit" name="eventSubmit_doMergedone" value="합치기 하는"/>
+                				<input type="submit" name="eventSubmit_doShoworiginal" value="보이다 충돌을 흡수 합병 "/>
+                				<input type="submit" name="eventSubmit_doRevert" value="할인 병합된 페이지"/>
+        	    			#end
+					</p>
+		
+				</td>
+			</tr>
+			<tr>
+				<td>
+## This space is for look and feel
+
+				</td>
+			</tr>
+
+		</table>
+		</FORM>
+#end   #* end of #if($mypage=="empty")*#
+
+
+
+
+<SCRIPT LANGUAGE="javascript">
+        function popupWin(url,popupName)
+        {
+                Win1=window.open(url,popupName,"scrollbars=1,height=400,width=400");
+        }
+
+        function checkVersion(frm,field)
+        {
+                if(frm.vname.value!="") 
+                {
+                                frm.actionName.value=field.name;
+                                frm.submit();
+                }
+                else
+                {
+                        alert("Please Fill Page Version Field");
+                }
+        }
+	function checktextName(frm,field)
+        {
+                if(frm.text.value!="")
+                {
+                                frm.actionName.value=field.name;
+                                frm.submit();
+                }
+                else
+                {
+                        alert("Please write something on the page ");
+                }
+        }
+
+
+      function doAskPage(frm,field)
+        {
+                if(confirm('Are you sure you want to delete?'))
+                {
+                                frm.actionName.value=field.name;
+                                frm.submit();
+                }
+        }
+
+
+
+      function doAskVersion(frm,field)
+        {
+                if(confirm('Are you sure ,all current versions will be deleted by this?'))
+                {
+                                frm.actionName.value=field.name;
+                                frm.submit();
+                }
+        }
+
+	 function doAskMerge(frm,field)
+        {
+                if(confirm('Are you sure , you have  clicked on merge now before ?'))
+                {
+                                frm.actionName.value=field.name;
+                                frm.submit();
+                }
+        }
+
+
+</SCRIPT>

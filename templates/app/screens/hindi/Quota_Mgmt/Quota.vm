@@ -1,0 +1,363 @@
+#*
+ * @(#)Quota.vm
+ * Copyright (c)2008 - 2009 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ *
+ * @author <a href="mailto:singh_jaivir@rediffmail.com ">Jaivir Singh</a>
+ *
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+*#
+
+$page.setBgColor($ui.bgcolor)
+$!data.getMessage()
+<table bgcolor="$ui.menuColor" width=100%>
+	<tr>
+		<td>
+		<font face="$ui.sansSerifFonts"><b>
+		#if($data.getUser().getUserName()=="admin")
+		$page.setTitle("Quota Management")
+		#if($mode==" ")
+         	<a href=$link.setPage("Index.vm")>एडमिन   पृष्ठ</a> | स्पेस  (कोटा) प्रबंधन
+		#elseif($mode=="uquota")
+         	<a href=$link.setPage("Index.vm")>एडमिन   पृष्ठ</a> | 
+         	<a href=$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("count","1").addPathInfo("mode","uquota").addPathInfo("status","nosearch")>स्पेस  (कोटा) प्रबंधन</a> | प्रयोक्ता  स्पेस  (कोटा) 
+		#elseif($mode=="cquota")
+         	<a href=$link.setPage("Index.vm")>एडमिन   पृष्ठ</a> | 
+         	<a href=$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("count","1").addPathInfo("mode","uquota").addPathInfo("status","nosearch")>स्पेस  (कोटा) प्रबंधन</a> | विषय   स्पेस  (कोटा) 
+		#else 
+         	<a href=$link.setPage("Index.vm")>एडमिन   पृष्ठ</a> | 
+         	<a href=$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("count","1").addPathInfo("mode","uquota").addPathInfo("status","nosearch")>स्पेस  (कोटा) प्रबंधन</a> | स्पेस  (कोटा) सुधारें
+		#end
+		#end
+		</font>
+		</td>
+	</tr>
+</table>
+<table width=100%>
+        <tr bgcolor="$ui.tableColor">
+                <td align=right colspan="10">
+		<img src="$content.getURI("/images/hand.gif")"> <a href=javascript:popupWin("/brihaspati2/docs/Quota.html","newWin");>सहायता</a>
+                </td>
+        </tr>
+<tr bgcolor="$ui.menuColor">
+	#if($tdcolor != "1")
+	<td width=50%>
+	#elseif($tdcolor == "1")
+	<td bgcolor="#AFDCEC" width=50%>
+	#end
+	<a href=$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("mode","uquota").addPathInfo("count","1").addPathInfo("status","nosearch")>प्रयोक्ता  स्पेस  (कोटा) </a></td>
+	#if($tdcolor != "2")
+	<td width=50% colspan=4>
+	#elseif($tdcolor == "2")
+	<td bgcolor="#AFDCEC" width=50% colspan=4>
+	#end
+        <a href=$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("mode","cquota").addPathInfo("count","2").addPathInfo("status","nosearch")>विषय   स्पेस  (कोटा) </a></td>
+
+</tr>
+<form name="frm" action="$link.setPage("call,Quota_Mgmt,Quota.vm").setAction("QuotaAction")"> 
+#if($mode=="uquota")  
+<tr bgcolor="$ui.tableColor">
+	<td align=left colspan="10"><b><I>सूची में प्रयोक्ता  स्पेस  (कोटा) </I></td>
+</tr>
+<tr bgcolor="$ui.menuColor">
+                <td>द्वारा  खोजें </td>
+                <td>
+                        <select name="queryList">
+                                <option value="User Name">प्रयोक्ता  नाम</option>
+                                <option value="First Name">पहला नाम</option>
+                                <option value="Last Name">अंतिम नाम</option>
+                                <option value="Email">ई-मेल</option>
+                        </select>
+                </td>
+                <td><b>अनुरूप  पन्क्ति </b></td>
+                <td>
+                        <input align="center" type="text" name="valueString" value="">
+                </td>
+                <td>
+                        <input type="button" name="Search" value="खोजें" onClick="checkNull(document.frm,this);">
+                        <input type="hidden" name="status" value="Search">
+                        <input type="hidden" name="count" value="$tdcolor">
+                        <input type="hidden" name="mode" value="$mode">
+                </td>
+</tr>
+<tr bgcolor="$ui.tableColor"> 
+	<td width="10%"><b><I>नाम</b></I></td>
+	<td><b><I>उपलब्ध सेस (कोटा) एम बी</b></I></td>
+	<td colspan=2><b><I>उपलब्ध  क्रियायें</I></b></td>
+	##</font>
+</tr>
+	#foreach($lst in $entry)
+	#if($velocityCount%2==0)	
+	<tr bgcolor="$ui.tableColor"> 
+	#else
+	<tr bgcolor="$ui.menuColor">
+	#end 
+               	<td><I>$lst.getLoginName()</I></td>
+                <td><I>$lst.getQuota()</I></td>
+		<td colspan=7>
+		<a href=$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("uid",$lst.getUserId()).addPathInfo("name",$lst.getLoginName()).addPathInfo("mode","edit").addPathInfo("quota",$lst.getQuota()).addPathInfo("count",$tdcolor).addPathInfo("status",$status)><I>संपादन  करें</a>&nbsp;&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	#end 
+<tr>
+<td colspan=10 align=left bgcolor="$ui.menuColor">
+#if($status == "nosearch")	
+        #if($total_size <= $userConf)
+        <u><font color="white">पहला</font></u> &nbsp;
+        <u><font color="white">पिछला</font></u> &nbsp;
+        <u><font color="white">अगला</font></u> &nbsp;
+        <u><font color="white">अंतिम</font></u> &nbsp;
+
+        #elseif($startIndex == $userConf_string)
+        <u><font color="white">पहला</font></u> &nbsp;
+        <u><font color="white">पिछला</font></u> &nbsp;
+        <a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$startIndex).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor).addPathInfo("status",$status)">अगला</a> &nbsp;
+        <a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor).addPathInfo("status",$status)">अंतिम</a> &nbsp;
+
+        #elseif($endIndex == $total_size || $endIndex > $total_size)
+        <a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor).addPathInfo("status",$status)">पहला</a> &nbsp;
+        <a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor).addPathInfo("status",$status)">पिछला</a> &nbsp;
+        <u><font color="white">अगला</font></u> &nbsp;
+        <u><font color="white">अंतिम</font></u> &nbsp;
+
+        #else
+        <a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor).addPathInfo("status",$status)">पहला</a> &nbsp;
+        <a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor).addPathInfo("status",$status)">पिछला</a> &nbsp;
+        <a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$startIndex).addPathInfo("end",$endIndex).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor).addPathInfo("status",$status)">अगला</a> &nbsp;
+        <a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor).addPathInfo("status",$status)">अंतिम</a> &nbsp;
+        #end
+#else
+	#if($total_size<= $userConf)
+	<u><font color="white">पहला</font></u> &nbsp;
+	<u><font color="white">अगला</font></u> &nbsp;
+	<u><font color="white">पिछला</font></u> &nbsp;
+	<u><font color="white">अंतिम</font></u> &nbsp;
+	#elseif($startIndex== $userConf_string)
+	<u><font color="white">पहला</font></u> &nbsp;
+	<u><font color="white">पिछला</font></u> &nbsp;
+	<a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$startIndex).addPathInfo("status",$status).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor)">अगला</a> &nbsp;
+	<a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_last).addPathInfo("status",$status).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor)">अंतिम</a> &nbsp;
+	#elseif($endIndex == $total_size || $endIndex > $total_size)
+	<a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_first).addPathInfo("status",$status).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor)">पहला</a> &nbsp;
+	<a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_pre).addPathInfo("status",$status).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor)">पिछला</a> &nbsp;
+	<u><font color="white">अगला</font></u> &nbsp;
+	<u><font color="white">अंतिम</font></u> &nbsp;
+        #else
+	<a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_first).addPathInfo("status",$status).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor)">पहला</a> &nbsp;
+	<a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_pre).addPathInfo("status",$status).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor)">पिछला</a> &nbsp;
+	<a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$startIndex).addPathInfo("status",$status).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor)">अगला</a> &nbsp;
+	<a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_last).addPathInfo("status",$status).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor)">अंतिम</a> &nbsp;
+     		#end
+     	#end
+
+</td>
+</tr>
+#end
+#if($mode=="edit")
+	<tr width=100% bgcolor="$ui.tableColor"> 
+	<td colspan="10"><b><I>सुधारें प्रयोक्ता  स्पेस  (कोटा) </I></b></td>
+	</tr>
+	<tr bgcolor="$ui.menuColor">
+		<td width=20%>प्रयोक्ता  आइडी</td>
+                <td><input type="text" name="uid" value="$uid" "readonly"></td>
+	</tr>	
+	<tr bgcolor="$ui.tableColor">
+		<td>प्रयोक्ता  का  नाम </td>
+                <td><input type="text" name="name" value="$name" "readonly"></td>
+	</tr>	
+	<tr  bgcolor="$ui.menuColor">
+		<td>प्रयोक्ता  स्पेस  (कोटा) एम बी</td>
+                <td><input type="text" name="quota" value="$quota"></td>
+	</tr>
+	<tr bgcolor="$ui.tableColor"><td colspan=10>
+	<input type=button name="eventSubmit_doUpdate" value=सुधारें onClick="checkfield(document.frm,this);"/>
+                <input type="hidden" name="count" value="$tdcolor">
+                <input type="hidden" name="status" value="$status">
+	</td></tr>
+#end
+#if($mode=="cquota")  
+<tr bgcolor="$ui.tableColor">
+	<td align=left colspan=10><b><I>सूची में विषय   स्पेस  (कोटा) </I></td>
+</tr>
+<tr bgcolor="$ui.menuColor">
+                <td><b>द्वारा  खोजें</b></td>
+                <td align=left>
+                        <select name="queryList">
+                                <option value="CourseId"> विषय   आइडी</option>
+                                <option value="Course Name">विषय   नाम</option>
+                                <option value="Dept">विभाग </option>
+                        </select>
+                </td>
+                <td align=left><b>अनुरूप  पन्क्ति</b></td>
+                <td align=left>
+                        <input align=center type="text" name="valueString" value="">
+                </td>
+                <td>
+                        <input type="button" name="Search" value="खोजें" onClick="checkNull(document.frm,this);">
+                        <input type="hidden" name="status" value="Search">
+                        <input type="hidden" name="mode" value="$mode">
+                        <input type="hidden" name="count" value="$tdcolor">
+                </td>
+                <td>
+                <td>
+        </tr>
+
+<tr bgcolor="$ui.tableColor"> 
+<font size=1>	
+	<td width=10%><b>नाम</b></td>
+	<td><b>विषय का  नाम</b></td>
+	<td><b>उपलब्ध सेस (कोटा) एम बी</b></td>
+	<td colspan=5><b>उपलब्ध  क्रियायें</b></td></font>
+</tr>
+		#foreach($lst in $entry)
+		#if($velocityCount%2==0)
+                <tr bgcolor="$ui.menuColor">
+		#else
+                <tr bgcolor="$ui.tableColor">
+		#end
+                <td><I>$lst.getGroupName()</I></td>
+                <td><I>$lst.getCname()</I></td>
+                <td><I>$lst.getQuota()</I></td>
+                <td align=left colspan=2>
+                <a href=$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("grName",$lst.getGroupName()).addPathInfo("cname",$lst.getCname()).addPathInfo("mode","cedit").addPathInfo("cquota",$lst.getQuota()).addPathInfo("count",$tdcolor)><I>संपादन  करें</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                </tr>
+                #end
+
+<tr>
+<td colspan=10 align=left bgcolor="$ui.menuColor">
+#if($status == "nosearch")	
+        #if($total_size <= $userConf)
+        <u><font color="white">पहला</font></u> &nbsp;
+        <u><font color="white">पिछला</font></u> &nbsp;
+        <u><font color="white">अगला</font></u> &nbsp;
+        <u><font color="white">अंतिम</font></u> &nbsp;
+
+        #elseif($startIndex == $userConf_string)
+        <u><font color="white">पहला</font></u> &nbsp;
+        <u><font color="white">पिछला</font></u> &nbsp;
+        <a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$startIndex).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor).addPathInfo("status",$status)">अगला</a> &nbsp;
+        <a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor).addPathInfo("status",$status)">अंतिम</a> &nbsp;
+
+        #elseif($endIndex == $total_size || $endIndex > $total_size)
+        <a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor).addPathInfo("status",$status)">पहला</a> &nbsp;
+        <a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor).addPathInfo("status",$status)">पिछला</a> &nbsp;
+        <u><font color="white">अगला</font></u> &nbsp;
+        <u><font color="white">अंतिम</font></u> &nbsp;
+
+        #else
+        <a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor).addPathInfo("status",$status)">पहला</a> &nbsp;
+        <a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor).addPathInfo("status",$status)">पिछला</a> &nbsp;
+        <a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$startIndex).addPathInfo("end",$endIndex).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor).addPathInfo("status",$status)">अगला</a> &nbsp;
+        <a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor).addPathInfo("status",$status)">अंतिम</a> &nbsp;
+        #end
+#else
+	#if($total_size<= $userConf)
+	<u><font color="white">पहला</font></u> &nbsp;
+	<u><font color="white">अगला</font></u> &nbsp;
+	<u><font color="white">पिछला</font></u> &nbsp;
+	<u><font color="white">अंतिम</font></u> &nbsp;
+	#elseif($startIndex== $userConf_string)
+	<u><font color="white">पहला</font></u> &nbsp;
+	<u><font color="white">पिछला</font></u> &nbsp;
+	<a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$startIndex).addPathInfo("status",$status).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor)">अगला</a> &nbsp;
+	<a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_last).addPathInfo("status",$status).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor)">अंतिम</a> &nbsp;
+	#elseif($endIndex == $total_size || $endIndex > $total_size)
+	<a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_first).addPathInfo("status",$status).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor)">पहला</a> &nbsp;
+	<a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_pre).addPathInfo("status",$status).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor)">पिछला</a> &nbsp;
+	<u><font color="white">अगला</font></u> &nbsp;
+	<u><font color="white">अंतिम</font></u> &nbsp;
+        #else
+	<a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_first).addPathInfo("status",$status).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor)">पहला</a> &nbsp;
+	<a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_pre).addPathInfo("status",$status).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor)">पिछला</a> &nbsp;
+	<a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$startIndex).addPathInfo("status",$status).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor)">अगला</a> &nbsp;
+	<a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_last).addPathInfo("status",$status).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor)">अंतिम</a> &nbsp;
+     		#end
+     	#end
+</td>
+</tr>
+#end
+#if($mode=="cedit")  
+	<tr bgcolor="$ui.tableColor"> 
+	<td colspan=10><b><I>सुधारें विषय   स्पेस  (कोटा)</I></td>
+	</tr>
+	<tr bgcolor="$ui.menuColor">
+		<td width=10%>विषय   आइडी</td>
+                <td><input type="text" name="grName" value="$gname" "readonly"></td>
+	</tr>	
+	<tr bgcolor="$ui.tableColor">
+		<td>विषय का  नाम</td>
+                <td><input type="text" name="cname" value="$cname" "readonly"></td>
+	</tr>	
+	<tr bgcolor="$ui.menuColor">
+		<td>विषय   स्पेस  (कोटा) एम बी</td>
+                <td><input type="text" name="cquota" value="$cquota"></td>
+	</tr>
+	<tr bgcolor="$ui.tableColor"><td colspan=10>
+	<input type=button name="eventSubmit_doUpdate" value=सुधारें onClick="Updatefield(document.frm,this);"/>	
+	</td></tr>
+#end
+                <input type="hidden" name="actionName">
+                <input type="hidden" name="mode" value=$mode>
+                <input type="hidden" name="count" value="$tdcolor">
+                <input type="hidden" name="status" value="$status">
+
+</form>
+</table> 
+<SCRIPT LANGUAGE="javascript">
+	function checkfield(frm,field)
+	{
+		if(frm.quota.value!="")
+		{	
+			if(isNumberString(frm.quota.value))
+			{
+     				frm.actionName.value=field.name;
+     				frm.submit();
+			}
+    		}
+	}
+	function Updatefield(frm,field)
+	{
+		if(frm.cquota.value!="")
+		{
+			if(isNumberString(frm.cquota.value))
+			{
+     				frm.actionName.value=field.name;
+     				frm.submit();
+			}
+    		}
+	}
+	 function popupWin(url,popupName)
+        {
+                Win1=window.open(url,popupName,"resizable=0,scrollbars=1,height=400,width=400");
+        }
+
+
+	function isNumberString(chString)
+        {
+                if(chString.length==0)
+                return false;
+                var RefString="0123456789";
+                for(count=0;count<chString.length;count++)
+                {
+                        tempChar=chString.charAt(count);
+                        if(RefString.indexOf(tempChar)==-1)
+                        {
+				alert("Value should be numeric")
+                                return false;
+                        }
+                }
+                        return true;
+        }
+	function checkNull(frm,field){
+                if(frm.valueString.value!="")
+		{
+                        frm.submit();
+                }
+                else{
+                        alert("The 'Match String' text box can not be NULL");
+                }
+        }
+
+</SCRIPT>
+

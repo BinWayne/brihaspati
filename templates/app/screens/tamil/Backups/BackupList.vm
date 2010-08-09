@@ -1,0 +1,111 @@
+#*
+ * @(#) BackupList.vm
+ * Copyright(c)2006,2009 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * @author <a href="mailto:nksingh@brihaspatisolutions.co.in">Nagendra Kumar Singh</a>
+ * @author <a href="mailto:singh_jaivir@rediffmail.com">Jaivir Singh</a>
+ * @author <a href="mailto:shaistashekh@hotmail.com">Shaista</a>
+ * @modified date: 12-04-2010
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+*#
+
+$page.setBgColor($ui.bgcolor)
+$!data.getMessage()
+
+#set($lang = $data.getUser().getTemp("lang" ).toString())
+<font face="$ui.sansSerifFonts">
+
+<table bgcolor="$ui.menuColor" width=100% cellspacing=0>
+<tr>
+        <td>
+        <b>
+	#if($st == "ins")
+	<a href=$link.setPage("call,IndexHome.vm")>முகப்பு </a> |
+	<a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")>$data.getUser().getTemp("course_name" ).toString() </a> |  
+	<a href=$link.setPage("call,Backups,BackupIns.vm").addPathInfo("count","1")> பாதுகாப்புக்கான சேமிப்பு </a> | பாதுகாப்புக்கான சேமிப்பு பட்டியல்
+	#else
+        <a href=$link.setPage("Index.vm")>நிர்வாகியின்  முகப்பு </a> | 
+	<a href=$link.setPage("call,Backups,Backups.vm").addPathInfo("count","1")> பாதுகாப்புக்கான சேமிப்பு </a> | பாதுகாப்புக்கான சேமிப்பு பட்டியல்
+	#end
+        </td>
+</tr>
+</table>
+
+#if(!($list=="navil"))
+	<table align="left" bgcolor="$ui.tableColor" width=100%>
+		#*<tr>
+			<td colspan="4"><b> #if($lang!="english") உள்ளன பாதுகாப்புக்கான சேமிப்பு இன் பட்டியல் #else பட்டியல் - இல் உள்ளன பாதுகாப்புக்கான சேமிப்பு #end </b></td>
+		</tr>*#
+		#if($st != "ins")
+			<tr bgcolor="$ui.tableColor">
+			#if($tdcolor!="1")
+        		        <td width=25%>
+	                #elseif($tdcolor=="1")
+        		        <td width=25% bgcolor="#AFDCEC">
+	                #end
+        	        <a href=$link.setPage("call,Backups,Backups.vm").addPathInfo("count","1")>உள்ளடக்கம் #if($lang =="hindi") உடைய #end #if($lang =="hindi") உடைய #end பாதுகாப்புக்கான சேமிப்பு </a></td>
+	                #if($tdcolor!="2")
+        		        <td width=25%>
+	                #elseif($tdcolor=="2")
+        		        <td width=25% bgcolor="#AFDCEC">
+	                #end
+        	        <a href="$link.setPage("call,Backups,Backups.vm").setAction("BackupAction").addPathInfo("actionName","eventSubmit_doCompleteBackup").addPathInfo("count","2")">அமைப்பு #if($lang =="hindi") உடைய #end பாதுகாப்புக்கான சேமிப்பு</a></td>
+                	#if($tdcolor!="3")
+	                	<td width=25%>
+        		#elseif($tdcolor=="3")
+		                <td width=25% bgcolor="#AFDCEC">
+                	#end
+	                <a href=$link.setPage("call,Backups,Backups.vm").addPathInfo("mode","blist").addPathInfo("count","3")>பாதுகாப்புக்கான சேமிப்பு பட்டியல்</a></td>
+        	        #if($tdcolor!="4")
+                		<td width=25%>
+	                #elseif($tdcolor=="4")
+        		        <td width=25% bgcolor="#AFDCEC">
+	                #end
+			<a href="$link.setPage("call,Backups,Backups.vm").setAction("BackupAction").addPathInfo("actionName","eventSubmit_doGlossaryBackup").addPathInfo("count","4")">அருஞ்சொற்பொருற் பட்டியல் #if($lang =="hindi") உடைய #end பாதுகாப்புக்கான சேமிப்பு</td>
+			</tr>
+		#end
+		<tr bgcolor="$ui.tableColor">
+		#if($st != "ins")
+			<td> வரிசை எண் </td>
+		#end
+		<td width=30%> #if($lang!="english") பாதுகாப்புக்கான சேமிப்பு चे கோப்பு உடைய பெயர் #else பெயர் உடைய பாதுகாப்புக்கான சேமிப்பு கோப்பு #end </td>
+		<td colspan=2>உள்ள செயல்பாடுகள்</td>
+	</tr>
+	#set ($i=1)
+	#foreach($lst in $list)
+		#if($st=="ins")
+						## Commented By Shaista 
+			##if($lst.getName().startsWith($data.getUser().getTemp("course_id" ).toString()))
+				#if($velocityCount%2==0)
+				<tr bgcolor="$ui.tableColor">
+				#else
+				<tr bgcolor="$ui.menuColor">
+				#end
+					
+			               ## <td>$i</td>
+							## Commented By Shaista 
+			                ##<td>$lst.getName()</td>
+			                ##<td><a href="$link.setPage("call,Backups,getZipfile.vm").addPathInfo("fName",$lst.getName())">பதிவிறக்கம்</a></td>
+			                <td>$lst</td>
+			                <td><a href="$link.setPage("call,Backups,getZipfile.vm").addPathInfo("fName",$lst)">பதிவிறக்கம்</a></td>
+			        </tr>
+			##end
+		#else
+			#if($velocityCount%2==0)
+			<tr bgcolor="$ui.menuColor">
+			#else
+			<tr bgcolor="$ui.tableColor">
+			#end
+			<td>$i</td>
+					## Commented By Shaista
+			##<td>$lst.getName() </td>
+			##<td colspan=2><a href="$link.setPage("call,Backups,getZipfile.vm").addPathInfo("fName",$lst.getName())">பதிவிறக்கம்</a>
+			<td>$lst </td>
+			<td colspan=2><a href="$link.setPage("call,Backups,getZipfile.vm").addPathInfo("fName",$lst)">பதிவிறக்கம்</a>
+			&nbsp;&nbsp;<a href="$link.setAction("BackupAction").addPathInfo("actionName","eventSubmit_doDeletebackup").addPathInfo("fName",$lst.getName()).addPathInfo("count",$tdcolor)">நீக்கு</a></td>
+			</tr>
+		#end
+	#set ($i=$i+1)
+	#end
+</table>
+#end

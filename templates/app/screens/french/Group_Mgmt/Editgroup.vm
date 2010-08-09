@@ -1,0 +1,368 @@
+<html>
+#*
+ * @(#) Editgroup.vm
+ *  Copyright (c) 2006,2007,2010 ETRG,IIT Kanpur.
+ *  All Rights Reserved.
+ *  @author <a href="mailto:seema_020504@yahoo.com ">Seema Pal</a>
+ *  @author <a href="mailto:kshuklak@rediffmail.com ">Kishore kumar shukla</a>
+ *  @author <a href="mailto:singh_jaivir@rediffmail.com ">Jaivir Singh</a>
+ *  @author <a href="mailto:sunil.singh6094@gmail.com">Sunil Kumar</a>
+ * @modified date: 31-12-2009
+ *  Contributors: Members of ETRG, I.I.T. Kanpur
+ *#
+<head>
+<script type="text/javascript">
+        _editor_url = "../../../../../../../../../../../scrpts/";
+        _editor_lang = "en";
+</script>
+<script type="text/javascript" src="../../../../../../../../../../../scrpts/htmlarea.js"></script>
+<script type="text/javascript">
+        var editor = null;
+        function initEditor() {
+                editor = new HTMLArea("ta");
+                editor.generate();
+                return false;
+                var cfg = editor.config;
+                cfg.registerButton({
+                        id        : "my-hilite",
+                        tooltip   : "Highlight text",
+                        image     : "ed_custom.gif",
+                        textMode  : false,
+                        action    : function(editor) {
+                                editor.surroundHTML("<span class=\"hilite\">", "</span>");
+                        },
+                        context   : 'table'
+                });
+                cfg.toolbar.push(["linebreak", "my-hilite"]); var cfg = editor.config;
+                function clickHandler(editor, buttonId) {
+                        switch (buttonId) {
+                                case "my-toc":
+                                        editor.insertHTML("<h1>Table Of Contents</h1>");
+                                break;
+                                case "my-date":
+                                        editor.insertHTML((new Date()).toString());
+                                break;
+                                case "my-bold":
+                                        editor.execCommand("bold");
+                                        editor.execCommand("italic");
+                                break;
+                                case "my-hilite":
+                                        editor.surroundHTML("<span class=\"hilite\">", "</span>");
+                                break;
+                        }
+                };
+                Cfg.registerButton("my-toc",  "Insert TOC", "ed_custom.gif", false, clickHandler);
+                cfg.registerButton("my-date", "Insert date/time", "ed_custom.gif", false, clickHandler);
+                cfg.registerButton("my-bold", "Toggle bold/italic", "ed_custom.gif", false, clickHandler);
+                cfg.registerButton("my-hilite", "Hilite selection", "ed_custom.gif", false, clickHandler);
+                cfg.registerButton("my-sample", "Class: sample", "ed_custom.gif", false,
+                        function(editor) {
+                                if (HTMLArea.is_ie) {
+                                        editor.insertHTML("<span class=\"sample\">&nbsp;&nbsp;</span>");
+                                        var r = editor._doc.selection.createRange();
+                                        r.move("character", -2); r.moveEnd("character", 2); r.select();
+                                } else {
+                                        var n = editor._doc.createElement("span"); n.className = "sample"; editor.insertNodeAtSelection(n);
+                                        var sel = editor._iframe.contentWindow.getSelection();  sel.removeAllRanges(); var r = editor._doc.createRange();
+                                        r.setStart(n, 0); r.setEnd(n, 0); sel.addRange(r);
+                                }
+                        }
+                );
+                cfg.pageStyle = "body { background-color:  } .hilite { background-color: yellow; } "+ ".sample { color: green; font-family: monospace; }";
+                cfg.toolbar.push(["linebreak", "my-toc", "my-date", "my-bold", "my-hilite", "my-sample"]);
+               editor.generate();
+        }
+        function insertHTML() { var html = prompt("Enter some HTML code here"); if (html) { editor.insertHTML(html); } }
+        function highlight() { editor.surroundHTML('<span style="background-color: yellow">', '</span>'); }
+</script>
+</head>
+<body onload="initEditor()">
+
+$page.setTitle("create group")
+$page.setBgColor($ui.bgcolor)
+$!data.getMessage()
+#set($lang=$data.getUser().getTemp("lang").toString())
+
+<table bgcolor="$ui.tableColor" width=100% > ##table 1 start
+<tr>
+	<td><b>
+		<a href=$link.setPage("call,IndexHome.vm")>Maison</a> |
+        	<a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")>$coursename </a>| 
+        	<a href=$link.setPage("call,Group_Mgmt,Grpmgmt.vm").addPathInfo("count","1")>Groupe Gestion  </a> |
+		#if($lang=="english")
+		 Éditer  Groupe </b>
+		#else
+		Groupe de Éditer </b>
+		#end
+     	</td>
+	<td align=right>
+                #if( $total_size!=0 )
+                        #if( $endIndex < $total_size )
+                                #if( $endIndex < $userConf )
+                                [$k - $total_size] of $total_size
+                                #elseif($k == $j)
+                                [$k - $total_size] of $total_size
+                                #else
+                                [$k - $endIndex] of $total_size
+                                #end
+                        #else
+                        [$k - $total_size] of $total_size
+                        #end
+                #end
+        </td>
+</tr>
+</table> ##table 1 end
+<table width=100% bgcolor="$ui.tableColor"> ##table 2 start
+<tr>
+        #if($tdcolor != "1")
+        <td>
+        #elseif($tdcolor=="1")
+        <td bgcolor=="#AFDCEC">
+        #end
+        <a href=$link.setPage("call,Group_Mgmt,Grpmgmt.vm").addPathInfo("count","1")>Créer  Groupe</a></td>
+        #if($tdcolor != "2")
+        <td>
+        #elseif($tdcolor=="2")
+        <td bgcolor=="#AFDCEC">
+        #end
+  <a href=$link.setPage("call,Group_Mgmt,Addmembers.vm").addPathInfo("count","2")>Ajouter /Regarder Membre </a></td>
+        #if($tdcolor != "3")
+        <td>
+        #elseif($tdcolor=="3")
+        <td bgcolor=="#AFDCEC">
+        #end
+	<a href=$link.setPage("call,Group_Mgmt,Grp_View_Delete.vm").addPathInfo("count","3")>Regarder/Effacement Groupe</a></td>
+        #if($tdcolor != "4")
+        <td>
+        #elseif($tdcolor=="4")
+        <td bgcolor=="#AFDCEC">
+        #end
+	<a href=$link.setPage("call,Group_Mgmt,Editgroup.vm").addPathInfo("count","4")>Éditer /Enlever Membre </a></td>
+        #if($tdcolor != "5")
+        <td>
+        #elseif($tdcolor=="5")
+        <td bgcolor=="#AFDCEC">
+        #end
+        <a href=$link.setPage("call,Group_Mgmt,Activitygroup.vm").addPathInfo("count","5")>Groupe Activité </a></td>
+        <td><img src="$content.getURI("/images/hand.gif")"><a href=javascript:popupWin("/brihaspati2/docs/edit-removemembers.html","newWin");>Aide </a></td>
+</tr>
+</table > ##table 2 end
+<form name="frm" method="post" action=$link.setPage("call,Group_Mgmt,Editgroup.vm").setAction("Groupmanagement")>
+<table bgcolor="$ui.tableColor" width=100% > ## table 3 start
+<tr bgcolor="$ui.menuColor"><td colspan=5 valign="top"> ## td tr 1 satart
+        	<b><I>Groupe de Cours  </I><font color="blue">$courseid</font></b>
+		</td></tr>
+		#if($Status != "Edit")
+		<tr><td colspan="5"> ##  td tr 2 start
+			#if($Mode=="NoBlank") ## if satar (mode)
+				#if($lang=="english")
+				#set($headings=["GroupeNom","&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GroupeType","&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Création Date","&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Actions disponibles "])
+				#else
+				#set($headings=["Groupe de Nom","&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Groupe de Type","&nbsp;&nbsp;&nbsp;&nbsp;Création  Date","&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Actions disponibles "])
+				#end
+<table bgcolor="$ui.tableColor" width=100%> ## table 5 start
+	<tr> ## tr 3 start
+	#foreach($heading in $headings)
+        <td><b>$heading</b></td>
+        #end
+	</tr> ## tr 3 end
+	#foreach($Read in $grplist)
+	#if($velocityCount%2==0)
+        <tr bgcolor="$ui.tableColor"> ## tr 4 start
+        #else
+        <tr bgcolor="$ui.menuColor"> ## tr 4 start
+        #end
+	<td>$Read.Name</td>
+	<td>$Read.type</td>
+	<td>$Read.PDate</td>
+	<td><a href=$link.setPage("call,Group_Mgmt,Editgroup.vm").addPathInfo("Status","Edit").addPathInfo("grpname",$Read.Name).addPathInfo("type",$Read.type).addPathInfo("studentno",$Read.studentno)>
+	#if($lang=="english")
+	Éditer  Groupe</a>
+	#else
+	Groupe de Éditer </a> 
+	#end
+        &nbsp;&nbsp;&nbsp;<a href=$link.setPage("call,Group_Mgmt,Addmembers.vm").addPathInfo("Status","Edit").addPathInfo("grpname",$Read.Name).addPathInfo("type",$Read.type)>
+	#if($lang=="english")
+	Enlever Membre </a> 
+	#else
+        Membre  Enlever</a> 
+	#end
+        &nbsp;&nbsp;&nbsp;<a href=$link.setPage("call,Group_Mgmt,Addmembers.vm").addPathInfo("Status","Edit").addPathInfo("actmode","lead").addPathInfo("grpname",$Read.Name).addPathInfo("type",$Read.type)>
+	#if($lang=="english")
+	Select Leader</a> 
+	#else
+        Select Leader</a> 
+	#end
+	</td>
+	</tr> ## tr 4 end
+	#end
+	</table> ## table 5 end
+	#else
+	<align="left"><b><font color="blue"><i>Aucun groupe n'existe dans ce cours </i></font></b>
+	#end ## if end of mode
+	#end
+	#if($Status == "Edit")
+	#if($type=="usagegroup")
+	<tr><td>
+	##<br>&nbsp;&nbsp<b><font size=3>Éditer  $type $brih_Group</font></b><br><br>
+	#if($lang=="english")
+	<br>&nbsp;&nbsp<b><font size=3>Éditer  Utilisation  Groupe</font></b><br><br>
+	#else
+	<br>&nbsp;&nbsp<b><font size=3>Utilisation  Groupe de Éditer </font></b><br><br>
+	#end
+ 	<table  border="0" bgcolor="$ui.tableColor" width="100%" colspan=5>
+       	<tr>
+               													         		<td><b>
+                            	<font color=red>*</font>   
+					Nom de Groupe:</b>
+                        		</td>
+					<td><input type="text"  size="30" name="groupname"  value="$grpname"/></td>
+                		</tr>                                                                                                                                       <tr>
+				<td><b> Groupe de Description:</b></td>
+                        	<td width="3"><textarea id="ta" name="groupdesc" rows=10 cols=80 >$!groupdesc</textarea></td>
+                		</tr>                                                                                                                                       </table>
+			</td></tr>
+		#end
+		#if($type == "Multiplegroup" || $type == "signupgroup" )
+        	<tr><td>
+        		#if($type == "Multiplegroup")
+				#if($lang=="english")
+        			<br><b>&nbsp;&nbsp;Éditer  Multiple  Groupe :</b><br>
+				#else
+        			<br><b>&nbsp;&nbsp;Multiple  Groupe de Éditer  :</b><br>
+				#end
+        		#else
+				#if($lang=="english")
+        			<br><b>&nbsp;&nbsp;Éditer  Groupe avec la forme de signe-vers le haut  :</b><br>
+				#else
+        			<br><b>&nbsp;&nbsp;Groupe de avec la forme de signe-vers le haut  Éditer  :</b><br>
+				#end
+        		#end
+        		&nbsp;&nbsp;Tous les noms de groupe commenceront par le même mot, suivi de nombre unique. <br>
+        		&nbsp;&nbsp;par exemple, si vous entrez dans le graphique de mot, le nom de groupe de défaut sera Graphic1, Graphic2, etc. <br><br>
+                	<table  border="0" bgcolor="$ui.tableColor" width="100%" colspan=5>
+                	#if($type =="Multiplegroup")
+                		<tr>
+                		<input type="radio"  name="groupmode" value="Mgroup"onClick="this.form.studentno.disabled=true;this.form.studentno.focus();" />
+                		Créer les groupes vides,  ajouter les membres plus tard <br><br>
+                		<input type="radio" checked="true" name="groupmode" value="MRgroup"onClick="this.form.studentno.disabled=false;this.form.studentno.focus();" />
+                		Créer les groupes vides,  distribuer aléatoirement 
+                		</tr>
+                	#end
+                	<tr>
+                        	<td><b>
+                                <font color=red>*</font>
+				#if($lang=="english")
+				Nom de Groupe:</b>
+				#else
+                                Groupe de Nom:</b>
+				#end
+                        	</td>
+                        	<td>
+                                <input type="text"  size="30" name="groupname"  value="$grpname"/>
+                        	</td>
+                	</tr>
+                	<tr>
+                        	<td>
+                                	&nbsp;<b>Défaut  Description :</b>
+                        	</td>
+                        	<td><textarea id="ta" name=groupdesc  rows=10 cols=90 >$!groupdesc</textarea></td>
+                	</tr>
+                	<tr>
+                        	<td><b>
+                        	<font color=red>*</font>
+				#if($lang=="english")
+				Nombre de  Groupe :</b>
+				#else
+				Groupe de Nombre de :</b>
+				#end
+                        	</td>
+				<td><input type="text" size="20" name="groupno" value="" onClick="disabled=true;"/></td>
+                	</tr>
+                	<tr>
+                        	<td><b>
+                        	<font color=red>*</font>
+				#if($lang=="english")
+                        	Nombre de  Étudiants  par groupe  Groupe :</b>
+				#else
+                        	par groupe  Groupe dans Étudiant  de Nombre de  :</b>
+				#end
+                        	</td>
+                        	<td><input type="text" size="20" name="studentno" value="$studentno" onClick="disabled=true;" /></td>
+                	</tr>
+                	</table>
+        	</tr></td>
+        	#end
+        	<br><br>
+        	## end of multiple group
+		<tr bgcolor="$ui.tableColor"><td align="left"> ## td 5 start
+		#if($lang=="english")
+		<input type="button" name="eventSubmit_doupdategroup" value="Mise à jour  Groupe" onClick="checkfield(document.frm,this);"/>
+		#else
+		<input type="button" name="eventSubmit_doupdategroup" value="Groupe Mise à jour " onClick="checkfield(document.frm,this);"/>
+		#end
+		<input type="submit" name="eventSubmit_doCancel" value="Annuler" />
+		</td></tr> ## td 5 end
+	#end
+	</td></tr> ## td tr 2 end
+	<input type="hidden" name="actionName" >
+	<input type="hidden" name="Status" value="$Status">
+	<input type="hidden" name="grpname" value="$grpname">
+	<input type="hidden" name="type" value="$type">
+	<input type="hidden" name="studentno" value="$studentno">
+	<input type="hidden" name="actmode" value="$actmode">
+##----------------------------------------------------------------------------------------------------------------------------
+	#if($Status != "Edit" && $Mode == "NoBlank")
+        <tr>
+	        <td align="center" bgcolor="$ui.menuColor">
+        		#if($total_size <= $userConf)
+                        <u><font color="white">D'abord </font></u> &nbsp;
+                        <u><font color="white">Précédent </font></u> &nbsp;
+                        <u><font color="white">Après </font></u> &nbsp;
+                        <u><font color="white">Dernier</font></u> &nbsp;
+                        #elseif($startIndex == $userConf_string)
+                        <u><font color="white">D'abord </font></u> &nbsp;
+                        <u><font color="white">Précédent </font></u> &nbsp;
+                        <a href="$link.setPage("call,Group_Mgmt,Editgroup.vm").addPathInfo("startIndex",$startIndex).addPathInfo("count",$tdcolor)">Après </a> &nbsp;
+                        <a href="$link.setPage("call,Group_Mgmt,Editgroup.vm").addPathInfo("startIndex",$check_last).addPathInfo("count",$tdcolor)">Dernier</a> &nbsp;
+                        #elseif($endIndex == $total_size || $endIndex > $total_size)
+                        <a href="$link.setPage("call,Group_Mgmt,Editgroup.vm").addPathInfo("startIndex",$check_first).addPathInfo("count",$tdcolor)">D'abord </a>&nbsp;
+                        <a href="$link.setPage("call,Group_Mgmt,Editgroup.vm").addPathInfo("startIndex",$check_pre).addOathInfo("count",$tdcolor)">Précédent </a> &nbsp;
+                        <u><font color="white">Après </font></u> &nbsp;
+                        <u><font color="white">Dernier</font></u> &nbsp;
+                        #else
+                        <a href="$link.setPage("call,Group_Mgmt,Editgroup.vm").addPathInfo("startIndex",$check_first).addPathInfo("count",$tdcolor)">D'abord </a>&nbsp;
+                        <a href="$link.setPage("call,Group_Mgmt,Editgroup.vm").addPathInfo("startIndex",$check_pre).addPathInfo("count",$tdcolor)">Précédent </a> &nbsp;
+                        <a href="$link.setPage("call,Group_Mgmt,Editgroup.vm").addPathInfo("startIndex",$startIndex).addPathInfo("end",$endIndex).addPathInfo("count",$tdcolor)">Après </a> &nbsp;
+                        <a href="$link.setPage("call,Group_Mgmt,Editgroup.vm").addPathInfo("startIndex",$check_last).addPathInfo("count",$tdcolor)">Dernier</a> &nbsp;
+                        #end
+            	</td>
+    	</tr>
+	#end
+##-------------------------------------------------------------------------------------------------------------------------------
+
+	
+</form>
+</table> ## end of table 3
+</body>
+<SCRIPT LANGUAGE="javascript">
+	function checkfield(frm,field)
+        {
+		editor.setMode("textmode");
+		if(frm.groupname.value!="")
+                {
+                                frm.actionName.value=field.name;
+                                frm.submit();
+                }
+                else
+                {
+                        alert("Please fill the Mandatory(*) Fields and Click this [<>] button!!");
+                }
+		editor.setMode("wysiwyg");
+
+        }
+	function popupWin(url,popupName)
+        {
+                Win1=window.open(url,popupName,"resizable=0,scrollbars=1,height=400,width=400,align=left");
+        }
+</script>

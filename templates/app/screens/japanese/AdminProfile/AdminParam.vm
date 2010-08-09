@@ -1,0 +1,151 @@
+#* * @(#)AdminParam.vm
+ * Copyright (c) 2005,2009 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * @author <a href="mailto:chitvesh@yahoo.com">Chitvesh Dutta</a>
+ * @author <a href="mailto:awadhk_t@yahoo.com">Awadhesh Kumar Trivedi</a>
+ * @author <a href="mailto:shaistashekh@hotmail.com">Shaista Bano</a>
+ * modified date: 17-10-2009
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+*#
+$page.setTitle("Admin Home | Change Parameters")
+
+$page.setBgColor($ui.bgcolor)
+$!data.getMessage()
+#set($lang=$data.getUser().getTemp("lang").toString())
+<table bgcolor="$ui.tableColor" width=100%>
+<tr bgcolor="$ui.menuColor">
+	<td colspan="2">
+	<font face="$ui.sansSerifFonts" size=3>
+	<b>
+     	<a href=$link.setPage("Index.vm")>Adminさん 家</a> | Adminさんのプロフィール
+	</td>
+</tr>
+<form name="frm" method="post" action="$link.setPage("call,AdminProfile,AdminParam.vm").setAction("changeAParam")">
+    ##<tr><td bgcolor="#AFDCEC"><font size=4>Adminさんのプロフィール</font></td></tr>
+    <tr><td><font size=4>Adminさんのプロフィール</font></td></tr>
+    <tr bgcolor="$ui.menuColor">
+      ##formCell("最初の 名前" "AFName" "$!afname")
+	<td width="30"> <font face="$ui.sansSerifFonts"> 最初の 名前 </font></td> 
+	<td width="50"> <font face="$ui.sansSerifFonts"> <input type="text" size="30" name="AFName" value="$!afname"> </font></td>
+    </tr>
+    <tr bgcolor="$ui.tableColor">
+      ##formCell("最後の 名前" "ALName" "$!alname")	
+	<td width="30"> <font face="$ui.sansSerifFonts"> 最後の 名前 </td>   
+	<td width="50"> <font face="$ui.sansSerifFonts"><input type="text" size="30" name="ALName" value="$!alname"> </font></td>
+    </tr>
+    <tr bgcolor="$ui.menuColor">
+      ##formCell("リストを設定します。値" "AdminConf" "$!AdminConf")	
+	<td width="30"> <font face="$ui.sansSerifFonts">リストを設定します。値 </font></td>
+        <td width="50"> <font face="$ui.sansSerifFonts"> <input type="text" size="30" name="AdminConf" value="$!AdminConf"> </font></td>
+    </tr>
+    <tr bgcolor="$ui.tableColor">
+      ##formCell("コース 満期の時間(幾日で)" "AdminCrsExp" "$!CrsExp")	
+	<td width="30"> <font face="$ui.sansSerifFonts"> コース 満期の時間(幾日で) </font></td>	
+        <td width="50"> <font face="$ui.sansSerifFonts"> <input type="text" size="30" name="AdminCrsExp" value="$!CrsExp"> </font></td>
+    </tr>
+    <tr bgcolor="$ui.menuColor">
+      ##formCell("Mail Server 名前" "mailServ" "$!mServer")	
+	<td width="30"> <font face="$ui.sansSerifFonts"> #if($lang != "english") メール サーバー の 名前 #else メール サーバー 名前 #end </font></td>
+        <td width="50"> <font face="$ui.sansSerifFonts"> <input type="text" size="30" name="mailServ" value="$!mServer"> </font></td>
+    </tr>
+    <tr bgcolor="$ui.tableColor">
+	<td width="30"> <font face="$ui.sansSerifFonts"> #if($lang != "english") メール サーバー の पोर्ट #else メール サーバー पोर्ट #end </font></td>
+        <td width="50"> <font face="$ui.sansSerifFonts"> <input type="text" size="30" name="mailServPort" value="$!mServerPort"> </font></td>
+    </tr>
+
+    <tr bgcolor="$ui.menuColor">
+      ##formCell("Mail From" "mailFrom" "$!mFrom")	
+	<td width="30"> <font face="$ui.sansSerifFonts"> メール 〜から </font></td>
+        <td width="50"> <font face="$ui.sansSerifFonts">  <input type="text" size="30" name="mailFrom" value="$!mFrom"> </font></td>
+    </tr>
+    <tr bgcolor="$ui.tableColor">
+      ##formCell("ローカル Domain 名前" "mailDomain" "$!dName")	
+	<td width="30"> <font face="$ui.sansSerifFonts"> #if($lang != "english") ローカル 領土 の 名前 #else  ローカル 領土 名前 #end </font></td>
+        <td width="50"> <font face="$ui.sansSerifFonts"> <input type="text" size="30" name="mailDomain" value="$!dName"> </font> </td>
+    </tr>
+    <tr bgcolor="$ui.menuColor">
+      ##formCell("Mail ユーザー 名前" "muName" "$!muname")	
+	<td width="30"> <font face="$ui.sansSerifFonts"> #if($lang !="english") メール के ユーザー の 名前 #else  メール ユーザー 名前 #end </font></td>
+        <td width="50"> <font face="$ui.sansSerifFonts"> <input type="text" size="30" name="muName" value="$!muname"> </font> </td>
+    </tr>
+    <tr bgcolor="$ui.tableColor">
+      ##formPasswordCell("Mail パスワード" "mPass" "$!mPassword")	
+	<td width="30"> <font face="$ui.sansSerifFonts"> #if($lang !="english") メール の パスワード #else メール パスワード #end</font></td>	
+        <td width="50"> <font face="$ui.sansSerifFonts"> <input type="password" size="30" name="mPass" value="$!mPassword"> </font></td>
+    </tr>
+    <tr bgcolor="$ui.menuColor">
+	<td width=30><font face="$ui.sansSerifFonts">コース स्पेस  (कोटा) (〜で एम बी)</td>	
+	<td width="50"><font face="$ui.sansSerifFonts"> <input type="text" size="30" name="cquota" value="$!cquota"></font></td>
+</tr>
+    <tr bgcolor="$ui.tableColor">
+	<td width=30><font face="$ui.sansSerifFonts">ユーザー स्पेस  (कोटा) (〜で एम बी)</td>	
+	<td width="50"><font face="$ui.sansSerifFonts"> <input type="text" size="30" name="uquota" value="$!uquota"></font></td>
+    </tr>
+    <tr bgcolor="$ui.menuColor">
+
+	<td width=30><font face="$ui.sansSerifFonts">家 डायरेक्टरी </td>	
+	<td width="50"><font face="$ui.sansSerifFonts"> <input type="text" size="30" name="hdir" value="$!hdir"></font></td>
+</tr>
+    <tr bgcolor="$ui.tableColor">
+      <td colspan=2 bgcolor="$ui.menuColor">	
+	  <input type="hidden" name="actionName">
+          <input type="button" name="eventSubmit_doUpdate" value="提出する" onClick="checkValues(document.frm,this);"/>
+	  <input type="reset" name="reset" value="リセット" onClick="checkClear(document.frm,this);"/>
+	  <input type="hidden" name="count" value="$tdcolor">
+      </td>
+    </tr>
+</form>
+</table>
+
+<SCRIPT LANGUAGE="javascript">
+function checkValues(frm,field)
+{
+	if((frm.AFName.value!="") && (frm.ALName.value!="") && (frm.AdminConf.value!=""))
+        {
+		if(frm.AdminConf.value>=1 && frm.AdminConf.value<=100)
+		{
+			if(isNumberString(frm.AdminCrsExp.value))
+                        {
+				if(isNumberString(frm.cquota.value))
+                        	{
+					if(isNumberString(frm.uquota.value))
+		                        {
+                		               	frm.actionName.value=field.name;
+                                		frm.submit();
+                        		}
+                        	}
+			}
+		}	
+		else
+		{
+			alert("List Config. Value should be between 1 to 100");
+		}
+	}
+        else
+        {
+		alert("None of the fields can be empty !!");
+	}
+}
+
+function checkClear(frm,field)
+{
+	frm.AFName.value="";
+        frm.ALName.value="";
+}
+function isNumberString(chString)
+{
+	if(chString.length==0)
+        return false;
+        var RefString="0123456789";
+        for(count=0;count<chString.length;count++)
+        {
+        	tempChar=chString.charAt(count);
+                	if(RefString.indexOf(tempChar)==-1)
+                        {
+                                alert("Value should be numeric")
+                                return false;
+                        }
+        }
+        return true;
+}
+</SCRIPT>

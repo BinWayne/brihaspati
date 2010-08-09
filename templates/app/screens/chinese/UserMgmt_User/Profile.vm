@@ -1,0 +1,104 @@
+ #*
+  * @(#)Profile.vm
+  * Copyright (c) 2006,2009 ETRG,IIT Kanpur.
+  * All Rights Reserved
+  * @author <a href="mailto:singhnk@iitk.ac.in ">Nagendra Kumar Singh</a>
+  * @author <a href="mailto:satyapal@iitk.ac.in ">Satyapal Singh</a>
+  * @author <a href="mailto:ynsingh@iitk.ac.in ">Yatindra Nath Singh</a>
+  * @author <a href="mailto:shaistashekh@hotmail.com">Shaista Bano</a>
+  * Contributors: Members of ETRG, I.I.T. Kanpur
+  *#
+
+$page.setTitle("Change Profile")
+$page.setBgColor($ui.bgcolor)
+
+<table bgcolor="$ui.menuColor" width=100%>
+<tr>
+<td><a href=$link.setPage("Index.vm")>家</a> | 外形</td>
+</tr></table>
+$!data.getMessage()
+
+#set($lang = $data.getUser().getTemp("lang" ).toString())
+<form name="frm" method="post" enctype="multipart/form-data" action="$link.setPage("Index.vm").setAction("ProfileUser")">
+        <table width=100% bgcolor="$ui.tableColor">
+	 <tr><td><b>简介Updation </b></td></tr>
+	 #foreach($ud in $udetl)
+	 <tr>
+           #formCell("首先 名字" "FName" "$!ud.getFirstName()")
+         </tr>
+	 <tr>
+           #formCell("最后的 名字" "LName" "$!ud.getLastName()")
+         </tr>
+         <tr>
+	   #formCell("电邮" "EMAIL" "$!ud.getEmail()")
+	 </tr>
+	   #end
+	 <tr>
+	   #fileUpload("照片" "PHOTO")
+	 </tr>
+	 <tr>
+	   #formCell("最大的学生没有在列表视图" "Conf" "$!conf")
+         </tr>
+	<tr>	
+	   <td>#if($lang=="hindi") 问题 精选 #else 精选 问题 #end</td>
+	    <td>
+		 <select name="que" size=1 onChange="clearAnswer(document.frm,this);"/>
+                 <option value=$!qid> #foreach($q in $qname) $q.getQuestionName() #end
+                 #foreach($questions in $question)
+                        <option value="$questions.getQuestionId()">$questions.getQuestionName()
+                 #end
+                 </option>
+              </select>
+            </td>
+                <tr>
+                #formCell("输入您的答案:" "ANSWER" "$!ans")
+                </tr>
+		<tr>
+                #formCell("任务配置（天）" "TaskConf" "$!TaskConf")
+                </tr>
+
+		<tr bgcolor="$ui.menuColor">
+                <td colspan=2>
+                 <input type="button" name="eventSubmit_doUpdate" value="提交" onClick="checkAnswer(document.frm,this);"/>                 
+		 <input type="reset"  value="重置"/>
+		 <input type="hidden" name="actionName"/>
+                </td>
+          </tr>
+     </table>
+</form>
+
+<SCRIPT LANGUAGE="javascript">
+        function checkAnswer(frm,field)
+        {
+                if((frm.Conf.value!="" )&&(frm.ANSWER.value!="")) 
+                {
+			if(frm.Conf.value > 100 || frm.Conf.value < 1 )
+                        {
+                                alert("Maximum  No. of Student in list view should be between 1 to 100 !!");
+                        }
+			else if (frm.TaskConf.value >7 || frm.TaskConf.value < 1)
+                        {
+                                alert(" Task Configuration  value should be between 1 to 7 !!");
+                        }
+                        else
+                        //if( (frm.Conf.value>=1 && frm.Conf.value<=100) && (frm.TaskConf.value>=1 && frm.TaskConf.value<=7))
+                        {
+                                frm.actionName.value=field.name;
+                                frm.submit();
+                        }
+                }
+                else
+		{
+			if(frm.ANSWER.value =="")
+			{
+	                        alert("The answer should not be null !!");
+			}
+			else if(frm.Conf.value =="" )	
+				 alert("Maximum  No. of Student in list view should not be null !!");
+                	else
+			{
+	                        alert("The task configuration value should not be null !!");
+			}
+		}
+        }
+</SCRIPT>

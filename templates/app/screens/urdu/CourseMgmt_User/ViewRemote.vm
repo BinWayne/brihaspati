@@ -1,0 +1,245 @@
+#*
+ * @(#)ViewRemote.vm
+ * Copyright (c) 2006, 2009 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+ * @author <a href="mailto:manav_cv@yahoo.co.in">Manvendra Baghel</a>
+ * @author <a href="mailto:shaistashekh@hotmail.com">Shaista</a>
+ * @modified date 27-04-2009
+*#
+
+$page.setTitle("Home | $course | Course Management | Remote Course |Remote Course View")
+
+<table bgcolor="$ui.tableColor" width=100%>
+        <tr align="right">
+		<td><font face="$ui.sansSerifFonts"><b>
+			<a href=$link.setPage("call,CourseMgmt_User,CourseManagement.vm")>نظامِ نصاب </a> | <a href=$link.setPage("call,CourseMgmt_User,Configuration.vm")> تشکڍلِ نصاب </a>| 
+ 		#if($status==0)
+			منزرِ خرڍدے گۓ  نصاب |
+ 		#else
+      			منزرِ بڍچدے گۓ  نصاب |
+ 		#end 
+			<a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")>$course</a> |
+                	<a href=$link.setPage("call,IndexHome.vm")>صفحہ</a> 
+        	</b></font></td>
+	</tr>
+</table>
+
+<table width=100%>
+        <tr>
+		<td>
+		<a href=javascript:popupWin("/brihaspati2/docs/RemoteCourses.html","newWin");>مدد </a>
+		<img src="$content.getURI("/images/Lefthand.gif")"> </td>
+		<td align="right">
+ 		#if($status==1)
+                        <a href=$link.setPage("call,CourseMgmt_User,ViewRemote.vm").addPathInfo("status","0")>  منزرِ خرڍدے گۓ  رموٹ نصاب </a>
+ 		#else
+                        <h4><a href=$link.setPage("call,CourseMgmt_User,ViewRemote.vm").addPathInfo("status","1")> منزرِ بڍچدے گۓ  رموٹ نصاب</a></h4>
+		#end
+                </td>
+	</tr>
+</table>
+<p align="center"><font size=3 color="red">$!data.getMessage()</font></p>
+<form name=frm method="post" enctype="multipart/form-data" action="$link.setPage("call,CourseMgmt_User,ViewRemote.vm").setAction("RemoteCoursesAction").addPathInfo("updatestartIndex",$startIndex)">
+
+<table width=100% border=0 align=center cellpadding=12 cellspacing=0>
+	#if($entrystatus !="blank")
+ 		<tr bgcolor="$ui.tableColor" >
+			<td colspan=2>
+    		        #if( $total_size!=0 )
+                        	#if( $endIndex < $total_size )
+                                	#if( $endIndex < $userConf )
+                                	[$k - $total_size] کل مد مڍں سے مد کى تعداد $total_size
+                                	#elseif($k == $j)
+                                	[$k - $total_size] کل مد مڍں سے مد کى تعداد $total_size
+                                	#else
+                                	[$k - $endIndex] کل مد مڍں سے مد کى تعداد $total_size
+                                	#end
+                        	#else
+                                [$k - $total_size] کل مد مڍں سے مد کى تعداد $total_size
+                        	#end
+                	#end
+        		</td>
+  			<td colspan=6 align=center >
+					<I> 
+					کے $brih_content 
+					رموٹ  نصاب 
+                                        	<font color=red > 
+						#if($status==0)
+                        	                 	خرڍدنے  
+						#else
+							بڍچنے
+						#end
+        	                                </font>
+					کے لۓ  
+					::<font color=blue>$course</font> 
+					</I>
+					</font>
+  			</td>
+ 		</tr>
+
+		###set($headings=["","کام ","نصاب آئڈى ","معلم کا نام","ادار٥  ائ پى پتہ","ادار٥  نام","ختم تاریخ"])
+		#set($headings=["ختم تاریخ","ادار٥  کا نام","ادار٥  کا ائ پى پتہ","معلم کا نام","نصاب کا آئڈى ","کام ",""])
+		<tr bgcolor="$ui.tableColor">
+			#foreach($heading in $headings)
+			<td align="center">
+			 	<b>$heading</b>
+			</td>
+			#end
+		</tr>
+		#foreach($e in $entry)
+			 #if($act=="INSERT")
+				#if($velocityCount==1)
+	  	<tr bgcolor="$ui.tableColor">
+				#else
+		<tr bgcolor="$ui.buttonBoxColor">
+				#end
+        		#elseif($serial == $e.getSrNo())
+	  	<tr bgcolor="$ui.tableColor">
+			#else
+		<tr bgcolor="$ui.buttonBoxColor">
+        		#end
+			<td align="Center">
+				 <script type="text/javascript">
+					 var str = "$!e.getExpiryDate()" 
+					 document.write(str.replace(/00:00:00.0/,"")) ;
+				 </script>
+			</td>
+			<td align="Center">
+					$!e.getInstituteName()
+			</td>
+			<td align="Center">
+					$!e.getInstituteIp()
+			</td>
+			<td align="Center">
+				#if($status==0) ##opposite should come
+					$!e.getCourseSeller()
+				#else
+					$!e.getCoursePurchaser()
+				#end
+			</td>
+			<td align="Center">
+					$!e.getRemoteCourseId()
+			</td>
+
+			<td align="Center">
+
+				#if($status==0)
+				<a href=$link.setPage("call,CourseMgmt_User,ViewRemote.vm").setAction("RemoteCoursesAction").addPathInfo("cid",$e.getRemoteCourseId()).addPathInfo("csell",$e.getCourseSeller()).addPathInfo("cpurch",$e.getCoursePurchaser()).addPathInfo("iip",$e.getInstituteIp()).addPathInfo("inm",$e.getInstituteName()).addPathInfo("sec_key",$e.getSecretKey()).addPathInfo("order","Purchase").addPathInfo("actionName","eventSubmit_doCheckregistration").addPathInfo("updatestartIndex",$startIndex).addPathInfo("serial",$e.getSrNo())> 
+                			<font face="$ui.sansSerifFonts" size=2>
+                			رموٹ رجسٹرڍشن جاچڍں  
+                			</font><br />
+				</a><a href=$link.setPage("call,CourseMgmt_User,ViewRemote.vm").setAction("RemoteCoursesAction").addPathInfo("cid",$e.getRemoteCourseId()).addPathInfo("csell",$e.getCourseSeller()).addPathInfo("cpurch",$e.getCoursePurchaser()).addPathInfo("iip",$e.getInstituteIp()).addPathInfo("inm",$e.getInstituteName()).addPathInfo("sec_key",$e.getSecretKey()).addPathInfo("order","Purchase").addPathInfo("actionName","eventSubmit_doGet").addPathInfo("updatestartIndex",$startIndex).addPathInfo("serial",$e.getSrNo())> 
+                			<font face="$ui.sansSerifFonts" size=2>
+                			نصاب کی  $brih_content حاصل کرڍں
+                			</font>
+				</a><br />
+                                #else 
+				<a href=$link.setPage("call,CourseMgmt_User,ViewRemote.vm").setAction("RemoteCoursesAction").addPathInfo("cid",$e.getRemoteCourseId()).addPathInfo("csell",$e.getCourseSeller()).addPathInfo("cpurch",$e.getCoursePurchaser()).addPathInfo("iip",$e.getInstituteIp()).addPathInfo("inm",$e.getInstituteName()).addPathInfo("sec_key",$e.getSecretKey()).addPathInfo("order","Sell").addPathInfo("actionName","eventSubmit_doCheckregistration").addPathInfo("updatestartIndex",$startIndex).addPathInfo("serial",$e.getSrNo())> 
+                			<font face="$ui.sansSerifFonts" size=2>
+                			رموٹ رجسٹرڍشن جاچڍں  
+                			</font>
+				</a><br />
+                                #end
+				<a href=$link.setPage("call,CourseMgmt_User,Configuration.vm").addPathInfo("serial",$e.getSrNo()).addPathInfo("updatestartIndex",$startIndex)> 
+                			<font face="$ui.sansSerifFonts" size=2>
+                			نصاب تکمڍل 
+                			</font>
+				</a>
+			</td>
+ 	       		<td align="Center">
+				<INPUT TYPE="CHECKBOX" NAME="$e.getSrNo()" VALUE ="$e.getSrNo()"  onClick="addDeleteList(this,document.frm);">
+			</td>
+		</tr>
+
+      		#end ## foreach ends
+      
+      		<tr bgcolor="$ui.tableColor" align="right">
+     			
+			<td colspan=1 align="Center" >
+				<INPUT TYPE="button" NAME="eventSubmit_doDelete" VALUE="خارج" onClick="checkValue(document.frm,this);">
+                		<INPUT TYPE="hidden" NAME="status" VALUE="$status">
+                		<INPUT TYPE="hidden" NAME="deleteFileNames" VALUE="">
+	     			<INPUT TYPE="hidden" NAME="actionName">
+				<INPUT TYPE="hidden" name="DB_subject" value="">
+			</td>
+			<td colspan=6 align=center>
+		        #if($total_size <= $userConf)
+		        <u><font color="white">پہلا</font></u> &nbsp;
+		        <u><font color="white">پچھلا</font></u> &nbsp;
+ 		        <u><font color="white">اگلا</font></u> &nbsp;
+		        <u><font color="white">آخری</font></u> &nbsp;
+
+		        #elseif($startIndex == $userConf_string)
+ 		        <u><font color="white">پہلا</font></u> &nbsp;
+		        <u><font color="white">پچھلا</font></u> &nbsp;
+ 		        <a href="$link.setPage("call,CourseMgmt_User,ViewRemote.vm").addPathInfo("startIndex",$startIndex)">اگلا</a> &nbsp;
+		        <a href="$link.setPage("call,CourseMgmt_User,ViewRemote.vm").addPathInfo("startIndex",$check_last)">آخری</a> &nbsp;
+
+		        #elseif($endIndex == $total_size || $endIndex > $total_size)
+		        <a href="$link.setPage("call,CourseMgmt_User,ViewRemote.vm").addPathInfo("startIndex",$check_first)">پہلا</a> &nbsp;
+		        <a href="$link.setPage("call,CourseMgmt_User,ViewRemote.vm").addPathInfo("startIndex",$check_pre)">پچھلا</a> &nbsp;
+  		        <u><font color="white">اگلا</font></u> &nbsp;
+		        <u><font color="white">آخری</font></u> &nbsp;
+
+		        #else
+ 		       <a href="$link.setPage("call,CourseMgmt_User,ViewRemote.vm").addPathInfo("startIndex",$check_first)">پہلا</a> &nbsp;
+		        <a href="$link.setPage("call,CourseMgmt_User,ViewRemote.vm").addPathInfo("startIndex",$check_pre)">پچھلا</a> &nbsp;
+		        <a href="$link.setPage("call,CourseMgmt_User,ViewRemote.vm").addPathInfo("startIndex",$startIndex).addPathInfo("end",$endIndex)">اگلا</a> &nbsp;
+		        <a href="$link.setPage("call,CourseMgmt_User,ViewRemote.vm").addPathInfo("startIndex",$check_last)">آخری</a> &nbsp;
+   			 #end
+			</td>
+
+		</tr>
+      #else
+	<tr><td align="center"><font color="blue" size="3">ٹڍبل مڍں کئ ادد نہڍں ہے ۔</font></td></tr>
+		
+      #end  ## if ends
+</table>
+</form>
+<SCRIPT language="JavaScript">
+        function popupWin(url,popupName)
+        {
+                Win1=window.open(url,popupName,"resizable=0,scrollbars=1,height=400,width=400");
+        }
+</SCRIPT>
+
+
+<SCRIPT LANGUAGE="javascript">
+
+function checkValue(frm,field)
+{
+	if(frm.deleteFileNames.value!="")
+		{
+			
+			frm.actionName.value=field.name;
+				frm.submit();
+		 }
+	else
+		{
+			alert("Please select checkbox for deletion !!");
+		}
+}
+
+function addDeleteList(field,frm)
+	{
+        	if(field.checked)
+		{
+			
+	        	frm.deleteFileNames.value=frm.deleteFileNames.value+field.name+"^";
+	        	frm.DB_subject.value=frm.DB_subject.value+field.value+"@@@@";
+	         }
+	         else
+		     {
+		        var rmFile,index,actualString,preString,postString;
+		        actualString=frm.deleteFileNames.value;
+		        index=actualString.indexOf(field.name+"^",0);
+		        preString=actualString.substring(0,index);
+		        postString=actualString.substring(index+field.name.length+1);
+		        actualString=preString+postString;
+		        frm.deleteFileNames.value=actualString;
+		     }
+	}
+
+	
+/SCRIPT>																				    

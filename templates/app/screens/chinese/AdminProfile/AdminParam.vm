@@ -1,0 +1,151 @@
+#* * @(#)AdminParam.vm
+ * Copyright (c) 2005,2009 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * @author <a href="mailto:chitvesh@yahoo.com">Chitvesh Dutta</a>
+ * @author <a href="mailto:awadhk_t@yahoo.com">Awadhesh Kumar Trivedi</a>
+ * @author <a href="mailto:shaistashekh@hotmail.com">Shaista Bano</a>
+ * modified date: 17-10-2009
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+*#
+$page.setTitle("Admin Home | Change Parameters")
+
+$page.setBgColor($ui.bgcolor)
+$!data.getMessage()
+#set($lang=$data.getUser().getTemp("lang").toString())
+<table bgcolor="$ui.tableColor" width=100%>
+<tr bgcolor="$ui.menuColor">
+	<td colspan="2">
+	<font face="$ui.sansSerifFonts" size=3>
+	<b>
+     	<a href=$link.setPage("Index.vm")>Admin's 家</a> | Admin的个人档案
+	</td>
+</tr>
+<form name="frm" method="post" action="$link.setPage("call,AdminProfile,AdminParam.vm").setAction("changeAParam")">
+    ##<tr><td bgcolor="#AFDCEC"><font size=4>Admin的个人档案</font></td></tr>
+    <tr><td><font size=4>Admin的个人档案</font></td></tr>
+    <tr bgcolor="$ui.menuColor">
+      ##formCell("首先 名字" "AFName" "$!afname")
+	<td width="30"> <font face="$ui.sansSerifFonts"> 首先 名字 </font></td> 
+	<td width="50"> <font face="$ui.sansSerifFonts"> <input type="text" size="30" name="AFName" value="$!afname"> </font></td>
+    </tr>
+    <tr bgcolor="$ui.tableColor">
+      ##formCell("最后的 名字" "ALName" "$!alname")	
+	<td width="30"> <font face="$ui.sansSerifFonts"> 最后的 名字 </td>   
+	<td width="50"> <font face="$ui.sansSerifFonts"><input type="text" size="30" name="ALName" value="$!alname"> </font></td>
+    </tr>
+    <tr bgcolor="$ui.menuColor">
+      ##formCell("列表配置。价值" "AdminConf" "$!AdminConf")	
+	<td width="30"> <font face="$ui.sansSerifFonts">列表配置。价值 </font></td>
+        <td width="50"> <font face="$ui.sansSerifFonts"> <input type="text" size="30" name="AdminConf" value="$!AdminConf"> </font></td>
+    </tr>
+    <tr bgcolor="$ui.tableColor">
+      ##formCell("课程 到期时间（天）" "AdminCrsExp" "$!CrsExp")	
+	<td width="30"> <font face="$ui.sansSerifFonts"> 课程 到期时间（天） </font></td>	
+        <td width="50"> <font face="$ui.sansSerifFonts"> <input type="text" size="30" name="AdminCrsExp" value="$!CrsExp"> </font></td>
+    </tr>
+    <tr bgcolor="$ui.menuColor">
+      ##formCell("Mail Server 名字" "mailServ" "$!mServer")	
+	<td width="30"> <font face="$ui.sansSerifFonts"> #if($lang != "english") Mail 服务器 的 名字 #else Mail 服务器 名字 #end </font></td>
+        <td width="50"> <font face="$ui.sansSerifFonts"> <input type="text" size="30" name="mailServ" value="$!mServer"> </font></td>
+    </tr>
+    <tr bgcolor="$ui.tableColor">
+	<td width="30"> <font face="$ui.sansSerifFonts"> #if($lang != "english") Mail 服务器 的 پورٹ #else Mail 服务器 پورٹ #end </font></td>
+        <td width="50"> <font face="$ui.sansSerifFonts"> <input type="text" size="30" name="mailServPort" value="$!mServerPort"> </font></td>
+    </tr>
+
+    <tr bgcolor="$ui.menuColor">
+      ##formCell("Mail From" "mailFrom" "$!mFrom")	
+	<td width="30"> <font face="$ui.sansSerifFonts"> Mail 自 </font></td>
+        <td width="50"> <font face="$ui.sansSerifFonts">  <input type="text" size="30" name="mailFrom" value="$!mFrom"> </font></td>
+    </tr>
+    <tr bgcolor="$ui.tableColor">
+      ##formCell("本地 Domain 名字" "mailDomain" "$!dName")	
+	<td width="30"> <font face="$ui.sansSerifFonts"> #if($lang != "english") 本地 领土 的 名字 #else  本地 领土 名字 #end </font></td>
+        <td width="50"> <font face="$ui.sansSerifFonts"> <input type="text" size="30" name="mailDomain" value="$!dName"> </font> </td>
+    </tr>
+    <tr bgcolor="$ui.menuColor">
+      ##formCell("Mail 用户 名字" "muName" "$!muname")	
+	<td width="30"> <font face="$ui.sansSerifFonts"> #if($lang !="english") Mail کے 用户 的 名字 #else  Mail 用户 名字 #end </font></td>
+        <td width="50"> <font face="$ui.sansSerifFonts"> <input type="text" size="30" name="muName" value="$!muname"> </font> </td>
+    </tr>
+    <tr bgcolor="$ui.tableColor">
+      ##formPasswordCell("Mail 密码" "mPass" "$!mPassword")	
+	<td width="30"> <font face="$ui.sansSerifFonts"> #if($lang !="english") Mail 的 密码 #else Mail 密码 #end</font></td>	
+        <td width="50"> <font face="$ui.sansSerifFonts"> <input type="password" size="30" name="mPass" value="$!mPassword"> </font></td>
+    </tr>
+    <tr bgcolor="$ui.menuColor">
+	<td width=30><font face="$ui.sansSerifFonts">课程 Quota (在  MB)</td>	
+	<td width="50"><font face="$ui.sansSerifFonts"> <input type="text" size="30" name="cquota" value="$!cquota"></font></td>
+</tr>
+    <tr bgcolor="$ui.tableColor">
+	<td width=30><font face="$ui.sansSerifFonts">用户 Quota (在  MB)</td>	
+	<td width="50"><font face="$ui.sansSerifFonts"> <input type="text" size="30" name="uquota" value="$!uquota"></font></td>
+    </tr>
+    <tr bgcolor="$ui.menuColor">
+
+	<td width=30><font face="$ui.sansSerifFonts">家 Directory </td>	
+	<td width="50"><font face="$ui.sansSerifFonts"> <input type="text" size="30" name="hdir" value="$!hdir"></font></td>
+</tr>
+    <tr bgcolor="$ui.tableColor">
+      <td colspan=2 bgcolor="$ui.menuColor">	
+	  <input type="hidden" name="actionName">
+          <input type="button" name="eventSubmit_doUpdate" value="提交" onClick="checkValues(document.frm,this);"/>
+	  <input type="reset" name="reset" value="重置" onClick="checkClear(document.frm,this);"/>
+	  <input type="hidden" name="count" value="$tdcolor">
+      </td>
+    </tr>
+</form>
+</table>
+
+<SCRIPT LANGUAGE="javascript">
+function checkValues(frm,field)
+{
+	if((frm.AFName.value!="") && (frm.ALName.value!="") && (frm.AdminConf.value!=""))
+        {
+		if(frm.AdminConf.value>=1 && frm.AdminConf.value<=100)
+		{
+			if(isNumberString(frm.AdminCrsExp.value))
+                        {
+				if(isNumberString(frm.cquota.value))
+                        	{
+					if(isNumberString(frm.uquota.value))
+		                        {
+                		               	frm.actionName.value=field.name;
+                                		frm.submit();
+                        		}
+                        	}
+			}
+		}	
+		else
+		{
+			alert("List Config. Value should be between 1 to 100");
+		}
+	}
+        else
+        {
+		alert("None of the fields can be empty !!");
+	}
+}
+
+function checkClear(frm,field)
+{
+	frm.AFName.value="";
+        frm.ALName.value="";
+}
+function isNumberString(chString)
+{
+	if(chString.length==0)
+        return false;
+        var RefString="0123456789";
+        for(count=0;count<chString.length;count++)
+        {
+        	tempChar=chString.charAt(count);
+                	if(RefString.indexOf(tempChar)==-1)
+                        {
+                                alert("Value should be numeric")
+                                return false;
+                        }
+        }
+        return true;
+}
+</SCRIPT>

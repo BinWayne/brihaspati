@@ -1,0 +1,48 @@
+#*
+ * @(#) Question_bank.vm
+ * Copyright(c)2004-2006 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * @author <a href="mailto:tarankhan1@yahoo.com">Tarannum Khan</a>
+ * @author <a href="mailto:manju_14feb@yahoo.com">Mithelesh Parihar</a>
+ * @author <a href="mailto:awadhesh_trivedi@yahoo.co.in">Awadhesh Kumar Trivedi</a> 
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+*#
+ 
+$page.setTitle("Login | Index | Question Bank")
+$page.setBgColor("$ui.bgcolor")
+
+<table bgcolor="$ui.tableColor" width=100%>
+<td align="right">
+        <font face="$ui.sansSerifFonts"><b>
+ 	نظامِ سوال
+        | <a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")>$course</a> 
+        | <a href=$link.setPage("call,IndexHome.vm")>صفحہ</a> 
+        </font>
+</td>
+</table>
+<br>
+<table bgcolor="$ui.tableColor" width=100% align=center>
+<tr>
+<td align=center>
+<marquee scrollamount="3" direction="left" loop="0" width="100%" behaviour="slide">
+   <font size=4><b>سوال مجموعہ ڍا زخيرے  مڍں  خوشامدڍد</b></font>
+</marquee>
+</td>
+</tr>
+</table>
+$!data.getMessage()
+
+<br>
+<table width="60%" align="center" bgcolor="$ui.menuColor">
+                <tr><td align="center">
+                <b><a href=$link.setPage("call,Question_Bank,Create_Bank_Repository.vm")> سوال زخيرے کا مجموعہ ڍا زخيرے کا تخلڍق </a>
+                </td></tr>
+                <tr><td align="center">
+                <b><a href=$link.setPage("call,Question_Bank,RepositoryList.vm")> نظامِ سوال مڍں   منزرِ کل عنوان  </a>
+	
+                <tr><td align="center">
+                <b><a href=$link.setPage("call,Question_Bank,UploadQuestions.vm")></a> سوال داخل کرڍں  
+                </td></tr>
+</td>
+</tr>
+</table>

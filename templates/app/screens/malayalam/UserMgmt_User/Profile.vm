@@ -1,0 +1,104 @@
+ #*
+  * @(#)Profile.vm
+  * Copyright (c) 2006,2009 ETRG,IIT Kanpur.
+  * All Rights Reserved
+  * @author <a href="mailto:singhnk@iitk.ac.in ">Nagendra Kumar Singh</a>
+  * @author <a href="mailto:satyapal@iitk.ac.in ">Satyapal Singh</a>
+  * @author <a href="mailto:ynsingh@iitk.ac.in ">Yatindra Nath Singh</a>
+  * @author <a href="mailto:shaistashekh@hotmail.com">Shaista Bano</a>
+  * Contributors: Members of ETRG, I.I.T. Kanpur
+  *#
+
+$page.setTitle("Change Profile")
+$page.setBgColor($ui.bgcolor)
+
+<table bgcolor="$ui.menuColor" width=100%>
+<tr>
+<td><a href=$link.setPage("Index.vm")>പൂമുഖം</a> | പ്രൊഫൈല്‍</td>
+</tr></table>
+$!data.getMessage()
+
+#set($lang = $data.getUser().getTemp("lang" ).toString())
+<form name="frm" method="post" enctype="multipart/form-data" action="$link.setPage("Index.vm").setAction("ProfileUser")">
+        <table width=100% bgcolor="$ui.tableColor">
+	 <tr><td><b>പ്രൊഫൈല്‍ പരിഷ്കരണം </b></td></tr>
+	 #foreach($ud in $udetl)
+	 <tr>
+           #formCell("ആദ്യത്തെ പേര്" "FName" "$!ud.getFirstName()")
+         </tr>
+	 <tr>
+           #formCell("അവസാന  പേര്" "LName" "$!ud.getLastName()")
+         </tr>
+         <tr>
+	   #formCell("ഇമെയില്‍" "EMAIL" "$!ud.getEmail()")
+	 </tr>
+	   #end
+	 <tr>
+	   #fileUpload("ഫോട്ടോ" "PHOTO")
+	 </tr>
+	 <tr>
+	   #formCell("പട്ടികയില്‍ കാണുന്ന പരമാവധി വിദ്യാര്‍ത്ഥികളുടെ എണ്ണം (ദിവസങ്ങളുടെ പരിധി 1-100)" "Conf" "$!conf")
+         </tr>
+	<tr>	
+	   <td>#if($lang=="hindi") ചോദ്യം തിരഞ്ഞെടുക്കുക #else തിരഞ്ഞെടുക്കുക ചോദ്യം #end</td>
+	    <td>
+		 <select name="que" size=1 onChange="clearAnswer(document.frm,this);"/>
+                 <option value=$!qid> #foreach($q in $qname) $q.getQuestionName() #end
+                 #foreach($questions in $question)
+                        <option value="$questions.getQuestionId()">$questions.getQuestionName()
+                 #end
+                 </option>
+              </select>
+            </td>
+                <tr>
+                #formCell("താങ്കളുടെ ഉത്തരം രേഖപ്പെടുത്തുക:" "ANSWER" "$!ans")
+                </tr>
+		<tr>
+                #formCell("പ്രവൃത്തി_ക്രമീകരണം(ദിവസത്തിന്‍റെ പരിധി 1-7)" "TaskConf" "$!TaskConf")
+                </tr>
+
+		<tr bgcolor="$ui.menuColor">
+                <td colspan=2>
+                 <input type="button" name="eventSubmit_doUpdate" value="സമര്‍പ്പിക്കുക" onClick="checkAnswer(document.frm,this);"/>                 
+		 <input type="reset"  value="പുനഃക്രമികരിക്കുക"/>
+		 <input type="hidden" name="actionName"/>
+                </td>
+          </tr>
+     </table>
+</form>
+
+<SCRIPT LANGUAGE="javascript">
+        function checkAnswer(frm,field)
+        {
+                if((frm.Conf.value!="" )&&(frm.ANSWER.value!="")) 
+                {
+			if(frm.Conf.value > 100 || frm.Conf.value < 1 )
+                        {
+                                alert("Maximum  No. of Student in list view should be between 1 to 100 !!");
+                        }
+			else if (frm.TaskConf.value >7 || frm.TaskConf.value < 1)
+                        {
+                                alert(" Task Configuration  value should be between 1 to 7 !!");
+                        }
+                        else
+                        //if( (frm.Conf.value>=1 && frm.Conf.value<=100) && (frm.TaskConf.value>=1 && frm.TaskConf.value<=7))
+                        {
+                                frm.actionName.value=field.name;
+                                frm.submit();
+                        }
+                }
+                else
+		{
+			if(frm.ANSWER.value =="")
+			{
+	                        alert("The answer should not be null !!");
+			}
+			else if(frm.Conf.value =="" )	
+				 alert("Maximum  No. of Student in list view should not be null !!");
+                	else
+			{
+	                        alert("The task configuration value should not be null !!");
+			}
+		}
+        }
+</SCRIPT>

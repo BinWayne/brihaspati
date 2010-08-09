@@ -1,0 +1,10 @@
+2010-08-09 17:06:47,841 [main] INFO  org.apache.stratum.component.ComponentLoader - loading component: name=torque class=org.apache.torque.Torque config=/home/aniket/brihaspati/tdk-2.3_01/webapps/brihaspati2/WEB-INF/conf/Torque.properties
+2010-08-09 17:07:06,986 [HttpProcessor[8080][4]] DEBUG org.iitk.brihaspati.modules.actions.myLogin - ActionEvent accepts all eventSubmit_do Keys
+2010-08-09 17:07:07,123 [HttpProcessor[8080][4]] INFO  org.iitk.brihaspati.modules.actions.myLogin - this message would go to any facility configured to use the org.iitk.brihaspati.modules.actions.myLogin Facility
+2010-08-09 17:07:07,551 [HttpProcessor[8080][4]] DEBUG org.iitk.brihaspati.modules.actions.Groupmanagement - ActionEvent accepts all eventSubmit_do Keys
+2010-08-09 17:08:13,542 [HttpProcessor[8080][4]] DEBUG org.iitk.brihaspati.modules.actions.UploadTimetable - ActionEvent accepts all eventSubmit_do Keys
+2010-08-09 17:08:13,542 [HttpProcessor[8080][4]] DEBUG org.iitk.brihaspati.modules.actions.UploadTimetable - No Value required, accepting eventsubmit_doupload
+2010-08-09 17:08:13,574 [HttpProcessor[8080][4]] DEBUG org.iitk.brihaspati.modules.actions.UploadTimetable - Invoking public void org.iitk.brihaspati.modules.actions.UploadTimetable.doUpload(org.apache.turbine.util.RunData,org.apache.velocity.context.Context) throws java.lang.Exception
+2010-08-09 17:08:28,694 [HttpProcessor[8080][4]] DEBUG org.iitk.brihaspati.modules.actions.GenerateTimeTable - ActionEvent accepts all eventSubmit_do Keys
+2010-08-09 17:08:28,895 [HttpProcessor[8080][4]] DEBUG org.iitk.brihaspati.modules.actions.GenerateTimeTable - No Value required, accepting eventsubmit_dogenerate
+2010-08-09 17:08:28,895 [HttpProcessor[8080][4]] DEBUG org.iitk.brihaspati.modules.actions.GenerateTimeTable - Invoking public void org.iitk.brihaspati.modules.actions.GenerateTimeTable.doGenerate(org.apache.turbine.util.RunData,org.apache.velocity.context.Context)

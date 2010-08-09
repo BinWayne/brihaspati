@@ -1,0 +1,347 @@
+2010-08-08 16:46:32,038 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,038 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,039 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,039 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,039 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,039 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,039 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,039 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,039 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,039 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,040 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,040 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,040 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,040 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,040 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,040 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,040 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,040 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,040 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,040 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,040 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,041 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,041 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,041 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,041 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,041 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,041 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,041 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,041 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,041 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,041 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,041 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,041 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,041 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,041 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,041 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,041 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,042 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,042 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,042 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,042 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,042 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,042 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,042 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,042 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,042 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,043 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,043 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,043 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,043 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,043 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,043 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,043 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,043 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,044 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,044 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,044 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,044 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,044 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,044 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,044 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,044 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,044 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,044 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,044 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,044 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,045 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,045 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,045 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,045 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,045 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,045 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,045 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,045 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,045 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,045 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,046 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,046 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,046 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,046 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,046 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,046 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,046 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,047 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,047 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,047 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,047 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,048 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,048 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,048 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,048 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,048 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,048 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,048 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,048 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,049 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,049 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,049 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,049 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,049 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,049 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,049 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,049 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,049 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,050 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,050 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,050 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,050 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,050 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,050 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,050 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,050 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,050 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,050 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,050 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,051 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,051 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,051 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,051 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,051 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,051 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,051 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,051 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,051 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,052 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,052 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,052 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,052 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,052 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,052 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,052 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,052 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,052 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,052 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,053 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,053 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,053 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,053 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,053 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,053 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,053 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,053 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,053 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,053 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,054 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,054 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,054 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,054 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,054 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,054 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,054 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,054 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,054 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,054 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,055 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,055 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,055 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,055 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,055 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,055 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,055 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,055 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,056 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,056 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,056 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,056 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,056 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,056 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,056 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,057 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,057 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,057 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,057 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,057 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,057 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,058 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,058 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,058 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,058 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,058 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,058 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,058 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,059 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,059 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,059 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,059 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,059 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,059 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,059 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,059 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,059 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,060 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,060 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,060 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,060 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,060 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,060 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,060 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,060 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,061 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,061 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,061 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,061 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,061 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,061 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,061 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,061 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,062 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,062 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,062 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,062 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,062 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,062 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,062 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,062 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,063 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,063 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,063 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,063 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,063 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,063 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,063 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,063 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,063 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,063 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,063 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,064 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,064 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,064 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,064 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,064 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,064 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,064 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,064 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,065 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,065 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,065 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,065 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,065 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,065 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,065 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,065 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,066 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,066 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,066 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,066 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,066 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,066 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,066 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,067 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,068 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,068 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,068 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,068 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,068 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,068 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,068 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,069 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,069 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,069 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,069 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,069 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,069 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,069 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,069 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,069 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,070 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,070 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,070 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,070 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,070 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,070 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,070 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,070 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,070 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,071 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,071 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,071 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,071 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,071 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,071 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,071 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,071 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,071 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,072 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,072 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,072 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,072 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,072 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,072 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,072 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,072 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,072 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,073 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,073 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,073 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,073 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,073 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,073 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,073 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,073 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,073 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,073 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,073 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,074 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,074 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,074 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,074 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,074 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,074 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,074 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,074 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,075 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,075 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,075 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,075 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,075 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,075 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,075 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,075 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,076 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,076 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,076 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,076 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,076 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,076 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,076 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,076 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,076 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,076 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,076 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,077 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,077 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,077 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,078 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,078 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,078 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,078 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,078 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,078 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 9] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,078 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 5] : $Brihaspatilanguage is not a valid reference.
+2010-08-08 16:46:32,078 - org.apache.velocity.runtime.exception.ReferenceException: reference : template = Control.vm [line 1,column 27] : $data.getUser().getTemp is not a valid reference.
+2010-08-08 16:46:32,078 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,078 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,078 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,079 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-08 16:46:32,079 - ResourceManager : found HtmlTemplate.control with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader

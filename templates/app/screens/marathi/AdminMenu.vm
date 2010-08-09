@@ -1,0 +1,109 @@
+#*
+ * @(#) AdminMenu.vm
+ * Copyright (c) 2008-2010 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ *
+ * @author<a href="mailto:singh_jaivir@rediffmail.com">Jaivir Singh</a>
+ * @author<a href="mailto:sharad23nov@yahoo.com">Sharad Singh</a>
+ * @author<a href="mailto:shaistashekh@hotmail.com">Shaista</a>
+ * @modified date: 05-04-2010
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+ *#
+
+
+<table width="100%" bgcolor="$ui.MenuColor">
+#set($lang=$data.getUser().getTemp("lang").toString())
+<tr><td>
+#if($lang == "hindi") 
+	प्रशासकाचे ची പട്ടിക
+#else	
+	प्रशासकाचे പട്ടിക
+#end
+</td></ir>
+</table>
+<table width=100% bgcolor="$ui.tableColor">
+<tr bgcolor="$ui.MenuColor">
+        <td>
+                <a href=$link.setPage("call,Root_Admin,InstituteList.vm").addPathInfo("mode","pendinglist").addPathInfo("count","1") style=text-decoration:none>विद्यालय व्यवस्था</a>
+        </td>
+        </tr>
+#*   <tr>
+      <td>
+         <a href=$link.setPage("call,UserMgmt_Admin,RegisterationManagement.vm").addPathInfo("count","1") style=text-decoration:none>नोंद   करा</a>
+                ##<img src="$content.getURI("/images/$lang/registration.jpg")"border=0></a><br>
+      </td>
+   </tr>
+   <tr bgcolor="$ui.menuColor">
+      <td>
+         <a href=$link.setPage("call,UserMgmt_Admin,UserManagement_Admin.vm").addPathInfo("count","1") style=text-decoration:none>उपभोगता व्यवस्था</a>
+                ##<img src="$content.getURI("/images/$lang/usermanagement.jpg")"border=0></a><br>
+      </td>
+   </tr>*#
+   <tr>
+      <td>
+         <a href=$link.setPage("call,ListMgmt_Admin,List_Mgmt.vm").addPathInfo("listcourse","listcourse").addPathInfo("mode","All").addPathInfo("actionStat","Edit").addPathInfo("count","1") style=text-decoration:none>यादी व्यवस्था</a>
+              ##  <img src="$content.getURI("/images/$lang/listmanagement.jpg")"border=0></a><br>
+      </td>
+   </tr>
+   <tr bgcolor="$ui.menuColor">
+      <td>
+         <a href=$link.setPage("call,Calendar_Mgmt,Calendar_Display.vm").addPathInfo("path","personal") style=text-decoration:none>खासगी दिनदशॆिका </a>
+      </td>
+   </tr>
+#*
+   <tr>
+      <td>
+         <a href=$link.setPage("call,Notice_User,Notices.vm").addPathInfo("count","1") style=text-decoration:none>वाताॆलाप</a>
+                ##<img src="$content.getURI("/images/$lang/communications.jpg")"border=0></a><br>
+      </td>
+   </tr>
+*#
+   <tr bgcolor="$ui.menuColor">
+      <td>
+         <a href=$link.setPage("call,Backups,Backups.vm").addPathInfo("count","1") style=text-decoration:none> #if($lang == "hindi") प्रशासकाचे ची बॅकअप #else प्रशासकाचे बॅकअप #end</a>
+##       <img src="$content.getURI("/images/$lang/adminbackup.jpg")" border="0"></a>
+      </td>
+   </tr>
+#*
+   <tr>
+      <td>
+         <a href=$link.setPage("call,Backups,Restoration.vm").addPathInfo("count","1") style=text-decoration:none>പുനഃസ്ഥാപിക്കൽ</a>
+##                <img src="$content.getURI("/images/$lang/restoration.jpg")" border="0"></a><br>
+      </td>
+   </tr>
+*#
+   <tr bgcolor="$ui.menuColor">
+      <td>
+         <a href=$link.setPage("call,EventMgmt_Admin,EventMgmt.vm").addPathInfo("mode","adphase").addPathInfo("count","1") style=text-decoration:none>घटना व्यवस्था</a>
+##                <img src="$content.getURI("/images/$lang/eventmanagement.jpg")"border=0></a><br>
+      </td>
+   </tr>
+   <tr>
+      <td>
+         <a href=$link.setPage("call,AdminProfile,ChangePasswd.vm").addPathInfo("count","1") style=text-decoration:none>कुटशब्द  बदलवा</a>
+      </td>
+   </tr>
+   <tr bgcolor="$ui.menuColor">
+      <td>
+         <a href=$link.setPage("call,AdminProfile,AdminParam.vm").addPathInfo("count","1") style=text-decoration:none>माहीती</a>
+      </td>
+   </tr>
+#*
+   <tr>
+      <td>
+         <a href=$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("mode","uquota").addPathInfo("status","nosearch").addPathInfo("count","1") style=text-decoration:none> व्यवस्था</a>
+      </td>
+   </tr>
+   <tr bgcolor="$ui.menuColor">
+      <td>
+         <a href=$link.setPage("call,OnLine_Rgtn,OnlineRegistration_Admin.vm").addPathInfo("status","CourseRegistration").addPathInfo("count","1") style=text-decoration:none>दाखवा  आँनलाईन नोंद   करा</a>
+      </td>
+   </tr>
+<tr>
+      <td>
+        <a href=$link.setPage("call,TrackingReport,Track_Report.vm").addPathInfo("mode","repotype") style=text-decoration:none>கண்காணிப்பு அறிக்கைகள்</a>
+      </td>
+</tr>*#
+
+</table>
+

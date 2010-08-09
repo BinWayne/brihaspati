@@ -1,0 +1,109 @@
+#*
+ * @(#) AdminMenu.vm
+ * Copyright (c) 2008-2010 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ *
+ * @author<a href="mailto:singh_jaivir@rediffmail.com">Jaivir Singh</a>
+ * @author<a href="mailto:sharad23nov@yahoo.com">Sharad Singh</a>
+ * @author<a href="mailto:shaistashekh@hotmail.com">Shaista</a>
+ * @modified date: 05-04-2010
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+ *#
+
+
+<table width="100%" bgcolor="$ui.MenuColor">
+#set($lang=$data.getUser().getTemp("lang").toString())
+<tr><td>
+#if($lang == "hindi") 
+	Admin's की 메뉴
+#else	
+	Admin's 메뉴
+#end
+</td></ir>
+</table>
+<table width=100% bgcolor="$ui.tableColor">
+<tr bgcolor="$ui.MenuColor">
+        <td>
+                <a href=$link.setPage("call,Root_Admin,InstituteList.vm").addPathInfo("mode","pendinglist").addPathInfo("count","1") style=text-decoration:none>Institute 관리</a>
+        </td>
+        </tr>
+#*   <tr>
+      <td>
+         <a href=$link.setPage("call,UserMgmt_Admin,RegisterationManagement.vm").addPathInfo("count","1") style=text-decoration:none>등록</a>
+                ##<img src="$content.getURI("/images/$lang/registration.jpg")"border=0></a><br>
+      </td>
+   </tr>
+   <tr bgcolor="$ui.menuColor">
+      <td>
+         <a href=$link.setPage("call,UserMgmt_Admin,UserManagement_Admin.vm").addPathInfo("count","1") style=text-decoration:none>사용자 관리</a>
+                ##<img src="$content.getURI("/images/$lang/usermanagement.jpg")"border=0></a><br>
+      </td>
+   </tr>*#
+   <tr>
+      <td>
+         <a href=$link.setPage("call,ListMgmt_Admin,List_Mgmt.vm").addPathInfo("listcourse","listcourse").addPathInfo("mode","All").addPathInfo("actionStat","Edit").addPathInfo("count","1") style=text-decoration:none>목록 관리</a>
+              ##  <img src="$content.getURI("/images/$lang/listmanagement.jpg")"border=0></a><br>
+      </td>
+   </tr>
+   <tr bgcolor="$ui.menuColor">
+      <td>
+         <a href=$link.setPage("call,Calendar_Mgmt,Calendar_Display.vm").addPathInfo("path","personal") style=text-decoration:none>개인 캘린더</a>
+      </td>
+   </tr>
+#*
+   <tr>
+      <td>
+         <a href=$link.setPage("call,Notice_User,Notices.vm").addPathInfo("count","1") style=text-decoration:none>커뮤니케이션</a>
+                ##<img src="$content.getURI("/images/$lang/communications.jpg")"border=0></a><br>
+      </td>
+   </tr>
+*#
+   <tr bgcolor="$ui.menuColor">
+      <td>
+         <a href=$link.setPage("call,Backups,Backups.vm").addPathInfo("count","1") style=text-decoration:none> #if($lang == "hindi") Admin's 의 백업 #else Admin's 백업 #end</a>
+##       <img src="$content.getURI("/images/$lang/adminbackup.jpg")" border="0"></a>
+      </td>
+   </tr>
+#*
+   <tr>
+      <td>
+         <a href=$link.setPage("call,Backups,Restoration.vm").addPathInfo("count","1") style=text-decoration:none>복원</a>
+##                <img src="$content.getURI("/images/$lang/restoration.jpg")" border="0"></a><br>
+      </td>
+   </tr>
+*#
+   <tr bgcolor="$ui.menuColor">
+      <td>
+         <a href=$link.setPage("call,EventMgmt_Admin,EventMgmt.vm").addPathInfo("mode","adphase").addPathInfo("count","1") style=text-decoration:none>사건  관리</a>
+##                <img src="$content.getURI("/images/$lang/eventmanagement.jpg")"border=0></a><br>
+      </td>
+   </tr>
+   <tr>
+      <td>
+         <a href=$link.setPage("call,AdminProfile,ChangePasswd.vm").addPathInfo("count","1") style=text-decoration:none>비밀 번호 변경</a>
+      </td>
+   </tr>
+   <tr bgcolor="$ui.menuColor">
+      <td>
+         <a href=$link.setPage("call,AdminProfile,AdminParam.vm").addPathInfo("count","1") style=text-decoration:none>개요</a>
+      </td>
+   </tr>
+#*
+   <tr>
+      <td>
+         <a href=$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("mode","uquota").addPathInfo("status","nosearch").addPathInfo("count","1") style=text-decoration:none>할당량 관리</a>
+      </td>
+   </tr>
+   <tr bgcolor="$ui.menuColor">
+      <td>
+         <a href=$link.setPage("call,OnLine_Rgtn,OnlineRegistration_Admin.vm").addPathInfo("status","CourseRegistration").addPathInfo("count","1") style=text-decoration:none>보기 온라인 등록</a>
+      </td>
+   </tr>
+<tr>
+      <td>
+        <a href=$link.setPage("call,TrackingReport,Track_Report.vm").addPathInfo("mode","repotype") style=text-decoration:none>현황 리포트</a>
+      </td>
+</tr>*#
+
+</table>
+

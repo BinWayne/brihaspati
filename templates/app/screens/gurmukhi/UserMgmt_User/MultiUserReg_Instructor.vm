@@ -1,0 +1,145 @@
+#*
+ * @(#) MultiUserReg_Instructor.vm
+ * Copyright (c) 2005,2009-2010 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * @author <a href="mailto:awadhesh_trivedi@yahoo.co.in">Awadhesh Kumar Trivedi</a>
+ * @author <a href="mailto:singh_jaivir@rediffmail.com">Jaivir Singh</a>
+ * @author <a href="mailto:shaistashekh@hotmail.com">Shaista</a>
+ * @modified date: 07-04-2010
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+*#
+
+$page.setBgColor($ui.bgcolor)
+$page.setTitle("Home | $course | Student Management | Add Multiple Users ")
+$!data.getMessage()
+
+#set($lang =$data.getUser().getTemp("lang").toString())
+<table bgcolor="$ui.menuColor" width=100%>
+<tr>
+        <td>
+        <a href=$link.setPage("call,IndexHome.vm") style=text-decoration:none>ਵਰਕੇ </a> |
+        <a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm") style=text-decoration:none>$course</a> | 
+        <a href=$link.setPage("call,UserMgmt_User,StudentManagement.vm").addPathInfo("count","1") style=text-decoration:none>ਵਿਦਿਯਾਰਥੀ   ਪਰਬੰਧਨ </a> | ਅਲਗ  ਯੂਜਰ  ਜੋੜੋ 
+        </td>
+</tr>
+<table bgcolor="$ui.tableColor" width=100%>
+<tr>
+	#if($tdcolor!="1")
+        <td>
+	#elseif($tdcolor =="1")
+	<td bgcolor="#AFDCEC">
+	#end
+	<a href=$link.setPage("call,UserMgmt_User,StudentManagement.vm").addPathInfo("count","1") style=text-decoration:none> #if($lang =="hindi") ਵਿਦਿਯਾਰਥੀ   ਜੋੜੇਂ  #else ਜੋੜੇਂ  ਵਿਦਿਯਾਰਥੀਆਂ  #end</a>
+	</td>
+	#if($tdcolor!="2")
+        <td>
+	#elseif($tdcolor =="2")
+	<td bgcolor="#AFDCEC">
+	#end
+        <a href=$link.setPage("call,UserMgmt_User,RemoveStudents.vm").addPathInfo("count","2") style=text-decoration:none>ਵਿਧਾਰਥੀ  ਹਟਾਵਾਂ </a>
+	</td>
+	#if($tdcolor !="3")
+        <td>
+	#elseif($tdcolor =="3")
+	<td bgcolor="#AFDCEC">
+	#end
+        <a href=$link.setPage("call,UserMgmt_User,MultiUserReg_Instructor.vm").addPathInfo("count","3") style=text-decoration:none> #if($lang =="hindi") ਬਹੁਵੀਕਲਪੀਏ   ਵਿਦਿਯਾਰਥੀ   ਜੋੜੇਂ  #else ਜੋੜੇਂ  ਬਹੁਵੀਕਲਪੀਏ   ਵਿਦਿਯਾਰਥੀਆਂ  #end </a>
+	</td>
+	#if($tdcolor!="4")
+        <td>
+	#elseif($tdcolor =="4")
+	<td bgcolor="#AFDCEC">
+	#end
+        <a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("mode","All").addPathInfo("count","4") style=text-decoration:none>ਵਿਧਾਰਥੀਆਂ  ਦੀ  ਸੂਚੀ </a>
+	</td>
+	#if($tdcolor!="5")
+        <td>
+	#elseif($tdcolor =="5")
+	<td bgcolor="#AFDCEC">
+	#end
+        <a href=$link.setPage("call,OnLine_Rgtn,ViewOnlineRegistrationInstructor.vm").addPathInfo("count","5") style=text-decoration:none>ਆਨਲਾਇਨ  ਪੰਜੀਕਰਣ </a>
+	</td>
+</tr>
+##</table>
+##<table align="left" bgcolor="$ui.menuColor" width=100%>
+<tr bgcolor="$ui.menuColor">
+<td colspan=4><b>ਫਾਈਲ  ਨੂੰ  ਅਪਲੋੜਕਰਨ  ਲਈ  ਏਕਸਟੇਨਸ਼ਨ  ਟੀ  ਏਚਸ  ਟੀ  ਹੋਰ  ਫਾਈਲ  ਉਚਿਤਰੂਪ  ਵਿੱਚ  ਹੋਣੀ  ਚਾਹੀਦਾ </b></td>
+<td align="right"><img src="$content.getURI("/images/hand.gif")">
+<a href=javascript:popupWin("/brihaspati2/docs/Userdoc.html","newWin"); style=text-decoration:none>ਸਹਾਇਤਾ </a>
+</td>
+</tr>
+##</table>
+#*	<marquee scrollamount="3" direction="left" loop="0" width="100%" behaviour="slide">
+        	<font size=4 color=red><b>ਫਾਈਲ  ਨੂੰ  ਅਪਲੋੜਕਰਨ  ਲਈ  ਏਕਸਟੇਨਸ਼ਨ  ਟੀ  ਏਚਸ  ਟੀ  ਹੋਰ  ਫਾਈਲ  ਉਚਿਤਰੂਪ  ਵਿੱਚ  ਹੋਣੀ  ਚਾਹੀਦਾ </b></font>
+        </marquee>*#
+<form name="frm" method="post" enctype="multipart/form-data" action="$link.setPage("call,UserMgmt_User,MultiUserReg_Instructor.vm").setAction("UserAction_Instructor")">
+##<table width=100% bgcolor="$ui.tableColor" align="left">
+      #if ($errorTemplate)
+      <tr>
+        <td colspan="4">
+          <table bgcolor="$ui.bgcolor">
+            <tr>
+              <td>
+                <img src="$ui.image($ui.alertImage,$data)">
+              </td>
+              <td>
+                #parse ($errorTemplate)
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      #end
+      	<tr><td colspan=6><b>ਖੁਦ  ਅਨੇਕ  ਵਿਧਾਰਥੀਆਂ  ਦੇ  ਪੰਜੀਕਰਣ  ਦੇ  ਲਈ  ਫਾਇਲ  ਸੰਲਗਨ  ਕਰੀਏ <b></td></tr>
+	<tr bgcolor="$ui.menuColor"><td colspan=6> #if($lang =="hindi") ਵਿਸ਼ਾ   ਦਾ  ਨਾਮ  #else ਵਿਸ਼ਾ   ਨਾਮ  #end &nbsp;&nbsp;&nbsp;$course</td></tr>
+  	##</tr>
+   	<tr>
+        	#fileUpload ("ਫਾਇਲ  ਸੰਲਗਨ  ਕਰੋ  <font color=RED>*</font>" "file")
+   	</tr>
+      	<tr bgcolor="$ui.menuColor">
+        <td colspan=6 align="left">
+          #*
+            Check for a mode, the update and delete buttons
+            shouldn't appear when inserting a new user.
+          *#
+          	<input type="button" name="eventSubmit_doUpload" value="ਪਾਓ  ( ਅਪਲੋਡ  ਕਰੋ  ) " onClick="CheckFields(document.frm,this);"/>
+          	<input type="hidden" name="actionName" value=""/>
+          	<input type="hidden" name="count" value="$tdcolor"/>
+    
+        </td>
+      	</tr>
+##</table>
+##<table width=100% bgcolor="$ui.tableColor" align=left>
+#foreach( $e in $Msg )
+        <tr bgcolor="$ui.tableColor">
+        <td align=center>
+        <font face="$ui.sansSerifFonts">ਪਾਓ  <font color="brown">"$e.getErr_User()"</font>
+        </font>
+        </td>
+        <td align=center>
+        <font face="$ui.sansSerifFonts">$e.getErr_Type()</font>
+        </td>
+        </tr>
+#end
+</table>
+  </div>
+</form>
+<SCRIPT LANGUAGE="javascript">
+        function CheckFields(frm,field)
+        {
+                if(frm.file.value!="")
+                {
+                                frm.actionName.value=field.name;
+                                frm.submit();
+                }
+                else
+                {
+                        alert("Please Fill All The Mandatory(*) Fields");
+                }
+        }
+        function popupWin(url,popupName)
+        {
+                Win1=window.open(url,popupName,"resizable=0,scrollbars=1,height=400,width=400");
+        }
+
+</SCRIPT>

@@ -1,0 +1,192 @@
+<html>
+#*
+*@(#)ManageBookmarks.vm
+ *  Copyright (c) 2008-09 ETRG,IIT Kanpur.
+ *  All Rights Reserved.
+ *  @author <a href="mailto:seema_020504@yahoo.com ">Seema Pal</a>
+ *  @author <a href="mailto:kshuklak@rediffmail.com ">Kishore kumar shukla</a>
+ *  @author <a href="mailto:shaistashekh@hotmail.com "> Shaista </a>
+ * @modified 15-04-2009
+ *  Contributors: Members of ETRG, I.I.T. Kanpur
+ *#
+
+$page.setTitle("ManageBookmarks")
+$page.setBgColor($ui.bgcolor)
+$!data.getMessage()
+#set($lang=$data.getUser().getTemp("lang").toString())
+
+<table bgcolor="$ui.tableColor" width=100% > ##table 1 start
+        <tr align="right">
+	<td width="30%" align="left">
+        #if( $total_size!=0 )
+		#if( $endIndex < $total_size )
+			#if( $endIndex < $userConf )
+				[$k - $total_size] کل $total_size مڍں سے 
+	                #else
+        		        [$k - $endIndex] کل $total_size مڍں سے 
+	                #end
+	        #else
+        		[$k - $total_size] کل $total_size مڍں سے 
+	        #end
+        #end
+        </td>
+	<td><b>
+        <a href=$link.setPage("call,IndexHome.vm")>صفحہ</a> | منتظمىبکمارک</b>
+	</td>
+	</tr>
+
+</table> ##table 1 end
+<br>
+<table bgcolor="#e5e5e5" width="100%">
+        <tr>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<td > ##lign="right">
+<a href=javascript:popupWin2("/brihaspati2/docs/ManageBookmarks.html","newWin");>مدد  <img src="$content.getURI("/images/Lefthand.gif")"> </a> </td>
+                <td align="right"><b>
+                <a href=$link.setPage("call,Bookmarks,AddBookmarks.vm").addPathInfo("mode","addBmarks")>بکمارک شامل کرڍں  </a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href=$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("stat1","All")>منتظمى بکمارک</a></b>&nbsp;&nbsp;&nbsp;&nbsp;
+		</b>
+		</td>
+        </tr>
+</table>
+<br>
+#if($Mode=="NoBlank")
+<form name="frm" method="post" action="$link.setPage("call,Bookmarks,ManageBookmarks.vm")">
+<table  bgcolor="#e5e5e5" width="100%">
+<tr>
+        <td bgcolor="#e5e5e5" align="right">
+         <input type="button" name="search" value="مشاہد٥" onClick="checkNull(document.frm,this);">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="dirname" size="1" onChange="Changedir(document.frm,this);"/>
+                                <option>  - منتخب کرڍں  - </option>
+                               #foreach($bdname1 in $dirvalue1)
+                               <option value="$bdname1">$bdname1
+                               #end
+                               </option>
+                        </select>
+	<b> : بکمارک مشاہداۓ زريہ فولڈرنام</b>
+	<input type="hidden" name="stat1" value="Search">
+
+         </td>
+</tr>
+</table>
+##if($Mode=="NoBlank")
+<table  bgcolor="#e5e5e5" width="100%">
+<tr align="right">
+        <td bgcolor="#d9e3ec"colspan="4"><b>موجود٥ کارواہئ</td>
+        <td bgcolor="#d9e3ec"><b>بکمارک</b></td>
+</tr>
+#set ( $count="" )
+                #foreach($btopics in $allTopics)
+<tr bgcolor="#e5e5e5" align="right">
+#if($btopics.type=="general")
+<td><a href="javascript:void(0)"onclick="window.open('$btopics.Url')">منزرِ</a></td>
+#end
+#if($btopics.type=="Course")
+	<td><a href="$link.setPage("call,Bookmarks,AddBookmarks.vm").addPathInfo("btname",$btopics.Topic).addPathInfo("bturl",$btopics.Url).addPathInfo("bgroup",$btopics.Name).addPathInfo("stat","view").addPathInfo("stat1","All")">منزرِ</a></td>
+#end
+#if($btopics.type=="Course_file")
+<td><a href=javascript:popupWin("$link.setPage("call,ViewFileContent.vm").addPathInfo("topic",$btopics.Topic).addPathInfo("dir",$btopics.Name).addPathInfo("type","Bookmarks").addPathInfo("filename",$btopics.Url)","newWin")>منزرِ</a>&nbsp;&nbsp;</td>
+#end
+#if($btopics.type=="general")
+<td><a href="$link.setPage("call,Bookmarks,AddBookmarks.vm").addPathInfo("btname",$btopics.Topic).addPathInfo("stat","Move").addPathInfo("stat1","All")">رفع کرڍں</a></td>
+<td><a href="$link.setPage("call,Bookmarks,AddBookmarks.vm").addPathInfo("btname",$btopics.Topic).addPathInfo("stat","Rename").addPathInfo("stat1","All")">دوبار٥ نبم دڍں</a></td>
+#else
+<td><u><font color="white">رفع کرڍں</font></u></td>
+<td><u><font color="white">دوبار٥ نبم دڍں</font></u></td>
+#end
+<td><a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").setAction("Bookmarks").addPathInfo("btname",$btopics.Topic).addPathInfo("stat","delete").addPathInfo("stat1","All").addPathInfo("actionName","eventSubmit_doDeleteBookmark")">خارج</a></td>
+	#if($btopics.type =="Course_file" || $btopics.type =="Course")
+        <td>$btopics.Url</td>
+	#else
+        <td>$btopics.Topic</td>
+	#end
+#set ( $count= "$count$!btopics.Topic^")
+       		 #end
+</tr>
+</table>
+<table bgcolor="#e5e5e5" width="100%"><tr><td align="right">
+	#if($stat1!="Search")
+	#if($total_size <= $userConf)
+                <u><font color="white">پہلا</font></u> &nbsp;
+                <u><font color="white">پچھلا</font></u> &nbsp;
+                <u><font color="white">اگلا</font></u> &nbsp;
+                <u><font color="white">آخری</font></u> &nbsp;
+                #elseif($startIndex == $userConf_string)
+                <u><font color="white">پہلا</font></u> &nbsp;
+                <u><font color="white">پچھلا</font></u> &nbsp;
+                <a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("startIndex",$startIndex).addPathInfo("stat1",$stat1)">اگلا</a> &nbsp;
+		<a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("startIndex",$check_last).addPathInfo("stat1",$stat1)">آخری</a> &nbsp;
+                #elseif($endIndex == $total_size || $endIndex > $total_size)
+                <a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("startIndex",$check_first).addPathInfo("stat1",$stat1)">پہلا</a>&nbsp;
+                <a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("startIndex",$check_pre).addPathInfo("stat1",$stat1)">پچھلا</a> &nbsp;
+                <u><font color="white">اگلا</font></u> &nbsp;
+                <u><font color="white">آخری</font></u> &nbsp;
+                #else
+                <a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("startIndex",$check_first).addPathInfo("stat1",$stat1)">پہلا</a>&nbsp;
+                <a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("startIndex",$check_pre).addPathInfo("stat1",$stat1)">پچھلا</a> &nbsp;
+                <a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("startIndex",$startIndex).addPathInfo("end",$endIndex).addPathInfo("stat1",$stat1)">اگلا</a> &nbsp;
+          <a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("startIndex",$check_last).addPathInfo("stat1",$stat1)">آخری</a> &nbsp;
+                #end
+		#else
+         #if($total_size<= $userConf)
+         <u><font color="white">پہلا</font></u> &nbsp;
+         <u><font color="white">اگلا</font></u> &nbsp;
+         <u><font color="white">پچھلا</font></u> &nbsp;
+         <u><font color="white">آخری</font></u> &nbsp;
+          #elseif($startIndex== $userConf_string)
+          <u><font color="white">پہلا</font></u> &nbsp;
+          <u><font color="white">پچھلا</font></u> &nbsp;
+          <a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("startIndex",$startIndex).addPathInfo("stat1",$stat1).addPathInfo("valdir",$valdir)">اگلا</a> &nbsp;
+          <a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("startIndex",$check_last).addPathInfo("stat1",$stat1).addPathInfo("valdir",$valdir)">آخری</a> &nbsp;
+         #elseif($endIndex == $total_size || $endIndex > $total_size)
+         <a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("startIndex",$check_first).addPathInfo("stat1",$stat1).addPathInfo("valdir",$valdir)">پہلا</a> &nbsp;
+         <a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("startIndex",$check_pre).addPathInfo("stat1",$stat1).addPathInfo("valdir",$valdir)">پچھلا</a> &nbsp;
+         <u><font color="white">اگلا</font></u> &nbsp;
+         <u><font color="white">آخری</font></u> &nbsp;
+          #else
+           <a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("startIndex",$check_first).addPathInfo("stat1",$stat1).addPathInfo("valdir",$valdir)">پہلا</a> &nbsp;
+           <a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("startIndex",$check_pre).addPathInfo("stat1",$stat1).addPathInfo("valdir",$valdir)">پچھلا</a> &nbsp;
+           <a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("startIndex",$startIndex).addPathInfo("stat1",$stat1).addPathInfo("valdir",$valdir)">اگلا</a> &nbsp;
+            <a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("startIndex",$check_last).addPathInfo("stat1",$stat1).addPathInfo("valdir",$valdir)">آخری</a> &nbsp;
+     #end
+    #end
+
+	</td></tr>
+</table>
+#else
+<table bgcolor="#e5e5e5" width="100%">
+<tr><td align="center"><b><font color="blue"> بکمارک موجود نہي ہے </font></b></td></tr>
+</table>
+#end
+	<input type="hidden" name="valdir">
+	<input type="hidden" name="stat" value="$stat">
+	<input type="hidden" name="stat1" value="$stat1">
+	<input type="hidden" name="btname" value="$btname">
+</form>
+<SCRIPT LANGUAGE="javascript">
+function popupWin2(url,popupName)
+{
+       Win1=window.open(url,popupName,"resizable=0,scrollbars=1,height=400,width=400,align=left");
+}
+function popupWin(urlName,popupName)
+{
+	 window.open(urlName,popupName,"toolbar=yes,scrollbars=yes");
+}
+function Changedir(frm,field)
+        {
+                frm.valdir.value=document.frm.dirname.value;
+
+        }
+function checkNull(frm,field)
+{
+		if(frm.valdir.value!=""){
+                        frm.submit();
+                }
+                else{
+                        alert("Please select option");
+                }
+
+}
+function open_mywin(url,height,width) {
+window.open(url,height,width)
+}
+</script>

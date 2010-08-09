@@ -1,0 +1,64 @@
+#*
+ * @(#) InstUserProxy.vm
+ * Copyright (c) 2010 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * @author <a href="mailto:nagendrakumarpal@yahoo.co.in">Nagendra Kumar Singh</a>
+ * @author <a href="mailto:singh_jaivir@rediffmail.com">Jaivir Singh</a>
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+*#
+
+$page.setTitle("Admin Home | User Management | Proxy User")
+$!data.getMessage()
+<table bgcolor="$ui.menuColor" width=100%>
+<tr>
+	<td><a href=$link.setPage("Index.vm") style=text-decoration:none>நிர்வாகியின்  முகப்பு</a> | பதிலி பயனர்</td>
+</tr>
+</table>
+##<form name=frm method="post" action="$link.setPage("call,UserMgmt_InstituteAdmin,InstUserProxy.vm").setAction("AddProxyUser")">
+<form name=frm method="post" action="$link.setPage("call,UserMgmt_InstituteAdmin,InstUserProxy.vm").setAction("InstituteProxyUser")">
+<table bgcolor="$ui.tableColor" width=100%>
+<tr>
+	<td colspan="2">
+	<b>
+		#if(( $data.getUser().getTemp("lang" ).toString())=="hindi")
+			பதிலி பயனர் உடைய விவரங்கள் பதிவேற்றுக
+		#else
+			Enter பதிலி பயனர் விவரங்கள்
+		#end
+	</b></td>
+</tr>
+<tr bgcolor="$ui.menuColor">
+	<td colspan=2><b>பதிலி பயனர் பெயர் <font color=red>*</font></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" size=25 name="UNAME" value=""></td>
+	##formCell ("பதிலி பயனர் பெயர் <font color=red>*</font>" "UNAME" "")
+</tr>
+<tr>
+	<td colspan=2><b>கடவுச்சொல்</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="text" size=25 name="PASSWD" value=""></td>
+	##formPasswordCell ("கடவுச்சொல்" "PASSWD" "")
+</tr>
+<tr bgcolor="$ui.menuColor">
+	<td colspan=2>
+	<input type="hidden" name="actionName">
+	<input type="button" name="eventSubmit_doRegister" value="பதிக்க" onClick="checkField(document.frm,this);"/> 
+	</td>
+</tr>
+</table>
+</form>
+
+
+
+<SCRIPT LANGUAGE="javascript">
+	function checkField(frm,field)
+	{
+		if(frm.UNAME.value!="") 
+		{
+				frm.actionName.value=field.name;
+				frm.submit();
+		}
+		else
+		{
+		        alert("Please fill the Mandatory(*) Fields !!");
+		}
+	}
+</SCRIPT>

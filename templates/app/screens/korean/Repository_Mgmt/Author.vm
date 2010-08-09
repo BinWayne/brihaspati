@@ -1,0 +1,245 @@
+#*
+ * @(#) Author.vm
+ *  Copyright (c) 2005-2006,2009-2010 ETRG,IIT Kanpur.
+ *  All Rights Reserved.
+ *  @author <a href="mailto:seema_020504@yahoo.com">Seema Pal</a>
+ *  @author <a href="mailto:kshuklak@rediffmail.com">Kishore kumar shukla</a>
+ *  @author <a href="mailto:manjaripal@yahoo.co.in">Manjaripal</a>
+ *  @author <a href="mailto:singh_jaivir@redimail.com">Jaivir Singh</a>
+ *  Contributors: Members of ETRG, I.I.T. Kanpur
+ *#
+
+$page.setTitle("Author Interface") 
+$page.setBgColor($ui.bgcolor)
+#set($lang=$data.getUser().getTemp("lang").toString())
+
+<table width=100% bgcolor="$ui.menuColor">
+<tr>
+	<td align="center"><b>저자 인터페이스</b></td>
+</tr>
+<tr>
+	<td>
+		<marquee scrollamount="3" direction="left" loop="0" width="100%" behaviour="rotation">
+		<b> #if($lang=="hindi") #UNAME() 환영  #else 환영 #UNAME() #end
+        </td>
+</tr>
+</table>
+$!data.getMessage()
+<table bgcolor="$ui.tableColor" width=100%>
+<tr><td><b>
+<a href=$link.setPage("call,Repository_Mgmt,Author.vm").addPathInfo("count","1") style=text-decoration:none>저자 홈 </a> |
+#if($lang == "hindi")
+        내용  업로드
+#else
+        업로드 내용 
+#end
+</b>
+</td></tr>
+</table>
+#if($check == "disable")
+<table width="100%" bgcolor="$ui.tableColor">
+<tr bgcolor="$ui.menuColor"><td> $!SpaceKb MB</td><td align="right">업로드를위한 공간   $!TUSize MB </td></tr></table>
+#end
+<table bgcolor="$ui.tableColor" width=100%>
+#if($check == "disable")
+<tr>
+	#if($tdcolor!="1")
+	<td>
+	#elseif($tdcolor=="1")
+	<td bgcolor="#AFDCEC">
+	#end
+	<a href=$link.setPage("call,Repository_Mgmt,Author.vm").addPathInfo("count","1") style=text-decoration:none>업로드 내용 </a></td>
+	#if($tdcolor!="2")
+	<td>
+	#elseif($tdcolor=="2")
+	<td bgcolor="#AFDCEC">
+	#end
+        <a href=$link.setPage("call,Repository_Mgmt,RepositoryList.vm").addPathInfo("status","fromViewContent").addPathInfo("count","2") style=text-decoration:none>보기 내용 </a></td>
+	#if($tdcolor!="3")
+	<td>
+	#elseif($tdcolor=="3")
+	<td bgcolor="#AFDCEC">
+	#end
+        <a href=$link.setPage("call,Repository_Mgmt,RepositoryBrowser.vm").addPathInfo("count","3") style=text-decoration:none>Repository  브라우저</a></td>
+	#if($tdcolor!="4")
+	<td>
+	#elseif($tdcolor=="4")
+	<td bgcolor="#AFDCEC">
+	#end
+	<a href=$link.setPage("call,Calendar_Mgmt,Calendar_Display.vm").addPathInfo("path","personal").addPathInfo("count","4") style=text-decoration:none>개인 캘린더</a></td>
+	<td><img src="$content.getURI("/images/hand.gif")"><a href=javascript:popupWin("/brihaspati2/docs/ContentUpload.html","newWin"); style=text-decoration:none>도움</a></td>
+</tr>
+#else
+<tr>
+<td align=center>
+        	<font face="$ui.sansSerifFonts" size=3>
+        	<a href=$link.setPage("call,Repository_Mgmt,Author.vm").setAction("RepositoryAction").addPathInfo("actionName","eventSubmit_doCreate_Repo").addPathInfo("count","1") style=text-decoration:none>만들기 Repository </a> &nbsp;&nbsp;
+		</font>
+        </td>
+        </tr>
+        #end
+</table>
+####################################UploadSCO
+#if($check == "disable")
+<table bgcolor="$ui.tableColor" width=100%>
+#if($errorMess!="")
+     <tr>
+           <td><b>업로드에 오류 : </b>$!errorMess </td>
+     </tr>
+#else
+        <tr>
+        #if($uploadStatus=="full")
+                <td>
+                귀하의 파일을 성공적으로 업로드되었습니다
+                </td>
+        #else
+                #if($uploadStatus=="partial")
+                        <td>
+                       ## Some of the files have been uploaded
+                        몇몇은의 파일 올려주기되었다  <br>
+
+                       ## Following files already existed, so were not uploaded :
+                        따라서 이미 존재하는 파일에 따라 업로드되지 않았습니다 :<br>
+
+                #elseif($totalFilesEntries.Count>0)
+                        <td>
+                        ##None of the files were Uploaded <br>
+                        ##All of the following  Existed at Server :
+                        파일의 업로드했다 무휴 <br>
+                        다음의 이름을 가진 파일이 이미 서버에 존재 : <br>
+                #elseif($uploadStatus!="")
+                        <td>
+                        ##There is nothing to Upload
+                        업로드 할 건 아무것도 없다 <br>
+                #end
+                <br>
+                #set($count=1)
+                #foreach($File in $failedFiles)
+                        <tr>
+			 <td>$count.  $File</td>
+                        </tr>
+                        #set($count=$count+1)
+                #end
+               </td>
+        #end
+        </tr>
+#end
+</table>
+##<form name=uploadform method="post" enctype="multipart/form-data" action="$link.setPage("call,Repository_Mgmt,UploadSCO.vm").setAction("UserAreaAction").addPathInfo("actionName","eventSubmit_doUpload")" >
+<form name=uploadform method="post" enctype="multipart/form-data" action="$link.setPage("call,Repository_Mgmt,Author.vm").setAction("UserAreaAction").addPathInfo("actionName","eventSubmit_doUpload")" >
+<table bgcolor="$ui.tableColor" width=100%>
+<tr bgcolor="$ui.menuColor"><img src="$content.getURI("/images/hand.gif")"><font color="red">제발 당신의 <b> 업로드하는 파일의 파일 이름에 '+'</ b> 문자가되지 않는지 확인하십시오!!</font></tr>
+      <tr>
+        <td colspan=5>
+        <input type="RADIO" name=topicExisting checked=true value="OLDTOPIC" onClick=blurTopicName(document.uploadform)>존재 주제
+        <SELECT name=topicList onFocus=changeTopic(document.uploadform) onChange=changeTopic(document.uploadform)>
+          <option></option>
+          #foreach($topic in $allTopics)
+                <option>$topic</option>
+          #end
+        </SELECT>
+        <input type="RADIO" name=topicExisting value="NEWTOPIC" >새로운 주제
+        </td>
+        </tr>
+
+      <tr bgcolor="$ui.menuColor">
+        <td>주제 이름</td>
+        <td colspan=5><input type="text" name=contentTopic onFocus=checkRadio() size=26></td>
+      <tr>
+              #fileUpload ("1.&nbsp; 첨부합니다  파일  " "file1")</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>#fileUpload ("6.&nbsp; 첨부합니다  파일   &nbsp;" "file6")
+      </tr>
+      <tr bgcolor="$ui.menuColor">
+              #fileUpload ("2.&nbsp; 첨부합니다  파일  " "file2")</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>#fileUpload ("7.&nbsp; 첨부합니다  파일   &nbsp;" "file7")
+      </tr>
+	<tr>
+              #fileUpload ("3.&nbsp; 첨부합니다  파일  " "file3")</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>#fileUpload ("8.&nbsp; 첨부합니다  파일   &nbsp;" "file8")
+      </tr>
+      <tr bgcolor="$ui.menuColor">
+              #fileUpload ("4.&nbsp; 첨부합니다  파일  " "file4")</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>#fileUpload ("9.&nbsp; 첨부합니다  파일   &nbsp;" "file9")
+      </tr>
+      <tr>
+              #fileUpload ("5.&nbsp; 첨부합니다  파일  " "file5")</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>#fileUpload ("10.&nbsp; 첨부합니다  파일   &nbsp;" "file10")
+      </tr>
+
+      <tr bgcolor="$ui.menuColor">
+        <td colspan=5>
+        <input type="button" name="eventSubmit_doUpload" value="업로드" onClick="validate(document.uploadform,this);"/>
+        <input type="hidden" name="actionName" value="">
+        <input type="hidden" name="count" value="$tdcolor">
+
+        </td>
+      </tr>
+
+    </table>
+</form>
+#end
+
+###########################################
+<SCRIPT language="JavaScript">
+        function popupWin(url,popupName)
+        {
+                Win1=window.open(url,popupName,"resizable=0,scrollbars=1,height=400,width=400");
+        }
+	function blurTopicName(frm)
+        {
+                //document.uploadform.topicExisting.value="OLDTOPIC";
+
+                frm.contentTopic.value=frm.topicList.options[frm.topicList.selectedIndex].text;
+        }
+
+        function changeTopic(frm)
+        {
+                if(frm.topicExisting[0].checked)
+                {
+                        frm.contentTopic.value=frm.topicList.options[frm.topicList.selectedIndex].text;
+                }
+                else
+                {
+                        frm.contentTopic.focus();
+                }
+        }
+
+        function checkRadio()
+        {
+                if(document.uploadform.topicExisting[0].checked)
+                {
+                        document.uploadform.contentTopic.blur();
+                }
+
+        }
+	function validate(uploadform,field)
+        {
+                var tList=uploadform.topicList;
+                var cTopic=uploadform.contentTopic;
+                if(uploadform.contentTopic.value!="")
+                {
+                        var totNamedEntries=uploadform.topicList.length;
+                        for(i=1;i<totNamedEntries;i++)
+                        {
+                                if(tList.options[i].text==cTopic.value)
+                                {
+                                        if(uploadform.topicExisting[1].checked)
+                                        {
+                                                if(confirm("The topic already exists. Pressing OK will put the file/s in existing Topic"))
+                                                {
+                                                uploadform.actionName.value=field.name;
+                                                uploadform.submit();
+                                                }
+                                                else
+                                                {
+                                                return;
+                                                }
+
+                                        }
+                                }
+                        }
+                        uploadform.actionName.value=field.name;
+                        uploadform.submit();
+                }
+                else
+                {
+                        alert("Topic Name Can not Empty !!");
+                }
+        }
+
+</SCRIPT>

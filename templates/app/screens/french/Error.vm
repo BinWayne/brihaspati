@@ -1,0 +1,8 @@
+$page.setTitle("System Error")
+
+<h2>Erreur système:  </h2>
+<b>Svp essai encore .................</b>
+	#if ( $data.getMessage() )
+		$data.getMessage()
+	#end
+

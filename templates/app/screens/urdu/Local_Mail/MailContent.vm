@@ -1,0 +1,235 @@
+#*
+ * @(#)MailContent.vm
+ *  Copyright (c) 2006-2007 ETRG,IIT Kanpur.
+ *  All Rights Reserved.
+ *  Contributors: Members of ETRG, I.I.T. Kanpur
+ *#
+
+#*
+ * @author <a href="mailto:awadhesh_trivedi@yahoo.co.in">Awadhesh Kumar Trivedi</a>
+ * @author <a href="mailto:shaistashekh@hotmail.com">Shaista</a>
+ *#
+
+$page.setTitle("Home | $CName | Communication | Local Mail | Mails")
+<table bgcolor="$ui.tableColor" width=100%>
+	<tr align="right">
+		<td>
+		<font face="$ui.sansSerifFonts"><b>
+		<a href =$link.setPage("call,CourseMgmt_User,Communication.vm")> مواصلات </a> | 
+		<a href =$link.setPage("call,Local_Mail,Mail.vm")>مقامى  بريد </a> | 
+		#if($mode=="All")
+		کل مريد 
+		#else
+		بغير پڑها مريد
+		#end
+		| <a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")>$CName</a> | 
+		<a href=$link.setPage("call,IndexHome.vm")>صفحہ</a> 
+		</font>
+		</td>
+	</tr>
+</table>
+#set($lang = $data.getUser().getTemp("lang" ).toString())
+$!data.getMessage()
+<br>
+<table align=center>
+	<tr><b>
+		#if($data.getUser().getUserName()!="guest")
+		<td><a href=$link.setPage("call,Local_Mail,MailTestMessage.vm").addPathInfo("mode","compose")> برڍد تحرڍر کرڍں <img border=0 src="$content.getURI("/images/ml.gif")"></a> &nbsp;&nbsp;&nbsp;&nbsp;<td>
+		#end
+		#if($mode=="All")
+		<td><a href=$link.setPage("call,Local_Mail,MailContent.vm").addPathInfo("mode","Unread")> عياں بغير پڑها پيغام <img border=0 src="$content.getURI("/images/newmail1.gif")"> </a></td>
+		#else
+		<td><a href=$link.setPage("call,Local_Mail,MailContent.vm").addPathInfo("mode","All")>عياں کل پيغام</a></td>
+	        #end	
+	</b>
+	</tr>
+</table>
+<br><br>
+<form name="frm" ENCTYPE="multipart/form-data" METHOD="POST" action="$link.setPage("call,Local_Mail,MailContent.vm").setAction("MailSendMessage")">
+#if($status!="blank")
+<table width=80% border=0 align=center cellpadding=0 cellspacing=0>
+
+ <tr bgcolor="$ui.menuColor">
+	<td colspan=4>
+         	#if( $total_size!=0 )
+                	#if( $endIndex < $total_size )
+			#if( $endIndex < $userConf )
+			[$k - $total_size] کل ڈاک ميں سے  $total_size  بريد
+			#elseif($k == $j)
+			## [$k - $total_size] کل ڈاک ميں سے  $total_size
+			[$k - $total_size] کل ڈاک ميں سے  $total_size  بريد 
+			#else
+			[$k - $endIndex] کل ڈاک ميں سے  $total_size بريد
+			#end
+		#else
+			 [$k - $total_size] کل ڈاک ميں سے  $total_size بريد
+		#end
+	#end
+</td>
+  	<td align="right">
+  	<font size=5>
+     		<I> کي ڈاک کا ڈبہ <font color="$ui.fontColorBlue">$username</font></I>
+  	</font>
+	<td colspan="4"></td> 
+  	</td>
+</tr>
+#set($headings=["صورت حال ","کام ","تاریخ","مضمون","بهڍجنے والا"])
+<tr bgcolor="$ui.tableColor">
+#foreach($heading in $headings)
+	<td align="center">
+	<b>$heading</b>
+	</td>
+#end
+	#* <td width=2% align="center">
+	</td>
+	<td width=2% align="center">
+	</td> *#
+</tr>
+#set($count="")
+#foreach($e in $entry)
+#if($e.getStatus()=="0")
+<tr bgcolor="$ui.menuColor">
+#else
+<tr bgcolor="$ui.menuColor">
+#end
+#if($e.getStatus() == "0")
+	<td align=center>
+	<font face="$ui.sansSerifFonts" color="$ui.fontColorRed">
+	#if($mode=="All")
+	بغير پڑها 
+	#else
+	نڍا 
+	#end
+	</td>
+#else
+	<td align=center>
+	<font face="$ui.sansSerifFonts">
+	پڑھا ہوا
+	</td>
+#end
+<td align=center> 
+	#if($data.getUser().getName()!="guest")
+	<a href=$link.setPage("call,Local_Mail,MailTestMessage.vm").addPathInfo("msgid",$e.getMailID()).addPathInfo("status","reply")>
+	<font face="$ui.sansSerifFonts">
+	جواب </a>
+	</font>&nbsp;
+	#end
+ </td>
+<td align="Center">$e.getPDate()</td>
+<td align="Center">
+	<a href=$link.setPage("call,Local_Mail,MailView.vm").addPathInfo("msgid",$e.getMailID())>
+	<font face="$ui.sansSerifFonts">
+	$e.getMSubject() 
+	</font></a>
+</td>
+<td align="center">
+	$e.getSender()</td>
+<td width=2% align="Center">
+#if($e.getReplyStatus()!="0")
+	<img src="$content.getURI("/images/$lang/reply.gif")">
+#end
+</td>
+<td width=2% align="Center">
+<INPUT TYPE="CHECKBOX" NAME="$e.getMailID()" onClick="addDeleteList(this,document.frm);">
+</td>
+</tr>
+#set($count="$count$e.getMailID()^")
+#end
+<tr bgcolor="$ui.menuColor">
+<td colspan=2 align=center>
+<INPUT TYPE="button" NAME="eventSubmit_doDelete" VALUE="خارج" onClick="checkValue(document.frm,this);">
+<INPUT TYPE="hidden" NAME="deleteFileNames" VALUE="">
+<INPUT TYPE="hidden" NAME="actionName" VALUE="">
+<INPUT TYPE="hidden" NAME="mode" VALUE="$mode">
+
+</td>
+<td colspan=5 align=center>
+#if($total_size <= $userConf)
+<u><font color="white">پہلا</font></u> &nbsp;
+<u><font color="white">پچھلا</font></u> &nbsp;
+<u><font color="white">اگلا</font></u> &nbsp;
+<u><font color="white">آخری</font></u> &nbsp;
+
+#elseif($startIndex == $userConf_string)
+<u><font color="white">پہلا</font></u> &nbsp;
+<u><font color="white">پچھلا</font></u> &nbsp;
+<a href="$link.setPage("call,Local_Mail,MailContent.vm").addPathInfo("startIndex",$startIndex).addPathInfo("mode","$mode")">اگلا</a> &nbsp;
+<a href="$link.setPage("call,Local_Mail,MailContent.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode","$mode")">آخری</a> &nbsp;
+
+#elseif($endIndex == $total_size || $endIndex > $total_size)
+<a href="$link.setPage("call,Local_Mail,MailContent.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode","$mode")">پہلا</a> &nbsp;
+<a href="$link.setPage("call,Local_Mail,MailContent.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode","$mode")">پچھلا</a> &nbsp;
+<u><font color="white">اگلا</font></u> &nbsp;
+<u><font color="white">آخری</font></u> &nbsp;
+
+#else
+<a href="$link.setPage("call,Local_Mail,MailContent.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode","$mode")">پہلا</a> &nbsp;
+<a href="$link.setPage("call,Local_Mail,MailContent.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode","$mode")">پچھلا</a> &nbsp;
+<a href="$link.setPage("call,Local_Mail,MailContent.vm").addPathInfo("startIndex",$startIndex).addPathInfo("end",$endIndex).addPathInfo("mode","$mode")">اگلا</a> &nbsp;
+<a href="$link.setPage("call,Local_Mail,MailContent.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode","$mode")">آخری</a> &nbsp;
+#end
+</td>
+</tr>
+</table>
+#end
+
+<form>
+<SCRIPT LANGUAGE="javascript">
+function checkValue(frm,field)
+{
+if(frm.deleteFileNames.value!="")
+{
+	frm.actionName.value=field.name;
+	frm.submit();
+}
+else
+{
+	alert("Please select checkbox for deletion !!");
+}
+}
+function addDeleteList(field,frm)
+{
+if(field.checked){
+	frm.deleteFileNames.value=frm.deleteFileNames.value+field.name+"^";
+}
+else{
+	var rmFile,index,actualString,preString,postString;
+	actualString=frm.deleteFileNames.value;
+	index=actualString.indexOf(field.name+"^",0);
+	       preString=actualString.substring(0,index);
+	       postString=actualString.substring(index+field.name.length+1);
+	       actualString=preString+postString;
+	       frm.deleteFileNames.value=actualString;
+}
+}
+
+function selectAll(field)
+{
+if(field.checked)
+{
+	var rmFile,index,actualString,pre=0,next=0;
+	actualString=document.frm.deleteFileNames.value="$count";
+	while( ( pre=actualString.indexOf("^",next) ) >=0 )
+                        {
+                         var temp=actualString.substring(next,pre);
+                         next=pre+1;
+                        rmFile=document.frm.elements[temp].checked=true;
+                         }
+
+        }
+        else
+        {
+                    var rmFile,index,actualString,pre=0,next=0;
+                    actualString=document.frm.deleteFileNames.value="$count";
+
+                  while( ( pre=actualString.indexOf("^",next) ) >=0 )
+
+                        {
+                         var temp=actualString.substring(next,pre);
+                         next=pre+1;
+                         rmFile=document.frm.elements[temp].checked=false;
+                        }
+                        document.frm.deleteFileNames.value="";
+           }
+}
+</SCRIPT>

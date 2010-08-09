@@ -1,0 +1,63 @@
+#*
+ * @(#) ProxyUser.vm
+ * Copyright (c) 2005,2009-2010 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * @author <a href="mailto:nagendrakumarpal@yahoo.co.in">Nagendra Kumar Singh</a>
+ * @author <a href="mailto:singh_jaivir@rediffmail.com">Jaivir Singh</a>
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+*#
+
+$page.setTitle("Admin Home | User Management | Proxy User")
+$!data.getMessage()
+<table bgcolor="$ui.menuColor" width=100%>
+<tr>
+	<td><a href=$link.setPage("Index.vm") style=text-decoration:none>అడిమిన్స్ హైమ్</a> | ప్రాక్సి యూసర్</td>
+</tr>
+</table>
+<form name=frm method="post" action="$link.setPage("call,UserMgmt_Admin,ProxyUser.vm").setAction("AddProxyUser")">
+<table bgcolor="$ui.tableColor" width=100%>
+<tr>
+	<td colspan="2">
+	<b>
+		#if(( $data.getUser().getTemp("lang" ).toString())=="hindi")
+			ప్రాక్సి యూసర్ ఆఫ్ వివరము  అప్లోడ్
+		#else
+			Enter ప్రాక్సి యూసర్ వివరము 
+		#end
+	</b></td>
+</tr>
+<tr bgcolor="$ui.menuColor">
+	<td colspan=2><b>ప్రాక్సి యూసర్ పేరు <font color=red>*</font></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" size=25 name="UNAME" value=""></td>
+	##formCell ("ప్రాక్సి యూసర్ పేరు <font color=red>*</font>" "UNAME" "")
+</tr>
+<tr>
+	<td colspan=2><b>పాస్వర౯డ్</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="text" size=25 name="PASSWD" value=""></td>
+	##formPasswordCell ("పాస్వర౯డ్" "PASSWD" "")
+</tr>
+<tr bgcolor="$ui.menuColor">
+	<td colspan=2>
+	<input type="hidden" name="actionName">
+	<input type="button" name="eventSubmit_doRegister" value="రిజిస్ట్ర్   " onClick="checkField(document.frm,this);"/> 
+	</td>
+</tr>
+</table>
+</form>
+
+
+
+<SCRIPT LANGUAGE="javascript">
+	function checkField(frm,field)
+	{
+		if(frm.UNAME.value!="") 
+		{
+				frm.actionName.value=field.name;
+				frm.submit();
+		}
+		else
+		{
+		        alert("Please fill the Mandatory(*) Fields !!");
+		}
+	}
+</SCRIPT>

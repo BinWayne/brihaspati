@@ -1,0 +1,92 @@
+#*
+ * @(#)StudentList.vm
+ *  Copyright (c) 2005 ETRG,IIT Kanpur.
+ *  All Rights Reserved.
+ *  Contributors: Members of ETRG, I.I.T. Kanpur
+ * @author <a href="mailto:awadhesh_trivedi@yahoo.co.in ">Awadhesh Kumar Trivedi</a>
+ * @author <a href="mailto:shaistashekh@gmail.com ">Shaista</a> 
+ *#
+
+$page.setTitle("Admin Home | User Management | Search Student | Student Details")
+$!data.getMessage()
+$page.setBgColor($ui.bgcolor)
+
+<br>
+<table bgcolor="$ui.tableColor" width=100% cellspacing=0>
+<tr align="right"> 
+<td align="left">
+#if( $total_size!=0 )
+ 	#if( $endIndex < $total_size )
+  		#if( $endIndex < $AdminConf )
+		[$k - $total_size] کل $total_size مڍں سے   
+    		#else
+		[$k - $endIndex] کل $total_size مڍں سے  
+      		#end
+       #else
+		[$k - $total_size] کل $total_size مڍں سے  
+       #end
+#end
+</td>
+<td>
+<td>
+<font face="$ui.sansSerifFonts" size=3>
+<b><a href=$link.setPage("call,Admin.vm")>منتظم کا صفحہ</a> |
+<a href=$link.setPage("call,UserMgmt_Admin,UserManagement_Admin.vm")>نظامِ مصارف </a> |
+<a href=$link.setPage("call,UserMgmt_Admin,SelectUser.vm")>مشاہداۓ طالب علم</a> | تفصيلاتِ طالب علم 
+</b>
+</td>
+</tr>
+</table>
+<br>
+#set ( $headings = ["  ","اىمڍل","طالبِ علم کا نام","لٰاگن نام"] )
+<table width=70% align=center border=1 cellspacing=2 cellpadding=3 bgcolor="$ui.tableColor">
+    <tr>
+        #foreach ($heading in $headings)
+		<td bgcolor="$ui.menuColor"><font size=3><b>$heading</b></font></td>
+        #end
+    </tr>
+	#foreach($list in $ListUser)
+    <tr>
+        <td>
+            <font face="$ui.sansSerifFonts">
+            <a href="$link.setPage("call,UserMgmt_Admin,StudentCourselist.vm").addPathInfo("username",$list.getLoginName())">نصاب فہرست</a> &nbsp;
+            </font>
+        </td>
+        #entryCell ("<a href=mailto:$!list.getEmail()>$!list.getEmail()</a>")
+	#entryCell ($!list.getUserName())
+	#entryCell ($!list.getLoginName())
+	#end
+    </tr>
+<tr>
+	<td bgcolor="$ui.menuColor" colspan=4 align=center>
+ 	#if($total_size<= $AdminConf)
+	
+	<u><font color="white">پہلا</font></u> &nbsp;
+   	<u><font color="white">اگلا</font></u> &nbsp;
+    	<u><font color="white">پچھلا</font></u> &nbsp;
+     	<u><font color="white">آخری</font></u> &nbsp;
+
+      	#elseif($startIndex== $AdminConf_str)
+      	
+	<u><font color="white">پہلا</font></u> &nbsp;
+      	<u><font color="white">پچھلا</font></u> &nbsp;
+       	<a href="$link.setPage("call,UserMgmt_Admin,StudentList.vm").addPathInfo("queryList",$query).addPathInfo("value",$value).addPathInfo("startIndex",$startIndex)">اگلا</a> &nbsp;
+       	<a href="$link.setPage("call,UserMgmt_Admin,StudentList.vm").addPathInfo("queryList",$query).addPathInfo("value",$value).addPathInfo("startIndex",$check_last)">آخری</a> &nbsp;
+
+      	#elseif($endIndex == $total_size || $endIndex > $total_size)
+
+	<a href="$link.setPage("call,UserMgmt_Admin,StudentList.vm").addPathInfo("queryList",$query).addPathInfo("value",$value).addPathInfo("startIndex",$check_first)">پہلا</a> &nbsp;
+	<a href="$link.setPage("call,UserMgmt_Admin,StudentList.vm").addPathInfo("queryList",$query).addPathInfo("value",$value).addPathInfo("startIndex",$check_pre)">پچھلا</a> &nbsp;
+	<u><font color="white">اگلا</font></u> &nbsp;
+	<u><font color="white">آخری</font></u> &nbsp;
+
+	#else
+
+	<a href="$link.setPage("call,UserMgmt_Admin,StudentList.vm").addPathInfo("queryList",$query).addPathInfo("value",$value).addPathInfo("startIndex",$check_first)">پہلا</a> &nbsp;
+	<a href="$link.setPage("call,UserMgmt_Admin,StudentList.vm").addPathInfo("queryList",$query).addPathInfo("value",$value).addPathInfo("startIndex",$check_pre)">پچھلا</a> &nbsp;
+	<a href="$link.setPage("call,UserMgmt_Admin,StudentList.vm").addPathInfo("queryList",$query).addPathInfo("value",$value).addPathInfo("startIndex",$startIndex).addPathInfo("end",$endIndex)">اگلا</a> &nbsp;
+	<a href="$link.setPage("call,UserMgmt_Admin,StudentList.vm").addPathInfo("queryList",$query).addPathInfo("value",$value).addPathInfo("startIndex",$check_last)">آخری</a> &nbsp;
+	#end
+  </td>
+ </tr>
+</table>

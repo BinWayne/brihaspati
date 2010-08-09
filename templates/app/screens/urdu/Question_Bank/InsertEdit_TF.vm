@@ -1,0 +1,106 @@
+#*
+ * @(#) InsertEdit_TF.vm
+ * Copyright(c)2005-2006 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * @author <a href="mailto:tarankhan1@yahoo.com">Tarannum Khan</a>
+ * @author <a href="mailto:manju_14feb@yahoo.com">Mithelesh Parihar</a>
+ * @author <a href="mailto:awadhesh_trivedi@yahoo.co.in ">Awadhesh Kumar Trivedi</a>
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+*#
+
+$page.setTitle("Question True False")
+$page.setBgColor($ui.bgcolor)
+
+<table bgcolor="$ui.tableColor" width=100% cellspacing=0>
+<tr>
+        <td>
+        <font face="$ui.sansSerifFonts" size=3>
+        <b>
+        <a href=$link.setPage("call,Question_Bank,Question_bank.vm")>$brih_queBank</a> |
+	#if($mode=="Insert")
+	<a href=$link.setPage("call,Question_Bank,Create_Bank_Repository.vm")>تخلڍق مجموعہ ڍا زخيرے</a> | داخل کرڍں صحڍح غلط سوال
+	#else
+	<a href=$link.setPage("call,Question_Bank,RepositoryList.vm")>کل $brih_queBank</a> |
+	<a href=$link.setPage("call,Question_Bank,Question_List.vm").addPathInfo("modulename","$modulename").addPathInfo("Ques_Type","$Ques_Type")>کل سوالاتے $modulename </a> | ترمڍم کرڍں صحڍح غلط سوال
+	#end 
+        </td>
+</tr>
+</table>
+
+<br>
+$!data.getMessage()
+<form name="frm" method="post" action="$link.setAction("Question_Bank")">
+
+<table border=1 align="center" width="60%" bgcolor="$ui.tableColor" cellpadding="2">  
+  <tr>
+   <td width=30% align="centre" bgcolor="$ui.tableColor">
+     <b><font face="$ui.sansSerifFonts">سوال</font></b>
+   </td>
+   <td	width=70% align="left" bgcolor="$ui.tableColor">
+     <font face="$ui.sansSerifFonts">
+      <textarea name="Question" rows=3 cols=50>$!question</textarea >
+     </td>
+ </tr>
+  <tr> 
+  	<td width=30% align="centre" bgcolor="$ui.tableColor">
+    	<b><font face="$ui.sansSerifFonts">جواب</font></b>
+   	</td>
+   	<td width=70% align="left" bgcolor="$ui.tableColor">
+    	<font face="$ui.sansSerifFonts">
+	#set($Ques_Ans=["TRUE","FALSE"])
+      	<select name="Answer" size=1>
+		#if($mode=="Insert")
+			#foreach($quesAns in $Ques_Ans)
+			<option value="$quesAns">$quesAns
+			#end
+		#else
+			<option value=$!ans>$!ans
+			#foreach($quesAns in $Ques_Ans)
+				#if($quesAns != $!ans)
+				<option value="$quesAns">$quesAns
+				#end
+			#end
+		#end
+      	</select> 
+   	</td>
+ </tr> 
+  <tr> 
+	#formCell("شناخڌى" "hint" "$!hint")
+ </tr> 
+<tr>
+<td align=center colspan=2>  
+<font face ="$ui.sansserifFonts">
+  <input type="reset" value="Reset"> 
+	#if($mode=="Insert")
+  		<input type="button" name="eventSubmit_doSaveQuestion" value="محفوظ & شامل کرڍں  مزڍد جانڍں" onClick="checkValue(document.frm,this);"> 
+  		<input type="button" name="eventSubmit_doFinishQuestion" value="محفوظ & ختم کرڍں" onClick="checkValue(document.frm,this);"> 
+	#else
+		<input type="button" name="eventSubmit_doEditQuestion" value="ترمڍم کرڍں" onClick="checkValue(document.frm,this);">
+  		<input type="hidden" name="qid" value=$qid>
+	#end
+  <input type="hidden" name="modulename" value=$modulename> 
+  <input type="hidden" name="actionName" value="">
+  <input type="hidden" name="mode" value=$mode>
+  <input type="hidden" name="FromPath" value=$FromPath>
+  <input type="hidden" name="Ques_Type" value="TF">
+</font>
+</td>
+</tr>
+</table>
+</form>
+
+<script LANGUAGE="JAVASCRIPT">
+        function checkValue(frm,field)
+        {
+                if(frm.Question.value!="")
+                {
+                       	frm.actionName.value=field.name;
+                       	frm.submit();
+                }
+                else
+                {
+                        alert("Please write Question !!");
+                        frm.Question.focus();
+                }
+        }
+</script>

@@ -1,0 +1,363 @@
+#*
+ * @(#)Quota.vm
+ * Copyright (c)2008 - 2009 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ *
+ * @author <a href="mailto:singh_jaivir@rediffmail.com ">Jaivir Singh</a>
+ *
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+*#
+
+$page.setBgColor($ui.bgcolor)
+$!data.getMessage()
+<table bgcolor="$ui.menuColor" width=100%>
+	<tr>
+		<td>
+		<font face="$ui.sansSerifFonts"><b>
+		#if($data.getUser().getUserName()=="admin")
+		$page.setTitle("Quota Management")
+		#if($mode==" ")
+         	<a href=$link.setPage("Index.vm")>Admin's Home page</a> | Quota Gestione
+		#elseif($mode=="uquota")
+         	<a href=$link.setPage("Index.vm")>Admin's Home page</a> | 
+         	<a href=$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("count","1").addPathInfo("mode","uquota").addPathInfo("status","nosearch")>Quota Gestione</a> | Utente Quota 
+		#elseif($mode=="cquota")
+         	<a href=$link.setPage("Index.vm")>Admin's Home page</a> | 
+         	<a href=$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("count","1").addPathInfo("mode","uquota").addPathInfo("status","nosearch")>Quota Gestione</a> | Course Quota 
+		#else 
+         	<a href=$link.setPage("Index.vm")>Admin's Home page</a> | 
+         	<a href=$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("count","1").addPathInfo("mode","uquota").addPathInfo("status","nosearch")>Quota Gestione</a> | Quota Aggiornamento
+		#end
+		#end
+		</font>
+		</td>
+	</tr>
+</table>
+<table width=100%>
+        <tr bgcolor="$ui.tableColor">
+                <td align=right colspan="10">
+		<img src="$content.getURI("/images/hand.gif")"> <a href=javascript:popupWin("/brihaspati2/docs/Quota.html","newWin");>Aiuto</a>
+                </td>
+        </tr>
+<tr bgcolor="$ui.menuColor">
+	#if($tdcolor != "1")
+	<td width=50%>
+	#elseif($tdcolor == "1")
+	<td bgcolor="#AFDCEC" width=50%>
+	#end
+	<a href=$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("mode","uquota").addPathInfo("count","1").addPathInfo("status","nosearch")>Utente Quota </a></td>
+	#if($tdcolor != "2")
+	<td width=50% colspan=4>
+	#elseif($tdcolor == "2")
+	<td bgcolor="#AFDCEC" width=50% colspan=4>
+	#end
+        <a href=$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("mode","cquota").addPathInfo("count","2").addPathInfo("status","nosearch")>Course Quota </a></td>
+
+</tr>
+<form name="frm" action="$link.setPage("call,Quota_Mgmt,Quota.vm").setAction("QuotaAction")"> 
+#if($mode=="uquota")  
+<tr bgcolor="$ui.tableColor">
+	<td align=left colspan="10"><b><I>Lista di Utente Quota </I></td>
+</tr>
+<tr bgcolor="$ui.menuColor">
+                <td>Ricerca </td>
+                <td>
+                        <select name="queryList">
+                                <option value="User Name">Utente nome</option>
+                                <option value="First Name">Primo nome</option>
+                                <option value="Last Name">Ultimo nome</option>
+                                <option value="Email">E-Mail</option>
+                        </select>
+                </td>
+                <td><b>Partita Stringa	 </b></td>
+                <td>
+                        <input align="center" type="text" name="valueString" value="">
+                </td>
+                <td>
+                        <input type="button" name="Search" value="Ricerca" onClick="checkNull(document.frm,this);">
+                        <input type="hidden" name="status" value="Search">
+                        <input type="hidden" name="count" value="$tdcolor">
+                        <input type="hidden" name="mode" value="$mode">
+                </td>
+</tr>
+<tr bgcolor="$ui.tableColor"> 
+	<td width="10%"><b><I>nome</b></I></td>
+	<td><b><I>Disponibile Quota MB    </b></I></td>
+	<td colspan=2><b><I>disponibili Azioni </I></b></td>
+	##</font>
+</tr>
+	#foreach($lst in $entry)
+	#if($velocityCount%2==0)	
+	<tr bgcolor="$ui.tableColor"> 
+	#else
+	<tr bgcolor="$ui.menuColor">
+	#end 
+               	<td><I>$lst.getLoginName()</I></td>
+                <td><I>$lst.getQuota()</I></td>
+		<td colspan=7>
+		<a href=$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("uid",$lst.getUserId()).addPathInfo("name",$lst.getLoginName()).addPathInfo("mode","edit").addPathInfo("quota",$lst.getQuota()).addPathInfo("count",$tdcolor).addPathInfo("status",$status)><I>Modifica</a>&nbsp;&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+	#end 
+<tr>
+<td colspan=10 align=left bgcolor="$ui.menuColor">
+#if($status == "nosearch")	
+        #if($total_size <= $userConf)
+        <u><font color="white">Primo</font></u> &nbsp;
+        <u><font color="white">Precedente</font></u> &nbsp;
+        <u><font color="white">Successivo</font></u> &nbsp;
+        <u><font color="white">Ultimo</font></u> &nbsp;
+
+        #elseif($startIndex == $userConf_string)
+        <u><font color="white">Primo</font></u> &nbsp;
+        <u><font color="white">Precedente</font></u> &nbsp;
+        <a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$startIndex).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor).addPathInfo("status",$status)">Successivo</a> &nbsp;
+        <a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor).addPathInfo("status",$status)">Ultimo</a> &nbsp;
+
+        #elseif($endIndex == $total_size || $endIndex > $total_size)
+        <a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor).addPathInfo("status",$status)">Primo</a> &nbsp;
+        <a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor).addPathInfo("status",$status)">Precedente</a> &nbsp;
+        <u><font color="white">Successivo</font></u> &nbsp;
+        <u><font color="white">Ultimo</font></u> &nbsp;
+
+        #else
+        <a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor).addPathInfo("status",$status)">Primo</a> &nbsp;
+        <a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor).addPathInfo("status",$status)">Precedente</a> &nbsp;
+        <a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$startIndex).addPathInfo("end",$endIndex).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor).addPathInfo("status",$status)">Successivo</a> &nbsp;
+        <a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor).addPathInfo("status",$status)">Ultimo</a> &nbsp;
+        #end
+#else
+	#if($total_size<= $userConf)
+	<u><font color="white">Primo</font></u> &nbsp;
+	<u><font color="white">Successivo</font></u> &nbsp;
+	<u><font color="white">Precedente</font></u> &nbsp;
+	<u><font color="white">Ultimo</font></u> &nbsp;
+	#elseif($startIndex== $userConf_string)
+	<u><font color="white">Primo</font></u> &nbsp;
+	<u><font color="white">Precedente</font></u> &nbsp;
+	<a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$startIndex).addPathInfo("status",$status).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor)">Successivo</a> &nbsp;
+	<a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_last).addPathInfo("status",$status).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor)">Ultimo</a> &nbsp;
+	#elseif($endIndex == $total_size || $endIndex > $total_size)
+	<a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_first).addPathInfo("status",$status).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor)">Primo</a> &nbsp;
+	<a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_pre).addPathInfo("status",$status).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor)">Precedente</a> &nbsp;
+	<u><font color="white">Successivo</font></u> &nbsp;
+	<u><font color="white">Ultimo</font></u> &nbsp;
+        #else
+	<a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_first).addPathInfo("status",$status).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor)">Primo</a> &nbsp;
+	<a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_pre).addPathInfo("status",$status).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor)">Precedente</a> &nbsp;
+	<a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$startIndex).addPathInfo("status",$status).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor)">Successivo</a> &nbsp;
+	<a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_last).addPathInfo("status",$status).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor)">Ultimo</a> &nbsp;
+     		#end
+     	#end
+
+</td>
+</tr>
+#end
+#if($mode=="edit")
+	<tr width=100% bgcolor="$ui.tableColor"> 
+	<td colspan="10"><b><I>Aggiornamento Utente Quota </I></b></td>
+	</tr>
+	<tr bgcolor="$ui.menuColor">
+		<td width=20%>Utente ID</td>
+                <td><input type="text" name="uid" value="$uid" "readonly"></td>
+	</tr>	
+	<tr bgcolor="$ui.tableColor">
+		<td>Nome utente</td>
+                <td><input type="text" name="name" value="$name" "readonly"></td>
+	</tr>	
+	<tr  bgcolor="$ui.menuColor">
+		<td>Utente Quota MB    </td>
+                <td><input type="text" name="quota" value="$quota"></td>
+	</tr>
+	<tr bgcolor="$ui.tableColor"><td colspan=10>
+	<input type=button name="eventSubmit_doUpdate" value=Aggiornamento onClick="checkfield(document.frm,this);"/>
+                <input type="hidden" name="count" value="$tdcolor">
+                <input type="hidden" name="status" value="$status">
+	</td></tr>
+#end
+#if($mode=="cquota")  
+<tr bgcolor="$ui.tableColor">
+	<td align=left colspan=10><b><I>Lista di Course Quota </I></td>
+</tr>
+<tr bgcolor="$ui.menuColor">
+                <td><b>Ricerca</b></td>
+                <td align=left>
+                        <select name="queryList">
+                                <option value="CourseId"> Course ID</option>
+                                <option value="Course Name">Course nome</option>
+                                <option value="Dept">Dipartimento </option>
+                        </select>
+                </td>
+                <td align=left><b>Partita Stringa	</b></td>
+                <td align=left>
+                        <input align=center type="text" name="valueString" value="">
+                </td>
+                <td>
+                        <input type="button" name="Search" value="Ricerca" onClick="checkNull(document.frm,this);">
+                        <input type="hidden" name="status" value="Search">
+                        <input type="hidden" name="mode" value="$mode">
+                        <input type="hidden" name="count" value="$tdcolor">
+                </td>
+                <td>
+                <td>
+        </tr>
+
+<tr bgcolor="$ui.tableColor"> 
+<font size=1>	
+	<td width=10%><b>nome</b></td>
+	<td><b>Corso Nome</b></td>
+	<td><b>Disponibile Quota MB    </b></td>
+	<td colspan=5><b>disponibili Azioni </b></td></font>
+</tr>
+		#foreach($lst in $entry)
+		#if($velocityCount%2==0)
+                <tr bgcolor="$ui.menuColor">
+		#else
+                <tr bgcolor="$ui.tableColor">
+		#end
+                <td><I>$lst.getGroupName()</I></td>
+                <td><I>$lst.getCname()</I></td>
+                <td><I>$lst.getQuota()</I></td>
+                <td align=left colspan=2>
+                <a href=$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("grName",$lst.getGroupName()).addPathInfo("cname",$lst.getCname()).addPathInfo("mode","cedit").addPathInfo("cquota",$lst.getQuota()).addPathInfo("count",$tdcolor)><I>Modifica</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                </tr>
+                #end
+
+<tr>
+<td colspan=10 align=left bgcolor="$ui.menuColor">
+#if($status == "nosearch")	
+        #if($total_size <= $userConf)
+        <u><font color="white">Primo</font></u> &nbsp;
+        <u><font color="white">Precedente</font></u> &nbsp;
+        <u><font color="white">Successivo</font></u> &nbsp;
+        <u><font color="white">Ultimo</font></u> &nbsp;
+
+        #elseif($startIndex == $userConf_string)
+        <u><font color="white">Primo</font></u> &nbsp;
+        <u><font color="white">Precedente</font></u> &nbsp;
+        <a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$startIndex).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor).addPathInfo("status",$status)">Successivo</a> &nbsp;
+        <a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor).addPathInfo("status",$status)">Ultimo</a> &nbsp;
+
+        #elseif($endIndex == $total_size || $endIndex > $total_size)
+        <a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor).addPathInfo("status",$status)">Primo</a> &nbsp;
+        <a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor).addPathInfo("status",$status)">Precedente</a> &nbsp;
+        <u><font color="white">Successivo</font></u> &nbsp;
+        <u><font color="white">Ultimo</font></u> &nbsp;
+
+        #else
+        <a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor).addPathInfo("status",$status)">Primo</a> &nbsp;
+        <a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor).addPathInfo("status",$status)">Precedente</a> &nbsp;
+        <a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$startIndex).addPathInfo("end",$endIndex).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor).addPathInfo("status",$status)">Successivo</a> &nbsp;
+        <a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor).addPathInfo("status",$status)">Ultimo</a> &nbsp;
+        #end
+#else
+	#if($total_size<= $userConf)
+	<u><font color="white">Primo</font></u> &nbsp;
+	<u><font color="white">Successivo</font></u> &nbsp;
+	<u><font color="white">Precedente</font></u> &nbsp;
+	<u><font color="white">Ultimo</font></u> &nbsp;
+	#elseif($startIndex== $userConf_string)
+	<u><font color="white">Primo</font></u> &nbsp;
+	<u><font color="white">Precedente</font></u> &nbsp;
+	<a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$startIndex).addPathInfo("status",$status).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor)">Successivo</a> &nbsp;
+	<a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_last).addPathInfo("status",$status).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor)">Ultimo</a> &nbsp;
+	#elseif($endIndex == $total_size || $endIndex > $total_size)
+	<a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_first).addPathInfo("status",$status).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor)">Primo</a> &nbsp;
+	<a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_pre).addPathInfo("status",$status).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor)">Precedente</a> &nbsp;
+	<u><font color="white">Successivo</font></u> &nbsp;
+	<u><font color="white">Ultimo</font></u> &nbsp;
+        #else
+	<a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_first).addPathInfo("status",$status).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor)">Primo</a> &nbsp;
+	<a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_pre).addPathInfo("status",$status).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor)">Precedente</a> &nbsp;
+	<a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$startIndex).addPathInfo("status",$status).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor)">Successivo</a> &nbsp;
+	<a href="$link.setPage("call,Quota_Mgmt,Quota.vm").addPathInfo("startIndex",$check_last).addPathInfo("status",$status).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor)">Ultimo</a> &nbsp;
+     		#end
+     	#end
+</td>
+</tr>
+#end
+#if($mode=="cedit")  
+	<tr bgcolor="$ui.tableColor"> 
+	<td colspan=10><b><I>Aggiornamento Course Quota</I></td>
+	</tr>
+	<tr bgcolor="$ui.menuColor">
+		<td width=10%>Course ID</td>
+                <td><input type="text" name="grName" value="$gname" "readonly"></td>
+	</tr>	
+	<tr bgcolor="$ui.tableColor">
+		<td>Corso Nome</td>
+                <td><input type="text" name="cname" value="$cname" "readonly"></td>
+	</tr>	
+	<tr bgcolor="$ui.menuColor">
+		<td>Course Quota MB    </td>
+                <td><input type="text" name="cquota" value="$cquota"></td>
+	</tr>
+	<tr bgcolor="$ui.tableColor"><td colspan=10>
+	<input type=button name="eventSubmit_doUpdate" value=Aggiornamento onClick="Updatefield(document.frm,this);"/>	
+	</td></tr>
+#end
+                <input type="hidden" name="actionName">
+                <input type="hidden" name="mode" value=$mode>
+                <input type="hidden" name="count" value="$tdcolor">
+                <input type="hidden" name="status" value="$status">
+
+</form>
+</table> 
+<SCRIPT LANGUAGE="javascript">
+	function checkfield(frm,field)
+	{
+		if(frm.quota.value!="")
+		{	
+			if(isNumberString(frm.quota.value))
+			{
+     				frm.actionName.value=field.name;
+     				frm.submit();
+			}
+    		}
+	}
+	function Updatefield(frm,field)
+	{
+		if(frm.cquota.value!="")
+		{
+			if(isNumberString(frm.cquota.value))
+			{
+     				frm.actionName.value=field.name;
+     				frm.submit();
+			}
+    		}
+	}
+	 function popupWin(url,popupName)
+        {
+                Win1=window.open(url,popupName,"resizable=0,scrollbars=1,height=400,width=400");
+        }
+
+
+	function isNumberString(chString)
+        {
+                if(chString.length==0)
+                return false;
+                var RefString="0123456789";
+                for(count=0;count<chString.length;count++)
+                {
+                        tempChar=chString.charAt(count);
+                        if(RefString.indexOf(tempChar)==-1)
+                        {
+				alert("Value should be numeric")
+                                return false;
+                        }
+                }
+                        return true;
+        }
+	function checkNull(frm,field){
+                if(frm.valueString.value!="")
+		{
+                        frm.submit();
+                }
+                else{
+                        alert("The 'Match String' text box can not be NULL");
+                }
+        }
+
+</SCRIPT>
+

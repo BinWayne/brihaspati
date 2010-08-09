@@ -1,0 +1,104 @@
+ #*
+  * @(#)Profile.vm
+  * Copyright (c) 2006,2009 ETRG,IIT Kanpur.
+  * All Rights Reserved
+  * @author <a href="mailto:singhnk@iitk.ac.in ">Nagendra Kumar Singh</a>
+  * @author <a href="mailto:satyapal@iitk.ac.in ">Satyapal Singh</a>
+  * @author <a href="mailto:ynsingh@iitk.ac.in ">Yatindra Nath Singh</a>
+  * @author <a href="mailto:shaistashekh@hotmail.com">Shaista Bano</a>
+  * Contributors: Members of ETRG, I.I.T. Kanpur
+  *#
+
+$page.setTitle("Change Profile")
+$page.setBgColor($ui.bgcolor)
+
+<table bgcolor="$ui.menuColor" width=100%>
+<tr>
+<td><a href=$link.setPage("Index.vm")>ਵਰਕੇ </a> | ਰੂਪ  ਰੇਖਾ </td>
+</tr></table>
+$!data.getMessage()
+
+#set($lang = $data.getUser().getTemp("lang" ).toString())
+<form name="frm" method="post" enctype="multipart/form-data" action="$link.setPage("Index.vm").setAction("ProfileUser")">
+        <table width=100% bgcolor="$ui.tableColor">
+	 <tr><td><b>ਰੂਪ  ਰੇਖਾ  ( ਵੇਰਵਾ  ) ਦਾ  ਨਵੀਨੀਕਰਣ  </b></td></tr>
+	 #foreach($ud in $udetl)
+	 <tr>
+           #formCell("ਪਹਿਲਾ  ਨਾਮ " "FName" "$!ud.getFirstName()")
+         </tr>
+	 <tr>
+           #formCell("ਅੰਤਮ  ਨਾਮ " "LName" "$!ud.getLastName()")
+         </tr>
+         <tr>
+	   #formCell("ਈਮੇਲ " "EMAIL" "$!ud.getEmail()")
+	 </tr>
+	   #end
+	 <tr>
+	   #fileUpload("ਫੋਟੋ " "PHOTO")
+	 </tr>
+	 <tr>
+	   #formCell("ਅਧੀਕਤਮ  ਵਿਧਾਰਥੀਆਂ  ਦੀ  ਸੂਚੀ  ਗਿਣਤੀ " "Conf" "$!conf")
+         </tr>
+	<tr>	
+	   <td>#if($lang=="hindi") ਪ੍ਰਸ਼ਨ ਚੁਣੋ  #else ਚੁਣੋ  ਪ੍ਰਸ਼ਨ #end</td>
+	    <td>
+		 <select name="que" size=1 onChange="clearAnswer(document.frm,this);"/>
+                 <option value=$!qid> #foreach($q in $qname) $q.getQuestionName() #end
+                 #foreach($questions in $question)
+                        <option value="$questions.getQuestionId()">$questions.getQuestionName()
+                 #end
+                 </option>
+              </select>
+            </td>
+                <tr>
+                #formCell("ਆਪਣਾ  ਜਵਾਬ  ਪਾਓ :" "ANSWER" "$!ans")
+                </tr>
+		<tr>
+                #formCell("ਵਿਨਿਆਸ  ਵਿਵਸਥਾ  ( ਦਿਨਾਂ  ਵਿੱਚ  ) " "TaskConf" "$!TaskConf")
+                </tr>
+
+		<tr bgcolor="$ui.menuColor">
+                <td colspan=2>
+                 <input type="button" name="eventSubmit_doUpdate" value="ਪਰਵੇਸ਼  ਕਰੀਏ " onClick="checkAnswer(document.frm,this);"/>                 
+		 <input type="reset"  value="ਫੇਰ  ਪਾਓ "/>
+		 <input type="hidden" name="actionName"/>
+                </td>
+          </tr>
+     </table>
+</form>
+
+<SCRIPT LANGUAGE="javascript">
+        function checkAnswer(frm,field)
+        {
+                if((frm.Conf.value!="" )&&(frm.ANSWER.value!="")) 
+                {
+			if(frm.Conf.value > 100 || frm.Conf.value < 1 )
+                        {
+                                alert("Maximum  No. of Student in list view should be between 1 to 100 !!");
+                        }
+			else if (frm.TaskConf.value >7 || frm.TaskConf.value < 1)
+                        {
+                                alert(" Task Configuration  value should be between 1 to 7 !!");
+                        }
+                        else
+                        //if( (frm.Conf.value>=1 && frm.Conf.value<=100) && (frm.TaskConf.value>=1 && frm.TaskConf.value<=7))
+                        {
+                                frm.actionName.value=field.name;
+                                frm.submit();
+                        }
+                }
+                else
+		{
+			if(frm.ANSWER.value =="")
+			{
+	                        alert("The answer should not be null !!");
+			}
+			else if(frm.Conf.value =="" )	
+				 alert("Maximum  No. of Student in list view should not be null !!");
+                	else
+			{
+	                        alert("The task configuration value should not be null !!");
+			}
+		}
+        }
+</SCRIPT>

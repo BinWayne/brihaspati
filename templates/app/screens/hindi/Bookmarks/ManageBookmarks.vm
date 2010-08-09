@@ -1,0 +1,189 @@
+<html>
+#*
+*@(#)ManageBookmarks.vm
+ *  Copyright (c) 2008-09 ETRG,IIT Kanpur.
+ *  All Rights Reserved.
+ *  @author <a href="mailto:seema_020504@yahoo.com ">Seema Pal</a>
+ *  @author <a href="mailto:kshuklak@rediffmail.com ">Kishore kumar shukla</a>
+ *  Contributors: Members of ETRG, I.I.T. Kanpur
+ *#
+
+$page.setTitle("ManageBookmarks")
+$page.setBgColor($ui.bgcolor)
+$!data.getMessage()
+#set($lang=$data.getUser().getTemp("lang").toString())
+
+<table bgcolor="$ui.tableColor" width=100% > ##table 1 start
+        <tr> <td><b>
+        <a href=$link.setPage("call,IndexHome.vm")>पृष्ठ</a> | प्रबन्ध  करे  स्मृति पृष्ठ</b>
+     ##</b></td></tr>
+	</td>
+	<td align=right>
+                #if( $total_size!=0 )
+                        #if( $endIndex < $total_size )
+                                #if( $endIndex < $userConf )
+                                [$k - $total_size] of $total_size
+                                #elseif($k == $j)
+                                [$k - $total_size] of $total_size
+                                #else
+                                [$k - $endIndex] of $total_size
+                                #end
+                        #else
+                        [$k - $total_size] of $total_size
+                        #end
+                #end
+        </td></tr>
+
+</table> ##table 1 end
+<br>
+<table bgcolor="#e5e5e5" width="100%">
+        <tr>
+                <td align="center"><b>
+                <a href=$link.setPage("call,Bookmarks,AddBookmarks.vm").addPathInfo("mode","addBmarks")>जोड़ें स्मृति पृष्ठ</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href=$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("stat1","All")>प्रबन्ध  करे   स्मृति पृष्ठ</a></b>&nbsp;&nbsp;&nbsp;&nbsp;
+		</td>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<td lign="right"><img src="$content.getURI("/images/hand.gif")"><a href=javascript:popupWin2("/brihaspati2/docs/ManageBookmarks.html","newWin");>सहायता</a>
+                </td>
+        </tr>
+</table>
+<br>
+#if($Mode=="NoBlank")
+<form name="frm" method="post" action="$link.setPage("call,Bookmarks,ManageBookmarks.vm")">
+<table  bgcolor="#e5e5e5" width="100%">
+<tr>
+        <td bgcolor="#e5e5e5" align="left"><b>स्मृति पृष्ठ द्वारा  खोजें फोलडरनाम:</b>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="dirname" size="1" onChange="Changedir(document.frm,this);"/>
+                                <option>  - चुनें - </option>
+                               #foreach($bdname1 in $dirvalue1)
+                               <option value="$bdname1">$bdname1
+                               #end
+                               </option>
+                        </select>
+         <input type="button" name="search" value="खोजें" onClick="checkNull(document.frm,this);">
+	<input type="hidden" name="stat1" value="Search">
+
+         </td>
+</tr>
+</table>
+##if($Mode=="NoBlank")
+<table  bgcolor="#e5e5e5" width="100%">
+<tr>
+        <td bgcolor="#d9e3ec" ><b>स्मृति पृष्ठ</b></td>
+        <td bgcolor="#d9e3ec"colspan="5"><b>उपलब्ध  क्रियायें</td>
+</tr>
+#set ( $count="" )
+                #foreach($btopics in $allTopics)
+<tr bgcolor="#e5e5e5">
+	#if($btopics.type =="Course_file" || $btopics.type =="Course")
+        <td>$btopics.Url</td>
+	#else
+        <td>$btopics.Topic</td>
+	#end
+#if($btopics.type=="general")
+<td><a href="javascript:void(0)"onclick="window.open('$btopics.Url')">अवलोकन  करें </a></td>
+#end
+#if($btopics.type=="Course")
+	<td><a href="$link.setPage("call,Bookmarks,AddBookmarks.vm").addPathInfo("btname",$btopics.Topic).addPathInfo("bturl",$btopics.Url).addPathInfo("bgroup",$btopics.Name).addPathInfo("stat","view").addPathInfo("stat1","All")">अवलोकन  करें </a></td>
+#end
+#if($btopics.type=="Course_file")
+<td><a href=javascript:popupWin("$link.setPage("call,ViewFileContent.vm").addPathInfo("topic",$btopics.Topic).addPathInfo("dir",$btopics.Name).addPathInfo("type","Bookmarks").addPathInfo("filename",$btopics.Url)","newWin")>अवलोकन  करें </a>&nbsp;&nbsp;</td>
+#end
+#if($btopics.type=="general")
+<td><a href="$link.setPage("call,Bookmarks,AddBookmarks.vm").addPathInfo("btname",$btopics.Topic).addPathInfo("stat","Move").addPathInfo("stat1","All")">विस्थापन</a></td>
+<td><a href="$link.setPage("call,Bookmarks,AddBookmarks.vm").addPathInfo("btname",$btopics.Topic).addPathInfo("stat","Rename").addPathInfo("stat1","All")">पुनः नामकरण</a></td>
+#else
+<td><u><font color="white">विस्थापन</font></u></td>
+<td><u><font color="white">पुनः नामकरण</font></u></td>
+#end
+<td><a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").setAction("Bookmarks").addPathInfo("btname",$btopics.Topic).addPathInfo("stat","delete").addPathInfo("stat1","All").addPathInfo("actionName","eventSubmit_doDeleteBookmark")">हटायें   </a></td>
+#set ( $count= "$count$!btopics.Topic^")
+       		 #end
+</tr>
+</table>
+<table bgcolor="#e5e5e5" width="100%"><tr><td align="left">
+	#if($stat1!="Search")
+	#if($total_size <= $userConf)
+                <u><font color="white">पहला</font></u> &nbsp;
+                <u><font color="white">पिछला</font></u> &nbsp;
+                <u><font color="white">अगला</font></u> &nbsp;
+                <u><font color="white">अंतिम</font></u> &nbsp;
+                #elseif($startIndex == $userConf_string)
+                <u><font color="white">पहला</font></u> &nbsp;
+                <u><font color="white">पिछला</font></u> &nbsp;
+                <a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("startIndex",$startIndex).addPathInfo("stat1",$stat1)">अगला</a> &nbsp;
+		<a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("startIndex",$check_last).addPathInfo("stat1",$stat1)">अंतिम</a> &nbsp;
+                #elseif($endIndex == $total_size || $endIndex > $total_size)
+                <a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("startIndex",$check_first).addPathInfo("stat1",$stat1)">पहला</a>&nbsp;
+                <a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("startIndex",$check_pre).addPathInfo("stat1",$stat1)">पिछला</a> &nbsp;
+                <u><font color="white">अगला</font></u> &nbsp;
+                <u><font color="white">अंतिम</font></u> &nbsp;
+                #else
+                <a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("startIndex",$check_first).addPathInfo("stat1",$stat1)">पहला</a>&nbsp;
+                <a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("startIndex",$check_pre).addPathInfo("stat1",$stat1)">पिछला</a> &nbsp;
+                <a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("startIndex",$startIndex).addPathInfo("end",$endIndex).addPathInfo("stat1",$stat1)">अगला</a> &nbsp;
+          <a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("startIndex",$check_last).addPathInfo("stat1",$stat1)">अंतिम</a> &nbsp;
+                #end
+		#else
+         #if($total_size<= $userConf)
+         <u><font color="white">पहला</font></u> &nbsp;
+         <u><font color="white">अगला</font></u> &nbsp;
+         <u><font color="white">पिछला</font></u> &nbsp;
+         <u><font color="white">अंतिम</font></u> &nbsp;
+          #elseif($startIndex== $userConf_string)
+          <u><font color="white">पहला</font></u> &nbsp;
+          <u><font color="white">पिछला</font></u> &nbsp;
+          <a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("startIndex",$startIndex).addPathInfo("stat1",$stat1).addPathInfo("valdir",$valdir)">अगला</a> &nbsp;
+          <a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("startIndex",$check_last).addPathInfo("stat1",$stat1).addPathInfo("valdir",$valdir)">अंतिम</a> &nbsp;
+         #elseif($endIndex == $total_size || $endIndex > $total_size)
+         <a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("startIndex",$check_first).addPathInfo("stat1",$stat1).addPathInfo("valdir",$valdir)">पहला</a> &nbsp;
+         <a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("startIndex",$check_pre).addPathInfo("stat1",$stat1).addPathInfo("valdir",$valdir)">पिछला</a> &nbsp;
+         <u><font color="white">अगला</font></u> &nbsp;
+         <u><font color="white">अंतिम</font></u> &nbsp;
+          #else
+           <a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("startIndex",$check_first).addPathInfo("stat1",$stat1).addPathInfo("valdir",$valdir)">पहला</a> &nbsp;
+           <a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("startIndex",$check_pre).addPathInfo("stat1",$stat1).addPathInfo("valdir",$valdir)">पिछला</a> &nbsp;
+           <a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("startIndex",$startIndex).addPathInfo("stat1",$stat1).addPathInfo("valdir",$valdir)">अगला</a> &nbsp;
+            <a href="$link.setPage("call,Bookmarks,ManageBookmarks.vm").addPathInfo("startIndex",$check_last).addPathInfo("stat1",$stat1).addPathInfo("valdir",$valdir)">अंतिम</a> &nbsp;
+     #end
+    #end
+
+	</td></tr>
+</table>
+#else
+<table bgcolor="#e5e5e5" width="100%">
+<tr><td align="center"><b><font color="blue"> स्मृति पृष्ठ उपलब्ध नहीं है</font></b></td></tr>
+</table>
+#end
+	<input type="hidden" name="valdir">
+	<input type="hidden" name="stat" value="$stat">
+	<input type="hidden" name="stat1" value="$stat1">
+	<input type="hidden" name="btname" value="$btname">
+</form>
+<SCRIPT LANGUAGE="javascript">
+function popupWin2(url,popupName)
+{
+       Win1=window.open(url,popupName,"resizable=0,scrollbars=1,height=400,width=400,align=left");
+}
+function popupWin(urlName,popupName)
+{
+	 window.open(urlName,popupName,"toolbar=yes,scrollbars=yes");
+}
+function Changedir(frm,field)
+        {
+                frm.valdir.value=document.frm.dirname.value;
+
+        }
+function checkNull(frm,field)
+{
+		if(frm.valdir.value!=""){
+                        frm.submit();
+                }
+                else{
+                        alert("Please select option");
+                }
+
+}
+function open_mywin(url,height,width) {
+window.open(url,height,width)
+}
+</script>

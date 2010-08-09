@@ -1,0 +1,181 @@
+#*
+ * @(#) Backups.vm
+ * Copyright(c)2006 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+ * @author <a href="mailto:singh_jaivir@rediffmail.com">Jaivir Singh</a>
+ * @author <a href="mailto:mann_singh2004@yahoo.com">Manvendra Singh</a>	
+*#
+
+#set($lang = $data.getUser().getTemp("lang" ).toString())
+
+$page.setTitle("Backups")
+$page.setBgColor("#ffffff")
+$!data.getMessage()
+
+<table bgcolor="$ui.menuColor" width=100% cellspacing=0>
+	<tr><td>
+		<font face="$ui.sansSerifFonts" size=3>
+		<a href=$link.setPage("Index.vm") style=text-decoration:none>एडमिन   पृष्ठ</a> | 
+		<a href=$link.setPage("call,Backups,Backups.vm").addPathInfo("count","1") style=text-decoration:none>बैकअप</a> |
+		#if(($mode=="")&&($actionName==""))
+		#if ($lang=="hindi") विषय   का बैकअप #else विषय   Wise बैकअप #end
+		#elseif($mode=="blist") बैकअप सूची #end
+		#if($actionName == "eventSubmit_doCompleteBackup")
+		क्रम बैकअप
+		#elseif($actionName == "eventSubmit_doGlossaryBackup")
+		शब्दावली बैकअप
+		#end
+		</font>
+	</td></tr>
+</table>
+<table width=100% bgcolor="$ui.tableColor">
+<tr><td>
+<table width=100% align=left bgcolor="$ui.tableColor">
+<tr>
+		#if($tdcolor!="1")
+		<td width=25%>
+		#elseif($tdcolor=="1")
+		<td width=25% bgcolor="#AFDCEC">
+		#end
+    		<a href=$link.setPage("call,Backups,Backups.vm").addPathInfo("count","1") style=text-decoration:none>बैकअप विषयवस्तु</a></td>
+		#if($tdcolor!="2")
+		<td width=25%>
+		#elseif($tdcolor=="2")
+		<td width=25% bgcolor="#AFDCEC">
+		#end
+		<a href=$link.setPage("call,Backups,Backups.vm").setAction("BackupAction").addPathInfo("actionName","eventSubmit_doCompleteBackup").addPathInfo("count","2") style=text-decoration:none>क्रम बैकअप</a></td>
+		#if($tdcolor!="3")
+		<td width=25%>
+		#elseif($tdcolor=="3")
+		<td width=25% bgcolor="#AFDCEC">
+		#end
+    		<a href=$link.setPage("call,Backups,Backups.vm").addPathInfo("mode","blist").addPathInfo("count","3") style=text-decoration:none>बैकअप सूची</a></td>
+		#if($tdcolor!="4")
+		<td width=25%>
+		#elseif($tdcolor=="4")
+		<td width=25% bgcolor="#AFDCEC">
+		#end
+		<a href=$link.setPage("call,Backups,Backups.vm").setAction("BackupAction").addPathInfo("actionName","eventSubmit_doGlossaryBackup").addPathInfo("count","4") style=text-decoration:none>शब्दावली बैकअप</td>
+</tr>
+##</form>
+</table></td></tr>
+<tr><td>
+<table width=100% align=left bgColor="$ui.tableColor">
+#if(($mode=="") && ($mode != "blist"))
+<tr>
+	<left><blink><font color="red"><b>कृपया सभी विषयों का आंकड़ासंचय बैकअप ना लें</b></font></blink></left>
+<form name=frm method="post" action="$link.setAction("BackupAction").setPage("call,Backups,Backups.vm")">
+        <div align="left">
+        <table width=100% align=left>
+
+      #if ($errorTemplate)
+</tr>
+      <tr bgColor="$ui.menuColor">
+        <td colspan="4">
+          <table width=100%>
+            <tr>
+              <td>
+                <img src="$ui.image($ui.alertImage,$data)">
+              </td>
+              <td>
+                #parse ($errorTemplate)
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      #end
+
+                <tr bgColor="$ui.menuColor"><td colspan="3">
+                        <font size=4><b>बैकअप के लिये विषय चयन करे</b></font>
+                </td></tr>
+                <tr><td>
+                        <select name="courses">
+                                <option value="Courses">सभी विषय</option>
+                        #foreach($group in $courseList)
+				#if($data.getUser().getUserName() == "admin")
+                                	#if(($group.Name !="global") && ($group.Name !="author"))
+                               		<option value="$group.Name">$group.Name</option>
+                                	#end
+				#else
+                			#if($data.getUser().getTemp("role")=="institute_admin")
+                                        <option value="$group.getGroupName()">$group.getGroupName()</option>
+					#end
+				#end
+                        #end
+                        </select>
+                </td>
+                <td>
+                        <font face="$ui.sansSerifFonts">
+                        <input type="button" name="eventSubmit_doCourseBackup" value="विषयवस्तु  बैकअप" onClick="checkField(document.frm,this);"/>
+                        <input type="button" name="eventSubmit_doStudent_db_backup" value="आंकड़ासंचय बैकअप" onClick="checkField(document.frm,this);"/>
+                        <input type="hidden" name="actionName">
+                        <input type="hidden" name="count" value="$tdcolor">
+                        </font>
+                </td></tr>
+
+        </table>
+</div>
+</form>
+#end
+</table></td></tr>
+<tr><td>
+#if(($mode == "blist")||($actionName=="eventSubmit_doDeletebackup"))
+	<table bgcolor="$ui.tableColor" align="left" width=100%>
+        <tr bgcolor="$ui.menuColor"><td colspan="5" align=left>
+	#if(!($list=="navil"))
+		#if($lang!="english") उपलब्ध  बैकअप की सूची #else सूची में उपलब्ध  बैकअप
+		 #end 
+		</td></tr>
+		<tr>
+	        #if($st != "ins")
+	        <td>Sr.No.</td>
+	        #end
+                <td> 
+		#if($lang!="english") 
+		बैकअप लेख्यपत्र  का नाम 
+		#else 
+		नाम of बैकअप लेख्यपत्र  
+		#end 
+		</td>
+		<td>उपलब्ध  क्रियायें</td>
+		</tr>
+	        #set ($i=1)
+	        	#foreach($lst in $list)
+                		#if($st=="ins")
+					#if($lst.getName().startsWith($data.getUser().getTemp("course_id" ).toString()))
+					<tr>
+	                		## <td>$i</td>
+                        		<td>$lst.getName()</td>
+                        		<td>
+					<a href=$link.setPage("call,Backups,getZipfile.vm").addPathInfo("fName",$lst.getName()).addPathInfo("count",$tdcolor) style=text-decoration:none>अधोभारण करें</a>
+					</td>
+                        		</tr>
+                			#end
+                		#else
+				#if($velocityCount%2==0)	
+				<tr bgcolor="$ui.tableColor">
+				#else
+				<tr bgcolor="$ui.menuColor">
+				#end
+				<td>$i</td>
+                		<td>$lst.getName() </td>
+       	<td><a href=$link.setPage("call,Backups,getZipfile.vm").addPathInfo("fName",$lst.getName()).addPathInfo("count",$tdcolor) style=text-decoration:none>अधोभारण करें</a> &nbsp;&nbsp;
+				<a href=$link.setAction("BackupAction").addPathInfo("actionName","eventSubmit_doDeletebackup").addPathInfo("fName",$lst.getName()).addPathInfo("count",$tdcolor) style=text-decoration:none>हटायें   </a></td>
+                </tr>
+                		#end
+			#set ($i=$i+1)
+        		#end
+#end
+</table>
+#end
+</td></tr></table>
+
+<SCRIPT LANGUAGE="javascript">
+	function checkField(frm,field)
+        {
+		frm.actionName.value=field.name;
+                frm.submit();
+        }
+</SCRIPT>

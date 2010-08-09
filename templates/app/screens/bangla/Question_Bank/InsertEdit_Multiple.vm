@@ -1,0 +1,162 @@
+#*
+ * @(#) Insert_Multiple.vm
+ * Copyright(c)2004-2006,2009 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * @author <a href="mailto:tarankhan1@yahoo.com">Tarannum Khan</a>
+ * @author <a href="mailto:manju_14feb@yahoo.com">Mithelesh Parihar</a>
+ * @author <a href="mailto:awadhesh_trivedi@yahoo.co.in ">Awadhesh Kumar Trivedi</a>
+ * @author <a href="mailto:shaistashekh@hotmail.com">Shaista</a>
+ * @modified date: 12-04-2010
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+*#
+
+$page.setTitle("Enter the Question")
+$page.setBgColor($ui.bgcolor)
+#set($lang=$data.getUser().getTemp("lang" ).toString())
+
+$!data.getMessage()
+<table bgcolor="$ui.menuColor" width=100%>
+<tr>
+        <td>
+	<a href=$link.setPage("call,IndexHome.vm")>মুখ্য় পৃষূঠা</a> |
+        ##<a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")>$course</a> | প্রশ্ন পিরচালন
+        <a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")>$course</a> |
+
+        <a href=$link.setPage("call,Question_Bank,Question_bank.vm").addPathInfo("count","1")>প্রশ্ন সংগ্রহ</a> |
+	#if($mode=="Insert")
+	<a href=$link.setPage("call,Question_Bank,Create_Bank_Repository.vm")> #if($lang=="hindi")ভান্ডার এর সৃষ্িট কর </a> | বহু  প্রশ্ন داخل کرنے #else সৃষ্িট কর ভান্ডার </a> | িনেবিশত বহু  প্রশ্ন #end
+	#else
+	<a href=$link.setPage("call,Question_Bank,RepositoryList.vm")>সমস্ত প্রশ্ন সংগ্রহ</a> |
+	<a href=$link.setPage("call,Question_Bank,Question_List.vm").addPathInfo("modulename","$modulename").addPathInfo("Ques_Type","$Ques_Type")>সমস্ত মধ্েয় প্রশ্েনর $modulename </a> | #if($lang=="hindi")বহু  প্রশ্ন #if($mode=="View") েদেখা #else সম্পাদন কর #end  #else #if($mode=="View") েদেখা #else সম্পাদন কর #end বহু  প্রশ্ন #end
+	#end 
+        </td>
+</tr>
+</table>
+<table bgcolor="$ui.tableColor" width=100%>
+<tr>
+        #if($tdcolor != "1")
+        <td>
+        #elseif($tdcolor=="1")
+        <td bgcolor="#AFDCEC">
+        #end
+        <a href=$link.setPage("call,Question_Bank,Question_bank.vm").addPathInfo("count","1")> #if($lang!="english") নুতন প্রশ্ন সংগ্রহ এর সৃষ্িট কর #else সৃষ্িট কর নুতন প্রশ্ন সংগ্রহ #end </a></td>
+        #if($tdcolor != "2")
+        <td>
+        #elseif($tdcolor=="2")
+        <td bgcolor="#AFDCEC">
+        #end
+        <a href=$link.setPage("call,Question_Bank,RepositoryList.vm").addPathInfo("count","2")> #if($lang!="english") প্রশ্ন সংগ্রহর মদ্েধ সমস্ত প্রসংেগর অবেলকন কর #else প্রশ্ন সংগ্রহর মদ্েধ সমস্ত প্রসংেগর অবেলকন কর #end </a></td>
+        #if($tdcolor != "3")
+        <td>
+        #elseif($tdcolor=="3")
+        <td bgcolor="#AFDCEC">
+        #end
+        <a href=$link.setPage("call,Question_Bank,UploadQuestions.vm").addPathInfo("count","3")></a> #if($lang!="english")প্রশ্ন আপেলাড#else আপেলাড প্রশ্ন #end
+</td>
+</tr>
+</table>
+<form name="frm" method="post" action="$link.setAction("Question_Bank")">
+<table width="100%" bgcolor="$ui.menuColor" cellpadding="2">  
+  <tr>
+   <td width=30% align="centre">
+     <b><font face="$ui.sansSerifFonts">প্রশ্ন</font></b>
+   </td>
+   <td	width=70% align="left">
+     <font face="$ui.sansSerifFonts">
+      <textarea name="Question" rows=3 cols=50 #if($mode=="View") readonly #end >$!question</textarea >
+     </td>
+ </tr>
+  <tr bgcolor="$ui.tableColor"> 
+	#formCell("অপ্শ্ন এ" "op1" "$!op1")
+ </tr> 
+  <tr> 
+	#formCell("অপ্শ্ন বী" "op2" "$!op2")
+ </tr> 
+  <tr bgcolor="$ui.tableColor"> 
+	#formCell("অপ্শ্ন সী" "op3" "$!op3")
+ </tr> 
+  <tr> 
+	#formCell("অপ্শ্ন ডী" "op4" "$!op4")
+ </tr> 
+  <tr bgcolor="$ui.tableColor"> 
+	#formCell("অপ্শ্ন ঈ" "op5" "$!op5")
+ </tr> 
+  <tr> 
+	#formCell("অপ্শ্ন এফ" "op6" "$!op6")
+ </tr> 
+  <tr bgcolor="$ui.tableColor"> 
+  	<td width=30% align="centre"> 
+    	<b><font face="$ui.sansSerifFonts"> #if($lang=="hindi") জবাব দাও #else উওর #end</font></b>
+   	</td>
+   	<td width=70% align="left">
+    	<font face="$ui.sansSerifFonts">
+      	<select name="Answer" size=1>
+	 <option value=$!ans>$!ans
+         <option value="A">এ</option>
+         <option value="B">বী</option>
+         <option value="C">সী</option>
+         <option value="D">ডী</option>
+         <option value="E">ঈ</option>
+         <option value="F">এফ</option>  
+      	</select> 
+   	</td>
+ </tr> 
+  <tr> 
+	<td width=30% align="centre">
+        <b><font face="$ui.sansSerifFonts">সংেকত</font></b>
+        </td>
+        <td  width=70% align="left">
+        <font face="$ui.sansSerifFonts">
+        <textarea name="hint" rows=3 cols=50 #if($mode=="View") readonly #end >$!hint</textarea >
+        </td>
+	##formCell("সংেকত" "hint" "$!hint")
+
+ </tr> 
+<tr bgcolor="$ui.tableColor">
+<td align=center colspan=2>  
+<font face ="$ui.sansserifFonts">
+	#if($mode=="Insert")
+		<input type="reset" value="পুনরায় েসট কর"> 
+  		<input type="button" name="eventSubmit_doSaveQuestion" value="সংচয় কর & সংযুক্ত আরও অিধক" onClick="checkValue(document.frm,this);"> 
+  		<input type="button" name="eventSubmit_doFinishQuestion" value="সংচয় কর & সমাপ্ত" onClick="checkValue(document.frm,this);"> 
+	#elseif($mode=="View")
+	#else
+  		<input type="reset" value="পুনরায় েসট কর"> 
+		<input type="button" name="eventSubmit_doEditQuestion" value="সম্পাদন কর" onClick="checkValue(document.frm,this);">
+  		<input type="hidden" name="qid" value=$qid>
+	#end
+  <input type="hidden" name="modulename" value=$modulename> 
+  <input type="hidden" name="actionName" value="">
+  <input type="hidden" name="mode" value=$mode>
+  <input type="hidden" name="FromPath" value=$FromPath>
+  <input type="hidden" name="Ques_Type" value="Multiple">
+  <input type="hidden" name="count" value="$tdcolor">
+</font>
+</td>
+</tr>
+</table>
+</form>
+
+<script LANGUAGE="JAVASCRIPT">
+        function checkValue(frm,field)
+        {
+                if(frm.Question.value!="")
+                {
+			if((frm.op1.value!="") && (frm.op2.value!="") && (frm.op3.value!="") && (frm.op4.value!=""))
+			{
+                        	frm.actionName.value=field.name;
+                        	frm.submit();
+			}
+			else
+			{
+                        	alert("Please write minimum four answer !!");
+                        	frm.op1.focus();
+			}
+                }
+                else
+                {
+                        alert("Please write Question !!");
+                        frm.Question.focus();
+                }
+        }
+</script>

@@ -1,0 +1,151 @@
+#* * @(#)AdminParam.vm
+ * Copyright (c) 2005,2009 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * @author <a href="mailto:chitvesh@yahoo.com">Chitvesh Dutta</a>
+ * @author <a href="mailto:awadhk_t@yahoo.com">Awadhesh Kumar Trivedi</a>
+ * @author <a href="mailto:shaistashekh@hotmail.com">Shaista Bano</a>
+ * modified date: 17-10-2009
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+*#
+$page.setTitle("Admin Home | Change Parameters")
+
+$page.setBgColor($ui.bgcolor)
+$!data.getMessage()
+#set($lang=$data.getUser().getTemp("lang").toString())
+<table bgcolor="$ui.tableColor" width=100%>
+<tr bgcolor="$ui.menuColor">
+	<td colspan="2">
+	<font face="$ui.sansSerifFonts" size=3>
+	<b>
+     	<a href=$link.setPage("Index.vm")>Admin's Maison</a> | Le profil de l'Admin 
+	</td>
+</tr>
+<form name="frm" method="post" action="$link.setPage("call,AdminProfile,AdminParam.vm").setAction("changeAParam")">
+    ##<tr><td bgcolor="#AFDCEC"><font size=4>Le profil de l'Admin </font></td></tr>
+    <tr><td><font size=4>Le profil de l'Admin </font></td></tr>
+    <tr bgcolor="$ui.menuColor">
+      ##formCell("D'abord  Nom" "AFName" "$!afname")
+	<td width="30"> <font face="$ui.sansSerifFonts"> D'abord  Nom </font></td> 
+	<td width="50"> <font face="$ui.sansSerifFonts"> <input type="text" size="30" name="AFName" value="$!afname"> </font></td>
+    </tr>
+    <tr bgcolor="$ui.tableColor">
+      ##formCell("Dernier Nom" "ALName" "$!alname")	
+	<td width="30"> <font face="$ui.sansSerifFonts"> Dernier Nom </td>   
+	<td width="50"> <font face="$ui.sansSerifFonts"><input type="text" size="30" name="ALName" value="$!alname"> </font></td>
+    </tr>
+    <tr bgcolor="$ui.menuColor">
+      ##formCell("Valeur de configuration de liste " "AdminConf" "$!AdminConf")	
+	<td width="30"> <font face="$ui.sansSerifFonts">Valeur de configuration de liste  </font></td>
+        <td width="50"> <font face="$ui.sansSerifFonts"> <input type="text" size="30" name="AdminConf" value="$!AdminConf"> </font></td>
+    </tr>
+    <tr bgcolor="$ui.tableColor">
+      ##formCell("Cours  Échéance Temps (en jours) " "AdminCrsExp" "$!CrsExp")	
+	<td width="30"> <font face="$ui.sansSerifFonts"> Cours  Échéance Temps (en jours)  </font></td>	
+        <td width="50"> <font face="$ui.sansSerifFonts"> <input type="text" size="30" name="AdminCrsExp" value="$!CrsExp"> </font></td>
+    </tr>
+    <tr bgcolor="$ui.menuColor">
+      ##formCell("Mail Server Nom" "mailServ" "$!mServer")	
+	<td width="30"> <font face="$ui.sansSerifFonts"> #if($lang != "english") Mail Server de Nom #else Mail Server Nom #end </font></td>
+        <td width="50"> <font face="$ui.sansSerifFonts"> <input type="text" size="30" name="mailServ" value="$!mServer"> </font></td>
+    </tr>
+    <tr bgcolor="$ui.tableColor">
+	<td width="30"> <font face="$ui.sansSerifFonts"> #if($lang != "english") Mail Server de Port #else Mail Server Port #end </font></td>
+        <td width="50"> <font face="$ui.sansSerifFonts"> <input type="text" size="30" name="mailServPort" value="$!mServerPort"> </font></td>
+    </tr>
+
+    <tr bgcolor="$ui.menuColor">
+      ##formCell("Mail From" "mailFrom" "$!mFrom")	
+	<td width="30"> <font face="$ui.sansSerifFonts"> Mail From </font></td>
+        <td width="50"> <font face="$ui.sansSerifFonts">  <input type="text" size="30" name="mailFrom" value="$!mFrom"> </font></td>
+    </tr>
+    <tr bgcolor="$ui.tableColor">
+      ##formCell("Local Domain Nom" "mailDomain" "$!dName")	
+	<td width="30"> <font face="$ui.sansSerifFonts"> #if($lang != "english") Local Domain de Nom #else  Local Domain Nom #end </font></td>
+        <td width="50"> <font face="$ui.sansSerifFonts"> <input type="text" size="30" name="mailDomain" value="$!dName"> </font> </td>
+    </tr>
+    <tr bgcolor="$ui.menuColor">
+      ##formCell("Mail Utilisateur Nom" "muName" "$!muname")	
+	<td width="30"> <font face="$ui.sansSerifFonts"> #if($lang !="english") Mail کے Utilisateur de Nom #else  Mail Utilisateur Nom #end </font></td>
+        <td width="50"> <font face="$ui.sansSerifFonts"> <input type="text" size="30" name="muName" value="$!muname"> </font> </td>
+    </tr>
+    <tr bgcolor="$ui.tableColor">
+      ##formPasswordCell("Mail Mot de passe  " "mPass" "$!mPassword")	
+	<td width="30"> <font face="$ui.sansSerifFonts"> #if($lang !="english") Mail de Mot de passe   #else Mail Mot de passe   #end</font></td>	
+        <td width="50"> <font face="$ui.sansSerifFonts"> <input type="password" size="30" name="mPass" value="$!mPassword"> </font></td>
+    </tr>
+    <tr bgcolor="$ui.menuColor">
+	<td width=30><font face="$ui.sansSerifFonts">Cours  Quote-part (dans MB)</td>	
+	<td width="50"><font face="$ui.sansSerifFonts"> <input type="text" size="30" name="cquota" value="$!cquota"></font></td>
+</tr>
+    <tr bgcolor="$ui.tableColor">
+	<td width=30><font face="$ui.sansSerifFonts">Utilisateur Quote-part (dans MB)</td>	
+	<td width="50"><font face="$ui.sansSerifFonts"> <input type="text" size="30" name="uquota" value="$!uquota"></font></td>
+    </tr>
+    <tr bgcolor="$ui.menuColor">
+
+	<td width=30><font face="$ui.sansSerifFonts">Maison RértoireT </td>	
+	<td width="50"><font face="$ui.sansSerifFonts"> <input type="text" size="30" name="hdir" value="$!hdir"></font></td>
+</tr>
+    <tr bgcolor="$ui.tableColor">
+      <td colspan=2 bgcolor="$ui.menuColor">	
+	  <input type="hidden" name="actionName">
+          <input type="button" name="eventSubmit_doUpdate" value="Soumettre " onClick="checkValues(document.frm,this);"/>
+	  <input type="reset" name="reset" value="Remise " onClick="checkClear(document.frm,this);"/>
+	  <input type="hidden" name="count" value="$tdcolor">
+      </td>
+    </tr>
+</form>
+</table>
+
+<SCRIPT LANGUAGE="javascript">
+function checkValues(frm,field)
+{
+	if((frm.AFName.value!="") && (frm.ALName.value!="") && (frm.AdminConf.value!=""))
+        {
+		if(frm.AdminConf.value>=1 && frm.AdminConf.value<=100)
+		{
+			if(isNumberString(frm.AdminCrsExp.value))
+                        {
+				if(isNumberString(frm.cquota.value))
+                        	{
+					if(isNumberString(frm.uquota.value))
+		                        {
+                		               	frm.actionName.value=field.name;
+                                		frm.submit();
+                        		}
+                        	}
+			}
+		}	
+		else
+		{
+			alert("List Config. Value should be between 1 to 100");
+		}
+	}
+        else
+        {
+		alert("None of the fields can be empty !!");
+	}
+}
+
+function checkClear(frm,field)
+{
+	frm.AFName.value="";
+        frm.ALName.value="";
+}
+function isNumberString(chString)
+{
+	if(chString.length==0)
+        return false;
+        var RefString="0123456789";
+        for(count=0;count<chString.length;count++)
+        {
+        	tempChar=chString.charAt(count);
+                	if(RefString.indexOf(tempChar)==-1)
+                        {
+                                alert("Value should be numeric")
+                                return false;
+                        }
+        }
+        return true;
+}
+</SCRIPT>

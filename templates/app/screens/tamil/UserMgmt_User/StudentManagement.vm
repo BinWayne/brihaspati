@@ -1,0 +1,116 @@
+#*
+ * @(#) StudentManagement.vm
+ * Copyright (c) 2005,2009-2010 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * @author <a href="mailto:awadhesh_trivedi@yahoo.co.in">Awadhesh Kumar Trivedi</a>
+ * @author <a href="mailto:singh_jaivir@rediffmail.com">Jaivir Singh</a>
+ * @author <a href="mailto:shaistashekh@hotmail.com">Shaista</a>
+ * @modified date:09-04-2010
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+*#
+
+
+$page.setTitle("$brih_home | $brih_course | $brih_student $brih_reg")
+
+#set($lang = $data.getUser().getTemp("lang" ).toString()) 
+$!data.getMessage()
+<table bgcolor="$ui.menuColor" width=100%>
+<tr><td>
+	<a href=$link.setPage("call,IndexHome.vm") style=text-decoration:none>முகப்பு</a> |
+	<a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm") style=text-decoration:none>$course</a> | மாணவர் பதிவு
+</td></tr>
+</table>
+#if($user_role == "instructor")
+<table align=left bgcolor="$ui.tableColor" width=100%>
+<tr>
+	#if($tdcolor != "1")
+	<td>
+	#elseif($tdcolor == "1")	
+	<td bgcolor="#AFDCEC">
+	#end
+	<a href=$link.setPage("call,UserMgmt_User,StudentManagement.vm").addPathInfo("count","1") style=text-decoration:none> #if($lang =="hindi") மாணவர் சேர் #else சேர் மாணவர்கள் #end </a>
+	</td>
+	#if($tdcolor != "2")
+	<td>
+	#elseif($tdcolor == "2")	
+	<td bgcolor="#AFDCEC">
+	#end
+	<a href=$link.setPage("call,UserMgmt_User,RemoveStudents.vm").addPathInfo("count","2") style=text-decoration:none>மாணவரை நீக்குக</a></td>
+	#if($tdcolor != "3")
+	<td>
+	#elseif($tdcolor == "3")	
+	<td bgcolor="#AFDCEC">
+	#end
+	<a href=$link.setPage("call,UserMgmt_User,MultiUserReg_Instructor.vm").addPathInfo("count","3") style=text-decoration:none> #if($lang =="hindi") பல மாணவர் சேர் #else சேர் பல மாணவர்கள் #end </a></td>
+	#if($tdcolor != "4")
+	<td>
+	#elseif($tdcolor == "4")	
+	<td bgcolor="#AFDCEC">
+	#end
+	<a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("mode","All").addPathInfo("count","4") style=text-decoration:none>மாணவர்களின் பட்டியல்</a></td>
+	#if($tdcolor != "5")
+	<td>
+	#elseif($tdcolor == "5")	
+	<td bgcolor="#AFDCEC">
+	#end
+	<a href=$link.setPage("call,OnLine_Rgtn,ViewOnlineRegistrationInstructor.vm").addPathInfo("count","5") style=text-decoration:none>இணைப்பில் பதிவு</a></td>
+ 	</tr>
+##</table>
+#end
+##addStudent.vm
+<form name="frm" method="post" action="$link.setPage("call,UserMgmt_User,StudentManagement.vm").setAction("UserAction_Instructor")">
+##<table align=left width="100%" bgcolor="$ui.tableColor">
+        ##<tr>
+        ##<td align=left colspan=2>
+          ##      <font size=4><b>மாணவர் பதிவு</b></font>
+        ##</td>
+        ##</tr>
+        <tr bgcolor="$ui.menuColor">
+                ###formCell ("பயனர்பெயர் பெயர் <font color=red>*</font>" "UNAME" "")
+		<td> #if($lang =="hindi") பயனர்பெயர் உடைய பெயர் #else பயனர்பெயர் பெயர் #end <font color=red>*</font> </td>
+		<td>
+                            <input type="text" name="UNAME" value="">
+		</td>
+	<td colspan=3></td>	
+        </tr>
+        <tr>
+                #formPasswordCell ("கடவுச்சொல்" "PASSWD" "")
+	<td colspan=3></td>	
+        </tr>
+        <tr bgcolor="$ui.menuColor">
+                #formCell ("முதல் பெயர்" "FNAME" "")
+	<td colspan=3></td>	
+        </tr>
+        <tr>
+                #formCell("கடைசி பெயர்" "LNAME" "")
+	<td colspan=3></td>	
+        </tr>
+        <tr bgcolor="$ui.menuColor">
+                #formCell("மின்னஞ்சல் ஐடி (அடையாளம்)" "EMAIL" "")
+	<td colspan=3></td>	
+        </tr>
+        <tr>
+        <td align="left" colspan=2>
+                <input type="hidden" name="actionName">
+             <input type="button" name="eventSubmit_doRegister" value="பதிவு" onClick="checkField(document.frm,this);"/>
+                <input type="reset" name="Reset" value="துடைக்க"/>
+                <input type="hidden" name="count" value="$tdcolor">
+        </td>
+        </tr>
+</table>
+</form>
+<SCRIPT LANGUAGE="javascript">
+        function checkField(frm,field)
+        {
+                if(frm.UNAME.value!="")
+                {
+                                frm.actionName.value=field.name;
+                                frm.submit();
+                }
+                else
+                {
+                        alert("Please fill the Mandatory(*) Fields !!");
+                }
+        }
+</SCRIPT>
+

@@ -1,0 +1,10 @@
+#Sqlfile -> Database map
+#Sun Aug 08 16:45:40 IST 2010
+turbine-schema.sql=brihaspati
+turbine-schema-idtable-init.sql=brihaspati
+brihaspati-schema.sql=brihaspati
+turbine-security.sql=brihaspati
+timetable-schema-idtable-init.sql=default
+brihaspati-schema-idtable-init.sql=brihaspati
+timetable-schema.sql=default
+id-table-schema.sql=brihaspati

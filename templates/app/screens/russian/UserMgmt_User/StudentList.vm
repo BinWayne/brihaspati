@@ -1,0 +1,245 @@
+#*
+ * @(#) StudentList.vm
+ *  Copyright (c) 2005,2009-2010 ETRG,IIT Kanpur.
+ *  All Rights Reserved.
+ *  Contributors: Members of ETRG, I.I.T. Kanpur
+ * @author <a href="mailto:awadhesh_trivedi@yahoo.co.in ">Awadhesh Kumar Trivedi</a>
+ * @author <a href="mailto:singh_jaivir@rediffmail.com">Jaivir Singh</a>
+ * @author <a href="mailto:shaistashekh@hotmail.com">Shaista</a>
+ * @modified date: 07-04-2010
+ *     
+ *#
+#set($lang = $data.getUser().getTemp("lang" ).toString())
+
+$page.setTitle("Home | $course | Student Management | Students List")
+$page.setBgColor($ui.bgcolor)
+$!data.getMessage()
+<font face="$ui.sansSerifFonts">$!mmessage</font>
+<table bgcolor="$ui.menuColor" width=100%>
+<tr><td>
+     	<a href=$link.setPage("call,IndexHome.vm") style=text-decoration:none>Дом</a> | 
+	<a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm") style=text-decoration:none>$course</a> | 
+	<a href=$link.setPage("call,UserMgmt_User,StudentManagement.vm").addPathInfo("count","1") style=text-decoration:none>Студент Управление</a> |
+	#if($mode!="Search")
+		Список всех студентов
+	#else
+		#if($lang == "hindi")
+			Выбранные Студентам  из Просмотр
+		#else
+			Посмотреть выбранное Студентам 
+		#end
+	#end
+	</td>
+	<td align="right">
+	#if( $total_size!=0 )
+	#if( $endIndex < $total_size )
+		#if( $endIndex < $userConf )
+                [$k - $total_size] of $total_size
+		#else
+		[$k - $endIndex] of $total_size
+		#end
+	#else
+	[$k - $total_size] of $total_size
+	#end
+	#end
+	</td>
+</tr>
+</table>
+<table bgcolor="$ui.tableColor" width=100%>
+<tr>
+	#if($tdcolor != "1")
+        <td colspan=2>
+	#elseif($tdcolor=="1")
+	<td bgcolor="#AFDCEC" colspan=2>
+	#end
+	<a href=$link.setPage("call,UserMgmt_User,StudentManagement.vm").addPathInfo("count","1") style=text-decoration:none> #if($lang =="hindi") Студент Добавьте #else Добавьте Студентам  #end </a>
+	</td>
+	#if($tdcolor != "2")
+        <td colspan=2>
+	#elseif($tdcolor=="2")
+	<td bgcolor="#AFDCEC" colspan=2>
+	#end
+        <a href=$link.setPage("call,UserMgmt_User,RemoveStudents.vm").addPathInfo("count","2") style=text-decoration:none>Удалить Студент</a>
+	</td>
+	#if($tdcolor != "3")
+        <td colspan=2>
+	#elseif($tdcolor=="3")
+	<td bgcolor="#AFDCEC" colspan=2>
+	#end
+	<a href=$link.setPage("call,UserMgmt_User,MultiUserReg_Instructor.vm").addPathInfo("count","3") style=text-decoration:none> #if($lang =="hindi") Множественные Студент Добавьте #else Добавьте Множественные Студентам  #end </a>
+	</td>
+	#if($tdcolor != "4")
+        <td colspan=3>
+	#elseif($tdcolor=="4")
+	<td bgcolor="#AFDCEC" colspan=3>
+	#end
+	<a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("mode","All").addPathInfo("count","4") style=text-decoration:none>Список студентов</a>
+	</td>
+	#if($tdcolor != "5")
+        <td colspan=4>
+	#elseif($tdcolor=="5")
+	<td bgcolor="#AFDCEC" colspan=4>
+	#end
+        <a href=$link.setPage("call,OnLine_Rgtn,ViewOnlineRegistrationInstructor.vm").addPathInfo("count","5") style=text-decoration:none>Онлайн Зарегистрирование</a>
+	</td>
+	#if($status=="notempty")
+		#if($tdcolor != "6")
+        	<td colspan=2>
+		#elseif($tdcolor=="6")
+		<td bgcolor="#AFDCEC" colspan=2>
+		#end
+        	<a href=$link.setPage("call,UserMgmt_User,getBackup_Students.vm").addPathInfo("count","6") style=text-decoration:none>Список студентов Загрузка </a>
+		</td>
+	#end
+</tr>
+##</table>
+#if($lang == "hindi")
+	#set($headings = ["Пользователь из Имя","Имя", "Электронная почта Удостоверение личности", "Доступные действия"] )
+#else
+	#set($headings = ["Пользователь Имя","Имя", "Электронная почта Удостоверение личности", "Доступные действия"] )
+#end
+
+#*if($status=="notempty")
+<table width=100% bgcolor="$ui.menuColor">
+        <tr><td>
+                <a href=$link.setPage("call,UserMgmt_User,getBackup_Students.vm").addPathInfo("count",$tdcolor) style=text-decoration:none>Список студентов Загрузка </a>
+        </td></tr>
+</table>
+#end
+*#
+<form name=frm method="post" action="$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("status","ForallUser")">
+##<table bgcolor="$ui.tableColor" cellpadding=1 cellspacing=1>
+##<table bgcolor="$ui.menuColor" width=100% align="left">
+        <tr bgcolor="$ui.menuColor">
+                <td><b>Поиск мимо</b></td>
+                <td>
+                        <select name="queryList">
+                                <option value="UserName"> Пользователь #if($lang == "hindi") из #end Имя</option>
+                                <option value="FirstName">Первый Имя</option>
+                                <option value="LastName">Последний Имя</option>
+                                <option value="Email">Электронная почта Удостоверение личности</option>
+                        </select>
+                </td>
+                <td><b>Матч Струна</b></td>
+                <td>
+                        <input align=center type="text" name="valueString" value="">
+                </td>
+                <td>
+                        <input type="button" name="Search" value="Поиск" onClick="checkNull(document.frm,this);">
+                        <input type="hidden" name="mode" value="Search">
+                        <input type="hidden" name="count" value="$tdcolor">
+                </td>
+<td colspan=10><a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("mode","All").addPathInfo("count",$tdcolor) style=text-decoration:none>Список всех студентов</a></td>
+        </tr>
+##</table>
+#if($status=="notempty")
+##<table width=100% bgcolor="$ui,tableColor" align="left">
+  <tr>
+    <td colspan=16>
+      <table width=100% align=left bgcolor="$ui.tableColor">
+        <tr>
+          #foreach ($heading in $headings)
+		#headerCell($heading)
+          #end
+        </tr>
+	
+	#foreach ($urecord in $userlist)
+	#if($velocityCount%2==0)
+	<tr bgcolor="$ui.tableColor">
+	#else
+	<tr bgcolor="$ui.menuColor">
+	#end			
+        	##entryCell ($!urecord.getLoginName())
+         	##entryCell ($!urecord.getUserName())
+        	##entryCell ("<a href=mailto:$!urecord.getEmail()>$!urecord.getEmail()</a>")
+        	<td>$!urecord.getLoginName()</td>
+         	<td>$!urecord.getUserName()</td>
+        	<td><a href=mailto:$!urecord.getEmail()>$!urecord.getEmail()</a></td>
+        	<td>
+                <a href=$link.setPage("call,UserMgmt_User,UserForm_Instructor.vm").addPathInfo("status","update").addPathInfo("username",$urecord.getLoginName()).addPathInfo("count",$tdcolor) style=text-decoration:none>Обновление</a> &nbsp;
+                <a href=$link.setPage("call,UserMgmt_User,UserForm_Instructor.vm").addPathInfo("status","remove").addPathInfo("username",$urecord.getLoginName()).addPathInfo("count",$tdcolor) style=text-decoration:none>Удалить</a> &nbsp;
+                <a href=$link.setPage("call,UserMgmt_User,Usertime_display.vm").addPathInfo("username",$urecord.getLoginName()).addPathInfo("count",$tdcolor) style=text-decoration:none>Использование Подробнее</a> &nbsp
+##                <a href=javascript:popupWin("$link.setScreen("call,ViewPhoto").addPathInfo("username",$urecord.getLoginName())","newWin");>Просмотр Фото </a>
+            	</td>
+        </tr>
+        #end
+      </table>
+         <tr>
+	 <td colspan=16 bgcolor="$ui.menuColor">
+	 #if($mode!="Search")
+	 #if($total_size<= $userConf)
+	 <font color="white">Первый</font> &nbsp;
+	 <font color="white">Следующий</font> &nbsp;
+	 <font color="white">Предыдущая</font> &nbsp;
+	 <font color="white">Последний</font> &nbsp;
+	  #elseif($startIndex== $userConf_str)
+	  <font color="white">Первый</font> &nbsp;
+	  <font color="white">Предыдущая</font> &nbsp;
+	  <a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("startIndex",$startIndex).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor) style=text-decoration:none>Следующий</a> &nbsp;
+	  <a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor) style=text-decoration:none>Последний</a> &nbsp;
+	 #elseif($endIndex == $total_size || $endIndex > $total_size)
+         <a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor) style=text-decoration:none>Первый</a> &nbsp;
+ 	 <a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor) style=text-decoration:none>Предыдущая</a> &nbsp;
+	 <font color="white">Следующий</font>&nbsp;
+         <font color="white">Последний</font>&nbsp;
+	  #else
+	   <a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor) style=text-decoration:none>Первый</a> &nbsp;
+	   <a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor) style=text-decoration:none>Предыдущая</a> &nbsp;
+	   <a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("startIndex",$startIndex).addPathInfo("end",$endIndex).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor) style=text-decoration:none>Следующий</a> &nbsp;
+	    <a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor) style=text-decoration:none>Последний</a> &nbsp;
+     #end
+     #else
+	 #if($total_size<= $userConf)
+	 <font color="white">Первый</font>&nbsp;
+	 <font color="white">Следующий</font>&nbsp;
+	 <font color="white">Предыдущая</font>&nbsp;
+	 <font color="white">Последний</font>&nbsp;
+	  #elseif($startIndex== $userConf_str)
+	 <font color="white">Первый</font>&nbsp;
+	 <font color="white">Предыдущая</font>&nbsp;
+	  <a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("startIndex",$startIndex).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor) style=text-decoration:none>Следующий</a> &nbsp;
+	  <a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor) style=text-decoration:none>Последний</a> &nbsp;
+	 #elseif($endIndex == $total_size || $endIndex > $total_size)
+         <a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor) style=text-decoration:none>Первый</a> &nbsp;
+ 	 <a href=$link.setPage("call,UsertMgmt_User,StudentList.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor) style=text-decoration:none>Предыдущая</a> &nbsp;
+	 <font color="white">Следующий</font>&nbsp;
+         <font color="white">Последний</font>&ibsp;
+	  #else
+	   <a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor) style=text-decoration:none>Первый</a> &ibsp;
+	   <a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor) style=text-decoration:none>Предыдущая</a> &nbsp;
+	   <a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("startIndex",$startIndex).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor) style=text-decoration:none>Следующий</a> &nbsp;
+	    <a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor) style=text-decoration:none>Последний</a> &nbsp;
+     #end
+    #end
+    </td>
+ </tr>
+</table>
+ #end
+</form>
+<table width=100% bgcolor="$ui.tableColor" align=left>
+        #foreach( $entry in $error_Messages )
+        <tr bgcolor="$ui.tableColor">
+        <td align=center>
+        <font face="$ui.sansSerifFonts">Пользователь Имя <font color="brown">"$entry.getErr_User()"</font></font>
+        </td>
+        <td align=center>
+        <font face="$ui.sansSerifFonts">$entry.getErr_Type()</font>
+        </td>
+        </tr>
+        #end
+</table>
+
+<SCRIPT language="JavaScript">
+        function popupWin(url,popupName)
+        {
+                Win1=window.open(url,popupName,"resizable,height=200,width=300");
+        }
+	function checkNull(frm,field){
+                if(frm.valueString.value!=""){
+                        frm.submit();
+                }
+                else{
+                        alert("The 'Match String' text box can not be NULL !!");
+                }
+        }
+</SCRIPT>

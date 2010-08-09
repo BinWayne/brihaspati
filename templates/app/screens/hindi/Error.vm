@@ -1,0 +1,8 @@
+$page.setTitle("System Error")
+
+<h2>प्रणाली  प्रक्रिया  में  अशुद्धता  के  कारण  खेद  है   </h2>
+<b>कृपया  पुनः  प्रयास  करें</b>
+	#if ( $data.getMessage() )
+		$data.getMessage()
+	#end
+

@@ -1,0 +1,341 @@
+#*
+ * @(#)ResearchRepo.vm
+ * Copyright (c) 2008-09 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ *
+ *  @author <a href="mailto:seema_020504@yahoo.com ">Seema Pal</a>
+ *  @author <a href="mailto:kshuklak@rediffmail.com ">Kishore kumar shukla</a>
+ *  @modify <a href="shaistashekh@hotmail.com">Shaista</a>
+ *  @date 10-06-2009
+ *
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+*#
+$page.setTitle("Res Repo Page")
+$page.setBgColor("bgcolor")
+$!data.getMessage()
+#set($lang = $data.getUser().getTemp("lang" ).toString())
+<table bgcolor="#d9e3ec" width=100%>
+<tr <tr align="right">
+<td>
+	<font face="$ui.sansSerifFonts">
+        <a href=$link.setPage("Index.vm")><b>صفحہ</a> |
+        تفتڍش مجموعہ ڍا زخيرے جماعت
+        </font>
+</td>
+</table>
+<table  bgcolor="#d9e3ec" width=100%>
+<tr>
+<td>
+	<a href=javascript:popupWin("/brihaspati2/docs/ResearchRepository.html","newWin");>مدد </a> <img src="$content.getURI("/images/Lefthand.gif")">
+</td>
+</tr>
+</table>
+<br>
+<form name="frm" method="post" enctype="multipart/form-data" action=$link.setPage("call,ResearchRepository,ResearchRepo.vm").setAction("ResearchRepo_Action")>
+<table align="center" bgcolor="#e5e5e5" width="100%">
+	<tr align="right">
+		<td align="center"><b>
+		#if($data.getUser().getUserName()!= "admin" && $data.getUser().getUserName()!= "guest")
+			<a href=$link.setPage("call,ResearchRepository,ResearchRepo.vm").addPathInfo("mode","createResgroup").addPathInfo("username",$username)>تخلڍق تفتڍش مجموعہ ڍا زخيرے</a>&nbsp;&nbsp;&nbsp;&nbsp;
+		#end
+    		<a href=$link.setPage("call,ResearchRepository,ResearchRepo.vm")>تفتڍش مجموعہ ڍا زخيرے جماعت</a></b>&nbsp;&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+</table>
+<br>
+<table align="center" border="0" bgcolor="#d9e3ec" width="80%" > ## table 3 start
+#if($mode == "createResgroup")
+                        <tr bgcolor="#eeeeee"><td align="right">
+                         <font="3"><b><left><font size="3"><i>تخلڍق تفتڍش مجموعہ ڍا زخيرے</i></font></b>
+                        </td></tr>
+                        <tr align="right"><td><br><br>
+                                <table  border="0" bgcolor="#d9e3ec" width="100%" colspan="5">
+					<tr align="right">
+                                        <td><input type="text" name="topicname" size="30" value=""/></td>
+                                        <td><b>: تفتڍش جماعت کا نام <font color=red>*</font> </b></td>
+                                        </tr>
+                                        <tr align="right">
+                                        <td><textarea name="description" rows="8" cols="80" ></textarea></td>
+                                        <td><b> : وضاحت</b></td>
+                                        </tr>
+                                </table>
+                        </td></tr>
+                ## end of usage create ##
+              <tr><td> ## td tr 8 start
+                <table border="0" bgcolor="#e5e5e5" colspan="5" width="100%"> ## table 7 start
+                        <tr><td align="center" >
+                          <input type="button" name="eventSubmit_doCreate_resrepo" value="تخلڍق" onClick="checkField(document.frm,this);"/>
+                           <input type="submit" name="eventSubmit_doCancel" value="رّد کرڍں"/>
+                        </tr></td>
+                </table> ## end of table 7
+        </tr></td> ## end od td tr 8
+#else
+#if($content1 == "value" || $stat=="Search")
+<tr bgcolor="#e5e5e5"><td align ="center" vlaign="top">
+<table  border="0" bgcolor="#d9e3ec" width="100%"> ## table 5 start
+<tr bgcolor="#e5e5e5">
+        <td>
+                <input type="button" name="eventSubmit_doSearch" value="مشاہد٥" onClick="checkNull(document.frm,this);">
+                <input align=center type="text" name="valueString" value="">
+                <b>مشاہد٥ کے لۓ الفاظ ڈالڍں </b>
+       </td>
+        <td align=left>
+                <select name="queryList">
+                <option value="Author Name">مصنف کا نام</option>
+                <option value="Research Group">تفتڍش جماعت</option>
+                </select>
+                <b>مشاہداۓ زريہ</b>
+        </td>
+</tr>
+</table>
+</td></tr>
+#end
+<tr bgcolor="#e5e5e5"><td align ="center" vlaign="top">
+<table  border="0" bgcolor="#d9e3ec" width="100%"> ## table 5 start
+#if($NoSearch=="NoSearch" && $content1=="value")
+<tr align="right">
+	<td align="right" bgcolor="#d9e3ec" ><b>ارسال</td>
+        <td align="right" bgcolor="#d9e3ec" colspan="10"><b>موجود٥ کارواہئ</td>
+        <td align="right" bgcolor="#d9e3ec"> <b>تفتڍش جماعت</b></td>
+        <td align="right" bgcolor="#d9e3ec" >
+        <b>منتخب کرڍں </b></td>
+</tr>
+#end
+#if($stat == "Search" && $actionName == "eventSubmit_doSearch" && $check == "Noblank")
+<tr align="right">
+	<td align="right" bgcolor="#d9e3ec" ><b>ارسال</td>
+        <td align="right" bgcolor="#d9e3ec" colspan="10"><b>موجود٥ کارواہئ</td>
+        <td align="right" bgcolor="#d9e3ec"> <b>تفتڍش جماعت</b></td>
+        <td align="right" bgcolor="#d9e3ec" >
+        <b>منتخب کرڍں </b></td>
+</tr>
+#end
+
+#if($NoSearch=="NoSearch" )
+	#if($content1 =="value")
+	#set ( $count="" )
+	#foreach($Restopics in $allTopics)
+		<tr bgcolor="#e5e5e5">
+		#if($data.getUser().getUserName()!= "guest" && $data.getUser().getUserName()!= "admin")
+	        	<td align="right"><b>$Restopics.studentno</b></td>
+	        	<td align="right"  colspan="7"><a href="$link.setPage("call,ResearchRepository,ResearchRepo.vm").setAction("ResearchRepo_Action").addPathInfo("topicname",$Restopics.Topic).addPathInfo("mode","post").addPathInfo("actionName","eventSubmit_doPost")">ارسال</a></td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		        <td align="right"><a href="$link.setPage("call,ResearchRepository,Post_Reply_topic.vm").addPathInfo("topicname",$Restopics.Topic).addPathInfo("mode","view")">منزرِ</a></td>&nbsp;&nbsp;
+			#if($Restopics.UserName == $username)
+				<td> <a href="$link.setPage("call,ResearchRepository,ResearchRepo.vm").addPathInfo("type","Unjoin").addPathInfo("tname",$Restopics.Topic).addPathInfo("owner",$Restopics.UserName)">چهوڑ دڍا</a></td>
+			#else
+			       <td align="right"><u><font color="white">چهوڑ دڍا</font></u></td>
+			#end
+			#if($Restopics.UserName != $username)
+		        	<td align="right"><a href="$link.setPage("call,ResearchRepository,ResearchRepo.vm").setAction("ResearchRepo_Action").addPathInfo("topicname",$Restopics.Topic).addPathInfo("actionName","eventSubmit_doJoinUser")">شامل ہوں</a></td>
+			#else
+       				<td align="right"><u><font color="white">شامل ہوں</font></u></td>
+			#end
+		#else
+			############## THIS IS FOR ADMIN FACE ############
+			<td align="right" ><b>$Restopics.studentno</b></td>
+			<td align="right"  colspan="7"><u><font color="white">ارسال</font></td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        		<td align="right"><a href="$link.setPage("call,ResearchRepository,Post_Reply_topic.vm").addPathInfo("topicname",$Restopics.Topic).addPathInfo("mode","view")">منزرِ</a></td>&nbsp;&nbsp;
+			#if($data.getUser().getUserName() == "admin")
+				<td align="right"> <a href="$link.setPage("call,ResearchRepository,ResearchRepo.vm").addPathInfo("type","Unjoin").addPathInfo("tname",$Restopics.Topic).addPathInfo("owner",$Restopics.UserName)">چهوڑ دڍا</a></td>    
+			#else
+			       <td align="right"><u><font color="white">چهوڑ دڍا</font></u></td>
+			#end
+		        <td align="right"><u><font color="white">شامل ہوں</font></u></td>
+		#end
+			################ THESE BELOW 2 COLUMNS ARE COMMON FOR INST FACE AS WELL AS FOR ADMIN FACE #############
+		        #foreach($usertype in $collect)
+			    <td colspan="3" align="right"><font color="blue">$usertype.Name</font></td>
+		        #end 
+       			<td align="right">$Restopics.Topic</td>
+	       		<td align="right">
+			#if($Restopics.UserName == $username ||$data.getUser().getUserName() == "admin")
+		        	<input type=checkbox name="$!Restopics.Topic" onClick="addDeleteList(this,document.frm);">
+			#else
+				<input type="CHECKBOX" disabled="true">
+		        #end
+        		</td>
+		</tr>
+		#set ( $count= "$count$!Restopics.Topic^")
+       	#end
+	#else
+		تفتڍش جماعت موجود نہي ہے ...!!	
+        #end
+#end
+	#if($stat == "Search" && $actionName == "eventSubmit_doSearch")
+		#if($check == "Noblank")
+        		#foreach($topics in $Searchtopics)
+				<tr bgcolor="#e5e5e5">
+					#if($data.getUser().getUserName()!= "guest" && $data.getUser().getUserName()!= "admin")
+					        <td align="right"><b>$topics.studentno</b></td>
+					        <td align="right" colspan="7"><a href="$link.setPage("call,ResearchRepository,ResearchRepo.vm").setAction("ResearchRepo_Action").addPathInfo("topicname",$topics.Topic).addPathInfo("mode","post").addPathInfo("actionName","eventSubmit_doPost")">ارسال کرڍں</a></td>&nbsp;&nbsp;
+						<td align="right"><a href="$link.setPage("call,ResearchRepository,Post_Reply_topic.vm").addPathInfo("topicname",$topics.Topic).addPathInfo("mode","view")">منزرِ</a></td>&nbsp;&nbsp;
+						#if($topics.UserName == $username)
+							<td align="right"> <a href="$link.setPage("call,ResearchRepository,ResearchRepo.vm").addPathInfo("type","Unjoin").addPathInfo("tname",$topics.Topic).addPathInfo("owner",$topics.UserName)">چهوڑ دڍا</a></td>
+						#else
+							<td align="center"><u><font color="white">چهوڑ دڍا</font></u></td>
+						#end
+						#if($topics.UserName != $username)
+							<td align="right"><a href="$link.setPage("call,ResearchRepository,ResearchRepo.vm").setAction("ResearchRepo_Action").addPathInfo("topicname",$topics.Topic).addPathInfo("actionName","eventSubmit_doJoinUser")">شامل ہوں</a></td>
+						#else
+						       <td align="right"><u><font color="white">شامل ہوں</font></u></td>
+						#end
+					#else
+					        <td align="right"><b>$topics.studentno</b></td>
+					        <td align="right" colspan="7"></u><font color="white">ارسال</font></td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					        <td align="right"><a href="$link.setPage("call,ResearchRepository,Post_Reply_topic.vm").addPathInfo("topicname",$topics.Topic).addPathInfo("mode","view")">منزرِ</a></td>&nbsp;&nbsp;
+						#if($data.getUser().getUserName() == "admin")
+						        <td align="right"><a href="$link.setPage("call,ResearchRepository,ResearchRepo.vm").addPathInfo("type","Unjoin").addPathInfo("tname",$topics.Topic).addPathInfo("owner",$topics.UserName)">چهوڑ دڍا</a></td>
+					        #else
+							<td align="right"><u><font color="white">چهوڑ دڍا</font></u></td>
+						#end
+						<td align="right"><u><font color="white">شامل ہوں</font></u></td>
+					#end
+				        <td align="right">$topics.Topic</td>
+				        <td align="right">
+				        #if($topics.UserName == $username || $data.getUser().getUserName()=="admin")
+					        <input type=checkbox name="$!topics.Topic" onClick="addDeleteList(this,document.frm);">
+				        #else
+				        <input type="CHECKBOX" disabled="true">
+				        #end
+				        </td>
+				</tr>
+			       	#set ( $count= "$count$!topics.Topic^")
+			#end
+		#else
+			#if($select=="Author Name")
+				مصارف  موجود نہي ہے ...!!
+			#end
+			#if($select=="Research Group")
+				عنوان موجود نہي ہے ...!!
+			#end
+		#end
+	#end
+#if($type == "Unjoin")
+	<table  border="0" bgcolor="#d9e3ec" width="100%"> ## table 5 start
+	#if($value=="yesvalue") 
+		<tr align="right">
+		<td align="right" bgcolor="#d9e3ec"><b>مصارف  متفق ہڍں </td>
+ 	       	<td align="right" bgcolor="#d9e3ec"><b>جماعت کا ولى</td>
+        	<td align="right" bgcolor="#d9e3ec"><b>تفتڍش جماعت</b></td>
+	        <td align="right" bgcolor="#d9e3ec"> <b>منتخب کرڍں </b></td>
+		</tr>
+		#set ( $count="" )
+                #foreach($usertype in $collect)
+			<tr align="right" bgcolor="#e5e5e5">
+			        <td><font color="blue">$usertype.Name</font></td>
+				<td>$usertype.UserName</td>
+			        <td>$usertype.Topic</td>
+			        <td align="right"> <input type=checkbox name="$!usertype.Name" onClick="addDeleteList(this,document.frm);"> </td>
+				#if($value1 == "balnk")
+					مصارف  موجود نہي ہے  ..!!
+				#end
+			</tr>
+		        #set ( $count= "$count$!usertype.Name^")
+	        #end
+	#else
+		##User is not exists ..!!
+		مصارف  موجود نہي ہے  ..!!
+	#end
+#end
+</table>
+<tr>
+        <td align="right">&nbsp;&nbsp; ## td 5 start
+	#if($stat!="Search" && $type!="Unjoin" && $content1=="value")
+	        #if($total_size <= $userConf)
+        	<u><font color="white">پہلا</font></u> &nbsp;
+	        <u><font color="white">پچھلا</font></u> &nbsp;
+        	<u><font color="white">اگلا</font></u> &nbsp;
+	        <u><font color="white">آخری</font></u> &nbsp;
+       		#elseif($startIndex == $userConf_string)
+	        <u><font color="white">پہلا</font></u> &nbsp;
+        	<u><font color="white">پچھلا</font></u> &nbsp;
+	        <a href="$link.setPage("call,ResearchRepository,ResearchRepo.vm").addPathInfo("startIndex",$startIndex)">اگلا</a> &nbsp;
+	        <a href="$link.setPage("call,ResearchRepository,ResearchRepo.vm").addPathInfo("startIndex",$check_last)">آخری</a> &nbsp;
+	        #elseif($endIndex == $total_size || $endIndex > $total_size)
+	        <a href="$link.setPage("call,ResearchRepository,ResearchRepo.vm").addPathInfo("startIndex",$check_first)">پہلا</a>&nbsp;
+        	<a href="$link.setPage("call,ResearchRepository,ResearchRepo.vm").addPathInfo("startIndex",$check_pre)">پچھلا</a> &nbsp;
+	        <u><font color="white">اگلا</font></u> &nbsp;
+	        <u><font color="white">آخری</font></u> &nbsp;
+        	#else
+	        <a href="$link.setPage("call,ResearchRepository,ResearchRepo.vm").addPathInfo("startIndex",$check_first)">پہلا</a>&nbsp;
+        	<a href="$link.setPage("call,ResearchRepository,ResearchRepo.vm").addPathInfo("startIndex",$check_pre)">پچھلا</a> &nbsp;
+	        <a href="$link.setPage("call,ResearchRepository,ResearchRepo.vm").addPathInfo("startIndex",$startIndex).addPathInfo("end",$endIndex)">اگلا</a> &nbsp;
+	        <a href="$link.setPage("call,ResearchRepository,ResearchRepo.vm").addPathInfo("startIndex",$check_last)">آخری</a> &nbsp;
+        	#end
+    	#end
+	#if($check=="Noblank" || $content1=="value")
+	        <input type="button" name="eventSubmit_doDeleteTopic" value="خارج جماعت" onClick="deleteConfirm(document.frm,this);"/>
+	#end
+	#if($type=="Unjoin" && $value=="yesvalue")
+        	<input type="button" name="eventSubmit_doUnjoinUser" value="چهوڑ دڍا مصارف " onClick="deleteConfirm(document.frm,this);"/>
+	#end
+        </td>
+</tr>
+</td></tr>
+#end ##end of else mode(creatRes)
+        <input type="hidden" name="actionName" >
+        <input type="hidden" name="deleteFileNames" value="">
+        <input type="hidden" name="stat" value="Search">
+        <input type="hidden" name="tname" value="$tname"> 
+
+</table> ## end of table 3
+</form>
+<SCRIPT LANGUAGE="javascript">
+function checkField(frm,field)
+{
+	if(frm.topicname.value!="")
+        {
+                frm.actionName.value=field.name;
+                frm.submit();
+        }
+        else
+                alert("Please fill the Mandatory(*) Fields !!");
+}
+function deleteConfirm(frm,field)
+{
+	var delfiles;
+        delfiles=frm.deleteFileNames.value;
+        if(delfiles.length!=0)
+        {
+        	if(confirm("Selected Group will be Deleted"))
+                {
+                	frm.actionName.value=field.name;
+                        frm.submit();
+                }
+        }
+        else
+        	alert("Please Select check box  !!");
+}
+function addDeleteList(field,frm)
+{
+	if(field.checked)
+        {
+        	frm.deleteFileNames.value=frm.deleteFileNames.value+field.name+"^";
+        }
+        else
+        {
+        	var rmFile,index,actualString,preString,postString;
+                actualString=frm.deleteFileNames.value;
+                index=actualString.indexOf(field.name+"^",0);
+                preString=actualString.substring(0,index);
+                postString=actualString.substring(index+field.name.length+1);
+                actualString=preString+postString;
+                frm.deleteFileNames.value=actualString;
+        }
+
+}
+function popupWin(url,popupName)
+{
+	Win1=window.open(url,popupName,"resizable=0,scrollbars=1,height=400,width=400,align=left");
+}
+function checkNull(frm,field)
+{
+	if(frm.valueString.value!="")
+	{
+		frm.actionName.value=field.name;
+                frm.submit();
+        }
+        else
+        	alert("The 'Match String' text box can not be NULL");
+}
+</SCRIPT>

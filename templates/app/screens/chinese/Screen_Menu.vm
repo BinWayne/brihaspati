@@ -1,0 +1,113 @@
+#*
+ * @(#) Screen_Menu.vm
+ * Copyright (c) 2005-2006, 2009 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ *
+ * @author<a href="mailto:aktri@iitk.ac.in">Awadhesh Kumar Trivedi</a>
+ * @author<a href="mailto:singhnk@iitk.ac.in">Nagendra Kumar Singh</a>
+ * @author<a href="mailto:singh_jaivir@rediffmail.com">Jaivir Singh</a>
+ * @author<a href="mailto:shaistashekh@hotmail.com">Shaista </a>
+ * @modified:Date 29-10-2009, 07-04-2010
+ *
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+ *#
+<table width="100%" bgcolor="$ui.tableColor">
+<tr bgcolor="$ui.menuColor">
+<td><i><center><font size=4>$data.getUser().getTemp("course_name")</font></center></i><hr/></td>
+</tr>
+#######################################
+#set($lang = $data.getUser().getTemp("lang" ).toString())
+####################################
+
+ #if($data.getUser().getTemp("role") == "instructor")
+                <tr>
+                        <td>
+                                ##<a href=$link.setPage("call,CourseMgmt_User,CourseManagement.vm")>课程 管理</a> 
+                                ##<a href=$link.setPage("call,CourseMgmt_User,CourseManagement.vm").addPathInfo("count","1") style=text-decoration:none>课程 管理</a> 
+                                <a href=$link.setPage("call,CourseMgmt_User,CourseContent.vm").addPathInfo("count","1") style=text-decoration:none>课程 管理</a> 
+                         </td>
+                </tr>
+                <tr bgcolor="$ui.menuColor">
+                        <td>
+                        ##<a href=$link.setPage("call,UserMgmt_User,StudentManagement.vm")>学生 管理</a>
+                        <a href=$link.setPage("call,UserMgmt_User,StudentManagement.vm").addPathInfo("count","1") style=text-decoration:none>学生 管理</a>
+			</td> ##today28july
+                </tr>
+                <tr>
+                        <td>
+                        ##<a href=$link.setPage("call,Question_Bank,Question_bank.vm")>$brih_queBank</a>
+                        <a href=$link.setPage("call,Question_Bank,Question_bank.vm").addPathInfo("count","1") style=text-decoration:none>问题 银行 </a>
+                        </td>
+                </tr>
+                <tr bgcolor="$ui.menuColor">
+                        <td>
+                        ##<a href=$link.setPage("call,UserMgmt_User,UploadMarks.vm")>上传 标记 </a>
+                        <a href=$link.setPage("call,UserMgmt_User,UploadMarks.vm").addPathInfo("count","1") style=text-decoration:none>标记  上传 </a>
+                        </td>
+                </tr>
+                <tr>
+                        <td>
+                        ##<a href=$link.setPage("call,Backups,BackupIns.vm")>备份</a>
+                        <a href=$link.setPage("call,Backups,BackupIns.vm").addPathInfo("count","1") style=text-decoration:none>备份</a>
+                        </td>
+                </tr>
+ #end
+ #if($data.getUser().getTemp("role") == "student")
+                <tr bgcolor="$ui.menuColor">
+                        <td>
+                        ##<a href=$link.setPage("call,CourseMgmt_User,CourseContent.vm")>课程 内容</a>
+                        <a href=$link.setPage("call,CourseMgmt_User,CourseContent.vm").addPathInfo("count","1") style=text-decoration:none> #if($lang =="hindi") 内容 #else 课程 内容 #end </a>
+			</td> ##today28july
+                </tr>
+		#if($data.getUser().getUserName() != "guest") ##guest is not login
+                <tr>
+                        <td>
+                        ##<a href=$link.setPage("call,UserMgmt_User,ViewMarks.vm")>查看 标记 </a>
+                        <a href=$link.setPage("call,UserMgmt_User,ViewMarks.vm").addPathInfo("count","1") style=text-decoration:none>查看 标记 </a>
+                        </td>
+                </tr>
+		#end
+        #end
+                <tr bgcolor="$ui.menuColor">
+                        <td>
+                        ##<a href=$link.setPage("call,CourseMgmt_User,Communication.vm")>通信</a>
+                        ##<a href=$link.setPage("call,CourseMgmt_User,Communication.vm")>Communication</a>
+                        <a href=$link.setPage("call,Local_Mail,Mail.vm").addPathInfo("count","1") style=text-decoration:none>通信</a>
+                        </td>
+                </tr>
+	#if($data.getUser().getUserName() != "guest") ##guest is not login
+                <tr>
+                        <td>
+                        ##<a href=$link.setPage("call,Quiz_Mgmt,Quiz_Start.vm")>测验 </a>
+                        <a href=$link.setPage("call,Quiz_Mgmt,Quiz_Start.vm").addPathInfo("count","1") style=text-decoration:none>测验 </a>
+                        </td>
+                </tr>
+                <tr bgcolor="$ui.menuColor">
+                        <td>
+                        ##<a href=$link.setPage("call,Calendar_Mgmt,Calendar_Display.vm").addPathInfo("path","fromcourse")>当然日历</a>
+                        <a href=$link.setPage("call,Calendar_Mgmt,Calendar_Display.vm").addPathInfo("path","fromcourse") style=text-decoration:none>当然日历</a>
+                        </td>
+                </tr>
+                <tr>
+			 <td>
+                        ##<a href=$link.setPage("call,Wiki,Wiki.vm")>维基</a>
+                        <a href=$link.setPage("call,Wiki,Wiki.vm").addPathInfo("count","1") style=text-decoration:none>维基</a>
+                        </td>
+                </tr>
+		<tr bgcolor="$ui.menuColor">
+                         <td>
+                        <a href=$link.setPage("call,Group_Mgmt,Grpmgmt.vm").addPathInfo("count","1") style=text-decoration:none>集团 管理</a>
+                        </td>
+                </tr>
+                <tr>
+                         <td>
+                        <a href=$link.setPage("call,Assignment,ASS_subm.vm").addPathInfo("count","1") style=text-decoration:none>转让</a>
+                        </td>
+                </tr>
+
+
+	#end
+## --------------------
+##end
+## ---------------------
+</table>

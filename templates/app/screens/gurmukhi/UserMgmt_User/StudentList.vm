@@ -1,0 +1,245 @@
+#*
+ * @(#) StudentList.vm
+ *  Copyright (c) 2005,2009-2010 ETRG,IIT Kanpur.
+ *  All Rights Reserved.
+ *  Contributors: Members of ETRG, I.I.T. Kanpur
+ * @author <a href="mailto:awadhesh_trivedi@yahoo.co.in ">Awadhesh Kumar Trivedi</a>
+ * @author <a href="mailto:singh_jaivir@rediffmail.com">Jaivir Singh</a>
+ * @author <a href="mailto:shaistashekh@hotmail.com">Shaista</a>
+ * @modified date: 07-04-2010
+ *     
+ *#
+#set($lang = $data.getUser().getTemp("lang" ).toString())
+
+$page.setTitle("Home | $course | Student Management | Students List")
+$page.setBgColor($ui.bgcolor)
+$!data.getMessage()
+<font face="$ui.sansSerifFonts">$!mmessage</font>
+<table bgcolor="$ui.menuColor" width=100%>
+<tr><td>
+     	<a href=$link.setPage("call,IndexHome.vm") style=text-decoration:none>ਵਰਕੇ </a> | 
+	<a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm") style=text-decoration:none>$course</a> | 
+	<a href=$link.setPage("call,UserMgmt_User,StudentManagement.vm").addPathInfo("count","1") style=text-decoration:none>ਵਿਦਿਯਾਰਥੀ   ਪਰਬੰਧਨ </a> |
+	#if($mode!="Search")
+		ਸਾਰੇ  ਵਿਧਾਰਥੀਆਂ  ਦੀ  ਸੂਚੀ 
+	#else
+		#if($lang == "hindi")
+			ਚੁਣੇ  ਹੋਏ  ਵਿਦਿਯਾਰਥੀਆਂ  ਦਾ  ਜਾਂਚ -ਪੜਤਾਲ  ਕਰੀਏ 
+		#else
+			ਜਾਂਚ -ਪੜਤਾਲ  ਕਰੀਏ  ਚੁਣੇ  ਗਏ  ਵਿਦਿਯਾਰਥੀਆਂ 
+		#end
+	#end
+	</td>
+	<td align="right">
+	#if( $total_size!=0 )
+	#if( $endIndex < $total_size )
+		#if( $endIndex < $userConf )
+                [$k - $total_size] of $total_size
+		#else
+		[$k - $endIndex] of $total_size
+		#end
+	#else
+	[$k - $total_size] of $total_size
+	#end
+	#end
+	</td>
+</tr>
+</table>
+<table bgcolor="$ui.tableColor" width=100%>
+<tr>
+	#if($tdcolor != "1")
+        <td colspan=2>
+	#elseif($tdcolor=="1")
+	<td bgcolor="#AFDCEC" colspan=2>
+	#end
+	<a href=$link.setPage("call,UserMgmt_User,StudentManagement.vm").addPathInfo("count","1") style=text-decoration:none> #if($lang =="hindi") ਵਿਦਿਯਾਰਥੀ   ਜੋੜੇਂ  #else ਜੋੜੇਂ  ਵਿਦਿਯਾਰਥੀਆਂ  #end </a>
+	</td>
+	#if($tdcolor != "2")
+        <td colspan=2>
+	#elseif($tdcolor=="2")
+	<td bgcolor="#AFDCEC" colspan=2>
+	#end
+        <a href=$link.setPage("call,UserMgmt_User,RemoveStudents.vm").addPathInfo("count","2") style=text-decoration:none>ਵਿਧਾਰਥੀ  ਹਟਾਵਾਂ </a>
+	</td>
+	#if($tdcolor != "3")
+        <td colspan=2>
+	#elseif($tdcolor=="3")
+	<td bgcolor="#AFDCEC" colspan=2>
+	#end
+	<a href=$link.setPage("call,UserMgmt_User,MultiUserReg_Instructor.vm").addPathInfo("count","3") style=text-decoration:none> #if($lang =="hindi") ਬਹੁਵੀਕਲਪੀਏ   ਵਿਦਿਯਾਰਥੀ   ਜੋੜੇਂ  #else ਜੋੜੇਂ  ਬਹੁਵੀਕਲਪੀਏ   ਵਿਦਿਯਾਰਥੀਆਂ  #end </a>
+	</td>
+	#if($tdcolor != "4")
+        <td colspan=3>
+	#elseif($tdcolor=="4")
+	<td bgcolor="#AFDCEC" colspan=3>
+	#end
+	<a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("mode","All").addPathInfo("count","4") style=text-decoration:none>ਵਿਧਾਰਥੀਆਂ  ਦੀ  ਸੂਚੀ </a>
+	</td>
+	#if($tdcolor != "5")
+        <td colspan=4>
+	#elseif($tdcolor=="5")
+	<td bgcolor="#AFDCEC" colspan=4>
+	#end
+        <a href=$link.setPage("call,OnLine_Rgtn,ViewOnlineRegistrationInstructor.vm").addPathInfo("count","5") style=text-decoration:none>ਆਨਲਾਇਨ  ਪੰਜੀਕਰਣ </a>
+	</td>
+	#if($status=="notempty")
+		#if($tdcolor != "6")
+        	<td colspan=2>
+		#elseif($tdcolor=="6")
+		<td bgcolor="#AFDCEC" colspan=2>
+		#end
+        	<a href=$link.setPage("call,UserMgmt_User,getBackup_Students.vm").addPathInfo("count","6") style=text-decoration:none>ਵਿਧਾਰਥੀਆਂ  ਦੀ  ਸੂਚੀ  ਅਧੋਭਾਰਣ  ( ਡਾਉਨਲੋਡ  )  </a>
+		</td>
+	#end
+</tr>
+##</table>
+#if($lang == "hindi")
+	#set($headings = ["ਯੂਜਰ   ਦਾ  ਨਾਮ ","ਨਾਮ ", "ਈਮੇਲ  ਆਇਡੀ ", "ਉਪਲੱਬਧ  ਕੀਰਯਾਵਾਂ "] )
+#else
+	#set($headings = ["ਯੂਜਰ   ਨਾਮ ","ਨਾਮ ", "ਈਮੇਲ  ਆਇਡੀ ", "ਉਪਲੱਬਧ  ਕੀਰਯਾਵਾਂ "] )
+#end
+
+#*if($status=="notempty")
+<table width=100% bgcolor="$ui.menuColor">
+        <tr><td>
+                <a href=$link.setPage("call,UserMgmt_User,getBackup_Students.vm").addPathInfo("count",$tdcolor) style=text-decoration:none>ਵਿਧਾਰਥੀਆਂ  ਦੀ  ਸੂਚੀ  ਅਧੋਭਾਰਣ  ( ਡਾਉਨਲੋਡ  )  </a>
+        </td></tr>
+</table>
+#end
+*#
+<form name=frm method="post" action="$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("status","ForallUser")">
+##<table bgcolor="$ui.tableColor" cellpadding=1 cellspacing=1>
+##<table bgcolor="$ui.menuColor" width=100% align="left">
+        <tr bgcolor="$ui.menuColor">
+                <td><b>ਦੁਾਰਾ  ਖੋਜਾਂ </b></td>
+                <td>
+                        <select name="queryList">
+                                <option value="UserName"> ਯੂਜਰ   #if($lang == "hindi") ਦਾ  #end ਨਾਮ </option>
+                                <option value="FirstName">ਪਹਿਲਾ  ਨਾਮ </option>
+                                <option value="LastName">ਅੰਤਮ  ਨਾਮ </option>
+                                <option value="Email">ਈਮੇਲ  ਆਇਡੀ </option>
+                        </select>
+                </td>
+                <td><b>ਸਮਾਨ  ਪੰਕਤੀ </b></td>
+                <td>
+                        <input align=center type="text" name="valueString" value="">
+                </td>
+                <td>
+                        <input type="button" name="Search" value="ਖੋਜਾਂ " onClick="checkNull(document.frm,this);">
+                        <input type="hidden" name="mode" value="Search">
+                        <input type="hidden" name="count" value="$tdcolor">
+                </td>
+<td colspan=10><a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("mode","All").addPathInfo("count",$tdcolor) style=text-decoration:none>ਸਾਰੇ  ਵਿਧਾਰਥੀਆਂ  ਦੀ  ਸੂਚੀ </a></td>
+        </tr>
+##</table>
+#if($status=="notempty")
+##<table width=100% bgcolor="$ui,tableColor" align="left">
+  <tr>
+    <td colspan=16>
+      <table width=100% align=left bgcolor="$ui.tableColor">
+        <tr>
+          #foreach ($heading in $headings)
+		#headerCell($heading)
+          #end
+        </tr>
+	
+	#foreach ($urecord in $userlist)
+	#if($velocityCount%2==0)
+	<tr bgcolor="$ui.tableColor">
+	#else
+	<tr bgcolor="$ui.menuColor">
+	#end			
+        	##entryCell ($!urecord.getLoginName())
+         	##entryCell ($!urecord.getUserName())
+        	##entryCell ("<a href=mailto:$!urecord.getEmail()>$!urecord.getEmail()</a>")
+        	<td>$!urecord.getLoginName()</td>
+         	<td>$!urecord.getUserName()</td>
+        	<td><a href=mailto:$!urecord.getEmail()>$!urecord.getEmail()</a></td>
+        	<td>
+                <a href=$link.setPage("call,UserMgmt_User,UserForm_Instructor.vm").addPathInfo("status","update").addPathInfo("username",$urecord.getLoginName()).addPathInfo("count",$tdcolor) style=text-decoration:none>ਸੁਧਾਰੀਏ </a> &nbsp;
+                <a href=$link.setPage("call,UserMgmt_User,UserForm_Instructor.vm").addPathInfo("status","remove").addPathInfo("username",$urecord.getLoginName()).addPathInfo("count",$tdcolor) style=text-decoration:none>ਹਟਾਵਾਂ </a> &nbsp;
+                <a href=$link.setPage("call,UserMgmt_User,Usertime_display.vm").addPathInfo("username",$urecord.getLoginName()).addPathInfo("count",$tdcolor) style=text-decoration:none>ਵਰਤੋ  ਦਾ  ਵੇਰਵਾ </a> &nbsp
+##                <a href=javascript:popupWin("$link.setScreen("call,ViewPhoto").addPathInfo("username",$urecord.getLoginName())","newWin");>ਜਾਂਚ -ਪੜਤਾਲ  ਕਰੀਏ  ਫੋਟੋ  </a>
+            	</td>
+        </tr>
+        #end
+      </table>
+         <tr>
+	 <td colspan=16 bgcolor="$ui.menuColor">
+	 #if($mode!="Search")
+	 #if($total_size<= $userConf)
+	 <font color="white">ਪਹਿਲਾ </font> &nbsp;
+	 <font color="white">ਅਗਲਾ </font> &nbsp;
+	 <font color="white">ਪਿੱਛਲਾ </font> &nbsp;
+	 <font color="white">ਅੰਤਮ </font> &nbsp;
+	  #elseif($startIndex== $userConf_str)
+	  <font color="white">ਪਹਿਲਾ </font> &nbsp;
+	  <font color="white">ਪਿੱਛਲਾ </font> &nbsp;
+	  <a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("startIndex",$startIndex).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor) style=text-decoration:none>ਅਗਲਾ </a> &nbsp;
+	  <a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor) style=text-decoration:none>ਅੰਤਮ </a> &nbsp;
+	 #elseif($endIndex == $total_size || $endIndex > $total_size)
+         <a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor) style=text-decoration:none>ਪਹਿਲਾ </a> &nbsp;
+ 	 <a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor) style=text-decoration:none>ਪਿੱਛਲਾ </a> &nbsp;
+	 <font color="white">ਅਗਲਾ </font>&nbsp;
+         <font color="white">ਅੰਤਮ </font>&nbsp;
+	  #else
+	   <a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor) style=text-decoration:none>ਪਹਿਲਾ </a> &nbsp;
+	   <a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor) style=text-decoration:none>ਪਿੱਛਲਾ </a> &nbsp;
+	   <a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("startIndex",$startIndex).addPathInfo("end",$endIndex).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor) style=text-decoration:none>ਅਗਲਾ </a> &nbsp;
+	    <a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode",$mode).addPathInfo("count",$tdcolor) style=text-decoration:none>ਅੰਤਮ </a> &nbsp;
+     #end
+     #else
+	 #if($total_size<= $userConf)
+	 <font color="white">ਪਹਿਲਾ </font>&nbsp;
+	 <font color="white">ਅਗਲਾ </font>&nbsp;
+	 <font color="white">ਪਿੱਛਲਾ </font>&nbsp;
+	 <font color="white">ਅੰਤਮ </font>&nbsp;
+	  #elseif($startIndex== $userConf_str)
+	 <font color="white">ਪਹਿਲਾ </font>&nbsp;
+	 <font color="white">ਪਿੱਛਲਾ </font>&nbsp;
+	  <a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("startIndex",$startIndex).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor) style=text-decoration:none>ਅਗਲਾ </a> &nbsp;
+	  <a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor) style=text-decoration:none>ਅੰਤਮ </a> &nbsp;
+	 #elseif($endIndex == $total_size || $endIndex > $total_size)
+         <a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor) style=text-decoration:none>ਪਹਿਲਾ </a> &nbsp;
+ 	 <a href=$link.setPage("call,UsertMgmt_User,StudentList.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor) style=text-decoration:none>ਪਿੱਛਲਾ </a> &nbsp;
+	 <font color="white">ਅਗਲਾ </font>&nbsp;
+         <font color="white">ਅੰਤਮ </font>&ibsp;
+	  #else
+	   <a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor) style=text-decoration:none>ਪਹਿਲਾ </a> &ibsp;
+	   <a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor) style=text-decoration:none>ਪਿੱਛਲਾ </a> &nbsp;
+	   <a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("startIndex",$startIndex).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor) style=text-decoration:none>ਅਗਲਾ </a> &nbsp;
+	    <a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString).addPathInfo("count",$tdcolor) style=text-decoration:none>ਅੰਤਮ </a> &nbsp;
+     #end
+    #end
+    </td>
+ </tr>
+</table>
+ #end
+</form>
+<table width=100% bgcolor="$ui.tableColor" align=left>
+        #foreach( $entry in $error_Messages )
+        <tr bgcolor="$ui.tableColor">
+        <td align=center>
+        <font face="$ui.sansSerifFonts">ਯੂਜਰ   ਨਾਮ  <font color="brown">"$entry.getErr_User()"</font></font>
+        </td>
+        <td align=center>
+        <font face="$ui.sansSerifFonts">$entry.getErr_Type()</font>
+        </td>
+        </tr>
+        #end
+</table>
+
+<SCRIPT language="JavaScript">
+        function popupWin(url,popupName)
+        {
+                Win1=window.open(url,popupName,"resizable,height=200,width=300");
+        }
+	function checkNull(frm,field){
+                if(frm.valueString.value!=""){
+                        frm.submit();
+                }
+                else{
+                        alert("The 'Match String' text box can not be NULL !!");
+                }
+        }
+</SCRIPT>

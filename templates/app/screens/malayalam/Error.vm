@@ -1,0 +1,8 @@
+$page.setTitle("System Error")
+
+<h2>സിസ്റ്റ്ത്തിന്‍െറ തെറ്റ്: </h2>
+<b>ദയവായി വീണ്ടും ശ്രമിക്കുക...</b>
+	#if ( $data.getMessage() )
+		$data.getMessage()
+	#end
+

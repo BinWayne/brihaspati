@@ -1,0 +1,104 @@
+#*
+ * @(#) MultiCourseRegister.vm
+ * Copyright (c) 2006 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * @author <a href="mailto:nksngh_p@yahoo.co.in">Nagendra Kumar Singh</a>
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+*#
+
+$page.setBgColor($ui.bgcolor)
+$page.setTitle("Admin Home | Course User Management | Upload Multiple Course ")
+$!data.getMessage()
+
+#set($lang = $data.getUser().getTemp("lang").toString())
+
+<br>
+##<table bgcolor="$ui.formLabelColor" width=100% cellspacing=0>
+
+<table bgcolor="$ui.tableColor" width=100% cellspacing=0>
+
+        <td>
+        <font face="$ui.sansSerifFonts" size=3>
+        <b>
+      <a href=$link.setPage("call,Admin.vm")>Admin's 집</a> |
+      <a href=$link.setPage("call,UserMgmt_Admin,RegisterationManagement.vm")> 등록 관리</a> |
+		업로드 복합 코스
+        </td>
+	</b>
+</tr>
+</table>
+
+<table width=100%>
+<tr>
+<td align=right>
+        <img src="$content.getURI("/images/hand.gif")"> <a href=javascript:popupWin("/brihaspati/docs/RegisterMultiCourseInstructor.html","newWin");>도움</a>
+</td>
+</tr>
+</table>
+
+
+<form name="frm" method="post" enctype="multipart/form-data" action="$link.setPage("call,CourseMgmt_Admin,MultiCourseRegister.vm").setAction("RegisterMultiCourseInstructor")">
+<div align="left">
+<br>
+<br>
+##<table width=50% bgcolor="$ui.formLabelColor" cellpadding="2" align="center" border=1>
+
+<table width=50% bgcolor="$ui.menuColor" cellpadding="2" align="center" border=1>
+      	<tr>
+	<td colspan=2 bgcolor="$ui.menuColor" align="center">
+		<font size=4><b>자동적인 다수 과정을 위한 파일 올려주기</b></font>
+	</td>
+	</tr>
+	<tr bgcolor="$ui.menuColor" >
+
+        	#fileUpload ("첨부합니다  파일  <font color=RED>*</font>" "file")
+
+   	</tr>
+      	<tr>
+        <td colspan=2 align="center" bgcolor="$ui.buttonBoxColor">
+          	<font face="$ui.sansSerifFonts">
+          	<input type="button" name="eventSubmit_doUploadcourse" value="업로드" onClick="CheckFields(document.frm,this);"/>
+          	<input type="hidden" name="actionName" value=""/>
+    
+          	</font>
+        </td>
+      	</tr>
+</table>
+<br>
+<br>
+##<table width=60% border=1 bgcolor="$ui.formLabelColor" align=center>
+
+<table width=60% border=1 bgcolor="$ui.menuColor" align=center>
+#foreach( $e in $Msg )
+        <tr bgcolor="$ui.tableColor">
+        <td align=center>
+        <font face="$ui.sansSerifFonts">Entry <font color="$ui.fontColorBrown">"$e.getErr_User()"</font>
+        </font>
+        </td>
+        <td align=center>
+        <font face="$ui.sansSerifFonts">$e.getErr_Type()</font>
+        </td>
+        </tr>
+#end
+</table>
+  </div>
+</form>
+<SCRIPT LANGUAGE="javascript">
+        function popupWin(url,popupName)
+        {
+                Win1=window.open(url,popupName,"resizable=0,scrollbars=1,height=400,width=400");
+        }
+
+        function CheckFields(frm,field)
+        {
+                if(frm.file.value!="")
+                {
+                                frm.actionName.value=field.name;
+                                frm.submit();
+                }
+                else
+                {
+                        alert("Please Fill All The Mandatory(*) Fields");
+                }
+        }
+</SCRIPT>

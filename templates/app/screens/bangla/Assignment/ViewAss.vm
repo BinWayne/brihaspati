@@ -1,0 +1,251 @@
+
+#*
+ * @(#) ViewAss.vm 
+ * Copyright (c) 2007,2009 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * @author <a href=" mailto:arvindjss17@gmail.com "> Arvind Pal </a>
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+*#
+
+#set($lang=$data.getUser().getTemp("lang").toString())
+$!data.getMessage()
+<table bgcolor="$ui.menuColor" width=100% > ##table 1 start
+        <tr> 
+		<td>
+			<a href=$link.setPage("call,IndexHome.vm")>মুখ্য় পৃষূঠা</a> |
+	        	<a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")> $coursename </a> |
+        		<a href=$link.setPage("call,Assignment,ASS_subm.vm").addPathInfo("count","1")> িনর্িদষ্ট কাজ  </a>| েদেখা িনর্িদষ্ট কাজ</b>
+	        	##<a href=$link.setPage("call,Assignment,AssView.vm")> </a> েদেখা িনর্িদষ্ট কাজ</b>
+        	</td>
+	</tr>
+</table> ##table 1 end
+<Form name=uploadform method="post" enctype="multipart/form-data"  action=$link.setPage("call,Assignment,ViewAss.vm").setAction("Assignments")>   
+
+<table width=100% bgcolor="$ui.tableColor">
+        <tr>
+	#if($user_role == "instructor")
+	<td><b>ব্য়বহারকর্তা নাম</b>&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="text" name="GetUser"  size=26 onChange="validate1(this)" /></td>
+        #end
+        <td><b>প্রসংগ নাম</b>
+	<SELECT name=topicList>
+        <option value="" ></option>
+        #foreach($topic in $allTopics)
+        <option value="$topic" > $topic </option>
+        #end
+        </SELECT> &nbsp;
+        <input type="button" name="dosubmitView" value="েখাঁজ" onClick="checkBlank(document.uploadform,this);"/>
+        <input type="hidden" name="actionName">
+        </td>
+	<td>
+        	#if($user_role == "instructor")
+                	<img src="$content.getURI("/images/hand.gif")"><a href=javascript:popupWin("/brihaspati2/docs/ViewAss.html","newWin");>সাহায্য়</a>
+ 		#end
+	</td>
+	</tr>
+</table>
+##<Form name=uploadform method="post" enctype="multipart/form-data"  action=$link.setPage("call,Assignment,ViewAss.vm").setAction("Assignments")>   
+<table bgcolor="$ui.tableColor" width="100%">
+			#*if($user_role == "instructor")
+			<tr bgcolor="$ui.menuColor" >   
+			<td colspan=10 >
+				<b> ব্য়বহারকর্তা নাম</b>
+				<input type="text" name="GetUser"  size=26 onChange="validate1(this)"  /> &nbsp; 
+			#end
+			##&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<tr bgcolor="$ui.tableColor"><b> প্রসংগ নাম   </b> &nbsp;
+                	##<SELECT name=topicList onFocus=changeTopic(document.uploadform) onChange=changeTopic(document.uploadform)>
+                	<SELECT name=topicList>
+				<option value="" ></option>
+				#foreach($topic in $allTopics)
+					<option value="$topic" > $topic </option>
+                        	#end
+                	</SELECT> &nbsp;
+                	<input type="button" name="dosubmitView" value="েখাঁজ" onClick="checkBlank(document.uploadform,this);"  />
+                       	<input type="hidden" name="actionName">
+                </td>
+        </tr>*#
+#if($startpage !=  0 )
+	#if($user_role ==  "student") 
+	<tr bgcolor="$ui.menuColor">
+		<td align="center"> <b> ব্য়বহারকর্তা নাম</b> </td>
+        	<td align="center">  <b> িনর্িদষ্ট কাজ ফাইল  </b> </td>
+        	#if($anscheck == "ok")
+        	<td align="center">  <b> উওর ফাইল  </b> </td>
+        	#end
+        	#if($studentfilecheck == "ok")
+        	<td align="center">  <b> েদেখা উওর </b> </td>
+        	#end
+        	#if($datecheck == "ok")
+        	<td align="center">  <b> পাঠাও তািরখ </b> </td>
+        	#end
+        	<td  align="Center"> <b> িনর্িদষ্ট কাজ তািরখ  </b> </td>
+	        <td  align="Center"> <b> সর্েবাচ্চ মুল্য়ায়ন সংখ্য়া </b> </td>
+        	#if($gradecheck == "ok")
+	        <td align="center">  <b> মুল্য়ায়ন সংখ্য়া  </b> </td>
+        	<td align="center">  <b> ফীডব্য়াক   </b> </td>
+		#end
+	#end	
+	#if($user_role ==  "instructor")
+	<tr bgcolor="$ui.menuColor">
+		<td align="center"> <b> ব্য়বহারকর্তা নাম</b> </td>
+		<td align="center">  <b> িনর্িদষ্ট কাজ ফাইল  </b> </td>
+		#if($anscheck == "ok")
+		<td align="center">  <b> উওর ফাইল  </b> </td>
+		#end
+		#if($studentfilecheck == "ok")
+		<td align="center">  <b> েদেখা উওর </b> </td>
+		#end
+		#if($datecheck == "ok")
+		<td align="center">  <b> পাঠাও তািরখ </b> </td>
+		#end
+		<td  align="Center"> <b> িনর্িদষ্ট কাজ তািরখ  </b> </td>
+		<td  align="Center"> <b> সর্েবাচ্চ মুল্য়ায়ন সংখ্য়া </b> </td>
+		#if($gradecheck == "ok")
+		<td align="center">  <b> মুল্য়ায়ন সংখ্য়া  </b> </td>
+		<td align="center">  <b> ফীডব্য়াক   </b> </td>
+		#end
+		#if($studentfilecheck == "ok")
+                	<td align="center">  <b> িদেয় েদওয়া হেয়েছ  মুল্য়ায়ন সংখ্য়া </b> </td>
+                #end
+
+	#end
+	</tr>	
+	#if($user_role ==  "instructor")
+	#foreach($e in $Assignmentlist )
+	#if($velocityCount%2==0)
+	<tr bgcolor="$ui.menuColor">
+	#else
+	<tr bgcolor="$ui.tableColor">
+	#end
+		<td width="10%"> $!e.getStudentname()  </td>  ##student name
+		<td width="10%">   ##  Assignment file
+			<a href=javascript:popupWin("$link.setPage("call,ViewFileContent.vm").addPathInfo("view","content").addPathInfo("type","Assignment").addPathInfo("msgid",$str1).addPathInfo("filename",$e.getAssignmentfile())","newWin");>িনর্িদষ্ট কাজ </a>
+		</td>
+		#if($anscheck == "ok")
+		<td width="10%" align="center"> ## Answer file  
+			#if($!e.getanswerfile() != "")
+			<a href=javascript:popupWin("$link.setPage("call,ViewFileContent.vm").addPathInfo("view","content").addPathInfo("type","Assignment").addPathInfo("msgid",$str1).addPathInfo("filename",$e.getanswerfile())","newWin");>উওর </a>
+			#end
+		</td>
+		#end
+		#if($studentfilecheck == "ok")
+		<td width="10%" align="center"> ##Student file
+			#if($!e.getStudentfile() != "")
+				<a href=javascript:popupWin("$link.setPage("call,ViewFileContent.vm").addPathInfo("view","content").addPathInfo("type","Assignment").addPathInfo("msgid",$str1).addPathInfo("filename",$e.getStudentfile())","newWin");>েদেখা</a>
+			#end
+		</td>
+		#end
+		#if($datecheck == "ok")
+  		<td width="20%" align="Center">
+			#if( $!e.getDuedate() != "" )
+			$!e.getDuedate()  ##postdate
+			#end
+		</td>
+		#end
+	
+		<td width="10%" align="Center"> $!e.getAssignmentDuedate() </td>  ## Duedate
+		<td width="10%" align="Center"> $!e.getmaxgrade() </td> ## max grade
+		#if($gradecheck == "ok")
+			<td width="10%" align="Center">	
+			#if($!e.getgrade() != "")
+				$!e.getgrade()  ## given grade
+			#end
+			</td>
+			<td width="10%" align="Center">
+			#if($!e.getgrade() != "")
+				$!e.getfeedback()
+			#end
+			</td>
+		#end	
+
+		#if($studentfilecheck == "ok")
+                        <td width="10%" align="Center">
+				#if($!e.getStudentfile() != "")
+					<a href=$link.setPage("call,Assignment,PostGrade.vm").addPathInfo("qname",$topicList).addPathInfo("studentsname",$e.getStudentname())> মুল্য়ায়ন সংখ্য়া </a>				
+				#end
+			</td>	
+		#end
+	</tr>
+        #end
+	#end  
+
+	#if($user_role ==  "student")
+	#foreach($e in $Assignmentlist)
+	#if($velocityCount%2==0)
+	<tr bgcolor="$ui.menuColor">
+	#else
+	<tr bgcolor="$ui.tableColor">
+	#end
+                <td width="10%" align="Center"> $!e.getStudentname()  </td>  ##student name
+                <td width="10%" align="center">   ##  Assignment file
+			<a href=javascript:popupWin("$link.setPage("call,ViewFileContent.vm").addPathInfo("view","content").addPathInfo("type","Assignment").addPathInfo("msgid",$str1).addPathInfo("filename",$e.getAssignmentfile())","newWin");>িনর্িদষ্ট কাজ </a>
+                </td>
+                #if($anscheck == "ok")
+                <td width="10%" align="center"> ## Answer file
+                        #if($!e.getanswerfile() != "")
+				<a href=javascript:popupWin("$link.setPage("call,ViewFileContent.vm").addPathInfo("view","content").addPathInfo("type","Assignment").addPathInfo("msgid",$str1).addPathInfo("filename",$e.getanswerfile())","newWin");>উওর </a>
+                        #end
+                </td>
+                #end
+                #if($studentfilecheck == "ok")
+                <td width="10%" align="center"> ##Student file
+                        #if($!e.getStudentfile() != "")
+	                      <a href=javascript:popupWin("$link.setPage("call,ViewFileContent.vm").addPathInfo("view","content").addPathInfo("type","Assignment").addPathInfo("msgid",$str1).addPathInfo("filename",$e.getStudentfile())","newWin");>েদেখা</a>
+                        #end
+                </td>
+                #end
+                #if($datecheck == "ok")
+                <td width="20%" align="Center">
+                        #if( $!e.getDuedate() != "" )
+                        $!e.getDuedate()  ##postdate
+                        #end
+                </td>
+                #end
+		<td width="10%" align="Center"> $!e.getAssignmentDuedate() </td>  ## Duedate
+                <td width="10%" align="Center"> $!e.getmaxgrade() </td> ## max grade
+		#if($gradecheck == "ok")
+                        <td width="10%" align="Center">
+                        #if($!e.getgrade() != "")
+                                $!e.getgrade()  ## given grade
+                        #end
+                        </td>
+                        <td width="10%" align="Center">
+                        #if($!e.getgrade() != "")
+                                $!e.getfeedback()
+                        #end
+                        </td>
+                #end
+        </tr>
+	#end
+	#end
+#end	
+</table>
+</form>
+<script language="javascript">
+        
+	function popupWin(url,popupName)
+        {
+                Win1=window.open(url,popupName,"resizable=0,scrollbars=1,height=400,width=400,align=left");
+        }
+
+        function checkBlank(uploadform,field)
+        {
+               	if(uploadform.topicList.value!="" )
+               	{
+			uploadform.actionName.value=field.name;
+			uploadform.submit();
+                }
+                else{
+			alert("Topic Name Can not Empty !! "+uploadform.topicList.value);
+		}
+
+        }
+	
+        function popupWin(urlName,popupName)
+        {
+                window.open(urlName,popupName,"toolbar=yes,scrollbars=yes");
+        }
+</script>
+
+

@@ -1,0 +1,8 @@
+$page.setTitle("System Error")
+
+<h2>సిస్టమ్ ఎర్రర్  </h2>
+<b>దయచేసి మరియొక సారి ట్రై చేయండి</b>
+	#if ( $data.getMessage() )
+		$data.getMessage()
+	#end
+

@@ -1,0 +1,181 @@
+<html>
+#*
+ * @(#) Activitygroup.vm
+ *  Copyright (c) 2006-07,2009 ETRG,IIT Kanpur.
+ *  All Rights Reserved.
+ *  @author <a href="mailto:seema_020504@yahoo.com ">Seema Pal</a>
+ *  @author <a href="mailto:kshuklak@rediffmail.com ">Kishore kumar shukla</a>
+ *  @author <a href="mailto:singh_jaivir@rediffmail.com ">Jaivir Singh</a>
+ *  Contributors: Members of ETRG, I.I.T. Kanpur
+ *#
+
+$page.setTitle("create group")
+$page.setBgColor("$ui.bgcolor")
+$!data.getMessage()
+#set($lang=$data.getUser().getTemp("lang").toString())
+<table bgcolor="$ui.menuColor" width=100% > ##table 1 start
+	<tr> <td><b>
+	<a href=$link.setPage("call,IndexHome.vm")>家</a> |
+        <a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")>$coursename </a>| 
+        <a href=$link.setPage("call,Group_Mgmt,Grpmgmt.vm").addPathInfo("count","1")>グループ 管理 </a>| グループ 活動 </b>
+     </td></tr>
+</table> ##table 1 end
+<table width=100% bgcolor="$ui.tableColor"> ##table 2 start
+<tr>
+	#if($tdcolor != "1")
+        <td>
+        #elseif($tdcolor=="1")
+        <td bgcolor=="#AFDCEC">
+        #end
+	<a href=$link.setPage("call,Group_Mgmt,Grpmgmt.vm").addPathInfo("count","1")>作成 グループ</a></td>
+	#if($tdcolor != "2")
+        <td>
+        #elseif($tdcolor=="2")
+        <td bgcolor=="#AFDCEC">
+        #end
+	<a href=$link.setPage("call,Group_Mgmt,Addmembers.vm").addPathInfo("count","2")>追加する/視野 メンバー</a></td>
+	#if($tdcolor != "3")
+        <td>
+        #elseif($tdcolor=="3")
+        <td bgcolor=="#AFDCEC">
+        #end
+        <a href=$link.setPage("call,Group_Mgmt,Grp_View_Delete.vm").addPathInfo("count","3")>視野/削除する グループ</a></td>
+	#if($tdcolor != "4")
+        <td>
+        #elseif($tdcolor=="4")
+        <td bgcolor=="#AFDCEC">
+        #end
+        <a href=$link.setPage("call,Group_Mgmt,Editgroup.vm").addPathInfo("count","4")>編集/取除きなさい メンバー</a></td>
+	#if($tdcolor != "5")
+        <td>
+        #elseif($tdcolor=="5")
+        <td bgcolor=="#AFDCEC">
+        #end
+        <a href=$link.setPage("call,Group_Mgmt,Activitygroup.vm").addPathInfo("count","5")>グループ 活動</a></td>
+	<td><img src="$content.getURI("/images/hand.gif")"><a href=javascript:popupWin("/brihaspati2/docs/activity.html","newWin");>ヘルプ</a></td>
+</tr>
+</table> ## table 2 end
+<form name="frm" method="post" action=$link.setPage("call,Group_Mgmt,Activitygroup.vm").setAction("Groupmanagement")>
+	<table bgcolor="$ui.tableColor" width=100% > ## table 3 start
+		<tr bgcolor="$ui.menuColor"><td colspan=5 vlaign="top"> ## td tr 1 satart
+			##<b><font size=5><I>コースグループ:</I></font><font size=4><font color=green><I>$courseid</I></font></font></b>
+			#if($lang == "english")
+			<b><font size=4><I>セットする および リセット 活動 のために その グループ</I></font></b>
+			#else
+			<b><font size=4><I>グループ のた 活動 डालें および 取除きなさい</I></font></b>
+			#end
+		</tr></td> ## td tr 1 end
+	<tr bgcolor="$ui.tableColor">
+		<td align="center">
+		#if($lang == "english")
+		<b> 択し グループ のために その 活動 :</b>
+		#else
+		<b> グループ のた 活動 択し :</b>
+		#end
+		</td>
+		<td>
+        		<select name="groupname" size="1" onChange="Changegroup(document.frm,this);"/>
+       				<option>  - 択し - </option>
+				#foreach($grpname in $grplist)
+					<option value="$grpname.Name">$grpname.Name
+				#end
+				</option>
+			</select>
+		</td>
+	</tr>
+        <tr bgcolor="$ui.tableColor">
+		#if($lang == "english")
+		<td align="left">
+		<input type="radio" checked="true" name="actmode" value="setact" onClick="this.form.activity.disabled=false;this.form.pollno.disabled=true;this.form.activity.focus();" />
+		<b> グループ 活動 :</b>
+		#else
+        	<b> グループ की 活動 :</b>
+		#end
+		</td>
+        	<td>
+       			<select name="activity" size="1" onKeyUp="if (this.disabled) this.value=''" onChange="Changeactivity(document.frm,this);" />
+       				<option>  - 択し - </option>
+       				<option value="Discussion Board">ディスカッションボード</option>
+       				<option value="Notice">通知 </option>
+       				<option value="Local Mail">ローカルのメール</option>
+        		</select>
+		</td>
+        </tr>
+	<tr>
+        <td align="left">
+       <input type="radio" name="actmode" value="setpoll" onClick="this.form.pollno.disabled=false;this.form.activity.disabled=true;" />
+        <b> 満期の時間(幾日で) のた Polling :</b>
+        </td>
+	<td>
+	<input type="text" disabled="true" name="pollno" value="" onChange="validate(this)"/>
+	</td>
+	</tr>
+	<tr  bgcolor="$ui.tableHeaderColor"> <td colspan="5">
+		#if($lang == "english")
+        	<input type="button" name="eventSubmit_doActivity" value="セットする活動 " onClick="checkselect(document.frm,this);"/>
+		#else
+        	<input type="button" name="eventSubmit_doActivity" value="活動 डालें " onClick="checkselect(document.frm,this);"/>
+		#end
+		#if($lang == "english")
+        	<input type="button" name="eventSubmit_doResetActivity" value="リセット活動 " onClick="checkselect(document.frm,this);"/>
+		#else
+        	<input type="button" name="eventSubmit_doResetActivity" value="活動 取除きなさい" onClick="checkselect(document.frm,this);"/>
+		#end
+	</td></tr>
+	##end ## end if
+	<input type="hidden" name="actionName" >
+	<input type="hidden" name="mode1" value="grpmgmt">
+	<input type="hidden" name="mode" value="$mode">
+	<input type="hidden" name="course_id" value="$courseid">
+	<input type="hidden" name="val">
+	<input type="hidden" name="val1">
+</form>
+</table> ## end of table 3
+</html>
+<SCRIPT LANGUAGE="javascript">
+        function checkselect(frm,field)
+        {
+                var items;
+                var items1;
+                items=frm.val.value;
+                items1=frm.val1.value;
+                if(((items.length!=0)||(frm.pollno.value!=""))&& (items1.length!=0))
+                {
+                        frm.actionName.value=field.name;
+                        frm.submit();
+                }
+                        else
+                        alert("Please select option");
+        }
+        function Changeactivity(frm,field)
+        {
+                frm.val.value=document.frm.activity.value;
+
+        }
+        function Changegroup(frm,field)
+        {
+                frm.val1.value=document.frm.groupname.value;
+
+        }
+        function popupWin(url,popupName)
+        {
+                Win1=window.open(url,popupName,"resizable=0,scrollbars=1,height=400,width=400,align=left");
+        }
+
+function validate(obj)
+{
+        value = obj.value;
+        for (n = 0; n < value.length; n++)
+        if ( ! isDigit(value.charAt(n)))
+        {
+                alert("Field must be numeric !!");
+                return;
+        }
+}
+function isDigit(ch)
+{
+        if(ch >= '0' && ch <= '9')
+        return true;
+        return false;
+}
+</script>

@@ -1,0 +1,62 @@
+#*
+ * @(#) ViewMarks.vm
+ * Copyright (c) 2005 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+ * @author <a href="mailto:ammu_india@yahoo.com">Amit Joshi</a>
+ * @author <a href="mailto:awadhesh_trivedi@yahoo.co.in ">Awadhesh Kumar Trivedi</a>
+*#
+
+$page.setBgColor($ui.bgcolor)
+$page.setTitle("View Marks")
+#set ($lang=$data.getUser().getTemp("lang" ).toString())
+
+<table bgcolor="$ui.tableColor" width=100%>
+<tr>
+<td>
+<font face="$ui.sansSerifFonts"><b>
+<a href=$link.setPage("call,IndexHome.vm")>집</a> |
+<a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")>$course</a> | #if($lang=="hindi") 마크  보기  #else 보기 마크  #end
+</font>
+</td>
+</tr>
+</table>
+
+<br>
+$!data.getMessage()
+<form enctype="multipart/form-data" >
+    <table align="center" bgcolor="$ui.bgcolor" cellpadding="0">
+    #if($status != "Blank")	
+      <tr>
+	<td>
+      	<b><u>마크  인디애나 $course</u><b><br><br>
+	</td>
+      </tr>
+      <tr>
+	      	<table border="1" cellpadding="0" cellspacing="1" align="center">
+			<tr>
+				#foreach($heading in $markHeading)
+      					<th bgcolor="$ui.menuColor">&nbsp;&nbsp;$heading&nbsp;&nbsp;</th>
+				#end
+			</tr>
+			<tr>	
+				#foreach($entry in $marks)
+					<td align="center" bgcolor="$ui.tableColor">$entry</td>
+				#end
+			</tr>
+      		</table>
+      </tr>
+    	#end
+      <tr>
+		#if($marksDSize == "0")
+			<td colspan=3> 자국에 대한 업로드되지 않았습니다 '$data.getUser().getUserName()'!!	</td>
+		#end
+		#if($Exp == "MExp")
+			<td colspan=3> 그 결과 지금까지 선언하지 않습니다! </td>
+		#end
+		#if($Exp == "Exp")
+			<td colspan=3> 파일 형식이 잘못되었습니다 - 하나는 사용자 이름의 실종이다. 	</td>
+		#end
+      </tr>	
+    </table>
+</form>

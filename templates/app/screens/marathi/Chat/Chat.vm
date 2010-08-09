@@ -1,0 +1,133 @@
+#*
+ * @(#) Chat.vm
+ * Copyright (c) 2005,2009, 2010 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+ * @author <a href="mailto:awadhk_t@yahoo.com ">Awadhesh Kumar Trivedi</a>
+ * @author <a href="mailto:singh_jaivir@rediffmail.com">Jaivir Singh</a>
+ * @author <a href="mailto:shaistashekh@hotmail.com ">Shaista Bano</a>
+*#
+
+$page.setTitle("Chat")
+$page.setBgColor($ui.bgcolor)
+$!data.getMessage()
+
+#set($lang = $data.getUser().getTemp("lang" ).toString())
+#if ($lang == "bangla")
+        #set($lang="bn")
+
+#elseif ($lang == "dutch")
+        #set($lang="nl")
+
+#elseif($lang =="french")
+        #set($lang="fr")
+
+#elseif ($lang == "german")
+        #set($lang="de")
+
+#elseif ($lang == "hindi")
+        #set($lang="hi")
+
+#elseif ($lang == "japanese")
+        #set($lang="japanese")
+
+#elseif ($lang == "korean")
+        #set($lang="ko")
+
+#elseif ($lang == "marathi")
+        #set($lang="mr")
+
+#elseif ($lang == "russian")
+        #set($lang="ru")
+
+#elseif($lang =="english")
+        #set($lang="en")
+#end
+
+<table bgcolor="$ui.menuColor" width=100%>
+	<tr>
+		<td>
+		<font face="$ui.sansSerifFonts"><b>
+		<a href=$link.setPage("call,IndexHome.vm")>पान</a> |
+		<a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")>$course</a> | 
+		##<a href=$link.setPage("call,CourseMgmt_User,Communication.vm")>वाताॆलाप</a> | गप्पागोष्टी
+		<a href=$link.setPage("call,Local_Mail,Mail.vm")>वाताॆलाप</a> | गप्पागोष्टी
+		</font>
+		</td>
+	</tr>
+<td>
+</tr>
+</table>
+<table align=left bgcolor="$ui.tableColor" width=100%>
+<tr>
+	#if($tdcolor!="1")
+        <td>
+        #elseif($tdcolor == "1")
+        <td bgcolor="#AFDCEC">
+        #end
+        <a href=$link.setPage("call,Local_Mail,Mail.vm").addPathInfo("count","1")>स्थानिक    मेल</a></td>
+	#if($tdcolor!="2")
+        <td>
+        #elseif($tdcolor == "2")
+        <td bgcolor="#AFDCEC">
+        #end
+	<a href=$link.setPage("call,Chat,Chat.vm").addPathInfo("count","2")>गप्पागोष्टी</a></td>
+	#if($tdcolor!="3")
+        <td>
+        #elseif($tdcolor == "3")
+        <td bgcolor="#AFDCEC">
+        #end
+	<a href=$link.setPage("call,Notice_User,Notices.vm").addPathInfo("count","3")>सुचना</td>
+	#if($tdcolor!="4")
+        <td>
+        #elseif($tdcolor == "4")
+        <td bgcolor="#AFDCEC">
+        #end
+	<a href=$link.setPage("call,Dis_Board,DB.vm").addPathInfo("count","4")>चचॆासत्र  </td>
+	#if($tdcolor!="5")
+        <td>
+        #elseif($tdcolor == "5")
+        <td bgcolor="#AFDCEC">
+        #end
+	<a href=$link.setPage("call,News,News_Edit.vm").addPathInfo("status","fromCourse").addPathInfo("count","5")>बातम्या</td>
+</tr>
+</table>
+#if($username=="guest")
+<table align=left width=100%>
+        <tr>
+        <td colspan=2 align="left" bgcolor="$ui.menuColor"><font size=4><b>हे पान  दाखविण्याची  तुम्हाला  परवानगी  नाही </b></font></td></tr>
+</table>
+#else
+<table align="left" width=100% bgcolor="$ui.menuColor">
+<tr><td>
+        <blink> <img src="$content.getURI("/images/hand.gif")"> </blink>
+                जर  तुम्ही  गप्पागोष्टी  आणि  व्हाईट  बोडॆवरील  मजकुर  सांभाळुन  ठेवण्यास  असमथॆ  असाल  तर  जावा  फाइल  बदलविण्याची  गरज  आहे  त्यासाठी  कृपया  दाबा.  <a href="/brihaspati/docs/saveChat.html">इथे</a><br>
+</td></tr>
+<tr bgcolor="tableColor"><td>
+	<blink> <img src="$content.getURI("/images/hand.gif")"> </blink>
+		##<a href=http://javashoplm.sun.com/ECom/docs/Welcome.jsp?StoreId=8&PartDetailId=jre-6u5-oth-JPR&SiteId=JSC&TransactionId=noreg> Download Java SE Runtime Environment</a>
+		<a href=http://javashoplm.sun.com/ECom/docs/Welcome.jsp?StoreId=8&PartDetailId=jre-6u5-oth-JPR&SiteId=JSC&TransactionId=noreg>ஜாவா தர பதிப்பு ஒடுநேர இயங்குதளத்தை பதிவிறக்கம் செய்ய</a>
+</td></tr>
+
+<tr><td>
+	<blink> <img src="$content.getURI("/images/hand.gif")"> </blink>
+	गप्पागोष्टीमध्ये खात  काढण्याकरीता  जर  गप्पागोष्टीचे  अॅपलेट  जुळले  नसेल   तर,   एकदा   पासवॆड   बदला  
+	<a href=$link.setPage("call,UserMgmt_User,changePassword.vm")>कुटशब्द  बदलवा</a>
+</td></tr>
+
+</table>
+<applet archive="babylon.jar" code="babylon.babylonApplet.class" codebase=$codeBase width="0" height="0">
+	<param name="chatroom" value=$chatRoom>
+	<param name="username" value=$username>
+	<param name="password" value=$password>
+	<param name="servername" value=$serverName>
+	<param name="autoconnect" value="yes">
+	<param name="locksettings" value="yes">
+	<param name="embed" value="no">
+	<param name="lang" value=$lang>
+	##<param name="expiryTime" value=$TaskConf>
+	<param name="babylonPath" value=$babylonPath>
+        <param name="fullfile" value=$fullfile>
+	<param name="role" value=$role>
+</applet>
+#end

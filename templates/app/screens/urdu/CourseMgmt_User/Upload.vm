@@ -1,0 +1,278 @@
+#*
+ * @(#) CourseManagement.vm
+ * Copyright (c) 2006-2007,2009 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+ * @author <a href="mailto:awadhesh_trivedi@yahoo.co.in">Awadhesh Kumar Trivedi</a>
+ *  @modify <a href="mailto:shaistashekh@hotmail.com"> Shaista </a>
+ *  @modify 12-05-09
+*#
+
+$page.setBgColor($ui.bgcolor)
+$page.setTitle("File Upload")
+$!data.getMessage()
+
+<table bgcolor="$ui.tableColor" width=100%>
+<tr align=right>
+<td>
+        <font face="$ui.sansSerifFonts"><b>
+        <a href=$link.setPage("call,CourseMgmt_User,CourseManagement.vm")>نصاب نظامِ</a> |
+                $brih_content داخل کرڍں 
+        </font> |
+        <a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")>$course</a> |
+        <a href=$link.setPage("call,IndexHome.vm")>صفحہ</a>
+</td>
+</tr>
+</table>
+<table width=100%>
+<tr><blink>
+<td align=left>
+##<blink>
+<a href="/brihaspati/docs/Upload.html">مدد </a> <img src="$content.getURI("/images/Lefthand.gif")">
+</td></blink>
+</tr>
+</table>
+<table width="100%">
+<tr>
+	<td><b>استعمال کڍا گڍا اسپڍس   $!TUSize اڍم بى  </b></td>
+	<td align="right"><b>اپلوڈ کرنے کے لۓ جگ٥ $!aSize اڍم بى </b></td>
+</tr>
+<table>
+<table border="1" bgcolor="$ui.menuColor">
+#if($errorMess!="")
+     <tr>
+           <td><b>داخل کرنڍں مے غلتى </b>$!errorMess </td>
+     </tr>
+#else
+        <tr>
+        #if($uploadStatus=="full")
+                <td>
+                #if($pub=="Publish")
+                                فائل کا داخل کرنا کامڍاب  &  نشر 
+                #else
+                فائل کا داخل کرنا کامڍاب
+                #end
+                </td>
+        #else
+                #if($uploadStatus=="partial")
+                        <td>
+                       ## Some of the files have been uploaded
+                        کچه فائل داخل کى گئں  <br>
+
+                       ## Following files already existed, so were not uploaded :
+                        داخل کى گئ فائل پہلے سے موجود ہے, اسلۓ  فائل کا داخل کرنا ناکامڍاب :<br>
+
+                #elseif($totalFilesEntries.Count>0)
+ <td>
+                        ##None of the files were Uploaded <br>
+                        ##All of the following  Existed at Server :
+                        کوئ بهي فائل نہى  داخل کى جا سکى <br>
+                        داخل کى  گئ فائل سرور پر پہلے سے  موجود ہے <br>
+                #elseif($uploadStatus!="")
+                        <td>
+                        ##There is nothing to Upload
+                        داخل کرنڍں کے لۓ کوئ فائل نہى ہے <br>
+                #end
+                <br>
+                #set($count=1)
+                #foreach($File in $failedFiles)
+                        <tr>
+                       <td> $count.  $File</td>
+                        </tr>
+                        #set($count=$count+1)
+                #end
+                </td>
+        #end
+        </tr>
+#end
+</table>
+<script LANGUAGE="JAVASCRIPT">
+        function blurTopicName(frm)
+        {
+                frm.contentTopic.value=frm.topicList.options[frm.topicList.selectedIndex].text;
+        }
+function changeTopic(frm)
+        {
+                if(frm.topicExisting[0].checked)
+                {
+                        frm.contentTopic.value=frm.topicList.options[frm.topicList.selectedIndex].text;
+                }
+                else
+                {
+                        frm.contentTopic.focus();
+                }
+        }
+
+        function checkRadio()
+        {
+                if(document.uploadform.topicExisting[0].checked)
+                {
+                        document.uploadform.contentTopic.blur();
+                }
+
+        }
+        function validate(uploadform,field)
+        {
+                var tList=uploadform.topicList;
+                var cTopic=uploadform.contentTopic;
+                if(uploadform.contentTopic.value!="")
+                {
+                        var totNamedEntries=uploadform.topicList.length;
+                        for(i=1;i<totNamedEntries;i++)
+  {
+                                if(tList.options[i].text==cTopic.value)
+                                {
+                                        if(uploadform.topicExisting[1].checked)
+                                        {
+                                                if(confirm("The topic already exists. Pressing OK will put the file/s in existing Topic"))
+                                                {
+                                                uploadform.actionName.value=field.name;
+                                                uploadform.submit();
+                                                }
+                                                else
+                                                {
+                                                return;
+                                                }
+
+                                        }
+                                }
+                        }
+                        uploadform.actionName.value=field.name;
+                        uploadform.submit();
+                }
+                else
+                {
+                        alert("Topic Name Can not Empty !!");
+                }
+        }
+</script>
+<form name=uploadform method="post" enctype="multipart/form-data" action="$link.setPage("call,CourseMgmt_User,Upload.vm").setAction("UploadAction")">
+  ##<div align="left">
+    <table align=center bgcolor="$ui.bgcolor" cellpadding="0">
+      #if ($errorTemplate)
+      <tr>
+        <td colspan="4">
+         ## <table bgcolor="$ui.bgcolor">
+            <tr>
+              <td>
+                <img src="$ui.image($ui.alertImage,$data)">
+              </td>
+              <td>
+                #parse ($errorTemplate)
+              </td>
+            </tr>
+          ##</table>
+        </td>
+      </tr>
+      #end
+        <div align="right">
+        <tr align="left">
+                 <font color="red">آپ ڍہ ڍقڍن کرلڍں کہ داخل کى  گئ فائل کے نام مڍں <b> '+' </b> کا حروف نہ ہو</font>
+                <blink>
+                <img src="$content.getURI("/images/Lefthand.gif")">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </blink>
+        </tr>
+## <br><br>
+      <tr align="right">
+  <td colspan=4 align="right">
+        موجود  عنوان
+        <td colspan=4>
+        <input type="RADIO" name=topicExisting checked=true value="OLDTOPIC" onClick=blurTopicName(document.uploadform)>
+        <SELECT name=topicList onFocus=changeTopic(document.uploadform) onChange=changeTopic(document.uploadform)>
+          <option></option>
+          #foreach($topic in $allTopics)
+                <option>$topic</option>
+          #end
+        </SELECT>
+        نڍا  عنوان <input type="RADIO" name=topicExisting value="NEWTOPIC" >
+        </td>
+        </td>
+     </tr>
+        <tr align="right">
+        <td colspan=6 align="right">
+        <b>نشر </b>
+        <INPUT TYPE="CHECKBOX" name="publish" value="Publish">
+        </td>
+        </tr>
+      <tr align="right">
+        ##formCell ("Topic Name" "contentTopic" "")
+        <td colspan=4>
+        <input type="text" name=contentTopic onFocus=checkRadio() size=30>
+        </td>
+        <td bgcolor="$ui.tableColor" colspan=4>
+ <b><font face="$ui.sansSerifFonts">عنوان کا نام</font> </b>
+        </td>
+      <tr>
+              ##fileUpload ("1. &nbsp; فائل ڈالڍں  " "file1")</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>#fileUpload ("6.&nbsp; فائل ڈالڍں   &nbsp;" "file6")
+                <td bgcolor="$ui.tableColor"> <input type="file" size="25" name="file6"> </td>
+                <td align=right bgcolor="$ui.tableColor"><b> فائل ڈالڍں  &nbsp;</td><td bgcolor="$ui.tableColor" size=10%> .6 </td></b>&nbsp;
+                <td bgcolor="$ui.tableColor"> <input type="file" size="25" name="file1"> </td>
+                <td align=right bgcolor="$ui.tableColor"><b> فائل ڈالڍں  &nbsp;</td><td bgcolor="$ui.tableColor" size=10%> .1 </td></b></td>
+      </tr>
+      <tr>
+              ## #fileUpload ("2. &nbsp; فائل ڈالڍں  " "file2")</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>#fileUpload ("7.&nbsp; فائل ڈالڍں   &nbsp;" "file7")
+                <td bgcolor="$ui.tableColor"> <input type="file" size="25" name="file7"> </td>
+                <td align=right bgcolor="$ui.tableColor"><b> فائل ڈالڍں  &nbsp;</td><td bgcolor="$ui.tableColor" size=10%> .7 </td></b>&nbsp;
+                <td bgcolor="$ui.tableColor"> <input type="file" size="25" name="file2"> </td>
+                <td align=right bgcolor="$ui.tableColor"><b> فائل ڈالڍں  &nbsp;</td><td bgcolor="$ui.tableColor" size=10%> .2 </td></b></td>
+      </tr>
+      <tr>
+              ## #fileUpload ("3. &nbsp; فائل ڈالڍں  " "file3")</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>#fileUpload ("8.&nbsp; فائل ڈالڍں   &nbsp;" "file8")
+ <td bgcolor="$ui.tableColor"> <input type="file" size="25" name="file8"> </td>
+                <td align=right bgcolor="$ui.tableColor"><b> فائل ڈالڍں  &nbsp;</td><td bgcolor="$ui.tableColor" size=10%> .8 </td></b>&nbsp;
+                <td bgcolor="$ui.tableColor"> <input type="file" size="25" name="file3"> </td>
+                <td align=right bgcolor="$ui.tableColor"><b> فائل ڈالڍں  &nbsp;</td><td bgcolor="$ui.tableColor" size=10%> .3 </td></b></td>
+      </tr>
+      <tr>
+              ## #fileUpload ("4. &nbsp; فائل ڈالڍں  " "file4")</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>#fileUpload ("9.&nbsp; فائل ڈالڍں   &nbsp;" "file9")
+                <td bgcolor="$ui.tableColor"> <input type="file" size="25" name="file9"> </td>
+                <td  align=right bgcolor="$ui.tableColor"><b> فائل ڈالڍں  &nbsp;</td><td
+bgcolor="$ui.tableColor" size=10%> .9 </td></b>&nbsp;
+                <td bgcolor="$ui.tableColor"> <input type="file" size="25" name="file4"> </td>
+                <td align=right bgcolor="$ui.tableColor"><b> فائل ڈالڍں  &nbsp;</td><td bgcolor="$ui.tableColor" size=10%> .4 </td></b></td>
+      </tr>
+      <tr>
+              ## #fileUpload ("5. &nbsp; فائل ڈالڍں  " "file5")</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>#fileUpload ("10.&nbsp; فائل ڈالڍں   &nbsp;" "file10")
+                <td bgcolor="$ui.tableColor"> <input type="file" size="25" name="file10"> </td>
+                <td align=right bgcolor="$ui.tableColor"><b> فائل ڈالڍں  &nbsp;</td><td bgcolor="$ui.tableColor" size=10%> .10 </td></b>&nbsp;
+                <td bgcolor="$ui.tableColor"> <input type="file" size="25" name="file5"> </td>
+<td align=right bgcolor="$ui.tableColor"><b> فائل ڈالڍں  &nbsp;</td><td bgcolor="$ui.tableColor" size=10%> .5 </td></b></td>
+      </tr>
+
+#*      <tr>
+        <td bgcolor="$ui.tableColor">
+        <b><font face="$ui.sansSerifFonts">عنوان وضاحت </font> </b>
+        </td>
+        <td>
+        <font face="$ui.sansSerifFonts"><textarea name="topicDescription" rows=5 cols=60></textarea></font>
+        </td>
+      </tr>
+*#
+#*    <tr>
+        <td bgcolor="$ui.tableColor">
+        <b><font face="$ui.sansSerifFonts">فائل $brih_info </font> </b>
+        </td>
+        <td>
+        <font face="$ui.sansSerifFonts"><textarea name="fileDescription" rows=5 cols=60></textarea></font>
+        </td>
+      </tr>
+*#
+      <tr>
+        <td colspan=6 align="center" bgcolor="$ui.buttonColor">
+          #*
+            Check for a mode, the update and delete buttons
+            shouldn't appear when inserting a new user.
+ *#
+
+          <font face="$ui.sansSerifFonts">
+
+          <input type="button" name="eventSubmit_doUpload" value="داخل کرڍں " onClick="validate(document.uploadform,this);"/>&nbsp;
+        <input type="hidden" name="actionName"value="">
+
+          </font>
+        </td>
+      </tr>
+
+    </table>
+  </div>
+</form>

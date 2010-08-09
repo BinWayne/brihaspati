@@ -1,0 +1,8 @@
+$page.setTitle("System Error")
+
+<h2>ਪ੍ਰਣਾਲੀ  ਪ੍ਰਕੀਰਆ  ਵਿੱਚ  ਅਸ਼ੁੱਧਤਾ  ਦੇ  ਕਾਰਨ  ਖੇਦ  ਹੈ   </h2>
+<b>ਕਿਰਪਾ  ਫਿਰ  ਕੋਸ਼ਿਸ਼  ਕਰੋ </b>
+	#if ( $data.getMessage() )
+		$data.getMessage()
+	#end
+

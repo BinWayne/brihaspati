@@ -1,0 +1,8 @@
+$page.setTitle("System Error")
+
+<h2>시스템 오류 : </h2>
+<b>다시 시도해주십시오 ...</b>
+	#if ( $data.getMessage() )
+		$data.getMessage()
+	#end
+

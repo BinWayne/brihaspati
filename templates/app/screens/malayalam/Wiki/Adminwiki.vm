@@ -1,0 +1,255 @@
+#*
+ * @(#) Adminwiki.vm
+ * Copyright(c)2005,2009 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * @author <a href="mailto:manav_cv@yahoo.co.in">Manvendra Baghel</a>
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+*#
+
+$page.setTitle("$brih_home|$course|$brih_Wiki | $Wikimain5")
+$page.setBgColor($ui.bgcolor)
+$!data.getMessage()
+
+<style type="text/css"> input{ width:170px; } </style>
+
+<table bgcolor="$ui.tableColor" width=100%>
+<tr bgcolor="$ui.menuColor"><td>
+        <b>
+        <a href=$link.setPage("call,IndexHome.vm")>പൂമുഖം</a> |
+        <a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")>$course</a> |
+        <a href=$link.setPage("call,Wiki,Wiki.vm")>വിക്കി</a> | വിക്കി നിയന്ത്രക്കുക
+        </b>
+</td>
+</tr>
+##</table>
+## Representation of HELP link
+##<table width=100% align=left bgcolor="$ui.tableColor">
+        <tr>
+                <td align=right colspan=3>
+                       <img src="$content.getURI("/images/hand.gif")"> <a href=javascript:popupWin("/brihaspati2/docs/Wikiusermanual.html","newWin");>സഹായം</a>
+                </td>
+        </tr>
+##</table>
+#if($mypage=="empty")
+	<h3><b>താങ്കള്‍ക്ക് വിക്കിയില്‍ താളുകള്‍ ഒന്നും ഇല്ല ദയവായി ഇപ്പോള്‍ താള് ഉണ്ടാക്കുക</b></h3>
+#else
+##<table width="100%" align="left" bgcolor="$ui.tableColor">
+			<tr bgcolor="$ui.menuColor">
+				<td>
+        				<marquee scrollamount="3" direction="left" loop="0" width="100%" behaviour="slide">
+        				<b>താങ്കള്‍ക്ക്  അനുവദിക്കുക/ തടയുക തിരുത്തല്‍ ബട്ടണ്‍ കാണാന്‍ കഴിയുന്നില്ല എങ്കില്‍ , താള് കാണിക്കുക എന്നതില്‍ ഞെക്കുക .താങ്കള്‍ ഒരു താളില്‍ ജോലി ചെയ്യാന്‍ തുടങ്ങുമ്പോള്‍ തിരുത്തല്‍  തടയുക എന്നതില്‍ ഞെക്കുക . താങ്കള്‍ കുട്ടിച്ചേര്‍ത്തു കഴിയുമ്പോള്‍ കുട്ടിച്ചേര്‍ത്തു എന്നതില്‍ ഞെക്കുക. താങ്കള്‍ എല്ലാ മാറ്റങ്ങളും കണ്ടതിനു ശേഷം മാത്രം മാറ്റങ്ങള്‍ നീക്കം ചെയ്യുക എന്നതില്‍ ഞെക്കുക. താങ്കള്‍ ഈ താളിലെ ജോലികല്ലെല്ലാം കഴിഞ്ഞു വേറെ താളിലേക്ക് പോകുന്നതിനു മുന്‍പ്  തിരുത്തല്‍  അനുവദിക്കുക എന്നതില്‍ ഞെക്കുക.  </b>
+        				</marquee>
+					##<br>
+				</td></tr>
+				<td><tr bgcolor="$ui.tableColor">
+					#if($num != 0)
+						<p align=center><b><font color="red">തടഞ്ഞ താള് മാറ്റുക ( $num ) $dispage</font></b></p>
+					#end
+				</td>
+			</tr>
+		##</table>
+
+
+
+
+		<FORM  name=frm method="POST" action="$link.setPage("call,Wiki,Adminwiki.vm").setAction("Wikieditaction")">
+		##<table align="left" bgcolor="$ui.tableColor" width="100%" >
+			<tr>
+				<td>
+					<p align=center>
+					<input type="hidden" name="actionName" >
+		 			#if($merge == "false")
+						<input type="submit" name="eventSubmit_doShowhistory" value="താള് കാണിക്കുക"/>
+						<input type="submit" name="eventSubmit_doShowhistory" value="കൂട്ടിചേര്‍ത്ത താള് കാണിക്കുക"/>
+						<input type="submit" name="eventSubmit_doDiff" value="മാറ്റങ്ങള്‍ കാണിക്കുക"/>
+						<input type="submit" name="eventSubmit_doDiff" value="കൂട്ടിചേര്‍ത്ത മാറ്റങ്ങള്‍ കാണിക്കുക"/>
+ 						<input type="submit" name="eventSubmit_doShoworiginal" value="പ്രഥമമായത് കാണിക്കുക"/>
+						<input type="button" name="eventSubmit_doRevert" value="പ്രഥമ താള് സൂക്ഷിയ്ക്കുക"  onClick="checktextName(document.frm,this);"/>
+						<input type="button" name="eventSubmit_doDelpage" value="താള് നീക്കം ചെയ്യുക" onClick="doAskPage(document.frm,this);"/>
+						#if($fname!="")
+        						#if($traffic == "stop")
+                						<input disabled type="submit" name="eventSubmit_doStoptraffic" value="തിരുത്തല്‍ തടയുക"/>
+               							<input type="submit" name="eventSubmit_doStoptraffic" value="തിരുത്തല്‍ അനുവദിക്കുക"/>
+        						#end
+        						#if($traffic == "start")
+                						<input type="submit"  name="eventSubmit_doStoptraffic" value="തിരുത്തല്‍ തടയുക"/>
+                						<input disabled type="submit" name="eventSubmit_doStoptraffic" value="തിരുത്തല്‍ അനുവദിക്കുക"/>
+        						#end
+						#end
+					#end
+ 	                               	#if(($traffic == "stop")&&($merge != "true"))
+
+
+						<input type="button" name="eventSubmit_doDelversion" value="മാറ്റങ്ങള്‍ നീക്കം ചെയ്യുക" onClick="doAskVersion(document.frm,this);"/>
+
+					#end
+					#if($traffic == "stop")
+						<input type="button" name="eventSubmit_doMergenow" value="ഇപ്പോള്‍ കൂട്ടിചേര്‍ക്കുക" onClick="checkVersion(document.frm,this);"/>
+					#end
+        	        		#if(($fname!="")&&($merge == "true"))
+						<input type="submit" name="eventSubmit_doMergedone" value="കൂട്ടിചേര്‍ത്തു"/>
+                				<input type="submit" name="eventSubmit_doShoworiginal" value="വ്യത്യാസങ്ങള്‍ കൂട്ടിയോജിപ്പിച്ചത് കാണിക്കുക"/>
+                				<input type="submit" name="eventSubmit_doRevert" value="കൂട്ടിചേര്‍ത്ത താള് സൂക്ഷിക്കുക"/>
+        				#end
+					</p>
+				</td>
+			</tr>
+			<tr bgcolor="$ui.menuColor">
+				<td>
+					<p align ="center">
+					താളിന്‍െറ പേര് <SELECT  name="fname" >
+					#if($fname!="")
+						<OPTION >$fname</OPTION>
+					#end
+					#foreach($file in $mypage)			
+						<OPTION >$file</OPTION>
+					#end
+					</SELECT>
+					ലക്കം <INPUT type="text" name="vname" 
+					#if($vname!="")
+						value ="$vname" 
+					#end
+					size="25">
+					<input type="submit" name="eventSubmit_doShoworiginal" value="ലോഗ് കാണിക്കുക"  />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p align =center>
+#*
+* Setting of textarea tag  contents below may seem untidy but don't touch them
+* as they work properly only in this way
+*#
+<TEXTAREA  name="text" rows="25"  cols="90" >
+#if($pad!="")
+$pad
+#end
+#foreach($t in $first)
+$t
+#end
+</TEXTAREA>
+					##<br><br>
+					</p>	
+				</td>
+			</tr>
+			<tr bgcolor="$ui.menuColor">
+				<td>
+					<p align=center>
+		 			#if($merge == "false")
+						<input type="submit" name="eventSubmit_doShowhistory" value="താള് കാണിക്കുക"/>
+						<input type="submit" name="eventSubmit_doShowhistory" value="കൂട്ടിചേര്‍ത്ത താള് കാണിക്കുക"/>
+						<input type="submit" name="eventSubmit_doDiff" value="മാറ്റങ്ങള്‍ കാണിക്കുക"/>
+						<input type="submit" name="eventSubmit_doDiff" value="കൂട്ടിചേര്‍ത്ത മാറ്റങ്ങള്‍ കാണിക്കുക"/>
+ 						<input type="submit" name="eventSubmit_doShoworiginal" value="പ്രഥമമായത് കാണിക്കുക"/>
+						<input type="button" name="eventSubmit_doRevert" value="പ്രഥമ താള് സൂക്ഷിയ്ക്കുക"  onClick="checktextName(document.frm,this);"/>
+						<input type="button" name="eventSubmit_doDelpage" value="താള് നീക്കം ചെയ്യുക" onClick="doAskPage(document.frm,this);"/>
+
+						#if($fname!="")
+
+        						#if($traffic == "stop")
+                						<input type="submit" disabled name="eventSubmit_doStoptraffic" value="തിരുത്തല്‍ തടയുക"/>
+                						<input type="submit" name="eventSubmit_doStoptraffic" value="തിരുത്തല്‍ അനുവദിക്കുക"/>
+        						#else
+               							<input type="submit" name="eventSubmit_doStoptraffic" value="തിരുത്തല്‍ തടയുക"/>
+                						<input type="submit" disabled  name="eventSubmit_doStoptraffic" value="തിരുത്തല്‍ അനുവദിക്കുക"/>
+        						#end
+						#end
+		  			#end
+					
+					#if(($traffic == "stop")&&($merge != "true"))
+
+						<input type="button" name="eventSubmit_doDelversion" value="മാറ്റങ്ങള്‍ നീക്കം ചെയ്യുക" onClick="doAskVersion(document.frm,this);"/>
+
+					#end
+					#if($traffic == "stop")
+
+						<input type="button" name="eventSubmit_doMergenow" value="ഇപ്പോള്‍ കൂട്ടിചേര്‍ക്കുക" onClick="checkVersion(document.frm,this);"/>
+		   			#end
+        	   			#if(($fname!="")&&($merge == "true"))
+						<input type="submit" name="eventSubmit_doMergedone" value="കൂട്ടിചേര്‍ത്തു"/>
+                				<input type="submit" name="eventSubmit_doShoworiginal" value="വ്യത്യാസങ്ങള്‍ കൂട്ടിയോജിപ്പിച്ചത് കാണിക്കുക"/>
+                				<input type="submit" name="eventSubmit_doRevert" value="കൂട്ടിചേര്‍ത്ത താള് സൂക്ഷിക്കുക"/>
+        	    			#end
+					</p>
+		
+				</td>
+			</tr>
+			<tr>
+				<td>
+## This space is for look and feel
+
+				</td>
+			</tr>
+
+		</table>
+		</FORM>
+#end   #* end of #if($mypage=="empty")*#
+
+
+
+
+<SCRIPT LANGUAGE="javascript">
+        function popupWin(url,popupName)
+        {
+                Win1=window.open(url,popupName,"scrollbars=1,height=400,width=400");
+        }
+
+        function checkVersion(frm,field)
+        {
+                if(frm.vname.value!="") 
+                {
+                                frm.actionName.value=field.name;
+                                frm.submit();
+                }
+                else
+                {
+                        alert("Please Fill Page Version Field");
+                }
+        }
+	function checktextName(frm,field)
+        {
+                if(frm.text.value!="")
+                {
+                                frm.actionName.value=field.name;
+                                frm.submit();
+                }
+                else
+                {
+                        alert("Please write something on the page ");
+                }
+        }
+
+
+      function doAskPage(frm,field)
+        {
+                if(confirm('Are you sure you want to delete?'))
+                {
+                                frm.actionName.value=field.name;
+                                frm.submit();
+                }
+        }
+
+
+
+      function doAskVersion(frm,field)
+        {
+                if(confirm('Are you sure ,all current versions will be deleted by this?'))
+                {
+                                frm.actionName.value=field.name;
+                                frm.submit();
+                }
+        }
+
+	 function doAskMerge(frm,field)
+        {
+                if(confirm('Are you sure , you have  clicked on merge now before ?'))
+                {
+                                frm.actionName.value=field.name;
+                                frm.submit();
+                }
+        }
+
+
+</SCRIPT>

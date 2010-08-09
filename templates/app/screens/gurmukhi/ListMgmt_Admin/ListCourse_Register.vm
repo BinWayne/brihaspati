@@ -1,0 +1,235 @@
+
+#*
+ * @(#) ListCourse_Register.vm
+ * Copyright (c) 2005 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * @author <a href="mailto:awadhk_t@yahoo.com ">Awadhesh Kumar Trivedi</a>
+ * @author <a href="mailto:shaistashekh@gmail.com ">Shaista</a> 
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+*#
+
+$page.setTitle("Admin Home | Registration Management | CoursesList ")
+$page.setBgColor("$ui.bgcolor")
+$!data.getMessage()
+
+#**
+#macro(CNAME)
+
+	#if($mode!="Search")
+		ਕੁਲ  ਮਜ਼ਮੂਨਾਂ  ਦੀ  ਜਾਂਚ -ਪੜਤਾਲ  ਕਰੋ 	
+	#else
+		ਮਜ਼ਮੂਨਾਂ  ਦੀ  ਜਾਂਚ -ਪੜਤਾਲ  ਕਰੀਏ  
+#end
+*#
+
+##<table bgcolor="#d9e3ec" width=100% cellspacing=0>
+
+<table bgcolor="$ui.tableColor" width=100% cellspacing=0>
+<tr>
+	<td>
+	<font face="$ui.sansSerifFonts" size=3>
+	<b>
+     	<a href="$link.setPage("call,Admin.vm")">ਏਡਮਨੀ  ਦਾ  ਵਰਕੇ </a> |
+	
+	<a href="$link.setPage("call,UserMgmt_Admin,RegisterationManagement.vm")">ਪੰਜੀਕਰਣ  ਪਰਬੰਧਨ </a> | 
+
+		#if(( $data.getUser().getTemp("lang" ).toString())=="hindi")
+		        ਦੂਸਰੇ  ਅਧਿਆਪਕ  ਦੇ  ਪੰਜੀਕਰਣ  ਦੇ  ਲਈ  ਕੁਲ  ਮਜ਼ਮੂਨਾਂ  ਦੀ  ਜਾਂਚ -ਪੜਤਾਲ  ਕਰੋ 
+			##CNAME() 
+		#else
+		        ##CNAME() 
+			ਕੁਲ  ਮਜ਼ਮੂਨਾਂ  ਦੀ  ਜਾਂਚ -ਪੜਤਾਲ  ਕਰੋ  ਦੂਸਰੇ  ਅਧਿਆਪਕ  ਦੇ  ਪੰਜੀਕਰਣ  ਦੇ  ਲਈ 
+		#end
+
+	</td>
+
+	<td width="30%" align="right">
+	#if( $total_size!=0 )
+	#if( $endIndex < $total_size )
+		#if( $endIndex < $AdminConf )
+                [$k - $total_size] of $total_size
+		#else
+		[$k - $endIndex] of $total_size
+		#end
+	#else
+	[$k - $total_size] of $total_size
+	#end
+	#end
+	</td>
+</tr>
+</table>
+
+<br>
+<form name="frm" method="post" action="$link.setPage("call,ListMgmt_Admin,ListCourse_Register.vm")">
+<table border=1 align=center bgcolor="$ui.tableColor" cellpadding=1 cellspacing=1>
+        <tr>
+                <td align=center><b>ਦੁਾਰਾ  ਖੋਜਾਂ </b></td>
+                
+		<td align=left>
+                        <select name="queryList">
+                                <option value=CourseId>ਵਿਸ਼ਾ   ਆਇਡੀ </option>
+                                <option value="Course Name">ਵਿਸ਼ਾ   ਨਾਮ </option>
+                                <option value=Dept>ਵਿਭਾਗ </option>
+                        </select>
+                </td>
+                
+		<td align=center><b>ਸਮਾਨ  ਪੰਕਤੀ </b></td>
+                
+		<td align=left>
+                        <input align=center type="text" name="valueString" value="">
+                </td>
+                <td>
+                        <input type="button" name="Search" value="ਖੋਜਾਂ " onClick="checkNull(document.frm,this);">
+                        <input type="hidden" name="mode" value="Search">
+                </td>
+                <td>
+                        
+                        <b><a href="$link.setPage("call,ListMgmt_Admin,ListCourse_Register.vm").addPathInfo("mode","All")">ਸਾਰੇ  ਮਜ਼ਮੂਨਾਂ  ਕੀਤੀਆਂ  ਸੂਚੀ  </a></b>
+                <td>
+        </tr>
+</table>
+
+#if($status == "Noblank" )
+
+#set($headings = ["ਵਿਸ਼ਾ   ਆਇਡੀ ","ਵਿਸ਼ਾ   ਨਾਮ ","ਵਿਭਾਗ ","ਵੇਰਵਾ  ","ਉਤਪੱਤਵ  ਦਿਨਾਕ ","ਸਥਿਤੀ ",""] )
+
+<br>
+<table bgcolor="$ui.tableColor" align="center">
+  <tr>
+    <td>
+      <table border="1" cellspacing="1" cellpadding="1">
+        <tr>
+          #foreach($heading in $headings)
+        	  #headerCell($heading)
+          #end    
+        </tr>
+        #foreach($entry in $courseDetail)
+        <tr>
+		  #entryCell($entry.getGroupName())
+		  <td bgcolor="$ui.tableColor">
+		  	<font face="$ui.sansSerifFonts">
+			$entry.getCourseName()
+			</font>
+			</td>
+		  #entryCell($entry.getDept())
+		  #entryCell($entry.getDescription())
+		  #entryCell($entry.getCreateDate())
+		  #if($entry.getActive()=="1")
+
+		  <td><font bgcolor="$ui.tableColor" color="Green">ਚਾਲੂ </font></td>
+		  #else
+		  
+		  <td><font bgcolor="$ui.tableColor" color="Red">ਨਿਸ਼ਕਰਿਅ </font></td>
+		  #end
+		  <td bgcolor="$ui.tableColor">
+		  	<font face="$ui.sansSerifFonts">
+			<a href="$link.setPage("call,UserMgmt_Admin,RegisterSecInstructor.vm").addPathInfo("gName",$entry.getGroupName())">ਪੰਜੀਕਰਣ  ਕਰੋ </a>
+		  	</font>
+		 </td>
+	</tr>
+	#end
+</table>
+</td>
+</tr>
+
+         <tr>	 
+         <td align=center bgcolor="$ui.menuColor">
+	 #if($mode!="Search")
+	 #if($total_size<= $AdminConf)
+	 
+	 <u><font color="white">ਪਹਿਲਾ </font></u> &nbsp;
+	 <u><font color="white">ਅਗਲਾ </font></u> &nbsp;
+	 <u><font color="white">ਪਿੱਛਲਾ </font></u> &nbsp;
+	 <u><font color="white">ਅੰਤਮ </font></u> &nbsp;
+
+	  #elseif($startIndex== $AdminConf_str)
+
+	  <u><font color="white">ਪਹਿਲਾ </font></u> &nbsp;
+	  <u><font color="white">ਪਿੱਛਲਾ </font></u> &nbsp;
+
+	  <a href="$link.setPage("call,ListMgmt_Admin,ListCourse_Register.vm").addPathInfo("startIndex",$startIndex).addPathInfo("mode",$mode)">ਅਗਲਾ </a> &nbsp;
+	  <a href="$link.setPage("call,ListMgmt_Admin,ListCourse_Register.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode",$mode)">ਅੰਤਮ </a> &nbsp;
+	 #elseif($endIndex == $total_size || $endIndex > $total_size)
+
+         <a href="$link.setPage("call,ListMgmt_Admin,ListCourse_Register.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode",$mode)">ਪਹਿਲਾ </a> &nbsp;
+ 	 <a href="$link.setPage("call,ListMgmt_Admin,ListCourse_Register.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode",$mode)">ਪਿੱਛਲਾ </a> &nbsp;
+	 <u><font color="white">ਅਗਲਾ </font></u> &nbsp;
+         <u><font color="white">ਅੰਤਮ </font></u> &nbsp;
+	  #else
+
+
+	   <a href="$link.setPage("call,ListMgmt_Admin,ListCourse_Register.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode",$mode)">ਪਹਿਲਾ </a> &nbsp;
+	   <a href="$link.setPage("call,ListMgmt_Admin,ListCourse_Register.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode",$mode)">ਪਿੱਛਲਾ </a> &nbsp;
+	   <a href="$link.setPage("call,ListMgmt_Admin,ListCourse_Register.vm").addPathInfo("startIndex",$startIndex).addPathInfo("mode",$mode)">ਅਗਲਾ </a> &nbsp;
+	    <a href="$link.setPage("call,ListMgmt_Admin,ListCourse_Register.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode",$mode)">ਅੰਤਮ </a> &nbsp;
+     #end
+     #else
+	 #if($total_size<= $AdminConf)
+
+	 <u><font color="white">ਪਹਿਲਾ </font></u> &nbsp;
+	 <u><font color="white">ਅਗਲਾ </font></u> &nbsp;
+	 <u><font color="white">ਪਿੱਛਲਾ </font></u> &nbsp;
+	 <u><font color="white">ਅੰਤਮ </font></u> &nbsp;
+	
+	  #elseif($startIndex== $AdminConf_str)
+	  <u><font color="white">ਪਹਿਲਾ </font></u> &nbsp;
+	  <u><font color="white">ਪਿੱਛਲਾ </font></u> &nbsp;
+	  <a href="$link.setPage("call,ListMgmt_Admin,ListCourse_Register.vm").addPathInfo("startIndex",$startIndex).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString)">ਅਗਲਾ </a> &nbsp;
+	  <a href="$link.setPage("call,ListMgmt_Admin,ListCourse_Register.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString)">ਅੰਤਮ </a> &nbsp;
+	 #elseif($endIndex == $total_size || $endIndex > $total_size)
+         <a href="$link.setPage("call,ListMgmt_Admin,ListCourse_Register.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString)">ਪਹਿਲਾ </a> &nbsp;
+ 	 <a href="$link.setPage("call,ListMgmt_Admin,ListCourse_Register.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString)">ਪਿੱਛਲਾ </a> &nbsp;
+	 <u><font color="white">ਅਗਲਾ </font></u> &nbsp;
+         <u><font color="white">ਅੰਤਮ </font></u> &nbsp;
+	  #else
+	   <a href="$link.setPage("call,ListMgmt_Admin,ListCourse_Register.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString)">ਪਹਿਲਾ </a> &nbsp;
+	   <a href="$link.setPage("call,ListMgmt_Admin,ListCourse_Register.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString)">ਪਿੱਛਲਾ </a> &nbsp;
+	   <a href="$link.setPage("call,ListMgmt_Admin,ListCourse_Register.vm").addPathInfo("startIndex",$startIndex).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString)">ਅਗਲਾ </a> &nbsp;
+	    <a href="$link.setPage("call,ListMgmt_Admin,ListCourse_Register.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString)">ਅੰਤਮ </a> &nbsp;
+     #end
+    #end
+    </td>
+ </tr>
+</table>
+</table>
+#end
+</form>
+
+<br>
+<table width=60% border=1 bgcolor="$ui.menuColor" align=center>
+#set ( $count = 1 )
+        #foreach( $entry in $error_user )
+                #set ( $count2 = 1 )
+                #foreach( $type in $error_type )
+                        #if( $count == $count2 )
+                        <tr bgcolor="ui.menuColor">
+                        <td align=center>
+                                <font face="$ui.sansSerifFonts">User
+Name <font color="brown">"$entry"</font></font>
+                        </td>
+                        <td align=center>
+                                <font
+face="$ui.sansSerifFonts">$type</font>
+                        </td>
+                        </tr>
+                        #end
+                        #set ( $count2 = $count2+1 )
+                #end
+                #set ( $count = $count+1 )
+        #end
+</table>
+
+<SCRIPT language="JavaScript">
+        function popupWin(url,popupName)
+        {
+                Win1=window.open(url,popupName,"resizable,height=200,width=300");
+        }
+	function checkNull(frm,field){
+                if(frm.valueString.value!=""){
+                        frm.submit();
+                }
+                else{
+                        alert("The 'Match String' text box can not be NULL");
+                }
+        }
+</SCRIPT>

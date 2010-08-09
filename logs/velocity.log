@@ -1,0 +1,137 @@
+2010-08-09 17:06:48,224 [main] DEBUG velocity - SimpleLog4JLogSystem using category 'velocity'
+2010-08-09 17:06:48,224 [main] INFO  velocity - ************************************************************** 
+2010-08-09 17:06:48,224 [main] INFO  velocity - Starting Jakarta Velocity v1.3.1
+2010-08-09 17:06:48,224 [main] INFO  velocity - RuntimeInstance initializing.
+2010-08-09 17:06:48,224 [main] INFO  velocity - Default Properties File: org/apache/velocity/runtime/defaults/velocity.properties
+2010-08-09 17:06:48,224 [main] INFO  velocity - Trying to use logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2010-08-09 17:06:48,224 [main] INFO  velocity - Using logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2010-08-09 17:06:48,227 [main] INFO  velocity - Default ResourceManager initializing. (class org.apache.velocity.runtime.resource.ResourceManagerImpl)
+2010-08-09 17:06:48,229 [main] INFO  velocity - Resource Loader Instantiated: org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:06:48,229 [main] INFO  velocity - FileResourceLoader : initialization starting.
+2010-08-09 17:06:48,229 [main] INFO  velocity - FileResourceLoader : adding path '/home/aniket/brihaspati/tdk-2.3_01/webapps/brihaspati2/templates/app'
+2010-08-09 17:06:48,229 [main] INFO  velocity - FileResourceLoader : adding path '/home/aniket/brihaspati/tdk-2.3_01/webapps/brihaspati2/templates/flux'
+2010-08-09 17:06:48,229 [main] INFO  velocity - FileResourceLoader : initialization complete.
+2010-08-09 17:06:48,230 [main] INFO  velocity - Resource Loader Instantiated: org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2010-08-09 17:06:48,230 [main] INFO  velocity - ClasspathResourceLoader : initialization starting.
+2010-08-09 17:06:48,230 [main] INFO  velocity - ClasspathResourceLoader : initialization complete.
+2010-08-09 17:06:48,231 [main] INFO  velocity - ResourceCache : initialized. (class org.apache.velocity.runtime.resource.ResourceCacheImpl)
+2010-08-09 17:06:48,231 [main] INFO  velocity - Default ResourceManager initialization complete.
+2010-08-09 17:06:48,232 [main] INFO  velocity - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2010-08-09 17:06:48,233 [main] INFO  velocity - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2010-08-09 17:06:48,234 [main] INFO  velocity - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2010-08-09 17:06:48,236 [main] INFO  velocity - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2010-08-09 17:06:48,237 [main] INFO  velocity - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2010-08-09 17:06:48,268 [main] INFO  velocity - Created: 20 parsers.
+2010-08-09 17:06:48,269 [main] INFO  velocity - Velocimacro : initialization starting.
+2010-08-09 17:06:48,269 [main] INFO  velocity - Velocimacro : adding VMs from VM library template : GlobalMacros.vm
+2010-08-09 17:06:48,282 [main] INFO  velocity - Velocimacro : added new VM : #text( text ) : source = GlobalMacros.vm
+2010-08-09 17:06:48,282 [main] INFO  velocity - Velocimacro : added new VM : #formLabel( label ) : source = GlobalMacros.vm
+2010-08-09 17:06:48,283 [main] INFO  velocity - Velocimacro : added new VM : #formTextField( name value ) : source = GlobalMacros.vm
+2010-08-09 17:06:48,284 [main] INFO  velocity - Velocimacro : added new VM : #textField( name value size ) : source = GlobalMacros.vm
+2010-08-09 17:06:48,284 [main] INFO  velocity - Velocimacro : added new VM : #listBox( list ) : source = GlobalMacros.vm
+2010-08-09 17:06:48,285 [main] INFO  velocity - Velocimacro : added new VM : #formPasswordCell( label name value ) : source = GlobalMacros.vm
+2010-08-09 17:06:48,287 [main] INFO  velocity - Velocimacro : added new VM : #formCell( label name value ) : source = GlobalMacros.vm
+2010-08-09 17:06:48,288 [main] INFO  velocity - Velocimacro : added new VM : #fileUploadField( name ) : source = GlobalMacros.vm
+2010-08-09 17:06:48,288 [main] INFO  velocity - Velocimacro : added new VM : #fileUpload( label name ) : source = GlobalMacros.vm
+2010-08-09 17:06:48,290 [main] INFO  velocity - Velocimacro : added new VM : #formCheckBox( label name checked ) : source = GlobalMacros.vm
+2010-08-09 17:06:48,291 [main] INFO  velocity - Velocimacro : added new VM : #formListBox( label list ) : source = GlobalMacros.vm
+2010-08-09 17:06:48,292 [main] INFO  velocity - Velocimacro : added new VM : #headerCell( body ) : source = GlobalMacros.vm
+2010-08-09 17:06:48,292 [main] INFO  velocity - Velocimacro : added new VM : #entryCell( body ) : source = GlobalMacros.vm
+2010-08-09 17:06:48,293 [main] INFO  velocity - Velocimacro : added new VM : #entry1Cell( label body ) : source = GlobalMacros.vm
+2010-08-09 17:06:48,314 [main] INFO  velocity - ResourceManager : found GlobalMacros.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:06:48,315 [main] INFO  velocity - Velocimacro :  VM library template macro registration complete.
+2010-08-09 17:06:48,315 [main] INFO  velocity - Velocimacro : adding VMs from VM library template : macros/TurbineMacros.vm
+2010-08-09 17:06:48,325 [main] INFO  velocity - Velocimacro : added new VM : #TurbineHtmlHead( ) : source = macros/TurbineMacros.vm
+2010-08-09 17:06:48,326 [main] INFO  velocity - Velocimacro : added new VM : #TurbineHtmlBodyAttributes( ) : source = macros/TurbineMacros.vm
+2010-08-09 17:06:48,331 [main] INFO  velocity - ResourceManager : found macros/TurbineMacros.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2010-08-09 17:06:48,339 [main] INFO  velocity - Velocimacro :  VM library template macro registration complete.
+2010-08-09 17:06:48,339 [main] INFO  velocity - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2010-08-09 17:06:48,339 [main] INFO  velocity - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2010-08-09 17:06:48,339 [main] INFO  velocity - Velocimacro : allowInlineLocal = false : VMs defined inline will be  global in scope if allowed.
+2010-08-09 17:06:48,339 [main] INFO  velocity - Velocimacro : messages on  : VM system will output logging messages
+2010-08-09 17:06:48,339 [main] INFO  velocity - Velocimacro : autoload off  : VM system will not automatically reload global library macros
+2010-08-09 17:06:48,339 [main] INFO  velocity - Velocimacro : initialization complete.
+2010-08-09 17:06:48,339 [main] INFO  velocity - Velocity successfully started.
+2010-08-09 17:06:49,930 [HttpProcessor[8080][1]] INFO  velocity - ResourceManager : found screens/Login.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:06:49,994 [HttpProcessor[8080][1]] INFO  velocity - ResourceManager : found layouts/Login.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:06:50,010 [HttpProcessor[8080][1]] INFO  velocity - ResourceManager : found navigations/DefaultTop.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:06:50,020 [HttpProcessor[8080][1]] ERROR velocity - RHS of #set statement is null. Context will not be modified. navigations/DefaultTop.vm [line 2, column 1]
+2010-08-09 17:06:50,020 [HttpProcessor[8080][1]] ERROR velocity - RHS of #set statement is null. Context will not be modified. navigations/DefaultTop.vm [line 3, column 1]
+2010-08-09 17:06:50,020 [HttpProcessor[8080][1]] ERROR velocity - RHS of #set statement is null. Context will not be modified. navigations/DefaultTop.vm [line 4, column 1]
+2010-08-09 17:06:50,020 [HttpProcessor[8080][1]] ERROR velocity - RHS of #set statement is null. Context will not be modified. navigations/DefaultTop.vm [line 5, column 1]
+2010-08-09 17:06:50,020 [HttpProcessor[8080][1]] ERROR velocity - Left side ($cid) of '!=' operation has null value. Operation not possible. navigations/DefaultTop.vm [line 9, column 11]
+2010-08-09 17:06:50,020 [HttpProcessor[8080][1]] ERROR velocity - Left side ($instituteid) of '!=' operation has null value. Operation not possible. navigations/DefaultTop.vm [line 11, column 23]
+2010-08-09 17:06:50,032 [HttpProcessor[8080][1]] INFO  velocity - ResourceManager : found navigations/DefaultBottom.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:07:05,896 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found screens/BrihaspatiLogin.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:07:05,979 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found screens/english/BrihaspatiLogin.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:07:06,000 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found layouts/Default.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:07:06,001 [HttpProcessor[8080][4]] ERROR velocity - RHS of #set statement is null. Context will not be modified. layouts/Default.vm [line 8, column 1]
+2010-08-09 17:07:06,037 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found /screens/english/Default.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:07:06,037 [HttpProcessor[8080][4]] ERROR velocity - RHS of #set statement is null. Context will not be modified. /screens/english/Default.vm [line 19, column 1]
+2010-08-09 17:07:06,046 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found navigations//DefaultTop.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:07:06,046 [HttpProcessor[8080][4]] ERROR velocity - RHS of #set statement is null. Context will not be modified. navigations//DefaultTop.vm [line 2, column 1]
+2010-08-09 17:07:06,046 [HttpProcessor[8080][4]] ERROR velocity - RHS of #set statement is null. Context will not be modified. navigations//DefaultTop.vm [line 3, column 1]
+2010-08-09 17:07:06,046 [HttpProcessor[8080][4]] ERROR velocity - RHS of #set statement is null. Context will not be modified. navigations//DefaultTop.vm [line 4, column 1]
+2010-08-09 17:07:06,046 [HttpProcessor[8080][4]] ERROR velocity - RHS of #set statement is null. Context will not be modified. navigations//DefaultTop.vm [line 5, column 1]
+2010-08-09 17:07:06,047 [HttpProcessor[8080][4]] ERROR velocity - Left side ($cid) of '!=' operation has null value. Operation not possible. navigations//DefaultTop.vm [line 9, column 11]
+2010-08-09 17:07:06,047 [HttpProcessor[8080][4]] ERROR velocity - Left side ($instituteid) of '!=' operation has null value. Operation not possible. navigations//DefaultTop.vm [line 11, column 23]
+2010-08-09 17:07:06,054 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found navigations//DefaultBottom.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:07:07,621 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found screens/Index.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:07:07,642 [HttpProcessor[8080][4]] INFO  velocity - Velocimacro : added new VM : #UNAME( ) : source = screens/english/Index.vm
+2010-08-09 17:07:07,649 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found screens/english/Index.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:07:07,650 [HttpProcessor[8080][4]] ERROR velocity - Left side ($lastname) of '!=' operation has null value. Operation not possible. screens/english/Index.vm [line 3, column 32]
+2010-08-09 17:07:07,650 [HttpProcessor[8080][4]] ERROR velocity - Left side ($Role7) of '==' operation has null value. If a reference, it may not be in the context. Operation not possible. screens/english/Index.vm [line 57, column 29]
+2010-08-09 17:07:07,650 [HttpProcessor[8080][4]] ERROR velocity - Left side ($Role2) of '==' operation has null value. If a reference, it may not be in the context. Operation not possible. screens/english/Index.vm [line 64, column 29]
+2010-08-09 17:07:07,650 [HttpProcessor[8080][4]] ERROR velocity - Left side ($Role3) of '==' operation has null value. If a reference, it may not be in the context. Operation not possible. screens/english/Index.vm [line 69, column 29]
+2010-08-09 17:07:07,650 [HttpProcessor[8080][4]] ERROR velocity - Left side ($Role4) of '==' operation has null value. If a reference, it may not be in the context. Operation not possible. screens/english/Index.vm [line 74, column 29]
+2010-08-09 17:07:07,651 [HttpProcessor[8080][4]] ERROR velocity - Left side ($Role5) of '==' operation has null value. If a reference, it may not be in the context. Operation not possible. screens/english/Index.vm [line 79, column 29]
+2010-08-09 17:07:07,653 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found layouts/Default.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:07:07,682 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found /screens/english/Default.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:07:07,694 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found navigations//DefaultTop.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:07:07,695 [HttpProcessor[8080][4]] ERROR velocity - RHS of #set statement is null. Context will not be modified. navigations//DefaultTop.vm [line 3, column 1]
+2010-08-09 17:07:07,695 [HttpProcessor[8080][4]] ERROR velocity - RHS of #set statement is null. Context will not be modified. navigations//DefaultTop.vm [line 5, column 1]
+2010-08-09 17:07:07,713 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found navigations//DefaultBottom.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:07:08,816 [HttpProcessor[8080][3]] INFO  velocity - ResourceManager : found screens/call/timetable/Generate.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:07:08,823 [HttpProcessor[8080][3]] INFO  velocity - ResourceManager : found screens/english/timetable/Generate.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:07:08,826 [HttpProcessor[8080][3]] INFO  velocity - ResourceManager : found layouts/Default.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:07:08,842 [HttpProcessor[8080][3]] INFO  velocity - ResourceManager : found /screens/english/Default.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:07:08,848 [HttpProcessor[8080][3]] INFO  velocity - ResourceManager : found navigations//DefaultTop.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:07:08,848 [HttpProcessor[8080][3]] ERROR velocity - RHS of #set statement is null. Context will not be modified. navigations//DefaultTop.vm [line 3, column 1]
+2010-08-09 17:07:08,848 [HttpProcessor[8080][3]] ERROR velocity - RHS of #set statement is null. Context will not be modified. navigations//DefaultTop.vm [line 5, column 1]
+2010-08-09 17:07:08,853 [HttpProcessor[8080][3]] INFO  velocity - ResourceManager : found navigations//DefaultBottom.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:08:05,924 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found screens/call/timetable/uploadfile.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:08:05,936 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found screens/english/timetable/uploadfile.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:08:05,938 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found layouts/Default.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:08:05,953 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found /screens/english/Default.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:08:05,960 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found navigations//DefaultTop.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:08:05,960 [HttpProcessor[8080][4]] ERROR velocity - RHS of #set statement is null. Context will not be modified. navigations//DefaultTop.vm [line 3, column 1]
+2010-08-09 17:08:05,960 [HttpProcessor[8080][4]] ERROR velocity - RHS of #set statement is null. Context will not be modified. navigations//DefaultTop.vm [line 5, column 1]
+2010-08-09 17:08:05,967 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found navigations//DefaultBottom.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:08:16,207 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found screens/call/timetable/Generate.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:08:16,211 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found screens/english/timetable/Generate.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:08:16,213 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found layouts/Default.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:08:16,224 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found /screens/english/Default.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:08:16,232 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found navigations//DefaultTop.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:08:16,232 [HttpProcessor[8080][4]] ERROR velocity - RHS of #set statement is null. Context will not be modified. navigations//DefaultTop.vm [line 3, column 1]
+2010-08-09 17:08:16,232 [HttpProcessor[8080][4]] ERROR velocity - RHS of #set statement is null. Context will not be modified. navigations//DefaultTop.vm [line 5, column 1]
+2010-08-09 17:08:16,238 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found navigations//DefaultBottom.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:08:34,023 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found screens/call/timetable/html_pdf.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:08:34,032 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found screens/english/timetable/html_pdf.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:08:34,032 [HttpProcessor[8080][4]] ERROR velocity - Left side ($errorMsgs) of '!=' operation has null value. Operation not possible. screens/english/timetable/html_pdf.vm [line 10, column 18]
+2010-08-09 17:08:34,033 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found layouts/Default.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:08:34,042 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found /screens/english/Default.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:08:34,048 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found navigations//DefaultTop.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:08:34,048 [HttpProcessor[8080][4]] ERROR velocity - RHS of #set statement is null. Context will not be modified. navigations//DefaultTop.vm [line 3, column 1]
+2010-08-09 17:08:34,049 [HttpProcessor[8080][4]] ERROR velocity - RHS of #set statement is null. Context will not be modified. navigations//DefaultTop.vm [line 5, column 1]
+2010-08-09 17:08:34,056 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found navigations//DefaultBottom.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:08:35,445 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found screens/call/timetable/bfr_html.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:08:35,457 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found screens/english/timetable/bfr_html.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:08:35,457 [HttpProcessor[8080][4]] ERROR velocity - Left side ($valid) of '==' operation has null value. If a reference, it may not be in the context. Operation not possible. screens/english/timetable/bfr_html.vm [line 10, column 14]
+2010-08-09 17:08:35,458 [HttpProcessor[8080][4]] ERROR velocity - Left side ($valid) of '==' operation has null value. If a reference, it may not be in the context. Operation not possible. screens/english/timetable/bfr_html.vm [line 16, column 18]
+2010-08-09 17:08:35,458 [HttpProcessor[8080][4]] ERROR velocity - Left side ($commit) of '==' operation has null value. If a reference, it may not be in the context. Operation not possible. screens/english/timetable/bfr_html.vm [line 19, column 15]
+2010-08-09 17:08:35,459 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found layouts/Default.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:08:35,470 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found /screens/english/Default.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:08:35,480 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found navigations//DefaultTop.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2010-08-09 17:08:35,481 [HttpProcessor[8080][4]] ERROR velocity - RHS of #set statement is null. Context will not be modified. navigations//DefaultTop.vm [line 3, column 1]
+2010-08-09 17:08:35,481 [HttpProcessor[8080][4]] ERROR velocity - RHS of #set statement is null. Context will not be modified. navigations//DefaultTop.vm [line 5, column 1]
+2010-08-09 17:08:35,498 [HttpProcessor[8080][4]] INFO  velocity - ResourceManager : found navigations//DefaultBottom.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader

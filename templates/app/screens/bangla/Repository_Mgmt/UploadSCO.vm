@@ -1,0 +1,203 @@
+#*
+ * @(#) UploadSco.vm
+ *  Copyright (c) 2005 ETRG,IIT Kanpur.
+ *  All Rights Reserved.
+ *  @author <a href="mailto:seema_020504@yahoo.com">Seema Pal</a>
+ *  @author <a href="mailto:kshuklak@rediffmail.com">Kishore kumar shukla</a>
+ *  Contributors: Members of ETRG, I.I.T. Kanpur
+ *#
+
+$page.setTitle("$brih_upload")
+$page.setBgColor($ui.bgcolor)
+$page.setTitle("UploadSCO")
+$!data.getMessage()
+#set($lang=$data.getUser().getTemp("lang").toString())
+
+<table bgcolor="$ui.tableColor" width=100%>
+<tr><td><b>
+<a href=$link.setPage("call,Repository_Mgmt,Author.vm")>রচিয়তার মুখ্য় পৃষূঠা </a> | 
+#if($lang == "hindi")
+	সুচীপএ আপেলাড 
+#else
+	আপেলাড সুচীপএ
+#end
+</b>
+</td></tr>
+</table>
+
+<table width=100%>
+<tr>
+<td align=right>
+<img src="$content.getURI("/images/hand.gif")"><a href=javascript:popupWin("/brihaspati2/docs/ContentUpload.html","newWin");>সাহায্য়</a>
+</td>
+</tr>
+</table>
+<table width="100%"><tr><td><b>Space for uploading $!SpaceKb MB</b></td><td align="right"><b>Used Space   $!TUSize MB </b></td></tr></table>
+<table border="1" bgcolor="$ui.tableColor">
+#if($errorMess!="")
+     <tr>
+           <td><b>আপেলাড করার মধ্েয় এুিট </b>$!errorMess </td>
+     </tr>
+#else
+        <tr>
+        #if($uploadStatus=="full")
+                <td>
+                েতামার ফাইল িট সণ সফলভােব আপেলাড হেয়েছ 
+                </td>
+        #else
+                #if($uploadStatus=="partial")
+                        <td>
+                       ## Some of the files have been uploaded
+                        িকছুটা ফাইল আপেলাড হেয়েছ  <br>
+
+                       ## Following files already existed, so were not uploaded :
+                        পরবর্তী ফাইল িট আেগেথেক উপস্িথত রেয়েছ , সুতরাং আপেলাড করা যােবনা  :<br>
+
+                #elseif($totalFilesEntries.Count>0)
+                        <td>
+                        ##None of the files were Uploaded <br>
+                        ##All of the following  Existed at Server :
+                        েকােনাই ফাইল আপেলাড করা হেয়নী <br>
+                        পরবর্তী নােমর ফাইঢ িট সারভাের  আেগেথেক উপস্িথত রেয়েছ : <br>
+                #elseif($uploadStatus!="")
+                        <td>
+                        ##There is nothing to Upload
+                        েসখােন আপেলাড করার জন্য় িকছুই েনই <br>
+                #end
+                <br>
+                #set($count=1)
+                #foreach($File in $failedFiles)
+			<tr>
+                        <td>$count.  $File</td>
+			</tr>
+                        #set($count=$count+1)
+                #end
+               </td>
+        #end
+        </tr>
+#end
+</table>
+<script LANGUAGE="JAVASCRIPT">
+        function popupWin(url,popupName)
+        {
+                Win1=window.open(url,popupName,"resizable=0,scrollbars=1,height=400,width=400");
+        }
+
+	function blurTopicName(frm)
+	{
+		//document.uploadform.topicExisting.value="OLDTOPIC";
+		
+		frm.contentTopic.value=frm.topicList.options[frm.topicList.selectedIndex].text;
+	}
+	
+	function changeTopic(frm)
+	{
+		if(frm.topicExisting[0].checked)
+		{
+			frm.contentTopic.value=frm.topicList.options[frm.topicList.selectedIndex].text;
+		}
+		else
+		{
+			frm.contentTopic.focus();
+		}
+	}
+
+	function checkRadio()
+	{
+		if(document.uploadform.topicExisting[0].checked)
+		{
+			document.uploadform.contentTopic.blur();
+		}
+		
+	}
+	function validate(uploadform,field)
+	{
+		var tList=uploadform.topicList;
+                var cTopic=uploadform.contentTopic;
+                if(uploadform.contentTopic.value!="")
+                {
+                        var totNamedEntries=uploadform.topicList.length;
+                        for(i=1;i<totNamedEntries;i++)
+                        {
+                                if(tList.options[i].text==cTopic.value)
+                                {
+                                        if(uploadform.topicExisting[1].checked)
+                                        {
+                                                if(confirm("The topic already exists. Pressing OK will put the file/s in existing Topic"))
+                                                {
+                                                uploadform.actionName.value=field.name;
+                                                uploadform.submit();
+                                                }
+                                                else
+                                                {
+                                                return;
+                                                }
+
+                                        }
+                                }
+                        }
+                        uploadform.actionName.value=field.name;
+                        uploadform.submit();
+                }
+                else
+                {
+                        alert("Topic Name Can not Empty !!");
+                }
+	}
+</script>
+<form name=uploadform method="post" enctype="multipart/form-data" action="$link.setPage("call,Repository_Mgmt,UploadSCO.vm").setAction("UserAreaAction").addPathInfo("actionName","eventSubmit_doUpload")" >
+  <div align="left">
+    <table align=center bgcolor="$ui.bgcolor" cellpadding="0">
+	 <tr>
+                <img src="$content.getURI("/images/hand.gif")"><font color="red">থনুগ্রহ কের সুিনশ্িচত কেরনাও েয আপেলাড করার ফাইেলর নােমর মধ্েয়  <b> '+' </b> অখ্র েনই</font>
+        </tr>
+<br><br>
+      <tr>
+	<td colspan=4>
+	<input type="RADIO" name=topicExisting checked=true value="OLDTOPIC" onClick=blurTopicName(document.uploadform)>অস্িতত্ব আেছ প্রসংগ
+	<SELECT name=topicList onFocus=changeTopic(document.uploadform) onChange=changeTopic(document.uploadform)>
+	  <option></option>
+	  #foreach($topic in $allTopics)
+		<option>$topic</option>
+	  #end
+	</SELECT>
+	<input type="RADIO" name=topicExisting value="NEWTOPIC" >নুতন প্রসংগ
+	</td>
+	</tr>
+	
+      <tr>
+  	<td bgcolor="$ui.tableColor">
+  	<b><font face="$ui.sansSerifFonts">প্রসংগ নাম</font> </b>
+	</td>
+	<td>
+	<input type="text" name=contentTopic onFocus=checkRadio() size=26>
+    	</td>
+      <tr>
+              #fileUpload ("1.&nbsp; ফাইল িট সঃযুক্ত " "file1")</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>#fileUpload ("6.&nbsp; ফাইল িট সঃযুক্ত  &nbsp;" "file6") 
+      </tr>
+      <tr>
+              #fileUpload ("2.&nbsp; ফাইল িট সঃযুক্ত " "file2")</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>#fileUpload ("7.&nbsp; ফাইল িট সঃযুক্ত  &nbsp;" "file7") 
+      </tr>
+      <tr>
+              #fileUpload ("3.&nbsp; ফাইল িট সঃযুক্ত " "file3")</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>#fileUpload ("8.&nbsp; ফাইল িট সঃযুক্ত  &nbsp;" "file8") 
+      </tr>
+      <tr>
+              #fileUpload ("4.&nbsp; ফাইল িট সঃযুক্ত " "file4")</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>#fileUpload ("9.&nbsp; ফাইল িট সঃযুক্ত  &nbsp;" "file9") 
+      </tr>
+      <tr>
+              #fileUpload ("5.&nbsp; ফাইল িট সঃযুক্ত " "file5")</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>#fileUpload ("10.&nbsp; ফাইল িট সঃযুক্ত  &nbsp;" "file10") 
+      </tr>
+
+      <tr>
+	<td colspan=5 align="center" bgcolor="$ui.buttonBoxColor">
+          <font face="$ui.sansSerifFonts">
+        <input type="button" name="eventSubmit_doUpload" value="আপেলাড" onClick="validate(document.uploadform,this);"/>
+	<input type="hidden" name="actionName"value="">
+
+          </font>
+        </td>
+      </tr>
+      
+    </table>
+</div>
+</form>

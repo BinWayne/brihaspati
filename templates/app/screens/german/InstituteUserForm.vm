@@ -1,0 +1,198 @@
+#*
+ * @(#)InstituteUserForm.vm
+ *  Copyright (c) 2005,2010 ETRG,IIT Kanpur.
+ *  All Rights Reserved.
+ *  Contributors: Members of ETRG, I.I.T. Kanpur
+ * @author <a href="mailto:awadhesh_trivedi@yahoo.co.in ">Awadhesh Kumar Trivedi</a>
+ * @author <a href="mailto:shaistashekh@gmail.com ">Shaista</a> 
+ * @author <a href="mailto:singh_jaivir@rediffmail.com">Jaivir Singh</a>
+ *#
+
+$page.setBgColor($ui.bgcolor)
+#set($lang = $data.getUser().getTemp("lang" ).toString())
+#if($status!="viewallUser")
+	#if($Process=="modify")
+		$page.setTitle("Admin Home | List Management | Search User | Update User")
+	#else
+		$page.setTitle("Admin Home | List Management | Search User | Remove User")
+	#end
+#else
+	#if($Process=="modify")
+		$page.setTitle("Admin Home | List Management | View All Users | Update User")
+	#else
+		$page.setTitle("Admin Home | List Management | View All Users | Remove User")
+	#end
+#end
+$!data.getMessage()
+<table bgcolor="$ui.menuColor" width=100%>
+<tr><td>
+<a href=$link.setPage("Index.vm") style=text-decoration:none>Admin's Heim</a> |
+#if($from=="usermgmt")
+##<a href=$link.setPage("Index.vm") style=text-decoration:none>Admin's Heim</a> |
+<a href=$link.setPage("call,UserMgmt_InstituteAdmin,InstUserMgmt_Admin.vm").addPathInfo("count","1") style=text-decoration:none>Benutzer Vorstand Management</a> |
+#else
+##<a href=$link.setPage("Index.vm") style=text-decoration:none>Admin's Heim</a> |
+<a href=$link.setPage("call,ListMgmt_InstituteAdmin,InstList_Mgmt.vm").addPathInfo("mode","All").addPathInfo("listcourse","listcourse").addPathInfo("count","1") style=text-decoration:none>Liste Management</a> |
+<a href=$link.setPage("call,ListMgmt_InstituteAdmin,InstAdminviewall.vm").addPathInfo("mode","All").addPathInfo("count","2") style=text-decoration:none>Liste  auf alles User</a> |
+#end
+#if($Process=="modify")
+	#if($lang == "hindi")
+		Benutzer Detail Update 
+	#else
+		Update Benutzer 
+        #end
+#else
+	#if($lang == "hindi")
+		Benutzer Detail Entfernen Sie 
+	#else
+		Entfernen Sie Benutzer
+	#end
+#end
+</td></tr>
+</table>
+<table width=100% align=left bgcolor="$ui.tableColor">
+<tr>
+#if($from == "usermgmt")
+	#if($tdcolor != "1")
+        <td>
+        #elseif($tdcolor == "1")
+        <td bgcolor="#AFDCEC">
+        #end
+        <a href=$link.setPage("call,UserMgmt_InstituteAdmin,InstUserMgmt_Admin.vm").addPathInfo("count","1") style=text-decoration:none>Ajouter l'utilisateur </a></td>
+        #if($tdcolor != "2")
+        <td>
+        #elseif($tdcolor == "2")
+        <td bgcolor="#AFDCEC">
+        #end
+        <a href=$link.setPage("call,UserMgmt_InstituteAdmin,InstUserMgmt_Admin.vm").addPathInfo("mode","sclist").addPathInfo("count","2") style=text-decoration:none>Kursteilnehmer Kurs Liste</a></td>
+        #if($tdcolor != "3")
+        <td>
+        #elseif($tdcolor == "3")
+        <td bgcolor="#AFDCEC">
+        #end
+        <a href=$link.setPage("call,UserMgmt_InstituteAdmin,InstUserMgmt_Admin.vm").addPathInfo("mode","userdelete").addPathInfo("role","instructor").addPathInfo("count","3") style=text-decoration:none>Löschen  Instructor</a></td>
+        #if($tdcolor != "4")
+        <td>
+        #elseif($tdcolor == "4")
+        <td bgcolor="#AFDCEC">
+        #end
+        <a href=$link.setPage("call,UserMgmt_InstituteAdmin,InstUserMgmt_Admin.vm").addPathInfo("mode","userdelete").addPathInfo("role","student").addPathInfo("count","4") style=text-decoration:none>Löschen  Kursteilnehmer</a></td>
+	#if($tdcolor != "5")
+        <td>
+        #elseif($tdcolor == "5")
+        <td bgcolor="#AFDCEC">
+        #end
+        <a href=$link.setPage("call,UserMgmt_InstituteAdmin,InstUserMgmt_Admin.vm").addPathInfo("mode","AddMUser").addPathInfo("count","5") style=text-decoration:none>Füie hinzu  Mehrfach Benutzer</a></td>
+        #if($tdcolor != "6")
+        <td>
+        #elseif($tdcolor == "6")
+        <td bgcolor="#AFDCEC">
+        #end
+        <a href=$link.setPage("call,UserMgmt_InstituteAdmin,InstUserMgmt_Admin.vm").addPathInfo("mode","UPhoto").addPathInfo("count","6") style=text-decoration:none>Antriebskraft Foto   </a></td>
+        #if($tdcolor != "7")
+        <td>
+        #elseif($tdcolor == "7")
+        <td bgcolor="#AFDCEC">
+        #end
+        <a href=$link.setPage("call,UserMgmt_InstituteAdmin,InstUserAttendence_Sheet.vm").addPathInfo("count","7") style=text-decoration:none>Attendance Bericht </a></td>
+
+#else
+	#if($tdcolor !="1")
+	<td>
+	#elseif($tdcolor == "1")
+	<td bgcolor="#AFDCEC">
+	#end
+	<a href=$link.setPage("call,ListMgmt_InstituteAdmin,InstList_Mgmt.vm").addPathInfo("listcourse","listcourse").addPathInfo("mode","All").addPathInfo("actionStat","Edit").addPathInfo("count","1") style=text-decoration:none>Anblick  all  Kurse</a></td>
+	#if($tdcolor !="2")
+	<td>
+	#elseif($tdcolor == "2")
+	<td bgcolor="#AFDCEC">
+	#end
+        <a href=$link.setPage("call,ListMgmt_InstituteAdmin,InstAdminviewall.vm").addPathInfo("mode","All").addPathInfo("count","2") style=text-decoration:none>Sehen Sie alle an  Benutzer</td>
+</tr>
+#end
+</table>
+#if($from=="usermgmt")
+##<form method="post" action="$link.setPage("call,serMgmt_Admin,UserManagement_Admin.vm").setAction("UserAction_Admin")">
+<form method="post" action="$link.setPage("call,UserMgmt_InstituteAdmin,InstUserMgmt_Admin.vm").setAction("UserAction_InstituteAdmin")">
+#else
+##<form method="post" action="$link.setPage("call,ListMgmt_Admin,Adminviewall.vm").setAction("UserAction_Admin")">
+<form method="post" action="$link.setPage("call,ListMgmt_InstituteAdmin,InstAdminviewall.vm").setAction("UserAction_InstituteAdmin")">
+#end
+<table width=100% align="left" bgcolor="$ui.menuColor">
+<tr><td> Benutzer Detail</td></tr>
+</table>
+<table width=100% bgcolor="$ui.tableColor" align="left">
+      #foreach($i in $udetail)
+      <tr bgcolor="$ui.tableColor">
+		#entry1Cell("Benutzer Name" $!i.UserName)
+      </tr>
+      #if($Process=="modify")
+      <tr bgcolor="$ui.menuColor">
+        	#formCell ("Zuerst Name" "firstname" $!i.FirstName)
+      </tr>
+      <tr bgcolor="$ui.tableColor">
+        	#formCell ("Letztes Name" "lastname" $!i.LastName)
+      </tr>
+      <tr bgcolor="$ui.menuColor">
+        	#formCell ("Email ID" "email" $!i.Email)
+      </tr>
+      #else
+      <tr>
+        <td><b>Zuerst Name</b></td>
+	<td>$!i.FirstName</td>
+      </tr>
+      <tr>
+        <td><b>Letztes Name</b></td>
+	<td>$!i.LastName</td>
+      </tr>
+      <tr>
+        <td><b>Email ID</b></td>
+	<td>$!i.Email</td>
+      </tr>
+      #end
+      <input type="hidden" name="username" value="$i.UserName"/>
+      <input type="hidden" name="mode" value="$mode"/>
+      <input type="hidden" name="count" value="$tdcolor"/>
+       #end
+         ##</table> 
+     
+      <tr>
+        <td align="left" bgcolor="$ui.tableColor">
+          #*
+            Check for a mode, the update and delete buttons
+            shouldn't appear when inserting a new user.
+          *#
+          #if ($Process== "modify")
+            <input type="submit" name="eventSubmit_doUpdate" value="Update"/>
+          #elseif ($Process == "delete")
+            <input type="submit" name="eventSubmit_doDelete" value="Entfernen Sie"/>
+          #end
+      </td>
+    </tr>
+    </table>
+</form>
+
+<br>
+<table width=60% border=1 bgcolor="$ui.tableColor" align=center>
+#set ( $count = 1 )
+        #foreach( $entry in $error_user )
+                #set ( $count2 = 1 )
+                #foreach( $type in $error_type )
+                        #if( $count == $count2 )
+                        <tr bgcolor="$ui.tableColor">
+                        <td align=center>
+                                <font face="$ui.sansSerifFonts">User
+Name <font color="brown">"$entry"</font></font>
+                        </td>
+                        <td align=center>
+                                <font
+face="$ui.sansSerifFonts">$type</font>
+                        </td>
+                        </tr>
+                        #end
+                        #set ( $count2 = $count2+1 )
+                #end
+                #set ( $count = $count+1 )
+        #end
+</table>

@@ -1,0 +1,141 @@
+#*
+ * @(#) InsertEdit_TF.vm
+ * Copyright(c)2005-2006,2009 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * @author <a href="mailto:tarankhan1@yahoo.com">Tarannum Khan</a>
+ * @author <a href="mailto:manju_14feb@yahoo.com">Mithelesh Parihar</a>
+ * @author <a href="mailto:awadhesh_trivedi@yahoo.co.in ">Awadhesh Kumar Trivedi</a>
+ * @author <a href="mailto:singh_jaivir@rediffmail.com">Jaivir Singh</a>
+ * @author <a href="mailto:shaistashekh@hotmail.com">Shaista</a>
+ * @modified date: 12-04-2010
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+*#
+
+$page.setTitle("Question True False")
+$page.setBgColor($ui.bgcolor)
+#set($lang=$data.getUser().getTemp("lang" ).toString())
+$!data.getMessage()
+
+<table bgcolor="$ui.menuColor" width=100% cellspacing=0>
+<tr>
+        <td colspan=3>
+        <b>
+	<a href=$link.setPage("call,IndexHome.vm")>家</a> |
+        ##<a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")>$course</a> | 问题 管理
+        <a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")>$course</a> |
+        <a href=$link.setPage("call,Question_Bank,Question_bank.vm").addPathInfo("count","1")>问题 银行 </a> |
+	#if($mode=="Insert")
+	<a href=$link.setPage("call,Question_Bank,Create_Bank_Repository.vm").addPathInfo("count","2")> #if($lang=="hindi")贮藏库 的 创建 </a> | 正确的 / 虚假 问题 داخل کرنے #else 创建 贮藏库 </a> | 插入 正确的/ 虚假 问题 #end
+	#else
+	<a href=$link.setPage("call,Question_Bank,RepositoryList.vm").addPathInfo("count","2")>全部 问题 银行 </a> |
+	<a href=$link.setPage("call,Question_Bank,Question_List.vm").addPathInfo("modulename","$modulename").addPathInfo("Ques_Type","$Ques_Type").addPathInfo("count","1")>全部 问题在 $modulename </a> | #if($lang=="hindi") 正确的 / 虚假 问题 #if($mode=="View") 查看 #else 编辑 #end #else #if($mode=="View") 查看 #else 编辑 #end 正确的 / 虚假 问题 #end
+	#end 
+        </td>
+</tr>
+</table>
+<table width=100% bgcolor="$ui.tableColor">
+<tr>
+        #if($tdcolor != "1")
+        <td>
+        #elseif($tdcolor=="1")
+        <td bgcolor="#AFDCEC">
+        #end
+	<a href=$link.setPage("call,Question_Bank,Question_bank.vm").addPathInfo("count","1")> #if($lang!="english") 新的 问题 银行  的 创建 #else 创建 新的 问题 银行  #end </a>
+	</td>
+        #if($tdcolor != "2")
+        <td>
+        #elseif($tdcolor=="2")
+        <td bgcolor="#AFDCEC">
+        #end
+	<a href=$link.setPage("call,Question_Bank,RepositoryList.vm").addPathInfo("count","2")> #if($lang!="english") 查看所有主题有关银行 #else 查看所有主题有关银行 #end </a></td>
+        #if($tdcolor != "3")
+        <td>
+        #elseif($tdcolor=="3")
+        <td bgcolor="#AFDCEC">
+        #end
+        <a href=$link.setPage("call,Question_Bank,UploadQuestions.vm").addPathInfo("count","3")></a> #if($lang!="english")问题 上传#else 上传 问题 #end</td>
+</tr>
+</table>
+<form name="frm" method="post" action="$link.setAction("Question_Bank")">
+<table width="100%" bgcolor="$ui.menuColor" cellpadding="2">  
+  <tr>
+   <td width=30% align="centre" >
+     <b><font face="$ui.sansSerifFonts">问题</font></b>
+   </td>
+   <td	width=70% align="left">
+     <font face="$ui.sansSerifFonts">
+      <textarea name="Question" rows=3 cols=50 #if($mode=="View") readonly #end > $!question </textarea>
+     </td>
+ </tr>
+  <tr bgcolor="$ui.tableColor"> 
+  	<td width=30% align="centre">
+    	<b><font face="$ui.sansSerifFonts"> #if($lang=="hindi") 回复 #else 答案 #end</font></b>
+   	</td>
+   	<td width=70% align="left">
+    	<font face="$ui.sansSerifFonts">
+	#set($Ques_Ans=["TRUE","FALSE"])
+      	<select name="Answer" size=1>
+		#if($mode=="Insert")
+			#foreach($quesAns in $Ques_Ans)
+			<option value="$quesAns">$quesAns
+			#end
+		#else
+			<option value=$!ans>$!ans
+			#foreach($quesAns in $Ques_Ans)
+				#if($quesAns != $!ans)
+				<option value="$quesAns">$quesAns
+				#end
+			#end
+		#end
+      	</select> 
+   	</td>
+ </tr> 
+  <tr>
+	<td width=30% align="centre"> 
+     	<b><font face="$ui.sansSerifFonts">提示</font></b>
+   	</td>
+	<td  width=70% align="left">
+     	<font face="$ui.sansSerifFonts">
+      	<textarea name="hint" rows=3 cols=50 #if($mode=="View") readonly #end > $!hint </textarea>
+     	</td> 
+	##formCell("提示" "hint" "$!hint")
+ </tr> 
+<tr>
+<td align=center colspan=2 bgcolor="$ui.tableColor">  
+<font face ="$ui.sansserifFonts">
+	#if($mode=="Insert")
+  		<input type="reset" value="重置"> 
+  		<input type="button" name="eventSubmit_doSaveQuestion" value="保存 & 添加 更多" onClick="checkValue(document.frm,this);"> 
+  		<input type="button" name="eventSubmit_doFinishQuestion" value="保存 & 完成" onClick="checkValue(document.frm,this);"> 
+	#elseif($mode=="View")
+	#else
+  		<input type="reset" value="重置"> 
+		<input type="button" name="eventSubmit_doEditQuestion" value="编辑" onClick="checkValue(document.frm,this);">
+  		<input type="hidden" name="qid" value=$qid>
+	#end
+  <input type="hidden" name="modulename" value=$modulename> 
+  <input type="hidden" name="actionName" value="">
+  <input type="hidden" name="mode" value=$mode>
+  <input type="hidden" name="FromPath" value=$FromPath>
+  <input type="hidden" name="Ques_Type" value="TF">
+  <input type="hidden" name="count" value="$tdcolor">
+</font>
+</td>
+</tr>
+</table>
+</form>
+<script LANGUAGE="JAVASCRIPT">
+        function checkValue(frm,field)
+        {
+                if(frm.Question.value!="")
+                {
+                       	frm.actionName.value=field.name;
+                       	frm.submit();
+                }
+                else
+                {
+                        alert("Please write Question !!");
+                        frm.Question.focus();
+                }
+        }
+</script>

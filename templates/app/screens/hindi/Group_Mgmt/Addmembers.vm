@@ -1,0 +1,390 @@
+#*
+ * @(#) Addmembers.vm
+ *  Copyright (c) 2006-07,2009 ETRG,IIT Kanpur.
+ *  All Rights Reserved.
+ *  @author <a href="mailto:seema_020504@yahoo.com ">Seema Pal</a>
+ *  @author <a href="mailto:kshuklak@rediffmail.com ">Kishore kumar shukla</a>
+ *  @author <a href="mailto:singh_jaivir@rediffmail.com ">Jaivir Singh</a>
+ *  Contributors: Members of ETRG, I.I.T. Kanpur
+ *#
+
+$page.setTitle("create group")
+$page.setBgColor("$ui.bgcolor")
+$!data.getMessage()
+#set($lang=$data.getUser().getTemp("lang").toString())
+
+<table bgcolor="$ui.menuColor" width=100% > ##table 1 start
+        <tr> <td><b>
+        <a href=$link.setPage("call,IndexHome.vm")>पृष्ठ</a> |
+        <a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")>$coursename </a>|
+        <a href=$link.setPage("call,Group_Mgmt,Grpmgmt.vm").addPathInfo("count","1")>समूह प्रबंधन </a>|
+	#if($Status!="Edit")
+	#if($lang == "english")
+	जोड़ें सदस्य</b>
+	#else
+	सदस्य जोड़ें</b>
+	#end
+	#else
+        ##<a href=$link.setPage("call,Group_Mgmt,Grpmgmt.vm").addPathInfo("count","1")>समूह प्रबंधन </a>|
+	#if($lang=="english")
+        <a href=$link.setPage("call,Group_Mgmt,Editgroup.vm").addPathInfo("count","4")>संपादन  करें समूह</a> | हटायें सदस्य</b>
+	#else
+        <a href=$link.setPage("call,Group_Mgmt,Editgroup.vm").addPathInfo("count","4")>समूह का संपादन  करें</a> | सदस्य हटायें</b>
+	#end
+	#end
+     </td></tr>
+</table> ##table 1 end
+<table width=100% bgcolor="$ui.tableColor"> ##table 2 start
+<tr>
+        ##if($user_role == "instructor")
+        #if($tdcolor != "1")
+        <td>
+        #elseif($tdcolor=="1")
+        <td bgcolor="#AFDCEC">
+        #end
+        <a href=$link.setPage("call,Group_Mgmt,Grpmgmt.vm").addPathInfo("count","1")>सृजन  करें समूह</a></td>
+        #if($tdcolor != "2")
+        <td>
+        #elseif($tdcolor=="2")
+        <td bgcolor="#AFDCEC">
+        #end
+	<a href=$link.setPage("call,Group_Mgmt,Addmembers.vm").addPathInfo("count","2")>जोड़ें/अवलोकन  करें  सदस्य</a></td>
+        #if($tdcolor != "3")
+        <td>
+        #elseif($tdcolor=="3")
+        <td bgcolor="#AFDCEC">
+        #end
+	<a href=$link.setPage("call,Group_Mgmt,Grp_View_Delete.vm").addPathInfo("count","3")>अवलोकन  करें /हटायें    समूह</a></td>
+        #if($tdcolor != "4")
+        <td>
+        #elseif($tdcolor=="4")
+        <td bgcolor="#AFDCEC">
+        #end
+	<a href=$link.setPage("call,Group_Mgmt,Editgroup.vm").addPathInfo("count","4")>संपादन  करें/हटायें सदस्य</a></td>
+        #if($tdcolor != "5")
+        <td>
+        #elseif($tdcolor=="5")
+        <td bgcolor="#AFDCEC">
+        #end
+	<a href=$link.setPage("call,Group_Mgmt,Activitygroup.vm").addPathInfo("count","5")>समूह गतिविधियॉ</a></td>
+        <td>
+	#if($Status!="Edit")
+        <img src="$content.getURI("/images/hand.gif")"><a href=javascript:popupWin("/brihaspati2/docs/add-viewmembers.html","newWin");>सहायता</a>
+	#else
+            <img src="$content.getURI("/images/hand.gif")"><a href=javascript:popupWin("/brihaspati2/docs/edit-removemembers.html","newWin");>सहायता</a>
+	#end
+        </td>
+        </tr>
+</table> ## table 2 end
+<form name="frm" method="post" action=$link.setPage("call,Group_Mgmt,Addmembers.vm").setAction("Groupmanagement")>
+<table bgcolor="$ui.tableColor" width=100% >
+	<tr bgcolor="$ui.menuColor"> <td> ## td tr of 7
+		#if($Status!="Edit")
+			#if($lang == "english")
+               		<I><b><font size="3">विधार्थियों सूचना :</font>समूह  में सदस्य को जोड़ने के लिये " सदस्य जोड़ें" बटन पर क्लिक करें ।</b></I><br>
+			#else
+               		<I><b><font size="3">विधार्थियों की सूचनायें :</font>समूह  में सदस्य को जोड़ने के लिये " सदस्य जोड़ें" बटन पर क्लिक करें ।</b></I><br>
+			#end
+			<img src="$content.getURI("/images/star.png")"> -- सितारे संकेत करते हैं कि सदस्य समूह में उपस्थित है ।
+		#else
+			#if($actmode =="lead")
+                 	<I><b><font size="3">विधार्थियों सूचनायें :</font>Red colour indicate that this member is Group Leader of this group.</b></I><br>
+			#else
+			#if($lang == "english")
+                 	<I><b><font size="3">विधार्थियों सूचनायें :</font>समूह से सदस्य को हटाने के लिये "सदस्य  हटायें " बटन पर क्लिक करें ।</b></I><br>
+                 	<I><font size="3">Red colour indicate that this member is Group Leader of this group.</I><br>
+			#else
+                 	<I><b><font size="3">विधार्थियों की सूचनायें :</font>समूह से सदस्य को हटाने के लिये "सदस्य  हटायें " बटन पर क्लिक करें ।</b></I><br>
+                 	<I><font size="3">Red colour indicate that this member is Group Leader of this group.</I><br>
+			#end
+			#end
+		#end
+	</tr></td>
+	<tr><td>
+		#if($Mode == "NoBlank")
+        	<table bgcolor="$ui.tableColor" width="100%" > ## table 6 start
+			#if($Status != "Edit")
+				<tr><td>
+					#if($lang == "english")
+					<b><font color="Red">*</font>चुनें समूह:&nbsp;&nbsp;</b>
+					#else
+					<b><font color="Red">*</font>समूह चुनें:&nbsp;&nbsp;</b>
+					#end
+                			<select name="groupname" size="1" onChange="Changegroup(document.frm,this);"/>
+                        			<option> </option>
+                        			#foreach($grpname in $grplist)
+                        			<option value="$grpname.Name">$grpname.Name
+                        			#end
+                        			</option>
+                        		</select>
+                		</td></tr>
+			#end
+			<td bgcolor="$ui.menuColor">
+				#if($nolist == "yeslist")
+				#if($Status!="Edit")
+					#if($lang == "english")
+                      			#set($headings=["","&nbsp;&nbsp;विधार्थी नाम"])
+					#else
+                      			#set($headings=["","&nbsp;&nbsp;विधार्थी  के नाम"])
+					#end
+				#else
+					#if($lang=="english")
+                        		#set($headings=["","&nbsp;चुने हुए विधार्थी  का <font color=green>$grpname</font> समूह"])
+					#else
+                        		#set($headings=["","<font color=green>$grpname</font> समूह के चुने हुए विधार्थी  "])
+					#end
+				#end
+				#end
+                        	#foreach($headings in $headings)
+                         		<font size="4"><I><b>$headings</b></I></font>
+                        	#end
+				#if($Status == "Edit")
+					<table width=100% bgcolor="$ui.tableColor">
+						#if($mode == "noempty")
+						<tr>
+						#if($actmode =="lead")
+							<td>
+							<b>चुनें नेता </b>
+							</td>
+							<td>
+							<select name="leadername" size="1"  onChange="Changeleader(document.frm,this);"/>
+                					<option>  - चुनें leader - </option>
+                        				#foreach($selectedlist1 in $selectedlist)
+                        				<option value="$selectedlist1.UserName">$selectedlist1.UserName
+                         				#end
+                         				</option>
+                					</select>
+							</td>
+							#else
+                        				<td align="left" bgcolor="$ui.menuColor">
+                        				<input type="CHECKBOX" name="checkAll" onClick="selectAll(this);">
+                        				<font face="$ui.sansSerifFonts"><b>सभी  को  चुनें</b>
+                        				</td>
+							<td align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<b> समूह सदस्य</b>
+							</td>
+						</tr>
+         					#set( $counts="")
+                        			#foreach($selectedlist1 in $selectedlist)
+						#if($velocityCount%2==0)
+                                                <tr bgcolor="$ui.menuColor">
+                                                #else
+                                                <tr bgcolor="$ui.tableColor">
+                                                #end
+                        			<td> <input type="checkbox" name="$!selectedlist1.UserName" onClick="addstudentList(this,document.frm);"/></td>
+							#if($selectedlist1.UserName == $grpleader)
+                        				<td align ="center"><font color="red">$!selectedlist1.UserName</font></td>
+							#else
+                        				<td align ="center">$!selectedlist1.UserName</td>
+							#end
+							</tr>
+					#set( $counts = "$counts$!selectedlist1.UserName^" )
+						#end
+						#end
+						#else
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<td align="center"><b><font color=blue><I><font size="4">इस समूह में कोई भी सदस्य उपस्थित ऩही है ।</font></I></font></b></td>
+						#end
+					</table>
+					#else
+         				#set ($counts="")
+						<table width=100% bgcolor="$ui.tableColor">
+                        				#foreach($studentnames in $studentlist)
+							#if($velocityCount%2==0)
+                                                        <tr bgcolor="$ui.menuColor">
+                                                        #else
+                                                        <tr bgcolor="$ui.tableColor">
+                                                        #end
+                        					<td><input type="checkbox"name="$!studentnames" onClick="addstudentList(this,document.frm);"/></td>
+                        					<td>$studentnames
+								#set( $conuter ="")
+									#foreach($sellist in $list)
+										#if($studentnames == $sellist)
+											<img src="$content.getURI("/images/star.png")"> </td>	
+										#end
+									#end
+								#set($counter=$counter+1)
+							</tr>
+					#set($counts=$counts+1)
+							#end
+						</table>
+					#end
+			</td>
+			#if($Status !="Edit" )
+				<td valign="top" align="left">
+				#if($nolist == "yeslist")
+				#if($val == "")
+					<td bgcolor="$ui.menuColor"><i><font color="blue">समूह के  सदस्य देखने के लिये कोई एक समूह चूनें</font><i></td>
+				#else
+					#if($lang=="english")
+                        		#set($headings=["","&nbsp;चुने हुए विधार्थी  का <font color=green>$val</font> समूह"])
+					#else
+                        		#set($headings=["","<font color=green>$val</font> समूह के चुने हुए विधार्थी  "])
+					#end
+					#foreach($headings in $headings)
+                                		<font size="4"><I><b>$headings</b></I></font>
+                        		#end
+					<table width=100% bgcolor="$ui.tableColor">
+						#if($mode == "noempty")
+						#foreach($selectedlist in $selectedlist)
+						#if($velocityCount%2==0)
+                                                <tr bgcolor="$ui.menuColor">
+                                                #else
+                                                <tr bgcolor="$ui.tableColor">
+                                                #end
+						<td> $selectedlist.UserName</td>
+						</tr>
+						#end
+						#else
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<td align="center"><b><font color=blue><I><font size="4">इस समूह में कोई भी सदस्य उपस्थित ऩही है ।</font></I></font></b></td>
+						#end
+					</table>
+				#end
+				#end
+				</td>
+			#end
+                </table> ## table end 6
+        </tr></td> ## end of tr td 7
+        <tr bgcolor="$ui.menuColor"><td>
+		#if($Status =="Edit")
+			#if($actmode =="lead")
+        		<input type="button" name="eventSubmit_doRemoveselectedstudent" value="चुनें नेता " onClick="checkfield(document.frm,this);"/>
+			#else
+			#if($lang == "english")
+        		<input type="button" name="eventSubmit_doRemoveselectedstudent" value="हटायें सदस्य" onClick="checkfield(document.frm,this);"/>
+			#else
+        		<input type="button" name="eventSubmit_doRemoveselectedstudent" value="सदस्य हटायें" onClick="checkfield(document.frm,this);"/>
+			#end
+			#end
+		#else
+			#if($lang == "english")
+        		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" name="eventSubmit_doAddSelected" value="जोड़ें सदस्य" onClick="checkselect(document.frm,this);"/>
+			#else
+        		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" name="eventSubmit_doAddSelected" value="सदस्य जोड़ें" onClick="checkselect(document.frm,this);"/>
+			#end
+			#if($lang == "english")
+        		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" name="eventSubmit_doViewmember" value="अवलोकन  करें  सदस्य " onClick="checkselect1(document.frm,this);"/>
+			#else
+        		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" name="eventSubmit_doViewmember" value="सदस्य अवलोकन  करें " onClick="checkselect1(document.frm,this);"/>
+			#end
+		#end
+			&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="eventSubmit_doCancel" value="निरस्त"/>
+				#else
+				<b><font color="blue"><i>उपर्युक्त विषय में कोई समूह नहीं है ।.</i></font></b>
+				#end
+        </tr></td>
+	<input type="hidden" name="actionName" value="$actionName">
+	<input type="hidden" name="grpdesc" value="$grpdesc" >
+        <input type="hidden" name="type" value="$type" >
+        <input type="hidden" name="val">
+        <input type="hidden" name="grpname" value="$grpname" >
+        <input type="hidden" name="grpleader" value="$grpleader" >
+        <input type="hidden" name="stuno" value="$stuno" >
+        <input type="hidden" name="grptype" value="$grptype" >
+        <input type="hidden" name="date1" value="$date1" >
+        <input type="hidden" name="sno" value="$sno" >
+        <input type="hidden" name="date2" value="$date2" >
+        <input type="hidden" name="StudentNames" value="">
+        <input type="hidden" name="Status" value="$Status">
+        <input type="hidden" name="actmode" value="$actmode">
+        <input type="hidden" name="leadval">
+</table>
+</form>
+<SCRIPT LANGUAGE="javascript">
+	function checkselect(frm,field)
+	{
+                var items;
+                items=frm.StudentNames.value;
+		var val1=document.frm.groupname.value; 
+                if((items.length!=0)&&(val1.length!=0))
+                {
+                        frm.actionName.value=field.name;
+                        frm.submit();
+                }
+                else
+                 	alert("Please Select check box and option  !!");
+	}
+	function checkfield(frm,field)
+	{
+                var items;
+                var items1;
+                items=frm.StudentNames.value;
+                items1=frm.leadval.value;
+                if((items.length!=0)||(items1.length!=0))
+                {
+                        frm.actionName.value=field.name;
+                        frm.submit();
+                }
+                else
+                 	alert("Please Select check box/option  !!");
+	}
+	function addstudentList(field,frm)
+	{
+		if(field.checked)
+        	{
+        		frm.StudentNames.value=frm.StudentNames.value+field.name+"^";
+        	}
+        	else
+        	{
+        		var rmFile,index,actualString,preString,postString;
+                	actualString=frm.StudentNames.value;
+                	index=actualString.indexOf(field.name+"^",0);
+                	preString=actualString.substring(0,index);
+                	postString=actualString.substring(index+field.name.length+1);
+                	actualString=preString+postString;
+                	frm.StudentNames.value=actualString;
+        	}
+	}
+	function selectAll(field)
+	{
+        	if(field.checked)
+        	{
+                	var rmFile,index,actualString,pre=0,next=0;
+                	actualString=document.frm.StudentNames.value="$count";
+                	while( ( pre=actualString.indexOf("^",next) ) >=0 )
+                        {
+                        	var temp=actualString.substring(next,pre);
+                        	next=pre+1;
+                        	rmFile=document.frm.elements[temp].checked=true;
+                        }
+        	}
+        	else
+        	{
+                	var rmFile,index,actualString,pre=0,next=0;
+                        actualString=document.frm.StudentNames.value="$count";
+                  	while( ( pre=actualString.indexOf("^",next) ) >=0 )
+                        {
+                        	var temp=actualString.substring(next,pre);
+                        	next=pre+1;
+                         	rmFile=document.frm.elements[temp].checked=false;
+                        }
+                        document.frm.StudentNames.value="";
+           	}
+	}
+	function Changegroup(frm,field)
+        {
+                frm.val.value=document.frm.groupname.value;
+
+	}
+        function checkselect1(frm,field)
+        {
+                var val1=document.frm.groupname.value;
+                if(val1.length!=0)
+                {
+                        frm.actionName.value=field.name;
+                        frm.submit();
+                }
+                else
+                        alert("Please Select option  !!");
+        }
+	function Changeleader(frm,field)
+        {
+                frm.leadval.value=document.frm.leadername.value;
+
+        }
+
+	function popupWin(url,popupName)
+        {
+                Win1=window.open(url,popupName,"resizable=0,scrollbars=1,height=400,width=400,align=left");
+        }
+     
+</SCRIPT>

@@ -1,0 +1,305 @@
+#*
+ * @(#) viewall.vm
+ * Copyright (c) 2008-2009 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * @author <a href="mailto:rachanadwivedi22@gmail.com">Rachana Dwivedi</a>
+ *  @modify <a href="mailto:shaistashekh@hotmail.com"> Shaista </a>
+ *  @modify 13-05-09
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+ *#
+#if($modes=="adminmail")
+$page.setTitle(" Admin Home | Communication | Local Mail | Compose Message | Address Book")
+#else
+$page.setTitle(" Home | $cname | Communication | Local Mail | Compose Message | Address Book")
+#end
+$page.setBgColor($ui.bgcolor)
+$!data.getMessage()
+
+##<table bgcolor="$ui.tableColor" width=100% cellspacing=0>
+
+<table bgcolor="$ui.tableColor" width=100% cellspacing=0>
+<tr align="right">
+	<td width="30%" align="right">
+	#if( $total_size!=0 )
+	#if( $endIndex < $total_size )
+		#if( $endIndex < $AdminConf )
+			 [$total_size - $k] کل $total_size مڍں سے 
+		#else
+			[$endIndex -$k] کل $total_size مڍں سے 
+		#end
+	#else
+		 [$total_size - $k] کل $total_size مڍں سے 
+	#end
+	#end
+	</td>
+    <td>
+	<font face="$ui.sansSerifFonts" size=3>
+	#if($modes=="adminmail")
+	<a href=$link.setPage("call,Admin.vm")>منتظم کا صفحہ</a> 
+	<a href=$link.setPage("call,Notice_User,Notices.vm")>مواصلات</a> |
+	<a href=$link.setPage("call,Local_Mail,Mail.vm").addPathInfo("mod","adminmail")>مقامى  بريد</a> |
+ 	<a href=$link.setPage("call,Local_Mail,MailCompose.vm").addPathInfo("status","compose")>برڍد تحرڍر کرڍں</a> |
+	#else
+	<a href=$link.setPage("call,CourseMgmt_User,Communication.vm")>مواصلات</a> |
+	<a href=$link.setPage("call,Local_Mail,Mail.vm")>مقامى  بريد</a> |
+ 	<a href=$link.setPage("call,Local_Mail,MailTestMessage.vm").addPathInfo("status","compose")>برڍد تحرڍر کرڍں</a> |
+	<a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")>$cname</a> |
+	<a href=$link.setPage("call,IndexHome.vm")>صفحہ</a> 
+	#end
+	#if($mode!="Search")
+			 منزرِ کل مصارف  |
+	#else
+		منتخب کرے ٥وۓ نصابِ منزر  |
+	#end
+	</b>
+	</font>
+   </td>
+</tr>
+</table>
+#set ( $headings = ["مصارف  کا نام"] )
+<br>
+<br>
+#if($modes=="adminmail")
+<form name="frm" ENCTYPE="multipart/form-data" method="post" action="$link.setPage("call,Local_Mail,MailCompose.vm").setAction("Add")">
+#else
+<form name="frm" ENCTYPE="multipart/form-data" method="post" action="$link.setPage("call,Local_Mail,MailTestMessage.vm").setAction("Add")">
+#end
+<table border=1 align=center bgcolor="$ui.tableColor" cellpadding=1 cellspacing=1>
+        <tr>
+		<td>
+			#if($modes=="adminmail")
+			<b><a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("mode","All").addPathInfo("mod","adminmail")">کل  مشتعمل کى فہرست</a></b>
+			#else
+				<b><a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("mode","courseWiseAll")">مصارف  $brih_of2 $cname</a></b> |
+				<b><a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("mode","All")">کل  مشتعمل کى فہرست</a></b>
+			#end
+		</td>
+                <td>
+                          <input type="button" name="Search" value="مشاہد٥" onClick="checkNull(document.frm,this);">
+                          <input type="hidden" name="mode" value="Search">
+                          <input type="hidden" name="mod" value="$modes">
+
+                </td>
+                <td align=left>
+                        <input align=center type="text" name="valueString" value="">
+                </td>
+                <td align=center><b>مشاہد٥ کے لۓ الفاظ ڈالڍں  </b></td>
+        </tr>
+</table>
+
+<br>
+#if($status=="notempty")
+<table align=center bgcolor="$ui.tableColor">
+  <tr>
+   <td align=center>
+      <table border=1 cellspacing=1>
+        <tr>
+	        #set($count="")
+          	#foreach ($heading in $headings)
+			#headerCell($heading)
+		#end
+                <td bgcolor="$ui.menuColor" align=center>
+                	<font face="$ui.sansSerifFonts"><b>
+	                کل منتخب کرڍں </b>
+                	<input type="CHECKBOX" name="checkAll" onClick=selectAll(this);>
+                </td>
+        </tr>
+	#foreach ($urecord in $userlist)
+		<tr>
+      			#entryCell ($!urecord.getLoginName())  
+			<td>
+				<INPUT TYPE="CHECKBOX" NAME=$!urecord.getLoginName() onClick="addAddressList(this,document.frm);">
+			</td>
+		</tr>
+
+          #set($count="$count$!urecord.getLoginName()^")
+          #end
+	</table>
+	<table>
+	<tr>
+		<input type="submit" name="AddUser" value="استعمالِ پت٥" onClick="checkField(document.frm,this);">
+                <INPUT TYPE="hidden" name="DB_subject" value="">
+        </tr>
+	</table>
+	<tr>
+         <td align=center bgcolor="$ui.menuColor">
+     	#if($modes=="adminmail")
+     	#if($mode!="Search")
+	#if($total_size<= $AdminConf)
+         <u><font color="white">پہلا</font></u> &nbsp;
+         <u><font color="white">اگلا</font></u> &nbsp;
+         <u><font color="white">پچھلا</font></u> &nbsp;
+         <u><font color="white">آخری</font></u> &nbsp;
+        #elseif($startIndex==$AdminConf_str)
+          <u><font color="white">پہلا</font></u> &nbsp;
+          <u><font color="white">پچھلا</font></u> &nbsp;
+          <a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("startIndex",$startIndex).addPathInfo("mode",$mode).addPathInfo("mod","adminmail")">اگلا</a> &nbsp;
+          <a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode",$mode).addPathInfo("mod","adminmail")">آخری</a> &nbsp;
+        #elseif($endIndex == $total_size || $endIndex > $total_size)
+         <a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode",$mode).addPathInfo("mod","adminmail")">پہلا</a> &nbsp;
+         <a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode",$mode).addPathInfo("mod","adminmail")">پچھلا</a> &nbsp;
+         <u><font color="white">اگلا</font></u> &nbsp;
+         <u><font color="white">آخری</font></u> &nbsp;
+        #else
+           <a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode",$mode).addPathInfo("mod","adminmail")">پہلا</a> &nbsp;
+           <a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode",$mode).addPathInfo("mod","adminmail")">پچھلا</a> &nbsp;
+           <a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("startIndex",$startIndex).addPathInfo("end",$endIndex).addPathInfo("mode",$mode).addPathInfo("mod","adminmail")">اگلا</a> &nbsp;
+            <a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode",$mode).addPathInfo("mod","adminmail")">آخری</a> &nbsp;
+     	#end
+     #else
+	#if($total_size<= $AdminConf)
+         <u><font color="white">پہلا</font></u> &nbsp;
+         <u><font color="white">اگلا</font></u> &nbsp;
+         <u><font color="white">پچھلا</font></u> &nbsp;
+         <u><font color="white">آخری</font></u> &nbsp;
+        #elseif($startIndex== $AdminConf_str)
+          <u><font color="white">پہلا</font></u> &nbsp;
+          <u><font color="white">پچھلا</font></u> &nbsp;
+ <a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("startIndex",$startIndex).addPathInfo("mode",$mode).addPathInfo("mod","adminmail").addPathInfo("queryList",$query).addPathInfo("valueString",$valueString)">اگلا</a> &nbsp;
+          <a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode",$mode).addPathInfo("mod","adminmail").addPathInfo("queryList",$query).addPathInfo("valueString",$valueString)">آخری</a> &nbsp;
+        #elseif($endIndex == $total_size || $endIndex > $total_size)
+         <a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode",$mode).addPathInfo("mod","adminmail").addPathInfo("queryList",$query).addPathInfo("valueString",$valueString)">پہلا</a> &nbsp;
+         <a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode",$mode).addPathInfo("mod","adminmail").addPathInfo("queryList",$query).addPathInfo("valueString",$valueString)">پچھلا</a> &nbsp;
+         <u><font color="white">اگلا</font></u> &nbsp;
+         <u><font color="white">آخری</font></u> &nbsp;
+        #else
+           <a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode",$mode).addPathInfo("mod","adminmail").addPathInfo("queryList",$query).addPathInfo("valueString",$valueString)">پہلا</a> &nbsp;
+           <a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode",$mode).addPathInfo("mod","adminmail").addPathInfo("queryList",$query).addPathInfo("valueString",$valueString)">پچھلا</a> &nbsp;
+           <a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("startIndex",$startIndex).addPathInfo("mode",$mode).addPathInfo("mod","adminmail").addPathInfo("queryList",$query).addPathInfo("valueString",$valueString)">اگلا</a> &nbsp;
+	   <a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode",$mode).addPathInfo("mod","adminmail").addPathInfo("queryList",$query).addPathInfo("valueString",$valueString)">آخری</a> &nbsp;
+	#end
+	#end
+	#end
+	##else
+     	#if($modes!="adminmail")
+     	#if($mode!="Search")
+	#if($total_size<= $AdminConf)
+         <u><font color="white">پہلا</font></u> &nbsp;
+         <u><font color="white">اگلا</font></u> &nbsp;
+         <u><font color="white">پچھلا</font></u> &nbsp;
+         <u><font color="white">آخری</font></u> &nbsp;
+        #elseif($startIndex==$AdminConf_str)
+          <u><font color="white">پہلا</font></u> &nbsp;
+          <u><font color="white">پچھلا</font></u> &nbsp;
+          <a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("startIndex",$startIndex).addPathInfo("mode",$mode)">اگلا</a> &nbsp;
+          <a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode",$mode)">آخری</a> &nbsp;
+        #elseif($endIndex == $total_size || $endIndex > $total_size)
+         <a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode",$mode)">پہلا</a> &nbsp;
+         <a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode",$mode)">پچھلا</a> &nbsp;
+         <u><font color="white">اگلا</font></u> &nbsp;
+         <u><font color="white">آخری</font></u> &nbsp;
+        #else
+           <a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode",$mode)">پہلا</a> &nbsp;
+           <a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode",$mode)">پچھلا</a> &nbsp;
+           <a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("startIndex",$startIndex).addPathInfo("end",$endIndex).addPathInfo("mode",$mode)">اگلا</a> &nbsp;
+            <a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode",$mode)">آخری</a> &nbsp;
+     	#end
+     #else
+	#if($total_size<= $AdminConf)
+         <u><font color="white">پہلا</font></u> &nbsp;
+         <u><font color="white">اگلا</font></u> &nbsp;
+         <u><font color="white">پچھلا</font></u> &nbsp;
+         <u><font color="white">آخری</font></u> &nbsp;
+        #elseif($startIndex== $AdminConf_str)
+          <u><font color="white">پہلا</font></u> &nbsp;
+          <u><font color="white">پچھلا</font></u> &nbsp;
+ <a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("startIndex",$startIndex).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString)">اگلا</a> &nbsp;
+          <a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString)">آخری</a> &nbsp;
+        #elseif($endIndex == $total_size || $endIndex > $total_size)
+         <a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString)">پہلا</a> &nbsp;
+         <a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString)">پچھلا</a> &nbsp;
+         <u><font color="white">اگلا</font></u> &nbsp;
+         <u><font color="white">آخری</font></u> &nbsp;
+        #else
+           <a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("startIndex",$check_first).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString)">پہلا</a> &nbsp;
+           <a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("startIndex",$check_pre).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString)">پچھلا</a> &nbsp;
+           <a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("startIndex",$startIndex).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString)">اگلا</a> &nbsp;
+	   <a href="$link.setPage("call,Local_Mail,viewall.vm").addPathInfo("startIndex",$check_last).addPathInfo("mode",$mode).addPathInfo("queryList",$query).addPathInfo("valueString",$valueString)">آخری</a> &nbsp;
+	#end
+    #end
+	#end
+    </td>
+ </tr>
+
+</table>
+ #end   
+<INPUT TYPE="hidden" NAME="actionName">
+</form>
+<br>
+<table width=60% border=1 bgcolor="$ui.tableColor" align=center>
+        #foreach( $entry in $error_Messages )
+        <tr bgcolor="$ui.tableHeaderColor">
+        <td align=center>
+        <font face="$ui.sansSerifFonts">brih_usrName <font color="brown">"$entry.getErr_User()"</font></font>
+        </td>
+        <td align=center>
+        <font face="$ui.sansSerifFonts">$entry.getErr_Type()</font>
+        </td>
+        </tr>
+        #end
+</table>
+
+<SCRIPT language="JavaScript">
+	function addAddressList(field,frm){
+                if(field.checked)
+ 		{
+ 			frm.DB_subject.value=frm.DB_subject.value+field.name+"^";
+		}
+                else{
+        		var rmFile,index,actualString,preString,postString;
+                        actualString=frm.DB_subject.value;
+                        index=actualString.indexOf(field.name+"^",0);
+                        preString=actualString.substring(0,index);
+                        postString=actualString.substring(index+field.name.length+1);
+                        actualString=preString+postString;
+                        frm.DB_subject.value=actualString;
+                 }
+        }
+        
+	function popupWin(url,popupName)
+        {
+                Win1=window.open(url,popupName,"resizable,height=200,width=300");
+        }
+	
+	function selectAll(field){
+                if(field.checked){
+  
+                        var rmFile,index,actualString,pre=0,next=0;
+                        actualString=document.frm.DB_subject.value="$count";
+                        while( ( pre=actualString.indexOf("^",next) ) >=0 ){
+                                var temp=actualString.substring(next,pre);
+                                next=pre+1;
+                                rmFile=document.frm.elements[temp].checked=true;
+   
+                        }
+                }
+	        else{
+                        var rmFile,index,actualString,pre=0,next=0;
+                        actualString=document.frm.DB_subject.value="$count";
+                        while( ( pre=actualString.indexOf("^",next) ) >=0 ){
+                                var temp=actualString.substring(next,pre);
+                                next=pre+1;
+                                rmFile=document.frm.elements[temp].checked=false;
+                        }
+                        document.frm.DB_subject.value="";
+                }
+        }
+
+        function checkField(frm,field)
+        {
+                        
+              frm.actionName.value=field.name;
+              frm.submit();
+
+       }
+    
+	function checkNull(frm,field){
+              if(frm.valueString.value!=""){
+                  frm.actionName.value=field.name;
+                    frm.submit();
+          }
+        else{
+              alert("The 'Match String' text box can not be NULL");
+    }
+  }
+</SCRIPT>

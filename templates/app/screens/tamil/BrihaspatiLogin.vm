@@ -1,0 +1,298 @@
+#*
+ * @(#) BrihaspatiLogin.vm
+ * Copyright (c) 2008-2010 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+ * @author <a href="mailto:shaistashekh@hotmail.com">Shaista</a>
+ * @author <a href="mailto:singh_jaivir@rediffmail.com">Jaivir Singh</a>
+*#
+
+$page.setTitle("Login in Brihaspati")
+$page.setBgColor($ui.bgcolor)
+<form name="frm" method="post" action="$link.setAction("myLogin")">
+<table width="100%">
+<tr><td>
+<marquee> <font size=4>$!fNoti</font></marquee>
+</td></tr>
+</table>
+<table align=left> ## 1
+<tr><td valign="top" width="25%">  ## 2, 3
+		<table bgcolor="$ui.tableColor" width="100%"> ## 4
+        	<tr bgcolor="$ui.menuColor"><td>  ## 5, 6
+                <img src="$content.getURI("/images/newspaper.gif")"><u><b>தலைப்புச்செய்திகள்</b></u>
+        	</td></tr> ## 6, 5
+        	<tr><td> ## 5, 6
+		<marquee scrollamount="1" direction="up" loop="2" width="100%" behaviour="slide">
+		#if($status!="empty")
+                #set($count=1)
+                #foreach($news in $detail)
+                        #if($count % 2 == 0)
+                                <font size=3>
+                                <table bgcolor="$ui.buttonBoxColor" width="100%"> ## 7
+                                <tr> ## 8
+                                <td><image src="$content.getURI("/images/orange_nav_arrow.gif")"> $news.getNews_Subject() ## 9
+				<a href=javascript:popupWin("$link.setPage("call,ViewNews_Photo.vm").addPathInfo("newsid",$news.getNews_ID()).addPathInfo("date",$news.getPDate()).addPathInfo("user",$news.getSender())","newWin");>...மேலும்</a>
+                                </td> ## 9
+                                </tr> ## 8
+                                </table> ## 7
+                                </font>
+                                #set($count = $count + 1)
+                        #else
+                                <font size=3>
+                                <table><tr><td><image src="$content.getURI("/images/orange_nav_arrow.gif")"> $news.getNews_Subject()   ## 7, 8, 9
+				<a href=javascript:popupWin("$link.setPage("call,ViewNews_Photo.vm").addPathInfo("newsid",$news.getNews_ID()).addPathInfo("date",$news.getPDate()).addPathInfo("user",$news.getSender())","newWin");>...மேலும்</a>
+                                </td></tr></table> ## 9, 8, 7
+                                </font>
+                                #set($count = $count + 1)
+                        #end
+                #end
+		#else
+			<b>இன்றைய தேதிவரை எந்த செய்தியும் இல்லை</b>
+		#end
+                </marquee>
+		</td></tr> ## 6, 5
+		<tr><td align=right> ## 5, 6
+		<a href="$link.setPage("News_All.vm").addPathInfo("lang",$lang)">மேலும் செய்திகள் &raquo;</a>
+                </td></tr> ## 6, 5
+        </table> ## 4
+	</td> ## 3
+	<td valign="top" width="50%"> ## 3
+	<table align="left" bgcolor="$ui.tableColor"> ## 4
+	<tr><td> ## 5, 6
+	##<marquee scrollamount="3" direction="left" loop="0" width="100%" behaviour="slide">
+	<b>இப்பக்கத்தில் உள்ள செயல்பாடுகள் <font color=Red>மிகுந்த வளங்களை பயன்படுத்துகிறது</font>. நீங்கள் பொறுமையாக இருக்கவும்</b>
+	##</marquee>
+        <br>
+	<b>What is BRIHASPATI?</b><br>
+	A platform independent, highly scalable content-delivery tool for web based e-learning system !!<br>
+	<b><u>Entities !!</u></b><br>
+	ENJOY the features of Administrator, Instructor (Primary/Secondary) or Student !!
+	<br><b><u>Interactive communication tools !!</u></b>
+	<ul><li> CHAT :- Users can communicate online...</ul>
+	<ul><li> WHITE BOARD :- Instructor can make drawings,freehand or pre-defined components while chatting...</ul>
+	#*<b><u>Features under development !!</u></b>
+	<ul><li> SCORM player in brihaspati</ul>
+	<ul><li> Content authoring and course instruction functionality decoupled</ul>
+	<ul><li> Multiserver architecture</ul>
+	<ul><li> Synchronous tool</ul>*#
+	</td></tr> ## 6, 5
+	</table> ## 4
+	</td> ## 3
+	<td valign="top" bgcolor="$ui.tableColor" width="25%"> ## 3
+	<table align="left" width="100%"> ## 4
+        <tr><td colspan=2><font color="red">$!data.getMessage() </font></td></tr>
+
+	<tr> ## 5
+	#if($lang == "hindi")
+                <td>ஏதாவது ஒரு மொழி தேர்வு</td>
+        #else
+                <td> மொழி</td>
+        #end
+        <td> ## 6
+	<select id="language" onChange ="javascript:OnChange();">
+	#if($flag)
+		<option> தேர்வு மொழி </option>
+	#end
+#if($lang == "english")
+        <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","english")">  ஆங்கிலம் 
+        <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","bangla")">  வங்காளம் 
+	<option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","chinese")">  Китайский 
+	<option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","dutch")">  Голландский 
+        <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","french")"> பிரெஞ்சு 
+        <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","german")"> ஜெர்மன் 
+        <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","gurmukhi")"> Гурмукхи 
+        <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","hindi")"> ஹிந்தி 
+        <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","italian")"> இத்தாலியன்
+	<option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","japanese")">  Японский  
+        <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","korean")">கொரியன் 
+        <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","marathi")">மராத்தி 
+        <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","malayalam")">மலையாளம் 
+        <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","russian")"> ருஷ்யன்
+	<option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","tamil")">தமிழ்
+        <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","telugu")">தெலுங்கு
+        <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","urdu")">உருது
+#else
+        #if($lang == "bangla")
+                <option>வங்காளம் (Bangla)</option>
+	#elseif($lang == "chinese")
+                <option>Китайский (Chinese)</option>
+	#elseif($lang == "dutch")
+                <option>Голландский (Dutch)</option>
+        #elseif($lang == "french")
+                <option>பிரெஞ்சு (French)</option>
+        #elseif($lang == "german")
+                <option>ஜெர்மன் (German)</option>
+        #elseif($lang == "gurmukhi")
+                <option>Гурмукхи (Panjabi)</option>
+        #elseif($lang == "hindi")
+                <option>ஹிந்தி (Hindi)</option>
+        #elseif($lang == "italian")
+                <option>இத்தாலியன் (Italian)</option>
+	#elseif($lang == "japanese")
+                <option>Японский (Japanese)</option>
+        #elseif($lang == "korean")
+                <option>கொரியன் (Korean)</option>
+	#elseif ($lang == "malayalam")
+                <option> மலையாளம் ( Malayalam)</option>
+        #elseif($lang == "marathi")
+                <option>மராத்தி (Marathi)</option>
+	#elseif($lang == "tamil")
+                 <option>தமிழ் (Tamil)</option>
+        #elseif($lang == "telugu")
+                <option>தெலுங்கு (Telugu)</option>
+        #elseif($lang == "russian")
+                <option>ருஷ்யன் (Russian)</option>
+        #else ($lang == "urdu")
+                <option>உருது (Urdu)</option>
+        #end
+		#if ($lang != "english")
+                <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","english")">  ஆங்கிலம் (English)</option>
+        #end
+
+        #if ($lang != "bangla")
+                <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","bangla")">  வங்காளம் (Bangla) </option>
+        #end
+	
+	#if ($lang != "chinese")
+                <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","chinese")">  Китайский (Chinese)</option>
+        #end
+	
+	#if ($lang != "dutch")
+                <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","dutch")">  Голландский (Dutch)</option>
+        #end
+
+        #if ($lang != "french")
+                <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","french")"> பிரெஞ்சு (French) </option>
+        #end
+
+        #if ($lang != "german")
+                <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","german")"> ஜெர்மன் (german) </option>
+        #end
+
+        #if ($lang != "gurmukhi")
+                <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","gurmukhi")"> Гурмукхи (Panjabi) </option>
+        #end
+
+        #if ($lang != "hindi")
+                <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","hindi")"> ஹிந்தி (Hindi) </option>
+        #end
+	
+        #if ($lang != "italian")
+                <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","italian")"> இத்தாலியன் (Italian) </option>
+        #end
+
+	#if ($lang != "japanese")
+                <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","japanese")">  Японский (Japanese)</option>
+        #end
+
+        #if ($lang != "korean")
+                <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","korean")">கொரியன் (Korean)  </option>
+        #end
+	#if ($lang != "malayalam")
+                <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","malayalam")">மலையாளம் (Malayalam) </option>
+        #end
+        #if ($lang != "marathi")
+                <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","marathi")">மராத்தி (Marathi) </option>
+        #end
+	#if ($lang != "tamil")
+                  <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","tamil")">தமிழ் (Tamil)  </option>
+        #end
+        #if ($lang != "telugu")
+		 <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","telugu")">தெலுங்கு (Telugu)  </option>
+        #end
+        #if ($lang != "russian")
+                <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","russian")"> ருஷ்யன் (Russian) </option>
+        #end
+        #if ($lang != "urdu")
+                <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","urdu")">உருது (Urdu) </option>
+        #end
+
+#end
+        </select>
+        </td> </tr> ## 6, 5
+<tr> #formCell("பயனர்பெயர்" "username" "") </tr> 
+<tr> #formPasswordCell("கடவுச்சொல்" "password" "") </tr> 
+<tr align="right"><td align=left> ## 5, 6
+<font face="$ui.sansSerifFonts">
+##<input type="button" value="சமர்பிக்கவும்" onClick="checkUNamePwd(document.frm,this);">
+<input type="button" value="புகுபதிகை" onClick="checkUNamePwd(document.frm,this);">
+##<input type=hidden name="LangFile" value="$LangFile">
+<input type=hidden name="lang" value="$lang">
+<input type=hidden name="flag" value="$flag">
+</font>
+</td> </tr> ## 6, 5
+<tr><td colspan=2>விருந்தினர் நுழைவுக்கு, பயனர் பெயர் 'guest' மற்றும் கடவுச்சொல் 'guest'.</td></tr>
+##</table>
+<tr><td colspan=2><b> ## 5, 6
+<img src="$content.getURI("/images/orange_sq_but.gif")">&nbsp;
+<a href=$link.setPage("ForgotPassword.vm").addPathInfo("lang",$lang).addPathInfo("status","User")>மறந்துவிட்டீர்களா கடவுச்சொல்</a>
+</b></td></tr> ## 6, 5
+<tr><td colspan=2><b> ## 5, 6
+<img src="$content.getURI("/images/orange_sq_but.gif")">&nbsp;
+<a href=$link.setPage("ViewCourseList.vm").addPathInfo("lang",$lang)>பதிவு செய்த  பாடம் பட்டியல்</a>
+</b></td></tr> ## 6, 5
+<tr><td colspan=2><b> ## 5,6
+<img src="$content.getURI("/images/orange_sq_but.gif")">&nbsp;
+<a href=$link.setPage("OnlineRegistration.vm").addPathInfo("lang",$lang).addPathInfo("status","UserResitration").addPathInfo("count","1")> இணைப்பில் பதிவு </a>
+</b></td></tr> ## 6, 5
+
+<tr><td colspan=2><b> ## 5, 6
+<img src="$content.getURI("/images/orange_sq_but.gif")">&nbsp;
+<a href=$link.setAction("myLogin").addPathInfo("username","guest").addPathInfo("password","guest")> Открывать அணுகக்கூடிய பாடங்கள்</a>
+</b></td></tr> ## 6, 5
+<tr><td colspan=2><b>
+<img src="$content.getURI("/images/orange_sq_but.gif")">&nbsp;
+<a href=$link.setPage("InstituteAdminRegistration.vm").addPathInfo("lang",$lang)> நிறுவனம் Admin பதிவு </a>
+</b></td></tr>
+</table> ## 4
+</td></tr> ## 3, 2
+</table> ## 1
+</form>
+<SCRIPT language="JavaScript">
+        function popupWin(url,popupName)
+        {
+                Win1=window.open(url,popupName,"resizable,height=200,width=400");
+        }
+	function checkUNamePwd(frm,field)
+	{
+		if(frm.username.value!="")
+		{
+			if(frm.password.value!="")
+			{
+				frm.submit();  
+			}
+	        	else
+	        	{
+                		alert("Password should not be blank !!"); 
+				frm.password.focus();
+			}
+		}
+	        else
+	        {
+                	alert("User Name should not be blank !!"); 
+			frm.username.focus();
+		}
+	}
+
+function doSomething(e)
+ {
+
+        if (!e) var e = window.event;
+        if (e.keyCode == 13)
+        {
+        checkUNamePwd(document.frm,this);
+        }
+}
+
+document.onkeydown = doSomething;
+function OnChange()
+{
+var x=document.getElementById("language");
+/** These below line show the selected index value (lang ) at very first row of selected box while u select. **/
+//var index = (x.value).indexOf("lang");
+//var str=(x.value).substring(index+5);
+//x.options[x.selectedIndex].text=str;
+window.location=x.value;
+}
+                         
+</SCRIPT>

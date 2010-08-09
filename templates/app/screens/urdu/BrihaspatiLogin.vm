@@ -1,0 +1,209 @@
+#*
+ * @(#) BrihaspatiLogin.vm
+ * Copyright (c) 2008,2009 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+ * @author <a href="mailto:shaistashekh@hotmail.com">Shaista</a>
+*#
+$page.setTitle("Login in Brihaspati")
+$page.setBgColor($ui.bgcolor)
+<form name="frm" method="post" action="$link.setAction("myLogin")">
+
+<table width="100%">
+<tr><td>
+##<marquee direction="left">
+<font size=4>$!fNoti</font>
+##</morque>
+</td></tr>
+</table>
+
+<table align=left> ## Ta1
+<tr> ## tr1
+	<td valign="top" bgcolor="$ui.tableColor" width="25%"> ## TD1 
+		<table align="left" width="100%">
+		<tr align="right"><td align="right" colspan=4><font color="red">$!data.getMessage() </font></td></tr>
+		<tr align="right">
+        	<td align="right" colspan="3">
+			<select id="language" onChange ="javascript:OnChange();">
+                                #if ($lang == "urdu")
+                                <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","urdu")"> (Urdu) اردو </option>
+                                #end
+                                <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","bangla")"> (Bangla) بنگلا
+				<option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","chinese")"> (Chinese) چائنىز
+				<option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","dutch")">  (Dutch) ڈچ
+                                <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","english")"> (English) انگرڍزي 
+                                <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","french")"> (French) فرڍنچ
+                                <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","german")"> (German) جرمن
+				<option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","gurmukhi")">(Gurmukhi) گرموکهى
+                                <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","hindi")"> (Hindi) ڕِندي
+                                <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","italian")"> (Italian) اٹڍلڍن
+				<option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","japanese")"> (Japanese) جاپانىز
+                                <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","korean")"> (Korean) کورڍن
+			        <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","malayalam")"> (Malayalam) ملڍالم
+                                <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","marathi")"> (Marathi) مراٹهى 
+                                <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","russian")"> (Russian) رشڍن
+        			<option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","tamil")"> (Tamil) تمل
+                                <option value="$link.setPage("BrihaspatiLogin.vm").addPathInfo("lang","telugu")"> (Telugu) تڍلگو
+                        </select>
+	        </td>
+        	        <td align="right"> زبان منتخب کرڍں </td>
+		</tr>
+		<tr align="right">
+                        <td align=right colspan="3"> <input type="text" size="20" name="username" value="" ></td>
+                        <td align=right ><b>مصارف </b></td>
+
+                </tr>
+                <tr align="right">
+                        <td align=right colspan="3"> <input type="password" size="20" name="password" value="" ></td>
+                        <td align=right ><b>کلماۓ  رمز</b></td>
+
+                </tr>
+
+                <tr>
+
+		<tr align="right">
+		<td colspan="4">
+			<font face="$ui.sansSerifFonts">
+			<input type="button" value="لٰاگن" onClick="checkUNamePwd(document.frm,this);">
+			</font>
+		</td>
+		</tr>
+		##<input type=hidden name="LangFile" value="$LangFile">
+		<input type=hidden name="lang" value="$lang">
+		<input type=hidden name="flag" value="$flag">
+		<tr align="right"><td colspan=4 align="right">گڍسٹ کي حڍثڍت سے داخل ہونے کے لۓ مشتعمل کے خانہ مڍں  اور کلماۓ  رمز کے خانہ مڍں "گڍسٹ" استعمال کرڍں</td></tr>
+		<tr align="right"><td colspan=4 align="right"><b>
+			<a href=$link.setPage("ForgotPassword.vm").addPathInfo("lang",$lang).addPathInfo("status","User")>بھولا ہوا کلماۓ  رمز</a>
+			<img src="$content.getURI("/images/orange_sq_but.gif")">
+		</b></td></tr>
+		<tr align="right"><td colspan=4 align="right"><b>
+			<a href=$link.setPage("ViewCourseList.vm").addPathInfo("lang",$lang)>درج نصاب فہرست</a>
+			<img src="$content.getURI("/images/orange_sq_but.gif")">
+		</b></td></tr>
+		<tr align="right"><td colspan=4 align="right"><b>
+			<a href=$link.setPage("OnlineRegistration.vm").addPathInfo("lang",$lang).addPathInfo("status","UserResitration")> آن لاۂن رجسٹرڍشن </a>
+			<img src="$content.getURI("/images/orange_sq_but.gif")">
+		</b></td></tr>
+
+		<tr align="right"><td colspan=4 align="right"><b>
+			<a href=$link.setAction("myLogin").addPathInfo("username","guest").addPathInfo("password","guest").addPathInfo("lang",$lang)> خولے طور پر  حاصل کرنے کے قابل نصاب</a>
+			<img src="$content.getURI("/images/orange_sq_but.gif")">
+		</b></td></tr>
+		</tr>
+		</table>
+	</td> ## TD1 end
+	<td valign="top" width="50%"> ## TD2
+		<table align="left" bgcolor="$ui.tableColor">
+			<tr align="right"><td>
+				<b>اس ساۂٹ کے کام کاج مڍں وساۂل کا زڍاد٥ استعمال ہوتا ہے ۔ آپ سے گزارش ہے کہ آپ صبر سے کام لڍں</b>
+			</td></tr>
+			<tr><td>
+			<b>What is BRIHASPATI?</b><br>
+			A platform independent, highly scalable content-delivery tool for web based e-learning system !!<br>
+			<b><u>Entities !!</u></b><br>
+			ENJOY the features of Administrator, Instructor (Primary/Secondary) or Student !!
+			<br><b><u>Interactive communication tools !!</u></b>
+			<ul><li> CHAT :- Users can communicate online...</ul>
+			<ul><li> WHITE BOARD :- Instructor can make drawings,freehand or pre-defined components while chatting...</ul>
+			<ul><li> SCORM player in brihaspati</ul>
+			<ul><li> Content authoring and course instruction functionality decoupled</ul>
+			<ul><li> Multiserver architecture</ul>
+			<ul><li> Synchronous tool</ul>
+			</td></tr>
+		</table>
+	</td> ## TD2
+	
+	<td valign="top" width="25%"> ## TD3
+		<table bgcolor="$ui.tableColor" width="100%">
+	        	<tr bgcolor="$ui.menuColor" align="right"><td>
+				<u><b>خاص  خڔرڍں</b></u> <img src="$content.getURI("/images/newspaper.gif")">
+        		</td></tr>
+        		<tr align="right"><td><marquee scrollamount="1" direction="up" loop="2" width="100%" behaviour="slide">
+			#if($status!="empty")
+	                	#set($count=1)
+        		        #foreach($news in $detail)
+		                        #if($count % 2 == 0)
+	               		                <font size=3>
+	                                	<table bgcolor="$ui.buttonBoxColor" width="100%">
+			                                <tr align=right>
+			                        	        <td>
+                        			        	<a href=javascript:popupWin("$link.setPage("call,ViewNews_Photo.vm").addPathInfo("newsid",$news.getNews_ID()).addPathInfo("date",$news.getPDate()).addPathInfo("user",$news.getSender())","newWin");>...مزڍد جانڍں</a>
+				                                $news.getNews_Subject() <image src="$content.getURI("/images/orangeLeft_arrow.gif")">
+		        		                        </td>
+                			                </tr>
+                                		</table>
+		                                </font>
+        	                        	#set($count = $count + 1)
+		                        #else
+		                                <font size=3>
+                		                <table><tr align="right"> <td> <a href=javascript:popupWin("$link.setPage("call,ViewNews_Photo.vm").addPathInfo("newsid",$news.getNews_ID()).addPathInfo("date",$news.getPDate()).addPathInfo("user",$news.getSender())","newWin");>...مزڍد جانڍں</a>
+                                $news.getNews_Subject() <image src="$content.getURI("/images/orangeLeft_arrow.gif")">
+
+		                                </td></tr></table>
+                		                </font>
+                                		#set($count = $count + 1)
+		                        #end
+		                #end
+			#else
+				<b>آج کي  تارڍخ  تک کويٴ خڔر  نہى  ہے </b>
+			#end
+        	        </marquee></td></tr>
+			<tr><td align="left">
+				&laquo;<a href="$link.setPage("News_All.vm").addPathInfo("lang",$lang)">خبرڍں مزڍد جانڍں مڍں  </a>
+				##<a href="$link.setPage("News_All.vm").addPathInfo("lang",$lang)">مزڍد جانڍں خبرڍں &raquo;</a>
+	                </td></tr>
+		</tr>
+		</table>
+	</td> ## TD3
+</tr> ## tr1 end
+</table> ## Ta1 end
+</form>
+
+<SCRIPT language="JavaScript">
+        function popupWin(url,popupName)
+        {
+                Win1=window.open(url,popupName,"resizable,height=200,width=400");
+        }
+	function checkUNamePwd(frm,field)
+	{
+		if(frm.username.value!="")
+		{
+			if(frm.password.value!="")
+			{
+				frm.submit();  
+			}
+	        	else
+	        	{
+                		alert("Password should not be blank !!"); 
+				frm.password.focus();
+			}
+		}
+	        else
+	        {
+                	alert("User Name should not be blank !!"); 
+			frm.username.focus();
+		}
+	}
+
+function doSomething(e)
+ {
+
+        if (!e) var e = window.event;
+        if (e.keyCode == 13)
+        {
+        checkUNamePwd(document.frm,this);
+        }
+}
+
+document.onkeydown = doSomething;
+function OnChange()
+{
+var x=document.getElementById("language");
+/** These below line show the selected index value (lang ) at very first row of selected box while u select. **/
+//var index = (x.value).indexOf("lang");
+//var str=(x.value).substring(index+5);
+//x.options[x.selectedIndex].text=str;
+window.location=x.value;
+}
+                         
+</SCRIPT>

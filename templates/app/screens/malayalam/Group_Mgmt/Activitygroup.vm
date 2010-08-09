@@ -1,0 +1,181 @@
+<html>
+#*
+ * @(#) Activitygroup.vm
+ *  Copyright (c) 2006-07,2009 ETRG,IIT Kanpur.
+ *  All Rights Reserved.
+ *  @author <a href="mailto:seema_020504@yahoo.com ">Seema Pal</a>
+ *  @author <a href="mailto:kshuklak@rediffmail.com ">Kishore kumar shukla</a>
+ *  @author <a href="mailto:singh_jaivir@rediffmail.com ">Jaivir Singh</a>
+ *  Contributors: Members of ETRG, I.I.T. Kanpur
+ *#
+
+$page.setTitle("create group")
+$page.setBgColor("$ui.bgcolor")
+$!data.getMessage()
+#set($lang=$data.getUser().getTemp("lang").toString())
+<table bgcolor="$ui.menuColor" width=100% > ##table 1 start
+	<tr> <td><b>
+	<a href=$link.setPage("call,IndexHome.vm")>പൂമുഖം</a> |
+        <a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")>$coursename </a>| 
+        <a href=$link.setPage("call,Group_Mgmt,Grpmgmt.vm").addPathInfo("count","1")>സമൂഹം നടത്തിപ്പ് </a>| സമൂഹം പ്രവര്‍ത്തനം </b>
+     </td></tr>
+</table> ##table 1 end
+<table width=100% bgcolor="$ui.tableColor"> ##table 2 start
+<tr>
+	#if($tdcolor != "1")
+        <td>
+        #elseif($tdcolor=="1")
+        <td bgcolor=="#AFDCEC">
+        #end
+	<a href=$link.setPage("call,Group_Mgmt,Grpmgmt.vm").addPathInfo("count","1")>സൃഷ്ടിക്കുക സമൂഹം</a></td>
+	#if($tdcolor != "2")
+        <td>
+        #elseif($tdcolor=="2")
+        <td bgcolor=="#AFDCEC">
+        #end
+	<a href=$link.setPage("call,Group_Mgmt,Addmembers.vm").addPathInfo("count","2")>ചേര്‍ക്കുക/കാണുക അംഗം</a></td>
+	#if($tdcolor != "3")
+        <td>
+        #elseif($tdcolor=="3")
+        <td bgcolor=="#AFDCEC">
+        #end
+        <a href=$link.setPage("call,Group_Mgmt,Grp_View_Delete.vm").addPathInfo("count","3")>കാണുക/എടുത്തു കളയുക സമൂഹം</a></td>
+	#if($tdcolor != "4")
+        <td>
+        #elseif($tdcolor=="4")
+        <td bgcolor=="#AFDCEC">
+        #end
+        <a href=$link.setPage("call,Group_Mgmt,Editgroup.vm").addPathInfo("count","4")>തിരുത്തുക/നീക്കം ചെയ്യുക അംഗം</a></td>
+	#if($tdcolor != "5")
+        <td>
+        #elseif($tdcolor=="5")
+        <td bgcolor=="#AFDCEC">
+        #end
+        <a href=$link.setPage("call,Group_Mgmt,Activitygroup.vm").addPathInfo("count","5")>സമൂഹം പ്രവര്‍ത്തനം</a></td>
+	<td><img src="$content.getURI("/images/hand.gif")"><a href=javascript:popupWin("/brihaspati2/docs/activity.html","newWin");>സഹായം</a></td>
+</tr>
+</table> ## table 2 end
+<form name="frm" method="post" action=$link.setPage("call,Group_Mgmt,Activitygroup.vm").setAction("Groupmanagement")>
+	<table bgcolor="$ui.tableColor" width=100% > ## table 3 start
+		<tr bgcolor="$ui.menuColor"><td colspan=5 vlaign="top"> ## td tr 1 satart
+			##<b><font size=5><I>പാഠ്യപദ്ധതിസമു‌ഹങ്ങള്‍:</I></font><font size=4><font color=green><I>$courseid</I></font></font></b>
+			#if($lang == "english")
+			<b><font size=4><I>സജ്ജീകരിക്കുക ഉം പുനഃക്രമികരിക്കുക പ്രവര്‍ത്തനം ഇതിനു വേണ്ടി സമൂഹം</I></font></b>
+			#else
+			<b><font size=4><I>സമൂഹം വേണ്ടി പ്രവര്‍ത്തനം डालें ഉം നീക്കം ചെയ്യുക</I></font></b>
+			#end
+		</tr></td> ## td tr 1 end
+	<tr bgcolor="$ui.tableColor">
+		<td align="center">
+		#if($lang == "english")
+		<b> തിരഞ്ഞെടുക്കുക സമൂഹം ഇതിനു വേണ്ടി പ്രവര്‍ത്തനം :</b>
+		#else
+		<b> സമൂഹം വേണ്ടി പ്രവര്‍ത്തനം തിരഞ്ഞെടുക്കുക :</b>
+		#end
+		</td>
+		<td>
+        		<select name="groupname" size="1" onChange="Changegroup(document.frm,this);"/>
+       				<option>  - തിരഞ്ഞെടുക്കുക - </option>
+				#foreach($grpname in $grplist)
+					<option value="$grpname.Name">$grpname.Name
+				#end
+				</option>
+			</select>
+		</td>
+	</tr>
+        <tr bgcolor="$ui.tableColor">
+		#if($lang == "english")
+		<td align="left">
+		<input type="radio" checked="true" name="actmode" value="setact" onClick="this.form.activity.disabled=false;this.form.pollno.disabled=true;this.form.activity.focus();" />
+		<b> സമൂഹം പ്രവര്‍ത്തനം :</b>
+		#else
+        	<b> സമൂഹം ന്‍റെ പ്രവര്‍ത്തനം :</b>
+		#end
+		</td>
+        	<td>
+       			<select name="activity" size="1" onKeyUp="if (this.disabled) this.value=''" onChange="Changeactivity(document.frm,this);" />
+       				<option>  - തിരഞ്ഞെടുക്കുക - </option>
+       				<option value="Discussion Board">ഡിസ്കഷന്‍ബോര്‍ഡ്‌</option>
+       				<option value="Notice">അറിയിപ്പുകള്‍</option>
+       				<option value="Local Mail">പ്രാദേശിക മെയില്‍</option>
+        		</select>
+		</td>
+        </tr>
+	<tr>
+        <td align="left">
+       <input type="radio" name="actmode" value="setpoll" onClick="this.form.pollno.disabled=false;this.form.activity.disabled=true;" />
+        <b> ഉപയോഗശൂന്യമാവുന്ന സമയം (ദിവസങ്ങളില്‍) വേണ്ടി സമ്മതിദാനം രേഖപ്പെടുത്തല്‍:</b>
+        </td>
+	<td>
+	<input type="text" disabled="true" name="pollno" value="" onChange="validate(this)"/>
+	</td>
+	</tr>
+	<tr  bgcolor="$ui.tableHeaderColor"> <td colspan="5">
+		#if($lang == "english")
+        	<input type="button" name="eventSubmit_doActivity" value="സജ്ജീകരിക്കുകപ്രവര്‍ത്തനം " onClick="checkselect(document.frm,this);"/>
+		#else
+        	<input type="button" name="eventSubmit_doActivity" value="പ്രവര്‍ത്തനം डालें " onClick="checkselect(document.frm,this);"/>
+		#end
+		#if($lang == "english")
+        	<input type="button" name="eventSubmit_doResetActivity" value="പുനഃക്രമികരിക്കുകപ്രവര്‍ത്തനം " onClick="checkselect(document.frm,this);"/>
+		#else
+        	<input type="button" name="eventSubmit_doResetActivity" value="പ്രവര്‍ത്തനം നീക്കം ചെയ്യുക" onClick="checkselect(document.frm,this);"/>
+		#end
+	</td></tr>
+	##end ## end if
+	<input type="hidden" name="actionName" >
+	<input type="hidden" name="mode1" value="grpmgmt">
+	<input type="hidden" name="mode" value="$mode">
+	<input type="hidden" name="course_id" value="$courseid">
+	<input type="hidden" name="val">
+	<input type="hidden" name="val1">
+</form>
+</table> ## end of table 3
+</html>
+<SCRIPT LANGUAGE="javascript">
+        function checkselect(frm,field)
+        {
+                var items;
+                var items1;
+                items=frm.val.value;
+                items1=frm.val1.value;
+                if(((items.length!=0)||(frm.pollno.value!=""))&& (items1.length!=0))
+                {
+                        frm.actionName.value=field.name;
+                        frm.submit();
+                }
+                        else
+                        alert("Please select option");
+        }
+        function Changeactivity(frm,field)
+        {
+                frm.val.value=document.frm.activity.value;
+
+        }
+        function Changegroup(frm,field)
+        {
+                frm.val1.value=document.frm.groupname.value;
+
+        }
+        function popupWin(url,popupName)
+        {
+                Win1=window.open(url,popupName,"resizable=0,scrollbars=1,height=400,width=400,align=left");
+        }
+
+function validate(obj)
+{
+        value = obj.value;
+        for (n = 0; n < value.length; n++)
+        if ( ! isDigit(value.charAt(n)))
+        {
+                alert("Field must be numeric !!");
+                return;
+        }
+}
+function isDigit(ch)
+{
+        if(ch >= '0' && ch <= '9')
+        return true;
+        return false;
+}
+</script>

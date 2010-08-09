@@ -1,0 +1,300 @@
+#*
+ * @(#) CourseManagement.vm
+ * Copyright (c) 2005,2009-2010 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+ * @author <a href="mailto:awadhesh_trivedi@yahoo.co.in">Awadhesh Kumar Trivedi</a>
+ * @author <a href="mailto:singh_jaivir@rediffmail.com">Jaivir Singh</a>
+ * @author <a href="mailto:shaistashekh@hotmail.com">Shaista</a>
+ * @modified date: 30-03-2010
+*#
+
+$page.setTitle("Home | $course | Course management")
+$!data.getMessage()
+#set($lang = $data.getUser().getTemp("lang" ).toString())  
+
+<table bgcolor="$ui.menuColor" width=100%>
+<tr>
+<td>
+	<a href=$link.setPage("call,IndexHome.vm") style=text-decoration:none>హైమ్</a> |
+	<a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm") style=text-decoration:none>$course</a> | 
+	<a href=$link.setPage("call,CourseMgmt_User,CourseContent.vm").addPathInfo("count","1") style=text-decoration:none>కోరుసు మానేజ్మెంట్</a> | #if($lang == "english") అప్లోడ్ కోరుసు సారము #else సారము అప్లోడ్ #end
+</td>
+</tr>
+</table>
+<table width=100% bgcolor="$ui.tableColor">
+#if($errorMess!="")
+     <tr>
+           <td><b>అప్లోడ్లో తప్పులు </b>$!errorMess </td>
+     </tr>
+#else
+        <tr >
+        #if($uploadStatus=="full")
+                <td>
+                #if($pub=="Publish")
+                మీ యచక ఛైల్సు విజయవంతముగా అప్లోడ్ అమినవి  &  ముద్రించు
+                #else
+                మీ యచక ఛైల్సు విజయవంతముగా అప్లోడ్ అమినవి
+                #end
+                </td>
+        #else
+                #if($uploadStatus=="partial")
+                        <td>
+                       ## Some of the files have been uploaded
+                        కొని ఛైల్సు మాత్రమే అప్లోడ్ అమినవి  <br>
+
+                       ## Following files already existed, so were not uploaded :
+                        ఈ ఛైల్సు ముందుగానే ఉన్నవి లేక ఫైల్ పేరుతో','ఉంది<br>
+
+                #elseif($totalFilesEntries.Count>0)
+                        <td>
+                        ##None of the files were Uploaded <br>
+                        ##All of the following  Existed at Server :
+                        ఏ ఛైల్సు అప్లోడ్ కాలేదు <br>
+                        ఈ పేరుతో గల ఛైల్సు ముందుగా ఉన్వి లేక ఫైల్ పేరుతో','ఉంది<br>
+                #elseif($uploadStatus!="")
+                        <td>
+                        ##There is nothing to Upload
+                        అప్లోడ్ చేయడానికి ఏమీ లేదు  <br>
+		#end
+                 <br>
+                #set($count=1)
+                #foreach($File in $failedFiles)
+                        <tr>
+                       <td> $count.  $File</td>
+                        </tr>
+                        #set($count=$count+1)
+                #end
+                </td>
+        #end
+        </tr>
+#end
+</table>
+<table width=100% bgcolor="$ui.tableColor">
+<tr>
+	 <td><b> $!aSize </b></td><td align=right ><b>   $!TUSize  </b></td>
+	<td align=right>
+	##<img src="$content.getURI("/images/hand.gif")">	<a href=javascript:popupWin("/brihaspati2/docs/CourseManagement.html","newWin");>సహాయము</a>
+	<img src="$content.getURI("/images/hand.gif")">	<a href=javascript:popupWin("/brihaspati2/docs/Upload.html","newWin"); style=text-decoration:none>సహాయము</a>
+	</td>
+</tr>
+</table>
+##if($user_role == "instructor")
+	<table width="100%" align="left" bgcolor="$ui.tableColor">
+  	<tr bgcolor="$ui.menuColor">
+		#if($tdcolor != "1")
+		<td>
+		#elseif($tdcolor == "1")
+		<td bgcolor="#AFDCEC">
+		#end
+		<a href=$link.setPage("call,CourseMgmt_User,CourseContent.vm").addPathInfo("count","1") > #if($lang == "english")కోరుసు  సారము #else సారము #end </a></td>
+		#if($tdcolor != "2")
+		<td>
+		#elseif($tdcolor == "2")
+		<td bgcolor="#AFDCEC">
+		#end
+		<a href=$link.setPage("call,CourseMgmt_User,CourseManagement.vm").addPathInfo("count","2") > #if($lang == "english") అప్లోడ్ కోరుసు సారము #else సారము అప్లోడ్ #end </a></td>
+		#if($tdcolor != "3")
+		<td>
+		#elseif($tdcolor == "3")
+		<td bgcolor="#AFDCEC">
+		#end
+		<a href=$link.setPage("call,CourseMgmt_User,Configuration.vm").addPathInfo("cName",$course).addPathInfo("count","3")>కోరుసు ఆకారము   </a></td>
+		#if($tdcolor != "4")
+		<td>
+		#elseif($tdcolor == "4")
+		<td bgcolor="#AFDCEC">
+		#end
+		<a href=$link.setPage("call,CourseMgmt_User,UploadImage.vm").addPathInfo("count","4") > #if($lang == "english") అప్లోడ్ కోరుసు Заголовок #else కోరుసు இன் Заголовок  అప్లోడ్ #end </a></td> 
+		#if($tdcolor != "5")
+		<td>
+		#elseif($tdcolor == "5")
+		<td bgcolor="#AFDCEC">
+		#end
+                <a href=$link.setPage("call,CourseMgmt_User,UploadImage.vm").addPathInfo("mode","NotUploadImage").addPathInfo("count","5") > #if($lang == "english") ఆకారము    గ్రేడ్ #else గ్రేడ్ ఆకారము    #end </a></td>
+		#if($tdcolor != "6")
+		<td>
+		#elseif($tdcolor == "6")
+		<td bgcolor="#AFDCEC">
+		#end
+                <a href=$link.setPage("call,CourseMgmt_User,BrihaspatiEditor.vm").addPathInfo("count","6") >స్కఆర్మ్ పఆకెజర్</a></td>
+          #if($tdcolor != "7")
+                <td>
+                #elseif($tdcolor == "7")
+                <td bgcolor="#AFDCEC">
+                #end
+                <a href=$link.setPage("call,CourseMgmt_User,ScormPlayerList.vm").addPathInfo("count","7")>స్కఆర్మ్ ఆటగాడు</a>
+                </td>
+	</tr>
+	##</table>
+##end
+######################################
+ ## Upload.vm
+<script LANGUAGE="JAVASCRIPT">
+        function blurTopicName(frm)
+        {
+                frm.contentTopic.value=frm.topicList.options[frm.topicList.selectedIndex].text;
+        }
+
+        function changeTopic(frm)
+        {
+                if(frm.topicExisting[0].checked)
+                {
+                        frm.contentTopic.value=frm.topicList.options[frm.topicList.selectedIndex].text;
+                }
+                else
+                {
+                        frm.contentTopic.focus();
+                }
+        }
+	 function checkRadio()
+        {
+                if(document.uploadform.topicExisting[0].checked)
+                {
+                        document.uploadform.contentTopic.blur();
+                }
+
+        }
+	function validate(uploadform,field)
+        {
+                var tList=uploadform.topicList;
+                var cTopic=uploadform.contentTopic;
+                if(uploadform.contentTopic.value!="")
+                {
+                        var totNamedEntries=uploadform.topicList.length;
+                        for(i=1;i<totNamedEntries;i++)
+                        {
+                                if(tList.options[i].text==cTopic.value)
+                                {
+                                        if(uploadform.topicExisting[1].checked)
+                                        {
+                                                if(confirm("The topic already exists. Pressing OK will put the file/s in existing Topic"))
+                                                {
+                                                uploadform.actionName.value=field.name;
+                                                uploadform.submit();
+                                                }
+                                                else
+                                                {
+                                                return;
+                                                }
+
+                                        }
+                                }
+                        }
+                        uploadform.actionName.value=field.name;
+                        uploadform.submit();
+                }
+                else
+                {
+                        alert("Topic Name Can not Empty !!");
+                }
+        }
+</script>
+##<form name=uploadform method="post" enctype="multipart/form-data" action="$link.setPage("call,CourseMgmt_User,Upload.vm").setAction("UploadAction")">
+<form name=uploadform method="post" enctype="multipart/form-data" action="$link.setPage("call,CourseMgmt_User,CourseManagement.vm").setAction("UploadAction")">
+    ##<table width=100% align=left bgcolor="$ui.tableColor" cellpadding="0">
+      #if ($errorTemplate)
+      <tr>
+        <td colspan="4">
+          <table bgcolor="$ui.bgcolor">
+            <tr>
+              <td>
+                <img src="$ui.image($ui.alertImage,$data)">
+              </td>
+              <td>
+                #parse ($errorTemplate)
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      #end
+        <tr width=100% bgcolor="$ui.menuColor">
+                <img src="$content.getURI("/images/hand.gif")"><font color="red">మీరు అప్లోడ్ చేసే ఛైలు దయచేసి <b>'+'</b> ఇవి లేకుండా జాగ్రత పడండి</font>
+        </tr>
+      <tr width=100% bgcolor="$ui.tableColor">
+         <td colspan=4>
+         <INPUT TYPE="hidden" name="unpublish" checked=true  value="" >
+        <b><input type="RADIO" name=topicExisting checked=true value="OLDTOPIC" onClick=blurTopicName(document.uploadform)>ఉండుట విషయము
+        <SELECT name=topicList onFocus=changeTopic(document.uploadform) onChange=changeTopic(document.uploadform)>
+          <option></option>
+        #foreach($topic in $allTopics)
+                <option>$topic</option>
+          #end
+        </SELECT>
+	<input type="RADIO" name=topicExisting value="NEWTOPIC" >క్రోత్త విషయము
+        </td>
+        ##</tr>
+        ##<tr>
+        <td>
+        <INPUT TYPE="CHECKBOX" name="publish" value="Publish"> <b>ముద్రించు</b>
+        </td>
+        </tr>
+      <tr bgcolor="$ui.menuColor" width=100%>
+        ##formCell ("Topic Name" "contentTopic" "")
+        <td>
+        <b><font face="$ui.sansSerifFonts">విషయము #if($lang=="hindi") ఆఫ్ #end పేరు</font> </b>
+        </td>
+        <td colspan=4>
+        <input type="text" name=contentTopic onFocus=checkRadio() size=20>
+        </td>
+      <tr bgcolor="$ui.tableColor">
+              #fileUpload ("1. &nbsp; అటాచ్ ఫైల్ " "file1")</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>#fileUpload ("6.&nbsp; అటాచ్ ఫైల్  &nbsp;" "file6")
+      </tr>
+      <tr bgcolor="$ui.menuColor">
+              #fileUpload ("2. &nbsp; అటాచ్ ఫైల్ " "file2")</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>#fileUpload ("7.&nbsp; అటాచ్ ఫైల్  &nbsp;" "file7")
+      </tr>
+      <tr bgcolor="$ui.tableColor">
+              #fileUpload ("3. &nbsp; అటాచ్ ఫైల్ " "file3")</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>#fileUpload ("8.&nbsp; అటాచ్ ఫైల్  &nbsp;" "file8")
+      </tr>
+      <tr bgcolor="$ui.menuColor">
+              #fileUpload ("4. &nbsp; అటాచ్ ఫైల్ " "file4")</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>#fileUpload ("9.&nbsp; అటాచ్ ఫైల్  &nbsp;" "file9")
+        </tr>
+	<tr bgcolor="$ui.tableColor">
+              #fileUpload ("5. &nbsp; అటాచ్ ఫైల్ " "file5")</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>#fileUpload ("10.&nbsp; అటాచ్ ఫైల్  &nbsp;" "file10")
+      </tr>
+
+#*      <tr>
+        <td bgcolor="$ui.tableColor">
+        <b><font face="$ui.sansSerifFonts">విషయము వివరము </font> </b>
+        </td>
+        <td>
+        <font face="$ui.sansSerifFonts"><textarea name="topicDescription" rows=5 cols=60></textarea></font>
+        </td>
+      </tr>
+*#
+#*    <tr>
+        <td bgcolor="$ui.tableColor">
+        <b><font face="$ui.sansSerifFonts">ఫైల్ సమాచాారము </font> </b>
+        </td>
+        <td>
+        <font face="$ui.sansSerifFonts"><textarea name="fileDescription" rows=5 cols=60></textarea></font>
+        </td>
+      </tr>
+*#
+      <tr>
+        <td colspan=5 align="left" bgcolor="$ui.buttonBoxColor">
+          #*
+            Check for a mode, the update and delete buttons
+            shouldn't appear when inserting a new user.
+          *#
+	<font face="$ui.sansSerifFonts">
+
+          <input type="button" name="eventSubmit_doUpload" value="అప్లోడ్" onClick="validate(document.uploadform,this);"/>&nbsp;
+        <input type="hidden" name="actionName" value="">
+        <input type="hidden" name="count" value="$tdcolor">
+
+          </font>
+        </td>
+      </tr>
+    </table>
+</form>
+
+
+############################
+<SCRIPT language="JavaScript">
+        function popupWin(url,popupName)
+        {
+                Win1=window.open(url,popupName,"resizable=0,scrollbars=1,height=400,width=400");
+        }
+</SCRIPT>

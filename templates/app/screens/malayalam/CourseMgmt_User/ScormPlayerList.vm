@@ -1,0 +1,223 @@
+#*
+*
+ * @(#) ScormPlayerList.vm
+ * Copyright (c) 2008-2009 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+ * @author <a href="mailto:kishore.shukla@gmail.com">Kishore Kumar shukla</a>
+ * @author: <a href="mailto:seema_020504@yahoo.com">Seemapal</a>
+ * @author <a href="mailto:omprakashkgp@gmail.com">Om Prakash</a>
+ * @author <a href="mailto:shaistashekh@hotmail.com">shaista</a>
+ * @modified date: 30-03-2010
+*#
+
+$page.setBgColor($ui.bgcolor)
+$page.setTitle("Scorm content Upload")
+$!data.getMessage()
+#set($lang=$data.getUser().getTemp("lang").toString())
+<table bgcolor="$ui.menuColor" width=100%>
+	<tr>
+		<td>
+		#if($user_role == "instructor")
+        	<font face="$ui.sansSerifFonts"><b>
+        	<a href=$link.setPage("call,IndexHome.vm")>പൂമുഖം</a> |
+        	<a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")>$course</a> |
+        	<a href=$link.setPage("call,CourseMgmt_User,CourseManagement.vm")>പാഠ്യപദ്ധതി നടത്തിപ്പ്</a> | അപ്‌ലോഡ്‌ ചെയ്യുക സ്കോം പാക്കേജ്
+        	</font>
+        	</td>
+		#else
+        	<td>
+        	<font face="$ui.sansSerifFonts"><b>
+        	<a href=$link.setPage("call,IndexHome.vm")>പൂമുഖം</a> |
+        	<a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")>$course</a> | #if($lang == "hindi") ഉള്ളടക്കം കാണിക്കുക #else കാണിക്കുക സ്കോം ഉള്ളടക്കം #end
+        	</font>
+       		</td>
+		#end
+  		<td align=right>
+               	#if( $total_size!=0 )
+                       	#if( $endIndex < $total_size )
+                              #if( $endIndex < $userConf )
+                              [$k - $total_size] of $total_size
+                               #elseif($k == $j)
+                               [$k - $total_size] of $total_size
+                               #else
+                               [$k - $endIndex] of $total_size
+                               #end
+                       	#else
+                       	[$k - $total_size] of $total_size
+                       	#end
+               	#end
+        	</td>
+	</tr>
+</table>
+         #if($user_role == "instructor")
+  <table width=100% bgcolor="$ui.tableColor">
+        <tr bgcolor="$ui.menuColor">
+        <tr>
+                #if($tdcolor != "1")
+                <td>
+                #elseif($tdcolor == "1")
+                <td bgcolor="#AFDCEC">
+                #end
+                <a href=$link.setPage("call,CourseMgmt_User,CourseManagement.vm").addPathInfo("count","1") > #if($lang == "english") അപ്‌ലോഡ്‌ ചെയ്യുക പാഠ്യപദ്ധതി ഉള്ളടക്കം #else ഉള്ളടക്കം അപ്‌ലോഡ്‌ ചെയ്യുക #end </a></td>
+                #if($tdcolor != "2")
+                <td>
+                #elseif($tdcolor == "2")
+                <td bgcolor="#AFDCEC">
+                #end
+                <a href=$link.setPage("call,CourseMgmt_User,CourseContent.vm").addPathInfo("count","2") > #if($lang == "english") പാഠ്യപദ്ധതി ഉള്ളടക്കം #else ഉള്ളടക്കം #end </a></td>
+ 		#if($tdcolor != "3")
+                <td>
+                #elseif($tdcolor == "3")
+                <td bgcolor="#AFDCEC">
+                #end
+             <a href=$link.setPage("call,CourseMgmt_User,Configuration.vm").addPathInfo("cName",$course).addPathInfo("count","3") >പാഠ്യപദ്ധതി ക്രമീകരണം</a></td>
+                #if($tdcolor != "4")
+                <td>
+                #elseif($tdcolor == "4")
+                <td bgcolor="#AFDCEC">
+                #end
+                <a href=$link.setPage("call,CourseMgmt_User,UploadImage.vm").addPathInfo("count","4") > #if($lang == "english") അപ്‌ലോഡ്‌ ചെയ്യുക പാഠ്യപദ്ധതി தலைப்பு #else പാഠ്യപദ്ധതി ന്‍റെ தலைப்பு അപ്‌ലോഡ്‌ ചെയ്യുക #end </a></td>
+                #if($tdcolor != "5")
+                <td>
+                #elseif($tdcolor == "5")
+                <td bgcolor="#AFDCEC">
+                #end
+             <a href=$link.setPage("call,CourseMgmt_User,UploadImage.vm").addPathInfo("mode","NotUploadImage").addPathInfo("count","5") > #if($lang == "english") ക്രമീകരണം സ്ഥാനം #else സ്ഥാനം ക്രമീകരണം #end</a></td>
+                #if($tdcolor != "6")
+                <td>
+                #elseif($tdcolor == "6")
+                <td bgcolor="#AFDCEC">
+                #end
+                 <a href=$link.setPage("call,CourseMgmt_User,BrihaspatiEditor.vm").addPathInfo("count","6") >സ്കോം പാകേജര്‍</a></td>
+               #if($tdcolor != "7")
+                <td>
+                #elseif($tdcolor == "7")
+                <td bgcolor="#AFDCEC">
+                #end
+                <a href=$link.setPage("call,CourseMgmt_User,ScormPlayerList.vm").addPathInfo("count","7")>സ്കോം കളിക്കാരന്‍</a>
+                </td>
+        </tr>
+</table>
+#end
+<form name="frm" method="post" enctype="multipart/form-data"  action="$link.setPage("call,CourseMgmt_User,ScormPlayerList.vm").setAction("ScormPlayer")">
+<table width="100%" >
+        #if($user_role == "instructor")
+        <tr bgcolor="$ui.menuColor" width="100%"><td align="left" colspan="5">
+        <b> #if($lang == "english") അപ്‌ലോഡ്‌ ചെയ്യുക പാക്കേജ് പരസ്പരം മാറ്റുക രീതി പ്രമാണം (സിപ്‌) #else പാക്കേജ് പരസ്പരം മാറ്റുക രീതി പ്രമാണം (സിപ്‌) അപ്‌ലോഡ്‌ ചെയ്യുക #end </b>
+        </td>
+	<td align="right">
+	#if($user_role == "instructor")
+        <img src="$content.getURI("/images/hand.gif")"> <a href=javascript:popupWin("/brihaspati/docs/ScormPlayerInst.html","newWin");>സഹായം</a>
+	#else
+        <img src="$content.getURI("/images/hand.gif")"> <a href=javascript:popupWin("/brihaspati/docs/ScormPlayerStu.html","newWin");>സഹായം</a>
+	#end
+	</td>
+	</tr>
+        <tr bgcolor="$ui.tableColor" width="100%">
+        #fileUpload ("വിവരങ്ങള്‍ കുട്ടിചേര്‍ക്കുക" "file")
+	<td colspan="6">
+	</td>
+        </tr>
+        <tr bgcolor="$ui.menuColor" width="100%"><td colspan="6">
+        <input type="submit" name="eventSubmit_doUpload" value="അപ്‌ലോഡ്‌ ചെയ്യുക" onClick="checkselect(document.frm,this);"/>
+        </td></tr>
+        #else
+	#if($Mode == "NoBlank")
+        <tr bgcolor="$ui.menuColor" width="100%"><td align="left" colspan="5"><b> #if($lang == "english") മദ്ധ്യാഹ്നഭക്ഷണം സ്കോം ഉള്ളടക്കം #else ഉള്ളടക്കം മദ്ധ്യാഹ്നഭക്ഷണം #end </b>
+	#else
+	അവിടെ ഇല്ല #if($lang =="hindi") ഉള്ളടക്കം #else സ്കോം ഉള്ളടക്കം #end
+        #end
+        #end
+        <table width="100%" border="0">
+        #if($user_role == "instructor" )
+	#if($Mode == "NoBlank")
+        <tr bgcolor="$ui.menuColor"><td align="left">പ്രമാണം </td>
+        <td align="left" colspan="5" > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ലഭ്യമായ പ്രവൃത്തി</td></tr>
+                #foreach($topicList in $allTopics)
+		#if($velocityCount%2==0)
+                <tr bgcolor="$ui.menuColor">
+                #else
+                <tr bgcolor="$ui.tableColor">
+		#end
+  		<td align="left">
+                #if($topicList.Alias=="Launch")
+                $topicList.Name<blink><font color="Green" size="5"><b>*</b></font></blink>
+                #else
+                $topicList.Name
+                #end
+		</td>
+                <td align="left"><a href=$link.setPage("call,CourseMgmt_User,ScormPlayerList.vm").addPathInfo("ziptopic",$topicList.Name).setAction("ScormPlayer").addPathInfo("actionName","eventSubmit_doDelete") onclick="javascript:return confirm('Do you want to delete this package')"><b>എടുത്തു കളയുക</b></a></td>
+                <td align="left"><a href=$link.setPage("call,CourseMgmt_User,Launchcontent.vm").addPathInfo("package",$topicList.Name)><b> #if($lang == "hindi") ഉള്ളടക്കം കാണിക്കുക #else കാണിക്കുകഉള്ളടക്കം #end </b></a></td>
+                #if($topicList.Alias=="Launch")
+                <td align="left"><u><font color="grey">മദ്ധ്യാഹ്നഭക്ഷണം</font></u></td>
+                <td align="left"><a href=$link.setPage("call,CourseMgmt_User,ScormPlayerList.vm").addPathInfo("ziptopic",$topicList.Name).addPathInfo("type","Unlaunch").setAction("ScormPlayer").addPathInfo("actionName","eventSubmit_doLaunch")><b>തുടങ്ങാതിരിക്കുക</b></a><div></td>
+                #else
+                <td align="left"><a href=$link.setPage("call,CourseMgmt_User,ScormPlayerList.vm").addPathInfo("ziptopic",$topicList.Name).addPathInfo("type","Launch").setAction("ScormPlayer").addPathInfo("actionName","eventSubmit_doLaunch")><b>മദ്ധ്യാഹ്നഭക്ഷണം</b></a></div></td>
+                <td align="left"><u><font color="grey">തുടങ്ങാതിരിക്കുക</font></u></td>
+                #end
+                #end
+                </tr>
+		#end
+         #end
+        </table>
+        <table width="100%" border="0">
+        #if($user_role == "student")
+                #foreach($topicList in $allTopics)
+			#if($velocityCount%2==0)
+                	<tr bgcolor="$ui.menuColor">
+                	#else
+                	<tr bgcolor="$ui.tableColor">
+                	#end
+                	#if($topicList.Alias=="Launch")
+                	<td align="left">$topicList.Name</td>
+        		<td align="left"><a href=$link.setPage("call,CourseMgmt_User,Launchcontent.vm").addPathInfo("package",$topicList.Name)><b>കളിക്കുക  ഉള്ളടക്കം</b></a></td>
+        		#end
+        	#end
+        	</tr>
+       #end
+      </table>
+	#if($Mode == "NoBlank")
+	<table bgcolor="#e5e5e5" width="100%"><tr bgcolor="$ui.menuColor"><td align="left">&nbsp;&nbsp;
+        #if($total_size <= $userConf)
+                <u><font color="white">ആദ്യത്തെ</font></u> &nbsp;
+                <u><font color="white">മുന്‍പുള്ള</font></u> &nbsp;
+                <u><font color="white">അടുത്ത</font></u> &nbsp;
+                <u><font color="white">അവസാന </font></u> &nbsp;
+                #elseif($startIndex == $userConf_string)
+                <u><font color="white">ആദ്യത്തെ</font></u> &nbsp;
+                <u><font color="white">മുന്‍പുള്ള</font></u> &nbsp;
+                <a href="$link.setPage("call,CourseMgmt_User,ScormPlayerList.vm").addPathInfo("startIndex",$startIndex)">അടുത്ത</a>&nbsp;
+               	<a href="$link.setPage("call,CourseMgmt_User,ScormPlayerList.vm").addPathInfo("startIndex",$check_last)">അവസാന </a>&nbsp;
+                #elseif($endIndex == $total_size || $endIndex > $total_size)
+                <a href="$link.setPage("call,CourseMgmt_User,ScormPlayerList.vm").addPathInfo("startIndex",$check_first)">ആദ്യത്തെ</a>&nbsp;
+                <a href="$link.setPage("call,CourseMgmt_User,ScormPlayerList.vm").addPathInfo("startIndex",$check_pre)">മുന്‍പുള്ള</a> &nbsp;
+                <u><font color="white">അടുത്ത</font></u> &nbsp;
+                <u><font color="white">അവസാന </font></u> &nbsp;
+                #else
+                <a href="$link.setPage("call,CourseMgmt_User,ScormPlayerList.vm").addPathInfo("startIndex",$check_first)">ആദ്യത്തെ</a>&nbsp;
+                <a href="$link.setPage("call,CourseMgmt_User,ScormPlayerList.vm").addPathInfo("startIndex",$check_pre)">മുന്‍പുള്ള</a> &nbsp;
+                <a href="$link.setPage("call,CourseMgmt_User,ScormPlayerList.vm").addPathInfo("startIndex",$startIndex).addPathInfo("end",$endIndex)">അടുത്ത</a> &nbsp;
+                <a href="$link.setPage("call,CourseMgmt_User,ScormPlayerList.vm").addPathInfo("startIndex",$check_last)">അവസാന </a> &nbsp;
+                #end
+                </td></tr></table>
+                #end
+</table>
+</form>
+       <input type="hidden" name="actionName">
+        <input type="hidden" name="type" value="$type">
+<SCRIPT LANGUAGE="javascript">
+function checkselect(frm,field)
+{
+        frm.actionName.value=field.name;
+        frm.submit();
+}
+function popupWin(url,popupName)
+{
+        Win1=window.open(url,popupName,"resizable=0,scrollbars=1,height=400,width=400");
+}
+function checkNull(frm,field)
+{
+		frm.submit();
+}
+</script>

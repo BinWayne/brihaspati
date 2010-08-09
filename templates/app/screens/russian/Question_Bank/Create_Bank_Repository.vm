@@ -1,0 +1,187 @@
+#*
+  @(#) Create_Bank_Repository.vm
+ * Copyright(c)2004-2006 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * @author <a href="mailto:tarankhan1@yahoo.com">Tarannum Khan</a>
+ * @author <a href="mailto:manju_14feb@yahoo.com">Mithelesh Parihar</a>
+ * @author <a href="mailto:awadhesh_trivedi@yahoo.co.in ">Awadhesh Kumar Trivedi</a>
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+*#
+
+$page.setBgColor($ui.bgcolor)
+$page.setTitle("File Upload")
+#set($lang=$data.getUser().getTemp("lang").toString())
+<script LANGUAGE="JAVASCRIPT">
+ 	function checkValue(frm,field)
+  	{
+   		//if((frm.contentTopic.value!="") && (frm.MName.value!="") && (frm.FName.value!=""))
+   		if(frm.contentTopic.value!="")
+    		{
+	 		frm.actionName.value=field.name;
+     	 		frm.submit();
+ 
+    		}
+		else
+		{
+    	 		alert("Please insert the value");
+		}
+    	}
+	function blurTopicName(frm)
+	{
+		//document.uploadform.topicExisting.value="OLDTOPIC";
+		frm.contentTopic.value=frm.topicList.options[frm.topicList.selectedIndex].text;
+	}
+	
+	function changeTopic(frm)
+	{
+		if(frm.topicExisting[0].checked)
+		{
+			frm.contentTopic.value=frm.topicList.options[frm.topicList.selectedIndex].text;
+		}
+		else
+		{
+			frm.contentTopic.focus();
+		}
+	}
+
+	function checkRadio()
+	{
+		if(document.uploadform.topicExisting[0].checked)
+		{
+			document.uploadform.contentTopic.blur();
+		}
+		
+	}
+	function validate(uploadform,field)
+        {
+                var tList=uploadform.topicList;
+                var cTopic=uploadform.contentTopic;
+                if(uploadform.contentTopic.value!="")
+                {
+                        var totNamedEntries=uploadform.topicList.length;
+                        for(i=1;i<totNamedEntries;i++)
+                        {
+                                if(tList.options[i].text==cTopic.value)
+                                {
+                                        if(uploadform.topicExisting[1].checked)
+                                        {
+                                                if(confirm("The topic already exists. Pressing OK will put the file/s in existing Topic"))
+                                                {
+                                                	uploadform.actionName.value=field.name;
+                                                	uploadform.submit();
+                                                }
+                                                else
+                                                {
+                                                	return;
+                                                }
+
+                                        }
+                                }
+                        }
+                        uploadform.actionName.value=field.name;
+                        uploadform.submit();
+                }
+                else
+                {
+                        alert("Topic Name Can not Empty !!");
+                }
+        }
+
+</script>
+$!data.getMessage()     
+
+<table bgcolor="$ui.menuColor"  width=100%>
+<tr>
+	<td>
+	<a href=$link.setPage("call,IndexHome.vm")>Дом</a> |
+        ##<a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")>$course</a> | Вопрос Управление
+        <a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")>$course</a> |
+	<a href=$link.setPage("call,Question_Bank,Question_bank.vm").addPathInfo("count","1")>Вопрос Банк</a> | #if($lang=="hindi")Поделено Создать #else Создать Поделено #end
+	</td>
+</tr>
+</table>
+<table bgcolor="$ui.tableColor"  width=100%>
+<tr>
+        #if($tdcolor != "1")
+        <td>
+        #elseif($tdcolor == "1")
+        <td bgcolor="#AFDCEC">
+        #end
+  <a href=$link.setPage("call,Question_Bank,Question_bank.vm").addPathInfo("count","1")> #if ($lang!="english") Вопрос Банк Поделено из Создать #else Создать Вопрос Банк Поделено #end </a></td>
+        #if($tdcolor != "2")
+        <td>
+        #elseif($tdcolor == "2")
+        <td bgcolor="#AFDCEC">
+        #end
+    <a href=$link.setPage("call,Question_Bank,RepositoryList.vm").addPathInfo("count","2")> #if($lang!="english") Посмотреть все темы, в вопросе банка #else Посмотреть все темы, в вопросе банка #end </a></td>
+        #if($tdcolor != "3")
+        <td>
+        #elseif($tdcolor == "3")
+        <td bgcolor="#AFDCEC">
+        #end
+  <a href=$link.setPage("call,Question_Bank,UploadQuestions.vm").addPathInfo("count","3")></a> #if($lang!="english")Вопрос ВверхЗагрузить #else ВверхЗагрузить Вопрос #end</td>
+</tr>
+
+</table>
+<form name=uploadform method="post" enctype="multipart/form-data" action="$link.setPage("call,Question_Bank,Create_Bank_Repository.vm").setAction("Question_Bank")">
+
+<table bgcolor="$ui.tableColor" width=100%>
+	<tr bgcolor="$ui.menuColor">
+           ##<td colspan=2 align="center"> <b><a href=$link.setPage("call,Question_Bank,RepositoryList.vm")>View All Questions Bank</a></td>
+	#if($lang != "english")
+	           <td colspan=3> <b><a href=$link.setPage("call,Question_Bank,RepositoryList.vm").addPathInfo("count","2")>Все Вопрос Банк из Просмотр</a></td>
+	#else
+	          <td colspan=3> <b><a href=$link.setPage("call,Question_Bank,RepositoryList.vm").addPathInfo("count","2")>Посмотреть все Вопрос Банк</a></td>
+	#end
+	</tr>
+	<tr>
+		<td colspan=2 bgcolor="$ui.tableColor">
+		<input type="RADIO" name=topicExisting checked=true value="OLDTOPIC" onClick=blurTopicName(document.uploadform)>Действующие Тема
+		<SELECT name="topicList" onFocus="changeTopic(document.uploadform)" onChange="changeTopic(document.uploadform)">
+		<option></option>
+	  	#foreach($topic in $allTopics)
+			<option>$topic</option>
+	  	#end
+		</SELECT>
+			<input type="RADIO" name=topicExisting value="NEWTOPIC" >नवीन Тема
+		</td>
+       	<tr>   
+  		<td bgcolor="$ui.tableColor">
+  			<b><font face="$ui.sansSerifFonts">Тема #if($lang=="hindi") из #end Имя</font></b>
+		</td>
+		<td>
+			<input type="text" name="contentTopic" onFocus=checkRadio() size=26>
+    		</td>
+	</tr>
+      	<tr bgcolor="$ui.menuColor">
+	  <td colspan=3>
+          <font face="$ui.sansSerifFonts">
+	  <input type="button" name="eventSubmit_doSubmit" value="Отправить" onClick="validate(document.uploadform,this);"/>
+ 	  <input type="hidden" name="actionName" value="">
+  	  <input type="reset" value="Сбросить">
+    
+          </font>
+        </td>
+      </tr>
+    </table>
+	#if($M_Create=="Module_create")
+	<table width="30%" align="center" bgcolor="$ui.menuColor">
+	<tr><td>
+                <b><a href=$link.setPage("call,Question_Bank,InsertEdit_Multiple.vm").addPathInfo("modulename",$mName).addPathInfo("mode","Insert")>Множественные Печатать</a>
+                </td></tr>
+                <tr><td>
+                <b><a href=$link.setPage("call,Question_Bank,InsertEdit_TF.vm").addPathInfo("modulename",$mName).addPathInfo("mode","Insert")>ВЕРВЕРÐÐ / Ложно Печатать</a>
+                </td></tr>
+                <tr><td>
+                <b><a href=$link.setPage("call,Question_Bank,InsertEdit_Short.vm").addPathInfo("modulename",$mName).addPathInfo("mode","Insert")>Короткий Печатать</a>
+                </td></tr>
+                <tr><td>
+                <b><a href=$link.setPage("call,Question_Bank,Insert_Match.vm").addPathInfo("rName",$rName).addPathInfo("mName",$mName).addPathInfo("file",$fName)></a>Совпадать Печатать
+                </td></tr>
+#*              <tr><td>
+                <b><a href=$link.setPage("call,Question_Bank,UploadQuestions.vm").addPathInfo("rName",$rName).addPathInfo("mName",$mName)>Вопросы о Upload </a>
+                </td></tr>  *#
+</table>
+#end
+  </div>
+</form>

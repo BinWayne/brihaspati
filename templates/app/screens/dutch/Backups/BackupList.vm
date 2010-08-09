@@ -1,0 +1,111 @@
+#*
+ * @(#) BackupList.vm
+ * Copyright(c)2006,2009 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * @author <a href="mailto:nksingh@brihaspatisolutions.co.in">Nagendra Kumar Singh</a>
+ * @author <a href="mailto:singh_jaivir@rediffmail.com">Jaivir Singh</a>
+ * @author <a href="mailto:shaistashekh@hotmail.com">Shaista</a>
+ * @modified date: 12-04-2010
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+*#
+
+$page.setBgColor($ui.bgcolor)
+$!data.getMessage()
+
+#set($lang = $data.getUser().getTemp("lang" ).toString())
+<font face="$ui.sansSerifFonts">
+
+<table bgcolor="$ui.menuColor" width=100% cellspacing=0>
+<tr>
+        <td>
+        <b>
+	#if($st == "ins")
+	<a href=$link.setPage("call,IndexHome.vm")>Home  </a> |
+	<a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")>$data.getUser().getTemp("course_name" ).toString() </a> |  
+	<a href=$link.setPage("call,Backups,BackupIns.vm").addPathInfo("count","1")> Backup </a> | Backup Lijst
+	#else
+        <a href=$link.setPage("Index.vm")>Admin's Home  </a> | 
+	<a href=$link.setPage("call,Backups,Backups.vm").addPathInfo("count","1")> Backup </a> | Backup Lijst
+	#end
+        </td>
+</tr>
+</table>
+
+#if(!($list=="navil"))
+	<table align="left" bgcolor="$ui.tableColor" width=100%>
+		#*<tr>
+			<td colspan="4"><b> #if($lang!="english") Beschikbaar Backup کی Lijst #else Lijst van Beschikbaar Backup #end </b></td>
+		</tr>*#
+		#if($st != "ins")
+			<tr bgcolor="$ui.tableColor">
+			#if($tdcolor!="1")
+        		        <td width=25%>
+	                #elseif($tdcolor=="1")
+        		        <td width=25% bgcolor="#AFDCEC">
+	                #end
+        	        <a href=$link.setPage("call,Backups,Backups.vm").addPathInfo("count","1")>Inhoud #if($lang =="hindi") van #end #if($lang =="hindi") van #end Backup </a></td>
+	                #if($tdcolor!="2")
+        		        <td width=25%>
+	                #elseif($tdcolor=="2")
+        		        <td width=25% bgcolor="#AFDCEC">
+	                #end
+        	        <a href="$link.setPage("call,Backups,Backups.vm").setAction("BackupAction").addPathInfo("actionName","eventSubmit_doCompleteBackup").addPathInfo("count","2")">Systeem #if($lang =="hindi") van #end Backup</a></td>
+                	#if($tdcolor!="3")
+	                	<td width=25%>
+        		#elseif($tdcolor=="3")
+		                <td width=25% bgcolor="#AFDCEC">
+                	#end
+	                <a href=$link.setPage("call,Backups,Backups.vm").addPathInfo("mode","blist").addPathInfo("count","3")>Backup Lijst</a></td>
+        	        #if($tdcolor!="4")
+                		<td width=25%>
+	                #elseif($tdcolor=="4")
+        		        <td width=25% bgcolor="#AFDCEC">
+	                #end
+			<a href="$link.setPage("call,Backups,Backups.vm").setAction("BackupAction").addPathInfo("actionName","eventSubmit_doGlossaryBackup").addPathInfo("count","4")">Verklarende woordenlijst #if($lang =="hindi") van #end Backup</td>
+			</tr>
+		#end
+		<tr bgcolor="$ui.tableColor">
+		#if($st != "ins")
+			<td> S.No. </td>
+		#end
+		<td width=30%> #if($lang!="english") Backup کے Bestand van Naam #else Naam Van Backup Bestand #end </td>
+		<td colspan=2>Beschikbaar Acties</td>
+	</tr>
+	#set ($i=1)
+	#foreach($lst in $list)
+		#if($st=="ins")
+						## Commented By Shaista 
+			##if($lst.getName().startsWith($data.getUser().getTemp("course_id" ).toString()))
+				#if($velocityCount%2==0)
+				<tr bgcolor="$ui.tableColor">
+				#else
+				<tr bgcolor="$ui.menuColor">
+				#end
+					
+			               ## <td>$i</td>
+							## Commented By Shaista 
+			                ##<td>$lst.getName()</td>
+			                ##<td><a href="$link.setPage("call,Backups,getZipfile.vm").addPathInfo("fName",$lst.getName())">Downloaden</a></td>
+			                <td>$lst</td>
+			                <td><a href="$link.setPage("call,Backups,getZipfile.vm").addPathInfo("fName",$lst)">Downloaden</a></td>
+			        </tr>
+			##end
+		#else
+			#if($velocityCount%2==0)
+			<tr bgcolor="$ui.menuColor">
+			#else
+			<tr bgcolor="$ui.tableColor">
+			#end
+			<td>$i</td>
+					## Commented By Shaista
+			##<td>$lst.getName() </td>
+			##<td colspan=2><a href="$link.setPage("call,Backups,getZipfile.vm").addPathInfo("fName",$lst.getName())">Downloaden</a>
+			<td>$lst </td>
+			<td colspan=2><a href="$link.setPage("call,Backups,getZipfile.vm").addPathInfo("fName",$lst)">Downloaden</a>
+			&nbsp;&nbsp;<a href="$link.setAction("BackupAction").addPathInfo("actionName","eventSubmit_doDeletebackup").addPathInfo("fName",$lst.getName()).addPathInfo("count",$tdcolor)">Wissen</a></td>
+			</tr>
+		#end
+	#set ($i=$i+1)
+	#end
+</table>
+#end

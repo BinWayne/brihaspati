@@ -1,0 +1,238 @@
+#*
+ * @(#)RemoveStudents.vm
+ * Copyright (c) 2005,2009-2010 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * @author <a href="mailto:awadhesh_trivedi@yahoo.co.in">Awadhesh Kumar Trivedi</a>
+ * @author <a href="mailto:sweetshaista00@yahoo.com">Shaista Shekh</a>
+ * @author <a href="mailto:singh_jaivir@rediffmail.com">Jaivir Singh</a>
+ * @modified date:09-04-2010
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+ *#
+
+$page.setTitle("$brih_home | $course | $brih_student $brih_mgmt | $brih_remove $brih_student")
+$page.setBgColor($ui.bgcolor)
+$!data.getMessage()
+
+#set($lang=$data.getUser().getTemp("lang").toString()) 
+<table bgcolor="$ui.menuColor" width=100%>
+<tr>
+        <td>
+        <a href=$link.setPage("call,IndexHome.vm") style=text-decoration:none>హైమ్</a> |
+        <a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm") style=text-decoration:none>$course</a> |
+        <a href=$link.setPage("call,UserMgmt_User,StudentManagement.vm").addPathInfo("count","1") style=text-decoration:none>విద్యార్థి మానేజ్మెంట్</a> | 
+	#if(( $data.getUser().getTemp("lang" ).toString())=="hindi")
+		విద్యార్థి తొలగించు
+	#else
+		తొలగించు విద్యార్థి
+	#end
+        </td>
+	<td align=right>
+	 #if( $total_size!=0 )
+		#if( $endIndex < $total_size )
+			#if( $endIndex < $userConf )
+			[$k - $total_size] of $total_size
+			#elseif($k == $j)
+			[$k - $total_size] of $total_size
+		        #else
+			[$k - $endIndex] of $total_size
+			#end
+		#else
+		[$k - $total_size] of $total_size
+		#end
+	#end
+	</td>
+</tr>
+</table>
+##if($user_role == "instructor")
+<table bgcolor="$ui.tableColor" width=100%>
+<tr>
+	#if($tdcolor != "1")
+	<td>
+	#elseif($tdcolor == "1")
+        <td bgcolor="#AFDCEC">
+	#end
+	<a href=$link.setPage("call,UserMgmt_User,StudentManagement.vm").addPathInfo("count","1") style=text-decoration:none> #if($lang =="hindi") విద్యార్థి కలపు #else కలపు విద్యార్థుల #end </a>
+	</td>
+	#if($tdcolor != "2")
+	<td>
+	#elseif($tdcolor == "2")
+        <td bgcolor="#AFDCEC">
+	#end
+        <a href=$link.setPage("call,UserMgmt_User,RemoveStudents.vm").addPathInfo("count","2") style=text-decoration:none>విద్యార్థిని తొలగించు</a></td>
+	#if($tdcolor != "3")
+	<td>
+	#elseif($tdcolor == "3")
+        <td bgcolor="#AFDCEC">
+	#end
+        <a href=$link.setPage("call,UserMgmt_User,MultiUserReg_Instructor.vm").addPathInfo("count","3") style=text-decoration:none> #if($lang =="hindi") అనేక విద్యార్థి కలపు #else కలపు అనేక విద్యార్థుల #end </a></td>
+	#if($tdcolor != "4")
+	<td>
+	#elseif($tdcolor == "4")
+        <td bgcolor="#AFDCEC">
+	#end
+        <a href=$link.setPage("call,UserMgmt_User,StudentList.vm").addPathInfo("mode","All").addPathInfo("count","4") style=text-decoration:none>విద్యార్థుల యొకక్ లిస్ట్</a></td>
+	#if($tdcolor != "5")
+	<td>
+	#elseif($tdcolor == "5")
+        <td bgcolor="#AFDCEC">
+	#end
+        <a href=$link.setPage("call,OnLine_Rgtn,ViewOnlineRegistrationInstructor.vm").addPathInfo("count","5") style=text-decoration:none>ఆన్లైన్ రిజిస్ట్రేషన్</a></td>
+        </tr>
+##</table>
+##end
+#if($lang =="hindi")
+	#set ( $headings = ["యూసర్ ఆఫ్ పేరు","తొలి పేరు","ల్స్ట్ పేరు","ఇమేల్"] )
+#else
+	#set ( $headings = ["యూసర్ పేరు","తొలి పేరు","ల్స్ట్ పేరు","ఇమేల్"] )
+#end
+<FORM ENCTYPE="multipart/form-data" NAME="frm" METHOD="POST" ACTION="$link.setPage("call,UserMgmt_User,RemoveStudents.vm").setAction("UserAction_Instructor")">
+
+#if($status=="notempty")
+##<table bgcolor="$ui.tableColor" align=left width=100%>
+	<tr bgcolor="$ui.menuColor">
+	<td width=20%><input type="CHECKBOX" name="checkAll" onClick=selectAll(this);>అందరిని ఎంచుకొను
+	##</td>
+	##<td>
+       		#foreach ($heading in $headings)
+                #headerCell ($heading)
+                #end
+	</td>
+        </tr>
+	#set( $count = "" )
+	#foreach($users in $userdetail)
+	#if($velocityCount%2==0)
+	<tr bgcolor="$ui.menuColor">
+	#else
+	<tr bgcolor="$ui.tableColor">
+	#end
+	#foreach($user in $users)
+        <td><INPUT TYPE="CHECKBOX" NAME=$!user.UserName onClick="addDeleteList(this,document.frm);"></td>
+	<td>$!user.UserName</td>
+        <td>$!user.FirstName</td>
+        <td>$!user.LastName</td>
+	<td>$!user.Email</td>
+	<td></td>
+        </tr>
+	#set ( $count = "$count$!user.UserName^"  )
+	#end
+	#end
+	</tr>
+	<tr bgcolor="$ui.menuColor">
+		<td colspan=6>
+			<INPUT TYPE="button" NAME="eventSubmit_doRemove" VALUE="తొలగించు" onClick="checkValue(document.frm,this);">
+			<INPUT TYPE="hidden" NAME="deleteFileNames" VALUE="">
+			<INPUT TYPE="hidden" NAME="actionName" VALUE="">
+			<INPUT TYPE="hidden" NAME="count" VALUE="$tdcolor">
+		</td>
+	</tr>
+
+<tr>
+<td align=left bgcolor="$ui.tableColor" colspan=6>
+	#if($total_size <= $userConf)
+	<font color="white">తొలి</font> &nbsp;
+	<font color="white">ముందు</font> &nbsp;
+	<font color="white">తరువాత</font>&nbsp;
+	<font color="white">ల్స్ట్</font> &nbsp;
+
+	#elseif($startIndex == $userConf_string)
+	<font color="white">తొలి</font> &nbsp;
+        <font color="white">ముందు</font> &nbsp;
+	<a href=$link.setPage("call,UserMgmt_User,RemoveStudents.vm").addPathInfo("startIndex",$startIndex) style=text-decoration:none>తరువాత</a> &nbsp;
+	<a href=$link.setPage("call,UserMgmt_User,RemoveStudents.vm").addPathInfo("startIndex",$check_last) style=text-decoration:none>ల్స్ట్</a> &nbsp;
+
+	#elseif($endIndex == $total_size || $endIndex > $total_size)
+	<a href=$link.setPage("call,UserMgmt_User,RemoveStudents.vm").addPathInfo("startIndex",$check_first) style=text-decoration:none>తొలి</a> &ibsp;
+	<a href=$link.setPage("call,UserMgmt_User,RemoveStudents.vm").addPathInfo("startIndex",$check_pre) style=text-decoration:none>ముందు</a> &nbsp;
+	<font color="white">తరువాత</font> &nbsp;
+	<font color="white">ల్స్ట్</font> &nbsp;
+
+	#else
+	<a href=$link.setPage("call,UserMgmt_User,RemoveStudents.vm").addPathInfo("startIndex",$check_first) style=text-decoration:none>తొలి</a> &nbsp;
+	<a href=$link.setPage("call,UserMgmt_User,RemoveStudents.vm").addPathInfo("startIndex",$check_pre) style=text-decoration:none>ముందు</a> &nbsp;
+	<a href=$link.setPage("call,UserMgmt_User,RemoveStudents.vm").addPathInfo("startIndex",$startIndex).addPathInfo("end",$endIndex) style=text-decoration:none>తరువాత</a> &nbsp;
+	<a href=$link.setPage("call,UserMgmt_User,RemoveStudents.vm").addPathInfo("startIndex",$check_last) style=text-decoration:none>ల్స్ట్</a> &nbsp;
+	#end
+	</td>
+	</tr>
+</table>
+
+#end	
+</FORM>
+
+<SCRIPT LANGUAGE="javascript">
+function checkValue(frm,field)
+{
+	if(frm.deleteFileNames.value!="")
+	{
+		frm.actionName.value=field.name;
+		frm.submit();
+	}
+	else
+	{
+		alert("Please Select check box for deletion !!");
+	}
+}
+function addDeleteList(field,frm)
+{
+if(field.checked)
+{
+frm.deleteFileNames.value=frm.deleteFileNames.value+field.name+"^";
+}
+                else
+                {
+                        var rmFile,index,actualString,preString,postString;
+                        actualString=frm.deleteFileNames.value;
+                        index=actualString.indexOf(field.name+"^",0);
+                        preString=actualString.substring(0,index);
+                        postString=actualString.substring(index+field.name.length+1);
+			actualString=preString+postString;
+                        frm.deleteFileNames.value=actualString;
+                }
+}
+
+
+ function selectAll(field)
+{
+        if(field.checked)
+        {
+                var rmFile,index,actualString,pre=0,next=0;
+                actualString=document.frm.deleteFileNames.value="$count";
+                while( ( pre=actualString.indexOf("^",next) ) >=0 )
+                        {
+                         var temp=actualString.substring(next,pre);
+                         next=pre+1;
+                        rmFile=document.frm.elements[temp].checked=true;
+
+
+                         }
+
+        }
+        else
+        {
+                    var rmFile,index,actualString,pre=0,next=0;
+                             actualString=document.frm.deleteFileNames.value="$count";
+
+                  while( ( pre=actualString.indexOf("^",next) ) >=0 )
+
+                        {
+                         var temp=actualString.substring(next,pre);
+                         next=pre+1;
+                         rmFile=document.frm.elements[temp].checked=false;
+                        }
+                        document.frm.deleteFileNames.value="";
+           }
+}
+</SCRIPT>
+<table bgcolor="$ui.menuColor" align=left width=100%>
+#foreach( $e in $error_user )
+        <tr bgcolor="$ui.tableColor">
+        <td align=center>
+        <font face="$ui.sansSerifFonts">User Name <font color="brown">"$e.getErr_User()"</font>
+        </font>
+        </td>
+        <td align=center>
+        <font face="$ui.sansSerifFonts">$e.getErr_Type()</font>
+        </td>
+        </tr>
+#end
+</table>

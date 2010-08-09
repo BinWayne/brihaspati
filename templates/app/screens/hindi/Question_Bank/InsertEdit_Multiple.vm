@@ -1,0 +1,162 @@
+#*
+ * @(#) Insert_Multiple.vm
+ * Copyright(c)2004-2006,2009 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * @author <a href="mailto:tarankhan1@yahoo.com">Tarannum Khan</a>
+ * @author <a href="mailto:manju_14feb@yahoo.com">Mithelesh Parihar</a>
+ * @author <a href="mailto:awadhesh_trivedi@yahoo.co.in ">Awadhesh Kumar Trivedi</a>
+ * @author <a href="mailto:shaistashekh@hotmail.com">Shaista</a>
+ * @modified date: 12-04-2010
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+*#
+
+$page.setTitle("Enter the Question")
+$page.setBgColor($ui.bgcolor)
+#set($lang=$data.getUser().getTemp("lang" ).toString())
+
+$!data.getMessage()
+<table bgcolor="$ui.menuColor" width=100%>
+<tr>
+        <td>
+	<a href=$link.setPage("call,IndexHome.vm")>पृष्ठ</a> |
+        ##<a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")>$course</a> | प्रश्न  प्रबंधन
+        <a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")>$course</a> |
+
+        <a href=$link.setPage("call,Question_Bank,Question_bank.vm").addPathInfo("count","1")>प्रश्न  संग्रह (बैंक )</a> |
+	#if($mode=="Insert")
+	<a href=$link.setPage("call,Question_Bank,Create_Bank_Repository.vm")> #if($lang=="hindi")भंडार का सृजन  करें </a> | बहुविकल्पीय  प्रश्न  डालें #else सृजन  करें भंडार </a> | कृप्या  डालें बहुविकल्पीय  प्रश्न  #end
+	#else
+	<a href=$link.setPage("call,Question_Bank,RepositoryList.vm")>सभी   प्रश्न  संग्रह (बैंक )</a> |
+	<a href=$link.setPage("call,Question_Bank,Question_List.vm").addPathInfo("modulename","$modulename").addPathInfo("Ques_Type","$Ques_Type")>सभी   Question's in $modulename </a> | #if($lang=="hindi")बहुविकल्पीय  प्रश्न  #if($mode=="View") अवलोकन  करें  #else संपादन  करें #end  #else #if($mode=="View") अवलोकन  करें  #else संपादन  करें #end बहुविकल्पीय  प्रश्न  #end
+	#end 
+        </td>
+</tr>
+</table>
+<table bgcolor="$ui.tableColor" width=100%>
+<tr>
+        #if($tdcolor != "1")
+        <td>
+        #elseif($tdcolor=="1")
+        <td bgcolor="#AFDCEC">
+        #end
+        <a href=$link.setPage("call,Question_Bank,Question_bank.vm").addPathInfo("count","1")> #if($lang!="english") नवीन  प्रश्न  संग्रह (बैंक ) का सृजन  करें #else सृजन  करें नवीन  प्रश्न  संग्रह (बैंक ) #end </a></td>
+        #if($tdcolor != "2")
+        <td>
+        #elseif($tdcolor=="2")
+        <td bgcolor="#AFDCEC">
+        #end
+        <a href=$link.setPage("call,Question_Bank,RepositoryList.vm").addPathInfo("count","2")> #if($lang!="english") प्रश्न  संग्रह में समस्त  प्रसंग(टॉपिक) का  अवलोकन करें #else प्रश्न  संग्रह में समस्त  प्रसंग(टॉपिक) का  अवलोकन करें #end </a></td>
+        #if($tdcolor != "3")
+        <td>
+        #elseif($tdcolor=="3")
+        <td bgcolor="#AFDCEC">
+        #end
+        <a href=$link.setPage("call,Question_Bank,UploadQuestions.vm").addPathInfo("count","3")></a> #if($lang!="english")प्रश्न  अपलोड  करें #else अपलोड  करें  प्रश्न  #end
+</td>
+</tr>
+</table>
+<form name="frm" method="post" action="$link.setAction("Question_Bank")">
+<table width="100%" bgcolor="$ui.menuColor" cellpadding="2">  
+  <tr>
+   <td width=30% align="centre">
+     <b><font face="$ui.sansSerifFonts">प्रश्न </font></b>
+   </td>
+   <td	width=70% align="left">
+     <font face="$ui.sansSerifFonts">
+      <textarea name="Question" rows=3 cols=50 #if($mode=="View") readonly #end >$!question</textarea >
+     </td>
+ </tr>
+  <tr bgcolor="$ui.tableColor"> 
+	#formCell("विकल्प ए" "op1" "$!op1")
+ </tr> 
+  <tr> 
+	#formCell("विकल्प बी" "op2" "$!op2")
+ </tr> 
+  <tr bgcolor="$ui.tableColor"> 
+	#formCell("विकल्प सी" "op3" "$!op3")
+ </tr> 
+  <tr> 
+	#formCell("विकल्प डी" "op4" "$!op4")
+ </tr> 
+  <tr bgcolor="$ui.tableColor"> 
+	#formCell("विकल्प ई" "op5" "$!op5")
+ </tr> 
+  <tr> 
+	#formCell("विकल्प एफ" "op6" "$!op6")
+ </tr> 
+  <tr bgcolor="$ui.tableColor"> 
+  	<td width=30% align="centre"> 
+    	<b><font face="$ui.sansSerifFonts"> #if($lang=="hindi") उत्तर #else उत्तर #end</font></b>
+   	</td>
+   	<td width=70% align="left">
+    	<font face="$ui.sansSerifFonts">
+      	<select name="Answer" size=1>
+	 <option value=$!ans>$!ans
+         <option value="A">ए</option>
+         <option value="B">बी</option>
+         <option value="C">सी</option>
+         <option value="D">डी</option>
+         <option value="E">ई</option>
+         <option value="F">एफ</option>  
+      	</select> 
+   	</td>
+ </tr> 
+  <tr> 
+	<td width=30% align="centre">
+        <b><font face="$ui.sansSerifFonts">सांकेतिक</font></b>
+        </td>
+        <td  width=70% align="left">
+        <font face="$ui.sansSerifFonts">
+        <textarea name="hint" rows=3 cols=50 #if($mode=="View") readonly #end >$!hint</textarea >
+        </td>
+	##formCell("सांकेतिक" "hint" "$!hint")
+
+ </tr> 
+<tr bgcolor="$ui.tableColor">
+<td align=center colspan=2>  
+<font face ="$ui.sansserifFonts">
+	#if($mode=="Insert")
+		<input type="reset" value="पुनः  डालें"> 
+  		<input type="button" name="eventSubmit_doSaveQuestion" value="सेव  करें & जोड़ें अतिरिक्त" onClick="checkValue(document.frm,this);"> 
+  		<input type="button" name="eventSubmit_doFinishQuestion" value="सेव  करें & समाप्त करें" onClick="checkValue(document.frm,this);"> 
+	#elseif($mode=="View")
+	#else
+  		<input type="reset" value="पुनः  डालें"> 
+		<input type="button" name="eventSubmit_doEditQuestion" value="संपादन  करें" onClick="checkValue(document.frm,this);">
+  		<input type="hidden" name="qid" value=$qid>
+	#end
+  <input type="hidden" name="modulename" value=$modulename> 
+  <input type="hidden" name="actionName" value="">
+  <input type="hidden" name="mode" value=$mode>
+  <input type="hidden" name="FromPath" value=$FromPath>
+  <input type="hidden" name="Ques_Type" value="Multiple">
+  <input type="hidden" name="count" value="$tdcolor">
+</font>
+</td>
+</tr>
+</table>
+</form>
+
+<script LANGUAGE="JAVASCRIPT">
+        function checkValue(frm,field)
+        {
+                if(frm.Question.value!="")
+                {
+			if((frm.op1.value!="") && (frm.op2.value!="") && (frm.op3.value!="") && (frm.op4.value!=""))
+			{
+                        	frm.actionName.value=field.name;
+                        	frm.submit();
+			}
+			else
+			{
+                        	alert("Please write minimum four answer !!");
+                        	frm.op1.focus();
+			}
+                }
+                else
+                {
+                        alert("Please write Question !!");
+                        frm.Question.focus();
+                }
+        }
+</script>

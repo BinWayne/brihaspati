@@ -1,0 +1,173 @@
+#*
+ * @(#) ViewActivity.vm
+ *  Copyright (c) 2006-07,2009 ETRG,IIT Kanpur.
+ *  All Rights Reserved.
+ *  @author <a href="mailto:seema_020504@yahoo.com ">Seema Pal</a>
+ *  @author <a href="mailto:kshuklak@rediffmail.com ">Kishore kumar shukla</a>
+ *  Contributors: Members of ETRG, I.I.T. Kanpur
+ *#
+
+$page.setTitle("create group")
+$page.setBgColor($ui.bgcolor)
+$!data.getMessage()
+#set($lang=$data.getUser().getTemp("lang").toString())
+<table bgcolor="$ui.menuColor" width=100% > ##table 1 start
+	<tr><td><b>
+	<a href=$link.setPage("call,IndexHome.vm")>家</a> |
+        <a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")>$coursename </a>|
+        <a href=$link.setPage("call,Group_Mgmt,Grpmgmt.vm").addPathInfo("count","1")>グループ 管理</a> |
+	#if($lang=="english")
+	視野 活動</b>
+	#else
+	活動 の 視野</b>
+	#end
+     </td></tr>
+</table> ##table 1 end
+ 
+<table width=100% > ##table 2 start
+	<tr>
+		<td align ="right">
+		<img src="$content.getURI("/images/hand.gif")"><a href=javascript:popupWin("/brihaspati2/docs/joingroupactivity.html","newWin");>ヘルプ</a>
+		</td>
+	</tr>
+</table> ## table 2 end
+
+<form name="frm" method="post" action=$link.setPage("call,Group_Mgmt,ViewActivity.vm").setAction("Groupmanagement")>
+##<form name="frm">
+#if($Mode == "noempty")
+
+<table width=100% bgcolor="$ui.tableColor"> ##(table 2memlist)
+<tr>
+        <td colspan="5">
+        <font size=5>
+		#if($lang=="english")
+                <I> グループ 詳細 の <font color=blue>$username</font></I>
+		#else
+                <I><font color=blue>$username</font> の グループ 詳細</I>
+		#end
+        </font>
+        </td>
+</tr>
+#if($lang=="english")
+#set($headings=["グループ名前","グループ種類","グループ メンバー","グループ リーダー"])
+#else
+#set($headings=["グループ の 名前","グループ の 種類","グループ के メンバー","グループ リーダー"])
+#end
+<tr bgcolor="$ui.menuColor">
+        #foreach($heading in $headings)
+                <td align="center" bgcolor="$ui.menuColor">
+                <b>$heading</b>
+                </td>
+        #end
+</tr>
+	<tr bgcolor="$ui.tableColor">
+	<td align="center">
+	      $grpname
+	</td>
+	<td align="center">
+	      $type
+	</td>
+	<td align="center">
+	$mblist
+	</td>
+	<td align="center">
+	#if($setlead == "nolead")
+	$grpleader
+	#else
+	not declare 
+	#end
+	</td>
+</tr>
+
+<tr bgcolor="$ui.tableColor" width=100%>
+        <td>
+        <b> 利用可能な 活動 :</b></td>
+        <td align="left" colspan="4">
+	#if($groupdesc!="")
+       	<select name="activity" size="1" onChange="Changeactivity(document.frm,this);"/>
+	##<option>- 択し - </option>
+	#if($act0=="Discussion Board")
+       	<option value="call,Dis_Board,DBContent.vm/mode/All/$courseid">ディスカッションボード
+       	</option>
+	#end
+	#if($act1=="Notice")
+        <option value="call,Notice_User,NoticeContent.vm/flag/FromNotices">通知 
+        </option>
+	#end
+	#if($act2=="Chat")
+       	<option value="call,Chat,Chat.vm">雑談</a>
+        </option>
+	#end
+	#if($act3=="Local Mail")
+       	<option value="call,Local_Mail,MailContent.vm/mode/All">ローカルのメール</a>
+        </option>
+	#end
+        </select>
+	&nbsp;&nbsp;&nbsp;<input type="button" name="test" value="行く！" onClick="go(document.frm,this);"/>
+	#else
+	<b><font size="3"><font color="blue"><center>活動 ご利用いただけません........</center></font></font></b>
+	#end
+        </td>
+</tr>
+<tr>
+<td><b>択し グループ Leader :</b></td>
+<td colspan="4">
+	#if($data.getUser().getUserName() == $name || $curdate == $stuno || $check == "nocheck")
+        <select name="leadername" disabled size="1" onChange="Changeleader(document.frm,this);"/>
+	#else
+        <select name="leadername" size="1" onChange="Changeleader(document.frm,this);"/>
+                <option>  - 択し leader - </option>
+                        #foreach($studentname in $mblist1)
+                        <option value="$studentname">
+			$studentname
+			#end
+                 </option>
+        </select>
+	#end
+     &nbsp;&nbsp;&nbsp;<input type="button" name="eventSubmit_doPolling" value="Vote " onClick="checkselect(document.frm,this);"/>
+</td>
+</tr>
+#else
+<b><font size="4"><font color="blue"><center>これまでの任意のグループに参加していない！あなたが参加していない今までの任意のグループに！ </center></font></font></b>
+#end
+	<input type="hidden" name="actionName" >
+        <input type="hidden" name="val2">
+        <input type="hidden" name="grpname" value="$grpname">
+
+</table> ##(table 2memlist )
+</form>
+
+<SCRIPT LANGUAGE="javascript">
+	function Changeactivity(frm,field)
+	{
+		frm.actvy.value=document.frm.activity.value;
+		//alert(frm.actvy.value);	
+	}
+	function go(frm,field)
+	{
+			location=document.frm.activity.
+			options[document.frm.activity.selectedIndex].value
+			//alert(location=document.frm.activity);
+	}
+	function Changeleader(frm,field)
+        {
+                frm.val2.value=document.frm.leadername.value;
+
+        }
+        function checkselect(frm,field)
+        {
+                items2=frm.val2.value;
+                if((items2.length!=0))
+                {
+                        frm.actionName.value=field.name;
+                        frm.submit();
+                }
+                else
+                        alert("Please select option");
+        }
+	function popupWin(url,popupName)
+        {
+                Win1=window.open(url,popupName,"resizable=0,scrollbars=1,height=400,width=400,align=left");
+        }
+
+</script>

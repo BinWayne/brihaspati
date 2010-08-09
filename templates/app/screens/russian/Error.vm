@@ -1,0 +1,8 @@
+$page.setTitle("System Error")
+
+<h2>Системная ошибка: </h2>
+<b>Пожалуйста, повторите попытку ...</b>
+	#if ( $data.getMessage() )
+		$data.getMessage()
+	#end
+

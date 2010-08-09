@@ -1,0 +1,12 @@
+
+$page.DefaultDoctype
+$page.setBgColor("$ui.bgcolor")
+$page.setTitle("Generate Timetable")
+#set($lang = $data.getUser().getTemp("lang" ).toString())
+
+<a href=$link.setPage("call,timetable,uploadfile.vm").addPathInfo("lang", $lang)>Uploaden Bestand</a>
+<br/>
+<form method="post" action="$link.setPage("call,timetable,html_pdf.vm").setAction("GenerateTimeTable").addPathInfo("lang", $lang)">
+<input type="submit" name="eventSubmit_doGenerate" value="Generate Timetable" />
+</form>
+

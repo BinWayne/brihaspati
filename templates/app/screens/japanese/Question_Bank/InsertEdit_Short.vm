@@ -1,0 +1,140 @@
+#*
+ * @(#) InsertEdit_Short.vm
+ * Copyright(c)2004-2006, 2010 ETRG,IIT Kanpur.
+ * All Rights Reserved.
+ * @author <a href="mailto:tarankhan1@yahoo.com">Tarannum Khan</a>
+ * @author <a href="mailto:manju_14feb@yahoo.com">Mithelesh Parihar</a>
+ * @author <a href="mailto:nksngh_p@yahoo.co.in ">Nagendra Kumar Singh</a>
+ * @author <a href="mailto:shaistashekh@hotmail.com">Shaista</a>
+ * @modified date: 09-04-2010
+ * Contributors: Members of ETRG, I.I.T. Kanpur
+*#
+
+#set($lang=$data.getUser().getTemp("lang" ).toString())
+
+$page.setTitle("Enter the Question")
+$page.setBgColor($ui.bgcolor)
+$!data.getMessage()
+
+<table bgcolor="$ui.menuColor" width=100% cellspacing=0>
+<tr>
+        <td>
+        <b>
+	<a href=$link.setPage("call,IndexHome.vm")>家</a> |
+        ##<a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")>$course</a> | 質問 管理
+        <a href=$link.setPage("call,CourseMgmt_User,CourseHome.vm")>$course</a> |
+
+        <a href=$link.setPage("call,Question_Bank,Question_bank.vm").addPathInfo("count","1")>質問 銀行</a> |
+	#if($mode=="Insert")
+	<a href=$link.setPage("call,Question_Bank,Create_Bank_Repository.vm").addPathInfo("count","2")> #if($lang=="hindi") リポジトリ の 作成 </a> | 質問 डालें  #else 作成 リポジトリ </a> | 挿入 質問 #end
+	#else
+	<a href=$link.setPage("call,Question_Bank,RepositoryList.vm").addPathInfo("count","1")>すべての 質問 銀行</a> |
+	<a href=$link.setPage("call,Question_Bank,Question_List.vm").addPathInfo("modulename","$modulename").addPathInfo("Ques_Type","$Ques_Type").addPathInfo("count","2")>すべての 質問の中で $modulename </a> | #if($lang=="hindi") 質問 #if($mode=="View") 視野 #else 編集 #end  #else #if($mode=="View") 視野 #else 編集 #end 質問 #end
+	#end 
+        </td>
+</tr>
+</table>
+<table bgcolor="$ui.tableColor" width=100% cellspacing=0>
+<tr>
+        #if($tdcolor != "1")
+        <td>
+        #elseif($tdcolor=="1")
+        <td bgcolor="#AFDCEC">
+        #end
+    <a href=$link.setPage("call,Question_Bank,Question_bank.vm").addPathInfo("count","1")> #if($lang!="english") 新しい 質問 銀行 の 作成 #else 作成 新しい 質問 銀行 #end </a></td>
+        #if($tdcolor != "2")
+        <td>
+        #elseif($tdcolor=="2")
+        <td bgcolor="#AFDCEC">
+        #end
+  <a href=$link.setPage("call,Question_Bank,RepositoryList.vm").addPathInfo("count","2")> #if($lang!="english") すべてのトピック 銀行の質問 #else すべてのトピック 銀行の質問 #end </a></td>
+        #if($tdcolor != "3")
+        <td>
+        #elseif($tdcolor=="3")
+        <td bgcolor="#AFDCEC">
+        #end
+        <a href=$link.setPage("call,Question_Bank,UploadQuestions.vm").addPathInfo("count","3")></a> #if($lang!="english")質問 アップロード#else アップロード 質問 #end</td>
+</tr>
+</table>
+<form name="frm" method="post" action="$link.setAction("Question_Bank")">
+<table width="100%" bgcolor="$ui.menuColor" cellpadding="2">  
+  <tr>
+   <td width=30% align="centre" >
+     <b><font face="$ui.sansSerifFonts">質問</font></b>
+   </td>
+   <td	width=70% align="left" >
+     <font face="$ui.sansSerifFonts">
+      <textarea name="Question" rows=3 cols=50 #if($mode=="View") readonly #end>$!question </textarea >
+     </td>
+ </tr>
+  <tr bgcolor="$ui.tableColor"> 
+  	<td width=30% align="centre" >
+    	<b><font face="$ui.sansSerifFonts"> #if($lang=="hindi") 返答する #else 答え #end </font></b>
+   	</td>
+   	<td width=70% align="left" >
+    	<font face="$ui.sansSerifFonts">
+      <textarea name="Answer" rows=3 cols=50 #if($mode=="View") readonly #end>$!ans </textarea >
+   	</td>
+ </tr> 
+  <tr> 
+	<td width=30% align="centre" >
+        <b><font face="$ui.sansSerifFonts">ヒント</font></b>
+        </td>
+        <td  width=70% align="left" >
+        <font face="$ui.sansSerifFonts">
+        <textarea name="hint" rows=3 cols=50 #if($mode=="View") readonly #end >$!hint</textarea >
+        </td>
+	##formCell("ヒント" "hint" "$!hint")
+
+ </tr> 
+<tr bgcolor="$ui.tableColor">
+<td align=center colspan=2 >  
+<font face ="$ui.sansserifFonts">
+	#if($mode=="Insert")
+		#if($lang == "hindi")
+	  		<input type="button" name="eventSubmit_doSaveQuestion" value="保存する & よりたくさんの 追加する" onClick="checkValue(document.frm,this);"> 
+		#else
+	  		<input type="button" name="eventSubmit_doSaveQuestion" value="保存する & 追加する よりたくさんの" onClick="checkValue(document.frm,this);"> 	
+		#end
+  		<input type="button" name="eventSubmit_doFinishQuestion" value="保存する & 完了" onClick="checkValue(document.frm,this);"> 
+		<input type="reset" value="リセット"> 
+	#elseif($mode=="View")
+	#else
+		<input type="button" name="eventSubmit_doEditQuestion" value="編集" onClick="checkValue(document.frm,this);">
+  		<input type="hidden" name="qid" value=$qid>
+  		<input type="reset" value="リセット"> 
+	#end
+  <input type="hidden" name="modulename" value=$modulename> 
+  <input type="hidden" name="actionName" value="">
+  <input type="hidden" name="mode" value=$mode>
+  <input type="hidden" name="FromPath" value=$FromPath>
+  <input type="hidden" name="Ques_Type" value="Short">
+  <input type="hidden" name="count" value="$tdcolor">
+</font>
+</td>
+</tr>
+</table>
+</form>
+<script LANGUAGE="JAVASCRIPT">
+        function checkValue(frm,field)
+        {
+                if(frm.Question.value!="")
+                {
+			if(frm.Answer.value!="") 
+			{
+                        	frm.actionName.value=field.name;
+                        	frm.submit();
+			}
+			else
+			{
+                        	alert("Please write the answer !!");
+                        	frm.Answer.focus();
+			}
+                }
+                else
+                {
+                        alert("Please write Question !!");
+                        frm.Question.focus();
+                }
+        }
+</script>

@@ -1,0 +1,245 @@
+#*
+ * @(#) Author.vm
+ *  Copyright (c) 2005-2006,2009-2010 ETRG,IIT Kanpur.
+ *  All Rights Reserved.
+ *  @author <a href="mailto:seema_020504@yahoo.com">Seema Pal</a>
+ *  @author <a href="mailto:kshuklak@rediffmail.com">Kishore kumar shukla</a>
+ *  @author <a href="mailto:manjaripal@yahoo.co.in">Manjaripal</a>
+ *  @author <a href="mailto:singh_jaivir@redimail.com">Jaivir Singh</a>
+ *  Contributors: Members of ETRG, I.I.T. Kanpur
+ *#
+
+$page.setTitle("Author Interface") 
+$page.setBgColor($ui.bgcolor)
+#set($lang=$data.getUser().getTemp("lang").toString())
+
+<table width=100% bgcolor="$ui.menuColor">
+<tr>
+	<td align="center"><b>लेखक इंटरफेस </b></td>
+</tr>
+<tr>
+	<td>
+		<marquee scrollamount="3" direction="left" loop="0" width="100%" behaviour="rotation">
+		<b> #if($lang=="hindi") #UNAME() सुस्वागतम्  #else सुस्वागतम् #UNAME() #end
+        </td>
+</tr>
+</table>
+$!data.getMessage()
+<table bgcolor="$ui.tableColor" width=100%>
+<tr><td><b>
+<a href=$link.setPage("call,Repository_Mgmt,Author.vm").addPathInfo("count","1") style=text-decoration:none>लेखकाचे पान </a> |
+#if($lang == "hindi")
+        माहीती भरा
+#else
+        भरा माहीती
+#end
+</b>
+</td></tr>
+</table>
+#if($check == "disable")
+<table width="100%" bgcolor="$ui.tableColor">
+<tr bgcolor="$ui.menuColor"><td> $!SpaceKb </td><td align="right">   $!TUSize  </td></tr></table>
+#end
+<table bgcolor="$ui.tableColor" width=100%>
+#if($check == "disable")
+<tr>
+	#if($tdcolor!="1")
+	<td>
+	#elseif($tdcolor=="1")
+	<td bgcolor="#AFDCEC">
+	#end
+	<a href=$link.setPage("call,Repository_Mgmt,Author.vm").addPathInfo("count","1") style=text-decoration:none>भरा माहीती</a></td>
+	#if($tdcolor!="2")
+	<td>
+	#elseif($tdcolor=="2")
+	<td bgcolor="#AFDCEC">
+	#end
+        <a href=$link.setPage("call,Repository_Mgmt,RepositoryList.vm").addPathInfo("status","fromViewContent").addPathInfo("count","2") style=text-decoration:none>दाखवा  माहीती</a></td>
+	#if($tdcolor!="3")
+	<td>
+	#elseif($tdcolor=="3")
+	<td bgcolor="#AFDCEC">
+	#end
+        <a href=$link.setPage("call,Repository_Mgmt,RepositoryBrowser.vm").addPathInfo("count","3") style=text-decoration:none>संग्रहालय ब्राऊजर</a></td>
+	#if($tdcolor!="4")
+	<td>
+	#elseif($tdcolor=="4")
+	<td bgcolor="#AFDCEC">
+	#end
+	<a href=$link.setPage("call,Calendar_Mgmt,Calendar_Display.vm").addPathInfo("path","personal").addPathInfo("count","4") style=text-decoration:none>खासगी दिनदशॆिका </a></td>
+	<td><img src="$content.getURI("/images/hand.gif")"><a href=javascript:popupWin("/brihaspati2/docs/ContentUpload.html","newWin"); style=text-decoration:none>मदत</a></td>
+</tr>
+#else
+<tr>
+<td align=center>
+        	<font face="$ui.sansSerifFonts" size=3>
+        	<a href=$link.setPage("call,Repository_Mgmt,Author.vm").setAction("RepositoryAction").addPathInfo("actionName","eventSubmit_doCreate_Repo").addPathInfo("count","1") style=text-decoration:none>तयार   करा  संग्रहालय</a> &nbsp;&nbsp;
+		</font>
+        </td>
+        </tr>
+        #end
+</table>
+####################################UploadSCO
+#if($check == "disable")
+<table bgcolor="$ui.tableColor" width=100%>
+#if($errorMess!="")
+     <tr>
+           <td><b>भरण्यात  चुका  आहे </b>$!errorMess </td>
+     </tr>
+#else
+        <tr>
+        #if($uploadStatus=="full")
+                <td>
+                तुमची  फाईल  व्यविस्थत   भरल्या  गेली 
+                </td>
+        #else
+                #if($uploadStatus=="partial")
+                        <td>
+                       ## Some of the files have been uploaded
+                        काही  फाईल  भरल्या   गेल्या  <br>
+
+                       ## Following files already existed, so were not uploaded :
+                        खालील  फाईल   आधीच  आहे  म्हणुन  त्या  भरल्या  नाही   :<br>
+
+                #elseif($totalFilesEntries.Count>0)
+                        <td>
+                        ##None of the files were Uploaded <br>
+                        ##All of the following  Existed at Server :
+                        कोणतीही  फाईल  भरलेली  नाही <br>
+                        खालील  नावाच्या   फाईल   आधीच     सवॆरमध्ये  आहे: <br>
+                #elseif($uploadStatus!="")
+                        <td>
+                        ##There is nothing to Upload
+                        भरायला   काहीही  नाही <br>
+                #end
+                <br>
+                #set($count=1)
+                #foreach($File in $failedFiles)
+                        <tr>
+			 <td>$count.  $File</td>
+                        </tr>
+                        #set($count=$count+1)
+                #end
+               </td>
+        #end
+        </tr>
+#end
+</table>
+##<form name=uploadform method="post" enctype="multipart/form-data" action="$link.setPage("call,Repository_Mgmt,UploadSCO.vm").setAction("UserAreaAction").addPathInfo("actionName","eventSubmit_doUpload")" >
+<form name=uploadform method="post" enctype="multipart/form-data" action="$link.setPage("call,Repository_Mgmt,Author.vm").setAction("UserAreaAction").addPathInfo("actionName","eventSubmit_doUpload")" >
+<table bgcolor="$ui.tableColor" width=100%>
+<tr bgcolor="$ui.menuColor"><img src="$content.getURI("/images/hand.gif")"><font color="red">कृपया  तपासून  पहा : तुमच्या  भरत   असलेल्या  फाईलच्या  नावात  <b>'+'</b> हे  अक्षर  नकोत</font></tr>
+      <tr>
+        <td colspan=5>
+        <input type="RADIO" name=topicExisting checked=true value="OLDTOPIC" onClick=blurTopicName(document.uploadform)>अस्तीत्वात  असलेले विषय
+        <SELECT name=topicList onFocus=changeTopic(document.uploadform) onChange=changeTopic(document.uploadform)>
+          <option></option>
+          #foreach($topic in $allTopics)
+                <option>$topic</option>
+          #end
+        </SELECT>
+        <input type="RADIO" name=topicExisting value="NEWTOPIC" >नवीन विषय
+        </td>
+        </tr>
+
+      <tr bgcolor="$ui.menuColor">
+        <td>विषय नाव</td>
+        <td colspan=5><input type="text" name=contentTopic onFocus=checkRadio() size=26></td>
+      <tr>
+              #fileUpload ("1.&nbsp; फाईल  जोडा   " "file1")</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>#fileUpload ("6.&nbsp; फाईल  जोडा    &nbsp;" "file6")
+      </tr>
+      <tr bgcolor="$ui.menuColor">
+              #fileUpload ("2.&nbsp; फाईल  जोडा   " "file2")</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>#fileUpload ("7.&nbsp; फाईल  जोडा    &nbsp;" "file7")
+      </tr>
+	<tr>
+              #fileUpload ("3.&nbsp; फाईल  जोडा   " "file3")</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>#fileUpload ("8.&nbsp; फाईल  जोडा    &nbsp;" "file8")
+      </tr>
+      <tr bgcolor="$ui.menuColor">
+              #fileUpload ("4.&nbsp; फाईल  जोडा   " "file4")</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>#fileUpload ("9.&nbsp; फाईल  जोडा    &nbsp;" "file9")
+      </tr>
+      <tr>
+              #fileUpload ("5.&nbsp; फाईल  जोडा   " "file5")</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>#fileUpload ("10.&nbsp; फाईल  जोडा    &nbsp;" "file10")
+      </tr>
+
+      <tr bgcolor="$ui.menuColor">
+        <td colspan=5>
+        <input type="button" name="eventSubmit_doUpload" value="भरा" onClick="validate(document.uploadform,this);"/>
+        <input type="hidden" name="actionName" value="">
+        <input type="hidden" name="count" value="$tdcolor">
+
+        </td>
+      </tr>
+
+    </table>
+</form>
+#end
+
+###########################################
+<SCRIPT language="JavaScript">
+        function popupWin(url,popupName)
+        {
+                Win1=window.open(url,popupName,"resizable=0,scrollbars=1,height=400,width=400");
+        }
+	function blurTopicName(frm)
+        {
+                //document.uploadform.topicExisting.value="OLDTOPIC";
+
+                frm.contentTopic.value=frm.topicList.options[frm.topicList.selectedIndex].text;
+        }
+
+        function changeTopic(frm)
+        {
+                if(frm.topicExisting[0].checked)
+                {
+                        frm.contentTopic.value=frm.topicList.options[frm.topicList.selectedIndex].text;
+                }
+                else
+                {
+                        frm.contentTopic.focus();
+                }
+        }
+
+        function checkRadio()
+        {
+                if(document.uploadform.topicExisting[0].checked)
+                {
+                        document.uploadform.contentTopic.blur();
+                }
+
+        }
+	function validate(uploadform,field)
+        {
+                var tList=uploadform.topicList;
+                var cTopic=uploadform.contentTopic;
+                if(uploadform.contentTopic.value!="")
+                {
+                        var totNamedEntries=uploadform.topicList.length;
+                        for(i=1;i<totNamedEntries;i++)
+                        {
+                                if(tList.options[i].text==cTopic.value)
+                                {
+                                        if(uploadform.topicExisting[1].checked)
+                                        {
+                                                if(confirm("The topic already exists. Pressing OK will put the file/s in existing Topic"))
+                                                {
+                                                uploadform.actionName.value=field.name;
+                                                uploadform.submit();
+                                                }
+                                                else
+                                                {
+                                                return;
+                                                }
+
+                                        }
+                                }
+                        }
+                        uploadform.actionName.value=field.name;
+                        uploadform.submit();
+                }
+                else
+                {
+                        alert("Topic Name Can not Empty !!");
+                }
+        }
+
+</SCRIPT>
