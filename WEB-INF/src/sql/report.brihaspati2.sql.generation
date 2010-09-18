@@ -80,6 +80,7 @@
   File to be created: timetable-schema.sql
   
         Primary Key: No           
+          Primary Key: Yes           
           Primary Key: No           
           Primary Key: No           
           Primary Key: No           
@@ -88,6 +89,7 @@
           Primary Key: No           
           
             
+                
                 
                 
                 

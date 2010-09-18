@@ -1,0 +1,1252 @@
+<?xml version="1.0" ?>
+<workbook>
+  <sheet>
+    <name>Sheet1</name>
+    <row number="0">
+      <col number="0">batch details</col>
+    </row>
+    <row number="1">
+      <col number="0">batch id</col>
+      <col number="1">batch name</col>
+      <col number="2">strength</col>
+      <col number="3">coursecode1</col>
+      <col number="4">coursecode2</col>
+      <col number="5">coursecode3</col>
+      <col number="6">coursecode4</col>
+      <col number="7">coursecode5</col>
+      <col number="8">coursecode6</col>
+    </row>
+    <row number="2">
+      <col number="0">B1</col>
+      <col number="1">CS II</col>
+      <col number="2">23</col>
+      <col number="3">EC-201</col>
+      <col number="4">EC-202</col>
+      <col number="5">EC-203</col>
+      <col number="6">EC-204</col>
+      <col number="7">EC-205</col>
+      <col number="8">EC-206</col>
+    </row>
+    <row number="3">
+      <col number="0">B2</col>
+      <col number="1">EC II</col>
+      <col number="2">48</col>
+      <col number="3">EC-201</col>
+      <col number="4">EC-202</col>
+      <col number="5">EC-203</col>
+      <col number="6">EC-204</col>
+      <col number="7">EC-205</col>
+      <col number="8">EC-207</col>
+    </row>
+    <row number="4">
+      <col number="0">B3</col>
+      <col number="1">CS III</col>
+      <col number="2">63</col>
+      <col number="3">EC-308</col>
+      <col number="4">EC-309</col>
+      <col number="5">EC-310</col>
+      <col number="6">EC-311</col>
+      <col number="7">EC-312</col>
+      <col number="8">EC-313</col>
+    </row>
+    <row number="5">
+      <col number="0">B4</col>
+      <col number="1">EC III</col>
+      <col number="2">56</col>
+      <col number="3">EC-308</col>
+      <col number="4">EC-309</col>
+      <col number="5">EC-310</col>
+      <col number="6">EC-314</col>
+      <col number="7">EC-315</col>
+      <col number="8">EC-316</col>
+    </row>
+    <row number="6">
+      <col number="0">B5</col>
+      <col number="1">CS IV</col>
+      <col number="2">75</col>
+      <col number="3">EC-417</col>
+      <col number="4">EC-418</col>
+      <col number="5">EC-419</col>
+      <col number="6">EC-420</col>
+      <col number="7">EC-421</col>
+    </row>
+    <row number="7">
+      <col number="0">B6</col>
+      <col number="1">CSI IV</col>
+      <col number="2">44</col>
+      <col number="3">EC-417</col>
+      <col number="4">EC-418</col>
+      <col number="5">EC-422</col>
+      <col number="6">EC-423</col>
+      <col number="7">EC-424</col>
+    </row>
+    <row number="8">
+      <col number="0">B7</col>
+      <col number="1">EC IV</col>
+      <col number="2">36</col>
+      <col number="3">EC-425</col>
+      <col number="4">EC-426</col>
+      <col number="5">EC-427</col>
+      <col number="6">EC-428</col>
+      <col number="7">EC-429</col>
+    </row>
+    <row number="9">
+      <col number="0">B8</col>
+      <col number="1">ECW IV</col>
+      <col number="2">74</col>
+      <col number="3">EC-425</col>
+      <col number="4">EC-426</col>
+      <col number="5">EC-430</col>
+      <col number="6">EC-431</col>
+      <col number="7">EC-432</col>
+    </row>
+    <row number="10">
+      <col number="0">B9</col>
+      <col number="1">CSI V</col>
+      <col number="2">23</col>
+      <col number="3">EC-651</col>
+      <col number="4">EC-533</col>
+    </row>
+    <row number="11">
+      <col number="0">B10</col>
+      <col number="1">ECW V</col>
+      <col number="2">85</col>
+      <col number="3">EC-651</col>
+      <col number="4">EC-534</col>
+    </row>
+    <row number="12">
+      <col number="0">B11</col>
+      <col number="1">IT I</col>
+      <col number="2">45</col>
+      <col number="3">EC-535</col>
+      <col number="4">EC-536</col>
+      <col number="5">EC-537</col>
+      <col number="6">EC-538</col>
+    </row>
+    <row number="13">
+      <col number="0">B12</col>
+      <col number="1">CSM I</col>
+      <col number="2">73</col>
+      <col number="3">EC-535</col>
+      <col number="4">EC-539</col>
+      <col number="5">EC-540</col>
+      <col number="6">EC-541</col>
+    </row>
+    <row number="14">
+      <col number="0">B13</col>
+      <col number="1">SDVT I</col>
+      <col number="2">64</col>
+      <col number="3">EC-535</col>
+      <col number="4">EC-542</col>
+      <col number="5">EC-543</col>
+      <col number="6">EC-544</col>
+    </row>
+    <row number="15">
+      <col number="0">B14</col>
+      <col number="1">RFME I</col>
+      <col number="2">73</col>
+      <col number="3">EC-535</col>
+      <col number="4">EC-545</col>
+      <col number="5">EC-546</col>
+      <col number="6">EC-547</col>
+    </row>
+    <row number="16">
+      <col number="0">B15</col>
+      <col number="1">CAG I</col>
+      <col number="2">23</col>
+      <col number="3">EC-535</col>
+      <col number="4">EC-548</col>
+      <col number="5">EC-549</col>
+      <col number="6">EC-550</col>
+    </row>
+    <row number="17">
+      <col number="0">B16</col>
+      <col number="1">IT II</col>
+      <col number="2">87</col>
+      <col number="3">EC-651</col>
+    </row>
+    <row number="18">
+      <col number="0">B17</col>
+      <col number="1">CSM II</col>
+      <col number="2">73</col>
+      <col number="3">EC-651</col>
+    </row>
+    <row number="19">
+      <col number="0">B18</col>
+      <col number="1">RFME II</col>
+      <col number="2">23</col>
+      <col number="3">EC-651</col>
+    </row>
+    <row number="20">
+      <col number="0">B19</col>
+      <col number="1">SDVT II</col>
+      <col number="2">84</col>
+      <col number="3">EC-652</col>
+    </row>
+    <row number="21">
+      <col number="0">B20</col>
+      <col number="1">CAG II</col>
+      <col number="2">41</col>
+      <col number="3">EC-653</col>
+    </row>
+  </sheet>
+  <sheet>
+    <name>Sheet2</name>
+    <row number="0">
+      <col number="0">courses</col>
+    </row>
+    <row number="1">
+      <col number="0">course_code</col>
+      <col number="1">course_loading</col>
+      <col number="2">lectures per week</col>
+      <col number="3">lecture duration</col>
+      <col number="4">tutorials per week</col>
+      <col number="5">tutorial duration</col>
+      <col number="6">practicals per week</col>
+      <col number="7">practical duration</col>
+      <col number="8">scheduled</col>
+    </row>
+    <row number="2">
+      <col number="0">EC-201</col>
+      <col number="1">P</col>
+      <col number="2">0</col>
+      <col number="3">0</col>
+      <col number="4">0</col>
+      <col number="5">0</col>
+      <col number="6">1</col>
+      <col number="7">3</col>
+      <col number="8">0</col>
+    </row>
+    <row number="3">
+      <col number="0">EC-202</col>
+      <col number="1">P</col>
+      <col number="2">0</col>
+      <col number="3">0</col>
+      <col number="4">0</col>
+      <col number="5">0</col>
+      <col number="6">1</col>
+      <col number="7">3</col>
+      <col number="8">0</col>
+    </row>
+    <row number="4">
+      <col number="0">EC-203</col>
+      <col number="1">L</col>
+      <col number="2">4</col>
+      <col number="3">1</col>
+      <col number="4">0</col>
+      <col number="5">0</col>
+      <col number="6">0</col>
+      <col number="7">0</col>
+      <col number="8">0</col>
+    </row>
+    <row number="5">
+      <col number="0">EC-204</col>
+      <col number="1">L+T</col>
+      <col number="2">3</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+      <col number="5">1</col>
+      <col number="6">0</col>
+      <col number="7">0</col>
+      <col number="8">0</col>
+    </row>
+    <row number="6">
+      <col number="0">EC-205</col>
+      <col number="1">L+T+P</col>
+      <col number="2">3</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+      <col number="5">1</col>
+      <col number="6">1</col>
+      <col number="7">2</col>
+      <col number="8">0</col>
+    </row>
+    <row number="7">
+      <col number="0">EC-206</col>
+      <col number="1">L+T</col>
+      <col number="2">3</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+      <col number="5">1</col>
+      <col number="6">0</col>
+      <col number="7">0</col>
+      <col number="8">0</col>
+    </row>
+    <row number="8">
+      <col number="0">EC-207</col>
+      <col number="1">L+T</col>
+      <col number="2">3</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+      <col number="5">1</col>
+      <col number="6">0</col>
+      <col number="7">0</col>
+      <col number="8">0</col>
+    </row>
+    <row number="9">
+      <col number="0">EC-308</col>
+      <col number="1">P</col>
+      <col number="2">0</col>
+      <col number="3">0</col>
+      <col number="4">0</col>
+      <col number="5">0</col>
+      <col number="6">1</col>
+      <col number="7">3</col>
+      <col number="8">0</col>
+    </row>
+    <row number="10">
+      <col number="0">EC-309</col>
+      <col number="1">L+T</col>
+      <col number="2">3</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+      <col number="5">1</col>
+      <col number="6">0</col>
+      <col number="7">0</col>
+      <col number="8">0</col>
+    </row>
+    <row number="11">
+      <col number="0">EC-310</col>
+      <col number="1">L+T</col>
+      <col number="2">3</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+      <col number="5">1</col>
+      <col number="6">0</col>
+      <col number="7">0</col>
+      <col number="8">0</col>
+    </row>
+    <row number="12">
+      <col number="0">EC-311</col>
+      <col number="1">P</col>
+      <col number="2">0</col>
+      <col number="3">0</col>
+      <col number="4">0</col>
+      <col number="5">0</col>
+      <col number="6">1</col>
+      <col number="7">3</col>
+      <col number="8">0</col>
+    </row>
+    <row number="13">
+      <col number="0">EC-312</col>
+      <col number="1">L+T+P</col>
+      <col number="2">3</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+      <col number="5">1</col>
+      <col number="6">1</col>
+      <col number="7">2</col>
+      <col number="8">0</col>
+    </row>
+    <row number="14">
+      <col number="0">EC-313</col>
+      <col number="1">L+T+P</col>
+      <col number="2">3</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+      <col number="5">1</col>
+      <col number="6">1</col>
+      <col number="7">2</col>
+      <col number="8">0</col>
+    </row>
+    <row number="15">
+      <col number="0">EC-314</col>
+      <col number="1">P</col>
+      <col number="2">0</col>
+      <col number="3">0</col>
+      <col number="4">0</col>
+      <col number="5">0</col>
+      <col number="6">1</col>
+      <col number="7">3</col>
+      <col number="8">0</col>
+    </row>
+    <row number="16">
+      <col number="0">EC-315</col>
+      <col number="1">L</col>
+      <col number="2">4</col>
+      <col number="3">1</col>
+      <col number="4">0</col>
+      <col number="5">0</col>
+      <col number="6">0</col>
+      <col number="7">0</col>
+      <col number="8">0</col>
+    </row>
+    <row number="17">
+      <col number="0">EC-316</col>
+      <col number="1">L</col>
+      <col number="2">4</col>
+      <col number="3">1</col>
+      <col number="4">0</col>
+      <col number="5">0</col>
+      <col number="6">0</col>
+      <col number="7">0</col>
+      <col number="8">0</col>
+    </row>
+    <row number="18">
+      <col number="0">EC-417</col>
+      <col number="1">P</col>
+      <col number="2">0</col>
+      <col number="3">0</col>
+      <col number="4">0</col>
+      <col number="5">0</col>
+      <col number="6">1</col>
+      <col number="7">3</col>
+      <col number="8">0</col>
+    </row>
+    <row number="19">
+      <col number="0">EC-418</col>
+      <col number="1">L+T</col>
+      <col number="2">3</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+      <col number="5">1</col>
+      <col number="6">0</col>
+      <col number="7">0</col>
+      <col number="8">0</col>
+    </row>
+    <row number="20">
+      <col number="0">EC-419</col>
+      <col number="1">P</col>
+      <col number="2">0</col>
+      <col number="3">0</col>
+      <col number="4">0</col>
+      <col number="5">0</col>
+      <col number="6">1</col>
+      <col number="7">3</col>
+      <col number="8">0</col>
+    </row>
+    <row number="21">
+      <col number="0">EC-420</col>
+      <col number="1">L+T+P</col>
+      <col number="2">3</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+      <col number="5">1</col>
+      <col number="6">1</col>
+      <col number="7">2</col>
+      <col number="8">0</col>
+    </row>
+    <row number="22">
+      <col number="0">EC-421</col>
+      <col number="1">L</col>
+      <col number="2">4</col>
+      <col number="3">1</col>
+      <col number="4">0</col>
+      <col number="5">0</col>
+      <col number="6">0</col>
+      <col number="7">0</col>
+      <col number="8">0</col>
+    </row>
+    <row number="23">
+      <col number="0">EC-422</col>
+      <col number="1">P</col>
+      <col number="2">0</col>
+      <col number="3">0</col>
+      <col number="4">0</col>
+      <col number="5">0</col>
+      <col number="6">1</col>
+      <col number="7">3</col>
+      <col number="8">0</col>
+    </row>
+    <row number="24">
+      <col number="0">EC-423</col>
+      <col number="1">L+T</col>
+      <col number="2">3</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+      <col number="5">1</col>
+      <col number="6">0</col>
+      <col number="7">0</col>
+      <col number="8">0</col>
+    </row>
+    <row number="25">
+      <col number="0">EC-424</col>
+      <col number="1">L+T+P</col>
+      <col number="2">3</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+      <col number="5">1</col>
+      <col number="6">1</col>
+      <col number="7">2</col>
+      <col number="8">0</col>
+    </row>
+    <row number="26">
+      <col number="0">EC-425</col>
+      <col number="1">P</col>
+      <col number="2">0</col>
+      <col number="3">0</col>
+      <col number="4">0</col>
+      <col number="5">0</col>
+      <col number="6">1</col>
+      <col number="7">3</col>
+      <col number="8">0</col>
+    </row>
+    <row number="27">
+      <col number="0">EC-426</col>
+      <col number="1">L</col>
+      <col number="2">4</col>
+      <col number="3">1</col>
+      <col number="4">0</col>
+      <col number="5">0</col>
+      <col number="6">0</col>
+      <col number="7">0</col>
+      <col number="8">0</col>
+    </row>
+    <row number="28">
+      <col number="0">EC-427</col>
+      <col number="1">P</col>
+      <col number="2">0</col>
+      <col number="3">0</col>
+      <col number="4">0</col>
+      <col number="5">0</col>
+      <col number="6">1</col>
+      <col number="7">3</col>
+      <col number="8">0</col>
+    </row>
+    <row number="29">
+      <col number="0">EC-428</col>
+      <col number="1">L+T</col>
+      <col number="2">3</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+      <col number="5">1</col>
+      <col number="6">0</col>
+      <col number="7">0</col>
+      <col number="8">0</col>
+    </row>
+    <row number="30">
+      <col number="0">EC-429</col>
+      <col number="1">L+T+P</col>
+      <col number="2">3</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+      <col number="5">1</col>
+      <col number="6">1</col>
+      <col number="7">2</col>
+      <col number="8">0</col>
+    </row>
+    <row number="31">
+      <col number="0">EC-430</col>
+      <col number="1">P</col>
+      <col number="2">0</col>
+      <col number="3">0</col>
+      <col number="4">0</col>
+      <col number="5">0</col>
+      <col number="6">1</col>
+      <col number="7">3</col>
+      <col number="8">0</col>
+    </row>
+    <row number="32">
+      <col number="0">EC-431</col>
+      <col number="1">L</col>
+      <col number="2">4</col>
+      <col number="3">1</col>
+      <col number="4">0</col>
+      <col number="5">0</col>
+      <col number="6">0</col>
+      <col number="7">0</col>
+      <col number="8">0</col>
+    </row>
+    <row number="33">
+      <col number="0">EC-432</col>
+      <col number="1">L+T</col>
+      <col number="2">3</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+      <col number="5">1</col>
+      <col number="6">0</col>
+      <col number="7">0</col>
+      <col number="8">0</col>
+    </row>
+    <row number="34">
+      <col number="0">EC-533</col>
+      <col number="1">P</col>
+      <col number="2">0</col>
+      <col number="3">0</col>
+      <col number="4">0</col>
+      <col number="5">0</col>
+      <col number="6">1</col>
+      <col number="7">3</col>
+      <col number="8">0</col>
+    </row>
+    <row number="35">
+      <col number="0">EC-534</col>
+      <col number="1">P</col>
+      <col number="2">0</col>
+      <col number="3">0</col>
+      <col number="4">0</col>
+      <col number="5">0</col>
+      <col number="6">1</col>
+      <col number="7">3</col>
+      <col number="8">0</col>
+    </row>
+    <row number="36">
+      <col number="0">EC-535</col>
+      <col number="1">L+T</col>
+      <col number="2">3</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+      <col number="5">1</col>
+      <col number="6">0</col>
+      <col number="7">0</col>
+      <col number="8">0</col>
+    </row>
+    <row number="37">
+      <col number="0">EC-536</col>
+      <col number="1">P</col>
+      <col number="2">0</col>
+      <col number="3">0</col>
+      <col number="4">0</col>
+      <col number="5">0</col>
+      <col number="6">1</col>
+      <col number="7">3</col>
+      <col number="8">0</col>
+    </row>
+    <row number="38">
+      <col number="0">EC-537</col>
+      <col number="1">L+T+P</col>
+      <col number="2">3</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+      <col number="5">1</col>
+      <col number="6">1</col>
+      <col number="7">2</col>
+      <col number="8">0</col>
+    </row>
+    <row number="39">
+      <col number="0">EC-538</col>
+      <col number="1">L</col>
+      <col number="2">4</col>
+      <col number="3">1</col>
+      <col number="4">0</col>
+      <col number="5">0</col>
+      <col number="6">0</col>
+      <col number="7">0</col>
+      <col number="8">0</col>
+    </row>
+    <row number="40">
+      <col number="0">EC-539</col>
+      <col number="1">P</col>
+      <col number="2">0</col>
+      <col number="3">0</col>
+      <col number="4">0</col>
+      <col number="5">0</col>
+      <col number="6">1</col>
+      <col number="7">3</col>
+      <col number="8">0</col>
+    </row>
+    <row number="41">
+      <col number="0">EC-540</col>
+      <col number="1">L+T</col>
+      <col number="2">3</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+      <col number="5">1</col>
+      <col number="6">0</col>
+      <col number="7">0</col>
+      <col number="8">0</col>
+    </row>
+    <row number="42">
+      <col number="0">EC-541</col>
+      <col number="1">L+T+P</col>
+      <col number="2">3</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+      <col number="5">1</col>
+      <col number="6">1</col>
+      <col number="7">1</col>
+      <col number="8">0</col>
+    </row>
+    <row number="43">
+      <col number="0">EC-542</col>
+      <col number="1">P</col>
+      <col number="2">0</col>
+      <col number="3">0</col>
+      <col number="4">0</col>
+      <col number="5">0</col>
+      <col number="6">1</col>
+      <col number="7">3</col>
+      <col number="8">0</col>
+    </row>
+    <row number="44">
+      <col number="0">EC-543</col>
+      <col number="1">L</col>
+      <col number="2">4</col>
+      <col number="3">1</col>
+      <col number="4">0</col>
+      <col number="5">0</col>
+      <col number="6">0</col>
+      <col number="7">0</col>
+      <col number="8">0</col>
+    </row>
+    <row number="45">
+      <col number="0">EC-544</col>
+      <col number="1">L+T</col>
+      <col number="2">3</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+      <col number="5">1</col>
+      <col number="6">0</col>
+      <col number="7">0</col>
+      <col number="8">0</col>
+    </row>
+    <row number="46">
+      <col number="0">EC-545</col>
+      <col number="1">P</col>
+      <col number="2">0</col>
+      <col number="3">0</col>
+      <col number="4">0</col>
+      <col number="5">0</col>
+      <col number="6">1</col>
+      <col number="7">3</col>
+      <col number="8">0</col>
+    </row>
+    <row number="47">
+      <col number="0">EC-546</col>
+      <col number="1">L</col>
+      <col number="2">4</col>
+      <col number="3">1</col>
+      <col number="4">0</col>
+      <col number="5">0</col>
+      <col number="6">0</col>
+      <col number="7">0</col>
+      <col number="8">0</col>
+    </row>
+    <row number="48">
+      <col number="0">EC-547</col>
+      <col number="1">L+T</col>
+      <col number="2">3</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+      <col number="5">1</col>
+      <col number="6">0</col>
+      <col number="7">0</col>
+      <col number="8">0</col>
+    </row>
+    <row number="49">
+      <col number="0">EC-548</col>
+      <col number="1">P</col>
+      <col number="2">0</col>
+      <col number="3">0</col>
+      <col number="4">0</col>
+      <col number="5">0</col>
+      <col number="6">1</col>
+      <col number="7">3</col>
+      <col number="8">0</col>
+    </row>
+    <row number="50">
+      <col number="0">EC-549</col>
+      <col number="1">L+T+P</col>
+      <col number="2">3</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+      <col number="5">1</col>
+      <col number="6">1</col>
+      <col number="7">2</col>
+      <col number="8">0</col>
+    </row>
+    <row number="51">
+      <col number="0">EC-550</col>
+      <col number="1">L+T</col>
+      <col number="2">3</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+      <col number="5">1</col>
+      <col number="6">0</col>
+      <col number="7">0</col>
+      <col number="8">0</col>
+    </row>
+    <row number="52">
+      <col number="0">EC-651</col>
+      <col number="1">L+T+P</col>
+      <col number="2">3</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+      <col number="5">1</col>
+      <col number="6">1</col>
+      <col number="7">2</col>
+      <col number="8">0</col>
+    </row>
+    <row number="53">
+      <col number="0">EC-652</col>
+      <col number="1">L</col>
+      <col number="2">4</col>
+      <col number="3">1</col>
+      <col number="4">0</col>
+      <col number="5">0</col>
+      <col number="6">0</col>
+      <col number="7">0</col>
+      <col number="8">0</col>
+    </row>
+    <row number="54">
+      <col number="0">EC-653</col>
+      <col number="1">L</col>
+      <col number="2">4</col>
+      <col number="3">1</col>
+      <col number="4">0</col>
+      <col number="5">0</col>
+      <col number="6">0</col>
+      <col number="7">0</col>
+      <col number="8">0</col>
+    </row>
+    <row number="55">
+      <col number="0">EC-101</col>
+      <col number="1">L</col>
+      <col number="2">4</col>
+      <col number="3">1</col>
+      <col number="4">0</col>
+      <col number="5">0</col>
+      <col number="6">0</col>
+      <col number="7">0</col>
+      <col number="8">1</col>
+    </row>
+    <row number="56">
+      <col number="0">EC-102</col>
+      <col number="1">L+T</col>
+      <col number="2">3</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+      <col number="5">1</col>
+      <col number="6">0</col>
+      <col number="7">0</col>
+      <col number="8">1</col>
+    </row>
+    <row number="57">
+      <col number="0">EC-103</col>
+      <col number="1">L+T+P</col>
+      <col number="2">3</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+      <col number="5">1</col>
+      <col number="6">1</col>
+      <col number="7">2</col>
+      <col number="8">1</col>
+    </row>
+    <row number="58">
+      <col number="0">EC-104</col>
+      <col number="1">L+T</col>
+      <col number="2">3</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+      <col number="5">1</col>
+      <col number="6">0</col>
+      <col number="7">0</col>
+      <col number="8">1</col>
+    </row>
+    <row number="59">
+      <col number="0">EC-105</col>
+      <col number="1">L</col>
+      <col number="2">3</col>
+      <col number="3">1</col>
+      <col number="4">0</col>
+      <col number="5">0</col>
+      <col number="6">0</col>
+      <col number="7">0</col>
+      <col number="8">1</col>
+    </row>
+  </sheet>
+  <sheet>
+    <name>Sheet3</name>
+    <row number="0">
+      <col number="0">faculty</col>
+    </row>
+    <row number="1">
+      <col number="0">faculty name</col>
+      <col number="1">Faculty id</col>
+      <col number="2">department</col>
+      <col number="3">institute</col>
+      <col number="4">Course 1</col>
+      <col number="5">Course2</col>
+    </row>
+    <row number="2">
+      <col number="0">Padam kumar</col>
+      <col number="1">PK</col>
+      <col number="2">EC</col>
+      <col number="3">IITR</col>
+      <col number="4">EC-201</col>
+      <col number="5">EC-430</col>
+      <col number="6">EC-425</col>
+    </row>
+    <row number="3">
+      <col number="0">Manoj Mishra</col>
+      <col number="1">MM</col>
+      <col number="2">EC</col>
+      <col number="3">IITR</col>
+      <col number="4">EC-202</col>
+      <col number="5">EC-431</col>
+      <col number="6">EC-426</col>
+    </row>
+    <row number="4">
+      <col number="0">Kumkum Garg</col>
+      <col number="1">KKG</col>
+      <col number="2">EC</col>
+      <col number="3">IITR</col>
+      <col number="4">EC-203</col>
+      <col number="5">EC-432</col>
+      <col number="6">EC-427</col>
+    </row>
+    <row number="5">
+      <col number="0">Kuldeep Singh</col>
+      <col number="1">KDS</col>
+      <col number="2">EC</col>
+      <col number="3">IITR</col>
+      <col number="4">EC-204</col>
+      <col number="5">EC-533</col>
+      <col number="6">EC-428</col>
+    </row>
+    <row number="6">
+      <col number="0">Durga Toshniwal</col>
+      <col number="1">DT</col>
+      <col number="2">EC</col>
+      <col number="3">IITR</col>
+      <col number="4">EC-205</col>
+      <col number="5">EC-534</col>
+      <col number="6">EC-429</col>
+    </row>
+    <row number="7">
+      <col number="0">S. P. Yadav</col>
+      <col number="1">SPY</col>
+      <col number="2">EC</col>
+      <col number="3">IITR</col>
+      <col number="4">EC-206</col>
+      <col number="5">EC-535</col>
+      <col number="6">EC-550</col>
+    </row>
+    <row number="8">
+      <col number="0">S N Sinha</col>
+      <col number="1">SNS</col>
+      <col number="2">EC</col>
+      <col number="3">IITR</col>
+      <col number="4">EC-207</col>
+      <col number="5">EC-536</col>
+      <col number="6">EC-651</col>
+    </row>
+    <row number="9">
+      <col number="0">R C Joshi</col>
+      <col number="1">RCJ</col>
+      <col number="2">EC</col>
+      <col number="3">IITR</col>
+      <col number="4">EC-308</col>
+      <col number="5">EC-537</col>
+      <col number="6">EC-652</col>
+    </row>
+    <row number="10">
+      <col number="0">Rajdeep Niyogi</col>
+      <col number="1">RN</col>
+      <col number="2">EC</col>
+      <col number="3">IITR</col>
+      <col number="4">EC-309</col>
+      <col number="5">EC-538</col>
+      <col number="6">EC-653</col>
+    </row>
+    <row number="11">
+      <col number="0">Arun Kumar</col>
+      <col number="1">AK</col>
+      <col number="2">EC</col>
+      <col number="3">IITR</col>
+      <col number="4">EC-310</col>
+      <col number="5">EC-539</col>
+      <col number="6">EC-548</col>
+    </row>
+    <row number="12">
+      <col number="0">A K Sarje</col>
+      <col number="1">AKS</col>
+      <col number="2">EC</col>
+      <col number="3">IITR</col>
+      <col number="4">EC-311</col>
+      <col number="5">EC-540</col>
+      <col number="6">EC-549</col>
+    </row>
+    <row number="13">
+      <col number="0">Vinod Kumar</col>
+      <col number="1">VK</col>
+      <col number="2">EC</col>
+      <col number="3">IITR</col>
+      <col number="4">EC-312</col>
+      <col number="5">EC-541</col>
+    </row>
+    <row number="14">
+      <col number="0">N P Padhy</col>
+      <col number="1">NPP</col>
+      <col number="2">EC</col>
+      <col number="3">IITR</col>
+      <col number="4">EC-313</col>
+      <col number="5">EC-542</col>
+    </row>
+    <row number="15">
+      <col number="0">R S Anand</col>
+      <col number="1">RSA</col>
+      <col number="2">EC</col>
+      <col number="3">IITR</col>
+      <col number="4">EC-314</col>
+      <col number="5">EC-543</col>
+    </row>
+    <row number="16">
+      <col number="0">Pramod Agarwal</col>
+      <col number="1">PA</col>
+      <col number="2">EC</col>
+      <col number="3">IITR</col>
+      <col number="4">EC-315</col>
+      <col number="5">EC-544</col>
+    </row>
+    <row number="17">
+      <col number="0">D K Mehra</col>
+      <col number="1">DKM</col>
+      <col number="2">EC</col>
+      <col number="3">IITR</col>
+      <col number="4">EC-316</col>
+      <col number="5">EC-545</col>
+    </row>
+    <row number="18">
+      <col number="0">A K Saxena</col>
+      <col number="1">AKX</col>
+      <col number="2">EC</col>
+      <col number="3">IITR</col>
+      <col number="4">EC-417</col>
+      <col number="5">EC-546</col>
+    </row>
+    <row number="19">
+      <col number="0">S Mukharjee</col>
+      <col number="1">SM</col>
+      <col number="2">EC</col>
+      <col number="3">IITR</col>
+      <col number="4">EC-418</col>
+      <col number="5">EC-547</col>
+    </row>
+    <row number="20">
+      <col number="0">Debasish  Gosh</col>
+      <col number="1">DG</col>
+      <col number="2">EC</col>
+      <col number="3">IITR</col>
+      <col number="4">EC-419</col>
+      <col number="5">EC-101</col>
+    </row>
+    <row number="21">
+      <col number="0">H O Gupta</col>
+      <col number="1">HOG</col>
+      <col number="2">EC</col>
+      <col number="3">IITR</col>
+      <col number="4">EC-420</col>
+      <col number="5">EC-102</col>
+    </row>
+    <row number="22">
+      <col number="0">M J Nigam</col>
+      <col number="1">MJN</col>
+      <col number="2">EC</col>
+      <col number="3">IITR</col>
+      <col number="4">EC-421</col>
+      <col number="5">EC-103</col>
+    </row>
+    <row number="23">
+      <col number="0">Vikas Mohanti</col>
+      <col number="1">VM</col>
+      <col number="2">EC</col>
+      <col number="3">IITR</col>
+      <col number="4">EC-422</col>
+      <col number="5">EC-104</col>
+    </row>
+    <row number="24">
+      <col number="0">Anjali Sardana</col>
+      <col number="1">AS</col>
+      <col number="2">EC</col>
+      <col number="3">IITR</col>
+      <col number="4">EC-423</col>
+      <col number="5">EC-105</col>
+    </row>
+    <row number="25">
+      <col number="0">Babita Sinha</col>
+      <col number="1">BS</col>
+      <col number="2">EC</col>
+      <col number="3">IITR</col>
+      <col number="4">EC-424</col>
+    </row>
+  </sheet>
+  <sheet>
+    <name>Sheet4</name>
+    <row number="0">
+      <col number="0">venue</col>
+    </row>
+    <row number="1">
+      <col number="0">venue code</col>
+      <col number="1">capacity</col>
+      <col number="2">computer nos.</col>
+      <col number="3">projector</col>
+      <col number="4">type</col>
+    </row>
+    <row number="2">
+      <col number="0">L-201</col>
+      <col number="1">100</col>
+      <col number="2">1</col>
+      <col number="3">0</col>
+      <col number="4">2</col>
+    </row>
+    <row number="3">
+      <col number="0">L-202</col>
+      <col number="1">100</col>
+      <col number="2">1</col>
+      <col number="3">0</col>
+      <col number="4">2</col>
+    </row>
+    <row number="4">
+      <col number="0">L-203</col>
+      <col number="1">200</col>
+      <col number="2">1</col>
+      <col number="3">0</col>
+      <col number="4">2</col>
+    </row>
+    <row number="5">
+      <col number="0">L-204</col>
+      <col number="1">200</col>
+      <col number="2">1</col>
+      <col number="3">0</col>
+      <col number="4">2</col>
+    </row>
+    <row number="6">
+      <col number="0">L-205</col>
+      <col number="1">200</col>
+      <col number="2">1</col>
+      <col number="3">0</col>
+      <col number="4">2</col>
+    </row>
+    <row number="7">
+      <col number="0">L-206</col>
+      <col number="1">100</col>
+      <col number="2">1</col>
+      <col number="3">0</col>
+      <col number="4">2</col>
+    </row>
+    <row number="8">
+      <col number="0">Audi</col>
+      <col number="1">200</col>
+      <col number="2">1</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+    </row>
+    <row number="9">
+      <col number="0">S-301</col>
+      <col number="1">60</col>
+      <col number="2">1</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+    </row>
+    <row number="10">
+      <col number="0">S-302</col>
+      <col number="1">60</col>
+      <col number="2">1</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+    </row>
+    <row number="11">
+      <col number="0">S-303</col>
+      <col number="1">60</col>
+      <col number="2">1</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+    </row>
+    <row number="12">
+      <col number="0">S-304</col>
+      <col number="1">60</col>
+      <col number="2">1</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+    </row>
+    <row number="13">
+      <col number="0">S-305</col>
+      <col number="1">60</col>
+      <col number="2">1</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+    </row>
+    <row number="14">
+      <col number="0">S-306</col>
+      <col number="1">60</col>
+      <col number="2">1</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+    </row>
+    <row number="15">
+      <col number="0">S-307</col>
+      <col number="1">60</col>
+      <col number="2">1</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+    </row>
+    <row number="16">
+      <col number="0">S-308</col>
+      <col number="1">60</col>
+      <col number="2">1</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+    </row>
+    <row number="17">
+      <col number="0">S-309</col>
+      <col number="1">150</col>
+      <col number="2">1</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+    </row>
+    <row number="18">
+      <col number="0">S-310</col>
+      <col number="1">150</col>
+      <col number="2">1</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+    </row>
+    <row number="19">
+      <col number="0">S-311</col>
+      <col number="1">150</col>
+      <col number="2">1</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+    </row>
+    <row number="20">
+      <col number="0">S-312</col>
+      <col number="1">150</col>
+      <col number="2">1</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+    </row>
+    <row number="21">
+      <col number="0">S-313</col>
+      <col number="1">150</col>
+      <col number="2">1</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+    </row>
+    <row number="22">
+      <col number="0">S-314</col>
+      <col number="1">150</col>
+      <col number="2">1</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+    </row>
+    <row number="23">
+      <col number="0">S-315</col>
+      <col number="1">100</col>
+      <col number="2">1</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+    </row>
+    <row number="24">
+      <col number="0">S-316</col>
+      <col number="1">60</col>
+      <col number="2">1</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+    </row>
+    <row number="25">
+      <col number="0">S-317</col>
+      <col number="1">200</col>
+      <col number="2">1</col>
+      <col number="3">1</col>
+      <col number="4">1</col>
+    </row>
+    <row number="26">
+      <col number="0">L-207</col>
+      <col number="1">200</col>
+      <col number="2">1</col>
+      <col number="3">0</col>
+      <col number="4">2</col>
+    </row>
+  </sheet>
+</workbook>

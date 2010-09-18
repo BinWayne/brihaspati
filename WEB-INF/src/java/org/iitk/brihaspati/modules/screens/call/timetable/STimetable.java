@@ -532,17 +532,29 @@ public class STimetable implements Constants {
 	@SuppressWarnings("unchecked")
 	public ArrayList<Event> loadFromDB() 
 	throws TimetableException {
+		System.out.println("Entering loadFromDB");
 		ArrayList<Event> events = new ArrayList<Event>();
 		int count = 0;
 		try {
+			System.out.println("Entering try");
 			Criteria crit = new Criteria();
-			List v = EventsPeer.doSelect(crit);
-			Iterator i = v.iterator();
+			List v = BasePeer.executeQuery("select event from " + EventsPeer.TABLE_NAME);
+			//System.out.println("got list l: " + l.size());
+			//List<Event> v = EventsPeer.doSelect(crit);
+			System.out.println("Do Select1: " + v.size());
+			Iterator<Event> i = v.iterator();
+			System.out.println("Do Select2: " + v.size());
+			int j = 0;
 			while (i.hasNext()) {
-				Event e = (Event)i.next();
+				System.out.println("here: " + i.next().getClass().getName());
+				Event e = (Event)(i.next());
+				System.out.println("here too: " + j);
 				events.add(e);
+				System.out.println("here too3: " + j++);
 			}
-		} catch (TorqueException e) {
+			System.out.println("Leaving try");
+		} catch (Exception e) {
+			System.out.println("Error while loading events: " + e);
 			e.printStackTrace();
 		}
 		System.out.println("Loaded " + count + " events from DB.");

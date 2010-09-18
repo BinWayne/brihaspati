@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.apache.turbine.modules.actions.VelocityAction;
+import org.apache.turbine.om.security.User;
 import org.apache.turbine.util.RunData;
 import org.apache.velocity.context.Context;
 import org.iitk.brihaspati.modules.screens.call.timetable.*;
@@ -119,7 +120,34 @@ public class GenerateTimeTable extends VelocityAction {
 	public void doGenerate(RunData data, Context context) {
 		String msg = "There was an error in generating timetables.<br/>";
 		boolean error = false;
-		String path = data.getServletContext().getRealPath("/reports/");
+		
+		System.out.println("asdf");
+		String xmlFile = (String)data.getParameters().getString("xmlFile", "");
+		if(xmlFile.equals("")) {
+			context.put("msg", msg);
+			return;
+		}
+
+		User user = data.getUser();
+		String username = user.getName();
+		String department =(String)data.getSession().getAttribute("department");
+		String savePath = "/reports/" + username + "/" + department + "/reports/";
+		String path = data.getServletContext().getRealPath(savePath);
+		
+		xmlFile = data.getServletContext().getRealPath("/reports/" + username + "/" + department + "/uploads") + "/" + xmlFile;
+		try {
+			System.out.println("Loading "+ xmlFile + " in the database");
+			new ParseXml(xmlFile);
+			System.out.println("Loading completed.");
+//			context.put("msg", "The file has been successfully uploaded.");
+		} catch(Throwable t) {
+			t.printStackTrace();
+			System.out.println("SEVERE: Error while loading into database.");
+			context.put("msg", "The uploaded file is not compatible with our database.");
+			return;
+		}
+		
+		
 		try {
 			/*
 			 * This line is important. Somehow some events get duplicated
@@ -209,6 +237,7 @@ public class GenerateTimeTable extends VelocityAction {
 	public void doVerification(RunData data, Context context) {
 		boolean valid = false;
 		String msg = "There was error in processing your request.";
+		System.out.println("wearehere");
 		String eventSlotMap = data.getRequest().getParameter("eventSlotMap");
 		Hashtable<Integer, Integer> eventSlotHash = Methods.getEventSlotHash(eventSlotMap);
 		ArrayList<Event> eventsInDB = new ArrayList<Event>();
@@ -219,12 +248,16 @@ public class GenerateTimeTable extends VelocityAction {
 		eventSlotMap = null;
 
 		try {
+			System.out.println("weareherehere");
 			eventsInDB = best.loadFromDB();
+			System.out.println("weareheretoo");
 		} catch (TimetableException e1) {
+			System.out.println(e1);
 			System.out.println(e1.getMessage());
 		}
 		
 		try{
+			System.out.println("weareheretoo3");
 			for(int j = 0; j < eventsInDB.size(); j++) {
 				event = eventsInDB.get(j);
 				int id = event.getId();
@@ -244,11 +277,14 @@ public class GenerateTimeTable extends VelocityAction {
 			}
 			if(eventsToVerify.size() > 0) {
 				valid = Methods.checkAvailability(eventsToVerify, eventsInDB, eventsInNewTimetable, eventsInOldTimetable);
+				System.out.println("weareheretoo4");
 				if(valid) {
+					System.out.println("weareheretoo5");
 					eventSlotMap = Methods.getFormattedData(eventsToVerify);
 				}
 			}
 			else {
+				System.out.println("weareheretoo6");
 				throw new TimetableException("You made no changes to the timetable.");
 			}
 		} catch (TimetableException e) {

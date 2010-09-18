@@ -2,10 +2,13 @@ $page.DefaultDoctype
 $page.setBgColor("$ui.bgcolor")
 $page.setTitle("Generate Timetable")
 
+#set($user = $data.getUser().getName())
+#set($lang = $data.getUser().getTemp("lang" ).toString())
+#set($department = $data.getSession().getAttribute("department"))
 
-<a href="$content.getURI("/reports/html/batch")"> Batches </a> <br />
-<a href="$content.getURI("/reports/html/faculty")"> Faculty </a> <br />
-<a href="$content.getURI("/reports/html/room")"> Rooms </a> <br />
+<a href="$content.getURI("/reports/$user/$department/reports/html/batch")"> Batches </a> <br />
+<a href="$content.getURI("/reports/$user/$department/reports/html/faculty")"> Faculty </a> <br />
+<a href="$content.getURI("/reports/$user/$department/reports/html/room")"> Rooms </a> <br />
 
 #if($valid == "true")
 There were no conflicts with the time table. Would you like to save the changes?

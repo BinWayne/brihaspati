@@ -1,2 +1,0 @@
-#set($Brihaspatilanguage = $data.getUser().getTemp("lang" ).toString()) 
-#parse("screens/$Brihaspatilanguage/timetable/test.vm") 

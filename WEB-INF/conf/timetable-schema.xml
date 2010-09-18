@@ -17,6 +17,30 @@
 		description="Event Object"/>
   </table>
   
+  <table name="table_id" description="Unique ID for each timetable with its corresponding path">
+    <column
+		name="id"
+		primaryKey="true"
+		autoIncrement="true"
+		required="true"
+		type="INTEGER"
+		description="Id of the timetable"/>
+    <column
+    		name="path"
+		size="255"
+		type="VARCHAR"/>
+    <column
+    		name="user"
+		size="255"
+		type="VARCHAR"/>
+    <column
+    		name="date"
+		type="DATE"/>
+    <column
+    		name="time"
+		type="TIME"/>
+  </table>
+  
   <table name="fac_info" description="Faculty Information">
   	<column
   		name="fac_id"

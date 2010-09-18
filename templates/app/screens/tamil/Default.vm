@@ -88,7 +88,7 @@ $page.setBgColor("$ui.bgcolor")
 		   					<img src=$content.getURI("/images/calculater.JPG") style=border:0px solid;><font size=2>கணிப்பான்</font></a>
                 					</td> ##12#h td closed
                 					<td> ##13#h td
-            						<a href=$link.setPage("call,timetable,Generate.vm") style=text-decoration:none>
+            						<a href=$link.setActionEvent("TimetableAction", "doInit").setPage("call,timetable,Index.vm") style=text-decoration:none>
 		   					<font size=2>Timetable</font></a>
                 					</td> ##13#h td closed
                 					<td> ##14#h td

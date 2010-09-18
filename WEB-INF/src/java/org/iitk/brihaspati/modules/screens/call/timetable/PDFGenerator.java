@@ -230,8 +230,8 @@ public class PDFGenerator implements Constants {
 				document.add(iitrLogo);
 			}
 			catch(Exception e){
-				System.out.println("Error while loading Institute logo.");
-				Methods.addErrorMsg("Error while loading Institute logo.");
+			//	System.out.println("Error while loading Institute logo.");
+			//	Methods.addErrorMsg("Error while loading Institute logo.");
 				//System.out.println(e.getMessage());
 			}
 			Font f;
@@ -365,8 +365,8 @@ public class PDFGenerator implements Constants {
 				document.add(iitrLogo);
 			}
 			catch(Exception e){
-				System.out.println("Error while loading Institute logo.");
-				Methods.addErrorMsg("Error while loading Institute logo.");
+			//	System.out.println("Error while loading Institute logo.");
+			//	Methods.addErrorMsg("Error while loading Institute logo.");
 				//System.out.println(e.getMessage());
 			}
 			Font f;
@@ -454,6 +454,10 @@ public class PDFGenerator implements Constants {
 							}
 							for (Batch bth : event.getBatchList()){
 								if (bth.getId().equals(batchCode)) {
+									System.out.println(event.getType());
+									System.out.println(event.getCourse().getCourseCode());
+									System.out.println(event.getRoom());
+									System.out.println(event.getProfessor().getId());
 									cellText = CLASS_CODES[event.getType()] 
 									                       + event.getCourse().getCourseCode() + "\n" 
 									                       + event.getRoom().getCode() + "\n"
@@ -499,8 +503,8 @@ public class PDFGenerator implements Constants {
 				document.add(iitrLogo);
 			}
 			catch(Exception e){
-				System.out.println("Error while loading Institute logo.");
-				Methods.addErrorMsg("Error while loading Institute logo.");
+				//System.out.println("Error while loading Institute logo.");
+				//Methods.addErrorMsg("Error while loading Institute logo.");
 				//System.out.println(e.getMessage());
 			}
 			Font f;
@@ -848,7 +852,7 @@ public class PDFGenerator implements Constants {
 		text += p;
 		p = "<p align=\"center\">Spring Semester 2010-2011</p>";
 		text += p;
-		text += "\n\n<form method=\"post\" action=\"/brihaspati/servlet/brihaspati/template/" +
+		text += "\n\n<form method=\"post\" action=\"/brihaspati/servlet/brihaspati/template/call%2C" +
 					"timetable%2Cbfr_html.vm/action/GenerateTimeTable\">" +
 				"	<input type=\"hidden\" name=\"eventSlotMap\" value=\"\" />" +
 				"	<span class=\"heading_1\">" + heading_1 + "</span>" +

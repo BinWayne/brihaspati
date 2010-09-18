@@ -2,7 +2,12 @@ $page.DefaultDoctype
 $page.setBgColor("$ui.bgcolor")
 $page.setTitle("Generate Timetable")
 
+#set($user = $data.getUser().getName())
+#set($lang = $data.getUser().getTemp("lang" ).toString())
+#set($department = $data.getSession().getAttribute("department"))
 
-<a href="$content.getURI("/reports/pdf/batch")"> Batches </a> <br />
-<a href="$content.getURI("/reports/pdf/faculty")"> Faculty </a> <br />
-<a href="$content.getURI("/reports/pdf/room")"> Rooms </a> <br />
+<a href="$content.getURI("/reports/$user/$department/reports/pdf/batch")"> Batches </a> <br />
+<a href="$content.getURI("/reports/$user/$department/reports/pdf/faculty")"> Faculty </a> <br />
+<a href="$content.getURI("/reports/$user/$department/reports/pdf/room")"> Rooms </a> <br />
+
+

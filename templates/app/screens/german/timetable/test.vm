@@ -1,3 +1,0 @@
-$page.DefaultDoctype
-$page.setBgColor("$ui.bgcolor")
-<a href="$link.setPage("timetable,uploadConfirm.vm")">Test</a>

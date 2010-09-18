@@ -10,6 +10,21 @@ CREATE TABLE events
 );
 
 # -----------------------------------------------------------------------
+# table_id
+# -----------------------------------------------------------------------
+drop table if exists table_id;
+
+CREATE TABLE table_id
+(
+		            id INTEGER NOT NULL,
+		            path VARCHAR (255),
+		            user VARCHAR (255),
+		            date DATETIME,
+		            time TIME,
+    PRIMARY KEY(id)
+);
+
+# -----------------------------------------------------------------------
 # fac_info
 # -----------------------------------------------------------------------
 drop table if exists fac_info;
@@ -87,6 +102,7 @@ CREATE TABLE venue
 		            projector INTEGER,
 		            type INTEGER
 );
+  
   
   
   
