@@ -34,11 +34,12 @@
 		size="255"
 		type="VARCHAR"/>
     <column
+    		name="department"
+		size="255"
+		type="VARCHAR"/>
+    <column
     		name="date"
 		type="DATE"/>
-    <column
-    		name="time"
-		type="TIME"/>
   </table>
   
   <table name="fac_info" description="Faculty Information">

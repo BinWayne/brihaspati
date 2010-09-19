@@ -65,7 +65,7 @@ public class TableIdMapBuilder implements MapBuilder
               tMap.addPrimaryKey("table_id.ID", new Integer(0));
                     tMap.addColumn("table_id.PATH", new String());
                     tMap.addColumn("table_id.USER", new String());
+                    tMap.addColumn("table_id.DEPARTMENT", new String());
                     tMap.addColumn("table_id.DATE", new Date());
-                    tMap.addColumn("table_id.TIME", new Date());
           }
 }

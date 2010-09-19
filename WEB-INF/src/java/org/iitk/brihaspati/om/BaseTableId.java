@@ -42,11 +42,11 @@ public abstract class BaseTableId extends BaseObject
     /** The value for the user field */
     private String user;
       
+    /** The value for the department field */
+    private String department;
+      
     /** The value for the date field */
     private Date date;
-      
-    /** The value for the time field */
-    private Date time;
   
     
     /**
@@ -134,6 +134,34 @@ public abstract class BaseTableId extends BaseObject
               }
   
     /**
+     * Get the Department
+     *
+     * @return String
+     */
+    public String getDepartment()
+    {
+        return department;
+    }
+
+                        
+    /**
+     * Set the value of Department
+     *
+     * @param v new value
+     */
+    public void setDepartment(String v) 
+    {
+    
+                  if (!ObjectUtils.equals(this.department, v))
+              {
+            this.department = v;
+            setModified(true);
+        }
+    
+          
+              }
+  
+    /**
      * Get the Date
      *
      * @return Date
@@ -155,34 +183,6 @@ public abstract class BaseTableId extends BaseObject
                   if (!ObjectUtils.equals(this.date, v))
               {
             this.date = v;
-            setModified(true);
-        }
-    
-          
-              }
-  
-    /**
-     * Get the Time
-     *
-     * @return Date
-     */
-    public Date getTime()
-    {
-        return time;
-    }
-
-                        
-    /**
-     * Set the value of Time
-     *
-     * @param v new value
-     */
-    public void setTime(Date v) 
-    {
-    
-                  if (!ObjectUtils.equals(this.time, v))
-              {
-            this.time = v;
             setModified(true);
         }
     
@@ -320,8 +320,8 @@ public abstract class BaseTableId extends BaseObject
           copyObj.setId(id);
           copyObj.setPath(path);
           copyObj.setUser(user);
+          copyObj.setDepartment(department);
           copyObj.setDate(date);
-          copyObj.setTime(time);
   
                     copyObj.setId(0);
                                     
@@ -353,11 +353,11 @@ public abstract class BaseTableId extends BaseObject
         str.append("User = ")
            .append(getUser())
            .append("\n");
+        str.append("Department = ")
+           .append(getDepartment())
+           .append("\n");
         str.append("Date = ")
            .append(getDate())
-           .append("\n");
-        str.append("Time = ")
-           .append(getTime())
            .append("\n");
         return(str.toString());
     }

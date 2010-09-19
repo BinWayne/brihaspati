@@ -1,15 +1,22 @@
 package org.iitk.brihaspati.modules.screens.call.timetable;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectOutputStream;
+import java.util.Date;
+import java.io.*;
 
+import org.apache.torque.Torque;
 import org.apache.torque.TorqueException;
 import org.apache.torque.util.BasePeer;
 import org.apache.torque.util.Criteria;
 import org.iitk.brihaspati.om.Events;
+import org.iitk.brihaspati.om.*;
 import org.iitk.brihaspati.om.EventsPeer;
 
 public class STimetable implements Constants {
@@ -458,6 +465,84 @@ public class STimetable implements Constants {
 
 	protected boolean haveSameDay(int slotIndex1, Integer slotIndex2) {
 		return (slotIndex1 / Constants.SLOTS_IN_DAY == slotIndex2 / Constants.SLOTS_IN_DAY);
+	}
+
+	public void saveTable(String tableId, String username, String department, String path, ArrayList<Event> events) {
+		System.out.println("Saving total: " + events.size());
+		int size = events.size();
+		//for(int i = 0; i < size; i++) {
+			//Event event = events.get(i);
+			try {
+				FileOutputStream fout = new FileOutputStream(path + "/" + tableId + ".dat");
+				ObjectOutputStream oos = new ObjectOutputStream(fout);
+				oos.writeObject(events);
+				oos.close();
+			} catch (Exception e) { 
+				e.printStackTrace(); 
+			}
+		//}
+		System.out.println("Successfully saved events");
+	}
+
+	public String getPath(String tableId) {
+		String queryString = "select path from table_id where id=" + tableId;
+		String path = null;
+		if(null == tableId || tableId.equals("")){
+			System.out.println("Empty table id passed in getPath");
+			return null;
+		}
+		try{
+			Connection con = Torque.getConnection();
+			if(null == con) {
+				System.out.println("Null Connection given in loadFromFile");
+				return null;
+			}
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(queryString);
+			rs.next();
+			path = rs.getString(1).trim();
+			System.out.println("Load from file path: " + path);
+		} catch (Exception e) {
+			System.out.println("Error while fetching path: " + e);
+			return null;
+		}
+		return path;
+	}
+
+	public ArrayList<Event> loadFromFile(String tableId) {
+		String path = null;
+		path = getPath(tableId);
+		if(path == null || path.equals("")) {
+			System.out.println("Null path returned in loadFromFile");
+			return null;
+		}
+		path += "/" + tableId + ".dat";
+		System.out.println("Loading from file: " + path);
+		ArrayList<Event> events = null;
+		try {
+			FileInputStream fin = new FileInputStream(path);
+			ObjectInputStream ois = new ObjectInputStream(fin);
+			events = (ArrayList<Event>) ois.readObject();
+			ois.close();
+		} catch (Exception e) { 
+			e.printStackTrace(); 
+		}
+		if(null == events) {
+			System.out.println("Events not loaded from file: " + path);
+			return null;
+		}
+		System.out.println("Successfully loaded from file. Size: " + events.size());
+		return events;
+	}
+
+	public String newInsert(String username, String department, String path) throws Exception {
+		TableId t = new TableId();
+		t.setPath(path);
+		t.setUser(username);
+		t.setDate(new Date());
+		t.setDepartment(department);
+		t.save();
+		return Integer.toString(t.getId());
 	}
 
 	public void newInsertIntoDB(ArrayList<Event> events) throws Exception {

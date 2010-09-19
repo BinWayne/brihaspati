@@ -14,6 +14,7 @@ $page.setTitle("Generate Timetable")
 There were no conflicts with the time table. Would you like to save the changes?
 <form action="$link.setPage("call,timetable,bfr_html.vm").setAction("GenerateTimeTable")" method="post">
 	<input type="hidden" name="eventSlotMap" size="40" value="$eventSlotMap" />
+	<input type="hidden" name="tableId" size="40" value="$tableId" />
 	<input type="submit" name="eventSubmit_doCommit" value="Send" />
 </form>
 #elseif($valid == "false")

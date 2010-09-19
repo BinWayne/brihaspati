@@ -118,6 +118,7 @@ public class GenerateTimeTable extends VelocityAction {
 	}
 	
 	public void doGenerate(RunData data, Context context) {
+		System.out.println("------------------------- Entering Generate------------------------------");
 		String msg = "There was an error in generating timetables.<br/>";
 		boolean error = false;
 		
@@ -133,6 +134,10 @@ public class GenerateTimeTable extends VelocityAction {
 		String department =(String)data.getSession().getAttribute("department");
 		String savePath = "/reports/" + username + "/" + department + "/reports/";
 		String path = data.getServletContext().getRealPath(savePath);
+		/*
+		 * "path" variable is stored in db. So it is the most important variable.
+		 */
+		String tableId = "";
 		
 		xmlFile = data.getServletContext().getRealPath("/reports/" + username + "/" + department + "/uploads") + "/" + xmlFile;
 		try {
@@ -161,26 +166,31 @@ public class GenerateTimeTable extends VelocityAction {
 			System.out.println("\n");
 			searchBestTimetable();
 			best.setEventData();
-			best.newInsertIntoDB(Data.getInstance().getEventList());
+//			best.newInsertIntoDB(Data.getInstance().getEventList());
 //			best.saveBestTimetable();
 //			System.out.println(Test.counter);
 //			best.displayPenalty();
-		} catch (TimetableException e) {
-			e.printStackTrace();
-			msg += e.getMessage();
-		} catch (DocumentException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		/*
+		 * Here the path of the file in which timetable is stored is to be given.
+		 */
+		try {
+			tableId = best.newInsert(username, department, path);
+			best.saveTable(tableId, username, department, path, Data.getInstance().getEventList());
+			System.out.println("TableId saved is: " + tableId);
+		} catch (Exception e) {
+			System.out.println("ErrorId2: "+e);
+		}
+
 		/*
 		 * This is in separate try/catch as it throws error messages 
 		 * that need to be shown to the user.
 		 */
 		try {
-			reportGen = new PDFGenerator(path);
+			reportGen = new PDFGenerator(path, tableId);
 			if(!error) {
 				msg = "Success";
 			}
@@ -196,18 +206,30 @@ public class GenerateTimeTable extends VelocityAction {
 			e.printStackTrace();
 		}
 		context.put("msg", msg);
+		System.out.println("------------------------- Leaving Generate------------------------------");
 	}
 
 	public void doCommit(RunData data, Context context) {
+		System.out.println("------------------------- Entering Commit------------------------------");
 		String msg = "All changes were made successfully.";
+		User user = data.getUser();
+		String username = user.getName();
+		String department =(String)data.getSession().getAttribute("department");
 		String eventSlotMap = data.getRequest().getParameter("eventSlotMap");
-		String path = data.getRequest().getParameter("path");
+		String tableId = data.getRequest().getParameter("tableId");
+		String path = best.getPath(tableId);
 		Hashtable<Integer, Integer> eventSlotHash = Methods.getEventSlotHash(eventSlotMap);
 		System.out.println(eventSlotHash);
 		ArrayList<Event> eventsInDB = new ArrayList<Event>();
 		Event event;
 		try {
-			eventsInDB = best.loadFromDB();
+			System.out.println("Table id: " + tableId);
+			eventsInDB = best.loadFromFile(tableId);
+			if(eventsInDB == null) {
+				context.put("msg", "Error while retreiving data");
+				context.put("commit", "commit");
+				return;
+			}
 			Set<Integer> eventIds = eventSlotHash.keySet();
 			Iterator<Integer> iter = eventIds.iterator();
 			while(iter.hasNext()) {
@@ -217,10 +239,9 @@ public class GenerateTimeTable extends VelocityAction {
 				event.setSlot(eventSlotHash.get(id));
 				eventsInDB.add(event);
 			}
-			best.newInsertIntoDB(eventsInDB);
-			path = data.getServletContext().getRealPath("/reports/");
+			best.saveTable(tableId, username, department, path, eventsInDB);
 			PDFGenerator pdfg = new PDFGenerator();
-			pdfg.generateFromDB(path, eventsInDB);
+			pdfg.generateFromDB(path, tableId, eventsInDB);
 		} catch (TimetableException e1) {
 			msg = "There was some error in processing you request.";
 			e1.printStackTrace();
@@ -232,13 +253,16 @@ public class GenerateTimeTable extends VelocityAction {
 		context.put("msg", msg);
 		context.put("commit", "commit");
 		context.put("errorMsgs", Methods.getErrorMsgs());
+		System.out.println("------------------------- Leaving Commit------------------------------");
 	}
 	
 	public void doVerification(RunData data, Context context) {
+		System.out.println("------------------------- Entering Verification------------------------------");
 		boolean valid = false;
 		String msg = "There was error in processing your request.";
 		System.out.println("wearehere");
 		String eventSlotMap = data.getRequest().getParameter("eventSlotMap");
+		String tableId = data.getRequest().getParameter("tableId");
 		Hashtable<Integer, Integer> eventSlotHash = Methods.getEventSlotHash(eventSlotMap);
 		ArrayList<Event> eventsInDB = new ArrayList<Event>();
 		ArrayList<Event> eventsInNewTimetable = new ArrayList<Event>();
@@ -247,11 +271,17 @@ public class GenerateTimeTable extends VelocityAction {
 		Event event = null;
 		eventSlotMap = null;
 
+		System.out.println("TableId while verification: " + tableId);
 		try {
 			System.out.println("weareherehere");
-			eventsInDB = best.loadFromDB();
+			eventsInDB = best.loadFromFile(tableId);
+			if(eventsInDB == null) {
+				context.put("msg", "Error while retreiving data");
+				context.put("valid", "false");
+				return;
+			}
 			System.out.println("weareheretoo");
-		} catch (TimetableException e1) {
+		} catch (Exception e1) {
 			System.out.println(e1);
 			System.out.println(e1.getMessage());
 		}
@@ -298,7 +328,9 @@ public class GenerateTimeTable extends VelocityAction {
 		System.out.println("Exiting validation: " + valid);
 		context.put("valid", Boolean.toString(valid));
 		context.put("eventSlotMap", eventSlotMap);
+		context.put("tableId", tableId);
 		context.put("msg", msg);
+		System.out.println("------------------------- Leaving Verification ------------------------------");
 	}
 
 	static public void main(String args[]) {

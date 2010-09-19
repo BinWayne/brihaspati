@@ -60,18 +60,18 @@ public abstract class BaseTableIdPeer
     public static final String PATH;
       /** the column name for the USER field */
     public static final String USER;
+      /** the column name for the DEPARTMENT field */
+    public static final String DEPARTMENT;
       /** the column name for the DATE field */
     public static final String DATE;
-      /** the column name for the TIME field */
-    public static final String TIME;
   
     static
     {
           ID = "table_id.ID";
           PATH = "table_id.PATH";
           USER = "table_id.USER";
+          DEPARTMENT = "table_id.DEPARTMENT";
           DATE = "table_id.DATE";
-          TIME = "table_id.TIME";
           if (Torque.isInit())
         {
             try
@@ -231,8 +231,8 @@ public abstract class BaseTableIdPeer
           criteria.addSelectColumn(ID);
           criteria.addSelectColumn(PATH);
           criteria.addSelectColumn(USER);
+          criteria.addSelectColumn(DEPARTMENT);
           criteria.addSelectColumn(DATE);
-          criteria.addSelectColumn(TIME);
       }
 
     /**
@@ -287,8 +287,8 @@ public abstract class BaseTableIdPeer
                 obj.setId(row.getValue(offset + 0).asInt());
                   obj.setPath(row.getValue(offset + 1).asString());
                   obj.setUser(row.getValue(offset + 2).asString());
-                  obj.setDate(row.getValue(offset + 3).asUtilDate());
-                  obj.setTime(row.getValue(offset + 4).asUtilDate());
+                  obj.setDepartment(row.getValue(offset + 3).asString());
+                  obj.setDate(row.getValue(offset + 4).asUtilDate());
               }
         catch (DataSetException e)
         {
@@ -647,8 +647,8 @@ public abstract class BaseTableIdPeer
                 criteria.add(ID, obj.getId());
                   criteria.add(PATH, obj.getPath());
                   criteria.add(USER, obj.getUser());
+                  criteria.add(DEPARTMENT, obj.getDepartment());
                   criteria.add(DATE, obj.getDate());
-                  criteria.add(TIME, obj.getTime());
           return criteria;
     }
  

@@ -53,7 +53,7 @@ public class PDFGenerator implements Constants {
 		System.out.println("room: " + roomList.size());
 	}
 	
-	public PDFGenerator (String path) throws Exception {
+	public PDFGenerator (String path, String tableId) throws Exception {
 		eventList = new ArrayList<Event>();
 		roomList = new ArrayList<Room>();
 		batchList = new ArrayList<Batch>();
@@ -71,9 +71,9 @@ public class PDFGenerator implements Constants {
 		publishAllBatchesTimetables(path);
 		publishAllFacultyTimetables(path);
 		publishAllRoomTimetables(path);
-		publishAllBatchHTML(path);
-		publishAllFacultyHTML(path);
-		publishAllRoomHTML(path);
+		publishAllBatchHTML(path, tableId);
+		publishAllFacultyHTML(path, tableId);
+		publishAllRoomHTML(path, tableId);
 		if(created) {
 			throw new TimetableException("Some directories were created during " +
 					"generating timetables.<br/>You might not have the necessary " +
@@ -81,7 +81,7 @@ public class PDFGenerator implements Constants {
 		}
 	}
 	
-	public void generateFromDB (String path, ArrayList<Event> eventList) throws Exception {
+	public void generateFromDB (String path, String tableId, ArrayList<Event> eventList) throws Exception {
 		this.eventList = new ArrayList<Event>();
 		roomList = new ArrayList<Room>();
 		batchList = new ArrayList<Batch>();
@@ -99,9 +99,9 @@ public class PDFGenerator implements Constants {
 		publishAllBatchesTimetables(path);
 		publishAllFacultyTimetables(path);
 		publishAllRoomTimetables(path);
-		publishAllBatchHTML(path);
-		publishAllFacultyHTML(path);
-		publishAllRoomHTML(path);
+		publishAllBatchHTML(path, tableId);
+		publishAllFacultyHTML(path, tableId);
+		publishAllRoomHTML(path, tableId);
 		if(created) {
 			throw new TimetableException("Some directories were created during " +
 					"generating timetables.<br/>You might not have the necessary " +
@@ -109,7 +109,7 @@ public class PDFGenerator implements Constants {
 		}
 	}
 	
-	public void publishAllFacultyHTML(String dirName) throws TimetableException,IOException {
+	public void publishAllFacultyHTML(String dirName, String tableId) throws TimetableException,IOException {
 		
 		ArrayList<Faculty> facultyList = this.facultyList;
 
@@ -121,7 +121,7 @@ public class PDFGenerator implements Constants {
 			FileWriter outFile = new FileWriter(dirName + "/html/faculty/" + facultyId + " " + facultyName + ".html");
 			PrintWriter out = new PrintWriter(outFile);
 
-			String text = getHTMLInit(facultyName, facultyId, "faculty");
+			String text = getHTMLInit(facultyName, facultyId, "faculty", tableId);
 			
 			text += "<div id=\"main_container\">" +
 					"<div id=\"drag\">";
@@ -142,7 +142,7 @@ public class PDFGenerator implements Constants {
 		}
 	}
 	
-	public void publishAllRoomHTML(String dirName) throws TimetableException,IOException {
+	public void publishAllRoomHTML(String dirName, String tableId) throws TimetableException,IOException {
 		
 		ArrayList<Room> roomList = this.roomList;
 
@@ -154,7 +154,7 @@ public class PDFGenerator implements Constants {
 			FileWriter outFile = new FileWriter(dirName + "/html/room/" + roomCode + " " + ".html");
 			PrintWriter out = new PrintWriter(outFile);
 
-			String text = getHTMLInit("", roomCode, "room");
+			String text = getHTMLInit("", roomCode, "room", tableId);
 			
 			text += "<div id=\"main_container\">" +
 					"<div id=\"drag\">";
@@ -175,7 +175,7 @@ public class PDFGenerator implements Constants {
 		}
 	}
 	
-	public void publishAllBatchHTML(String dirName) throws TimetableException,IOException {
+	public void publishAllBatchHTML(String dirName, String tableId) throws TimetableException,IOException {
 		
 		ArrayList<Batch> batches = batchList;
 
@@ -185,7 +185,7 @@ public class PDFGenerator implements Constants {
 			FileWriter outFile = new FileWriter(dirName + "/html/batch/" + batchCode + ".html");
 			PrintWriter out = new PrintWriter(outFile);
 
-			String text = getHTMLInit(batchName, batchCode, "batch");
+			String text = getHTMLInit(batchName, batchCode, "batch", tableId);
 			
 			text += "<div id=\"main_container\">" +
 					"<div id=\"drag\">";
@@ -454,10 +454,6 @@ public class PDFGenerator implements Constants {
 							}
 							for (Batch bth : event.getBatchList()){
 								if (bth.getId().equals(batchCode)) {
-									System.out.println(event.getType());
-									System.out.println(event.getCourse().getCourseCode());
-									System.out.println(event.getRoom());
-									System.out.println(event.getProfessor().getId());
 									cellText = CLASS_CODES[event.getType()] 
 									                       + event.getCourse().getCourseCode() + "\n" 
 									                       + event.getRoom().getCode() + "\n"
@@ -785,7 +781,7 @@ public class PDFGenerator implements Constants {
 		"</div><!-- left container -->";
 		return table1;
 	}*/
-	private String getHTMLInit(String name, String code, String initFor){
+	private String getHTMLInit(String name, String code, String initFor, String tableId){
 		String heading_1 = "";
 		String heading_2 = "";
 		if(initFor.equals("batch")) {
@@ -855,6 +851,7 @@ public class PDFGenerator implements Constants {
 		text += "\n\n<form method=\"post\" action=\"/brihaspati/servlet/brihaspati/template/call%2C" +
 					"timetable%2Cbfr_html.vm/action/GenerateTimeTable\">" +
 				"	<input type=\"hidden\" name=\"eventSlotMap\" value=\"\" />" +
+				"	<input type=\"hidden\" name=\"tableId\" value=\"" + tableId + "\" />" +
 				"	<span class=\"heading_1\">" + heading_1 + "</span>" +
 				"	<input class=\"submit_button\" type=\"submit\"  name=\"eventSubmit_doVerification\" " +
 				"		value=\"Check availability\" onClick=\"save(this.form)\" />" +

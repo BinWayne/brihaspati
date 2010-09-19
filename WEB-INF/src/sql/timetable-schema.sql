@@ -19,8 +19,8 @@ CREATE TABLE table_id
 		            id INTEGER NOT NULL,
 		            path VARCHAR (255),
 		            user VARCHAR (255),
+		            department VARCHAR (255),
 		            date DATETIME,
-		            time TIME,
     PRIMARY KEY(id)
 );
 
