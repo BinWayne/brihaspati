@@ -796,8 +796,8 @@ public class PDFGenerator implements Constants {
 			heading_1 = "&nbsp;";
 			heading_2 = "Room: " + code;
 		}
-		String text = "<html><head><script type=\"text/javascript\" src=\"../drag.js\"></script>" +
-				"<link rel=\"stylesheet\" type=\"text/css\" href=\"../style.css\" /><br/>" +
+		String text = "<html><head><script type=\"text/javascript\" src=\"../../../../../../drag.js\"></script>" +
+				"<link rel=\"stylesheet\" type=\"text/css\" href=\"../../../../../../style.css\" /><br/>" +
 				"<br/><!-- initialize drag and drop -->" +
 				"<script type=\"text/javascript\">\n" +
 				"<!--\n" +

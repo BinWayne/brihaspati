@@ -3,7 +3,8 @@ package org.iitk.brihaspati.modules.screens.call.timetable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
- 
+import java.io.File;
+
 public class Methods {
 	private static ArrayList<String> ERROR_MSGS = new ArrayList<String>();
 	
@@ -283,6 +284,26 @@ public class Methods {
 	
 	public static ArrayList<String> getErrorMsgs() {
 		return ERROR_MSGS;
+	}
+	
+	 public static boolean checkDirectoryPath(String path) throws TimetableException {
+		String rootPath = path;
+		boolean created = false;
+		File root = new File(rootPath);
+		created = createDirectory(root);
+		return created;
+	}
+	
+	public static boolean createDirectory(File file) throws TimetableException {
+		String message = "Error while creating directory: ";
+		boolean created = false;
+		if(!file.isDirectory()) {
+			if(!file.mkdirs()) {
+				throw new TimetableException(message + file.toString());
+			}
+			created = true;
+		}
+		return created;
 	}
 
 }

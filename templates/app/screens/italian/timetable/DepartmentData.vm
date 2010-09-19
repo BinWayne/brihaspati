@@ -20,13 +20,18 @@ $page.setTitle("Generate Timetable")
 		<tr>
 			<td> Uploaded Files </td> 
 			<td> Generate Timetable </td> 
-			<td> Last Report </td>
+			<td>  Reports </td>
 			<td> Date Uploaded </td>
 		#foreach( $key in $allFiles.keySet() )
 		<tr>
-			<td> ${allFiles.get($key)}.xls</td>
-			<td> <a href=$link.setPage("call,timetable,html_pdf.vm").addPathInfo("lang",$lang).addPathInfo("xmlFile",$xmlFiles.get($key)).setActionEvent("GenerateTimeTable", "doGenerate")> Click </a> </td>
-			<td> <a href=$link.setPage("call,timetable,html_pdf.vm") > Click </a> </td>
+			<td> ${allFiles.get($key)}</td>
+
+			<td> <a href=$link.setPage("call,timetable,html_pdf.vm").addPathInfo("lang",$lang).addPathInfo("xmlFile",$xmlFiles.get($key)).addPathInfo("uploadDir", $key).setActionEvent("GenerateTimeTable", "doGenerate")> Click </a> </td>
+
+#set($key2 = $key.replace(" " , "+"))
+		
+			<td> <a href=$content.getURI("/reports/$user/$department/$key2") > Click </a> </td>
+
 			<td> $key </td>
 		</tr>
 		#end	

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.Date;
 
 import org.apache.turbine.modules.actions.VelocityAction;
 import org.apache.turbine.om.security.User;
@@ -117,34 +118,39 @@ public class GenerateTimeTable extends VelocityAction {
 		return best;
 	}
 	
-	public void doGenerate(RunData data, Context context) {
+	public void doGenerate(RunData data, Context context) throws Exception {
 		System.out.println("------------------------- Entering Generate------------------------------");
 		String msg = "There was an error in generating timetables.<br/>";
 		boolean error = false;
-		
-		System.out.println("asdf");
 		String xmlFile = (String)data.getParameters().getString("xmlFile", "");
-		if(xmlFile.equals("")) {
+		String uploadDir = (String)data.getParameters().getString("uploadDir", "");
+		String department =(String)data.getSession().getAttribute("department");
+		if(xmlFile.equals("") || uploadDir.equals("") || department.equals("")) {
 			context.put("msg", msg);
 			return;
 		}
-
+		
 		User user = data.getUser();
 		String username = user.getName();
-		String department =(String)data.getSession().getAttribute("department");
-		String savePath = "/reports/" + username + "/" + department + "/reports/";
-		String path = data.getServletContext().getRealPath(savePath);
-		/*
-		 * "path" variable is stored in db. So it is the most important variable.
-		 */
-		String tableId = "";
+		String tableId = "";	
+		Date date = new Date();
+		String newDir = date.getDate() + "-" + date.getMonth() + "-" + new String("" + (date.getYear() + 1900))
+		+ " " + date.getHours() + ":" + date.getMinutes()+ ":" + date.getSeconds()	;
+		String path = data.getServletContext().getRealPath("/reports/" + username + "/" + department + "/" +
+								uploadDir + "/report~" + newDir + "/");
+		try {
+			Methods.checkDirectoryPath(path);
+		} catch (Exception e) {
+			context.put("msg","Unable to create directory for this instance");
+			return;
+		}
 		
-		xmlFile = data.getServletContext().getRealPath("/reports/" + username + "/" + department + "/uploads") + "/" + xmlFile;
+		xmlFile = data.getServletContext().getRealPath("/reports/" + username + "/" + department + "/" + uploadDir) + "/" + xmlFile;
+		
 		try {
 			System.out.println("Loading "+ xmlFile + " in the database");
 			new ParseXml(xmlFile);
 			System.out.println("Loading completed.");
-//			context.put("msg", "The file has been successfully uploaded.");
 		} catch(Throwable t) {
 			t.printStackTrace();
 			System.out.println("SEVERE: Error while loading into database.");

@@ -15,6 +15,7 @@ import org.apache.commons.logging.*;
 
 import org.iitk.brihaspati.modules.utils.MultilingualUtil;
 import org.iitk.brihaspati.modules.screens.call.timetable.TimetableException;
+import org.iitk.brihaspati.modules.screens.call.timetable.Methods;
 
 public class TimetableAction extends SecureAction
 {
@@ -39,11 +40,15 @@ public class TimetableAction extends SecureAction
 	    String username = user.getName();
 		Date date = new Date();
 		String department = (String)data.getSession().getAttribute("department");
-		String path = "/reports/" + username + "/" + department + "/uploads";
 		
-		String filePath=data.getServletContext().getRealPath(path)+ "/" + file + "~"
-					    + date.getDate() + "-" + date.getMonth() + "-" + new String("" + (date.getYear() + 1900))
-						+ " " + date.getHours() + ":" + date.getMinutes()+ ":" + date.getSeconds();
+		String newDir = date.getDate() + "-" + date.getMonth() + "-" + new String("" + (date.getYear() + 1900))
+		+ " " + date.getHours() + ":" + date.getMinutes()+ ":" + date.getSeconds()	;
+	
+		String path = "/reports/" + username + "/" + department + "/" + newDir;
+		String dirPath = data.getServletContext().getRealPath(path) + "/";
+		Methods.checkDirectoryPath(dirPath);
+		
+		String filePath = dirPath + file;
 		System.out.println("Filepath for uploaded file is " + filePath);
 
 		String xlsFile = filePath + "." + fileExtension;
@@ -108,63 +113,51 @@ public class TimetableAction extends SecureAction
 		User user = data.getUser();
 		String username = user.getName();
 		
-		String path = "/reports/" + username + "/" + department + "/uploads";
+		String path = "/reports/" + username + "/" + department;
 		String filesPath=data.getServletContext().getRealPath(path)+ "/";
 		
-		checkDirectoryPath(filesPath);
+		Methods.checkDirectoryPath(filesPath);
 		
 		File directory = new File(filesPath);
-		File[] files = directory.listFiles();
+		File[] dir = directory.listFiles();	
+
 		Hashtable allFiles = new Hashtable();
 		Hashtable xmlFiles = new Hashtable();
 		
-		for (int index = 0; index < files.length; index++) {
-			String fileName = files[index].toString();
+		/* searching in the department directory for dirs. */
+		for (int index = 0; index < dir.length; index++) {
+			
+			File uploadDir = dir[index].getAbsoluteFile();
+			System.out.println(uploadDir.toString());
+			
+			if(uploadDir.isDirectory()) {
 				
-			if(fileName.endsWith("xls")) {
-				StringTokenizer st = new StringTokenizer(fileName, "/");
-				while(st.hasMoreElements())
-					fileName = st.nextToken();
-				
-				String temp = fileName.substring(0, fileName.length() - 4) + ".xml";
-				fileName = fileName.substring(0, fileName.length() - 4);
-				StringTokenizer st2 = new StringTokenizer(fileName, "~");
-				
-				String file = st2.nextToken();
-				String date = st2.nextToken();
-				
-				System.out.println(file + " | " + date + " | " + temp);
-				allFiles.put(date, file);
-				xmlFiles.put(date, temp);
+				File[] files = uploadDir.listFiles();
+				/* searching in the uploaded dir for xls file - should be only one. */
+				for(int counter = 0 ; counter < files.length; counter++) {
+					
+					String fileName = files[counter].toString();
+					if(fileName.endsWith("xls")) {
+						StringTokenizer st = new StringTokenizer(fileName, "/");
+						while(st.hasMoreElements())
+							fileName = st.nextToken();
+
+						String xmlFile = fileName.substring(0, fileName.length() - 4) + ".xml";
+						String file = fileName;
+						String date = uploadDir.getName();
+						System.out.println(file + " | " + date + " | " + xmlFile);
+						allFiles.put(date, file);
+						xmlFiles.put(date, xmlFile);
+						/* only one xls file in one directory*/
+						break;
+					}
+				}
 			}
 		}
 		
 		data.getSession().setAttribute("xmlFiles", xmlFiles);
 		data.getSession().setAttribute("allFiles", allFiles);
 		return;
-	}
-	
-	/*
-	 * Create directory for uploads if it doesn't exist.
-	 */
-	private boolean checkDirectoryPath(String path) throws TimetableException {
-		String rootPath = path;
-		boolean created = false;
-		File root = new File(rootPath);
-		created = createDirectory(root);
-		return created;
-	}
-	
-	private boolean createDirectory(File file) throws TimetableException {
-		String message = "Error while creating directory: ";
-		boolean created = false;
-		if(!file.isDirectory()) {
-			if(!file.mkdirs()) {
-				throw new TimetableException(message + file.toString());
-			}
-			created = true;
-		}
-		return created;
 	}
 	
 	/*
