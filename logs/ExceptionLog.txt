@@ -1,0 +1,7 @@
+Wed Oct 06 19:41:38 GMT+05:30 2010---vc size==1
+Wed Oct 06 19:41:47 GMT+05:30 2010---fm from usage details==SELECT MIN(ENTRY_ID) FROM USAGE_DETAILS WHERE USER_ID=0
+Wed Oct 06 19:41:47 GMT+05:30 2010---acl in mylogin action==org.apache.turbine.util.security.TurbineAccessControlList@1270107
+Wed Oct 06 19:46:41 GMT+05:30 2010---vc size==1
+Wed Oct 06 19:46:45 GMT+05:30 2010---fm from usage details==SELECT MIN(ENTRY_ID) FROM USAGE_DETAILS WHERE USER_ID=0
+Wed Oct 06 19:46:45 GMT+05:30 2010---acl in mylogin action==org.apache.turbine.util.security.TurbineAccessControlList@1e2c9bf
+Wed Oct 06 19:46:53 GMT+05:30 2010---fm from usage details==SELECT MIN(ENTRY_ID) FROM USAGE_DETAILS WHERE USER_ID=0

@@ -1,0 +1,59 @@
+<html><head><script type="text/javascript" src="../../../../../../drag.js"></script><link rel="stylesheet" type="text/css" href="../../../../../../style.css" /><br/><br/><!-- initialize drag and drop --><script type="text/javascript">
+<!--
+window.onload = function () {	REDIPS.drag.init();	REDIPS.drag.clone_ctrlKey = false;	REDIPS.drag.drop_option = 'switch';	REDIPS.drag.hover_color = '#9BB3DA';	REDIPS.drag.trash_ask = false;	REDIPS.drag.myhandler_dropped = function () {		var obj         = REDIPS.drag.obj;						var obj_old     = REDIPS.drag.obj_old;					var target_cell = REDIPS.drag.target_cell;				var target_row  = REDIPS.drag.target_cell.parentNode;		var marked_cell = REDIPS.drag.marked_cell;					var mark_cname  = REDIPS.drag.mark_cname;					var i, obj_new, mark_found, id;							if (document.getElementById('week').checked === true && obj_old.className.indexOf('clone') > -1) {			for (i = 0; i < target_row.cells.length; i++) {				if (target_cell === target_row.cells[i]){					continue;				}				if (target_row.cells[i].childNodes.length > 0) {					continue;				}				mark_found = target_row.cells[i].className.indexOf(mark_cname) > -1 ? true : false;				if ((mark_found === true && marked_cell === 'deny') || (mark_found === false && marked_cell === 'allow')) {					continue;				}				obj_new = obj.cloneNode(false);				id = obj.id.substring(0, 2);				obj_new.id = id + 'c' + REDIPS.drag.cloned_id[id];				REDIPS.drag.cloned_id[id] += 1;				obj_new.onmousedown = REDIPS.drag.handler_onmousedown;				target_row.cells[i].appendChild(obj_new);			}		}	}	}
+//-->
+</script></head><div class="date"><p align="right"> <i>Dated: Oct 6, 2010</i></p></div><h2 align="center">Indian Institute of Technology, Roorkee</h2><h4 align="center">Department of Computer Science</h4><p align="center">Spring Semester 2010-2011</p>
+
+<form method="post" action="/brihaspati/servlet/brihaspati/template/call%2CTimetable%2Cbfr_html.vm/action/GenerateTimeTable">	<input type="hidden" name="eventSlotMap" value="" />	<input type="hidden" name="tableId" value="1000" />	<span class="heading_1">Branch: ECW IV</span>	<input class="submit_button" type="submit"  name="eventSubmit_doVerification" 		value="Check availability" onClick="save(this.form)" /></form>
+
+<p class="heading_2">Batch: B8</p><div id="main_container"><div id="drag"><div id="right"><table id="table2">	<colgroup><col width="100"/><col width="100"/><col width="100"/><col width="100"/><col width="100"/><col width="100"/>	</colgroup>	<tbody><tr><td class="mark dark">Time\Day</td><td class="mark dark">Monday</td><td class="mark dark">Tueday</td><td class="mark dark">Wednesday</td><td class="mark dark">Thursday</td><td class="mark dark">Friday</td></tr><tr>
+<td class="mark dark">9-10 AM</td>
+<td id="tableSlot=0">  </td>
+<td id="tableSlot=8">  </td>
+<td id="tableSlot=16"><div id="eventId=114&type=1" class="drag green">LEC-431<br/>S-301<br/>MM</div></td>
+<td id="tableSlot=24"><div id="eventId=99&type=1" class="drag green">LEC-426<br/>Audi<br/>MM</div></td>
+<td id="tableSlot=32"><div id="eventId=118&type=1" class="drag green">LEC-432<br/>Audi<br/>KKG</div></td></tr><tr>
+<td class="mark dark">10-11 AM</td>
+<td id="tableSlot=1">  </td>
+<td id="tableSlot=9">  </td>
+<td id="tableSlot=17">  </td>
+<td id="tableSlot=25">  </td>
+<td id="tableSlot=33"><div id="eventId=100&type=1" class="drag green">LEC-426<br/>Audi<br/>MM</div></td></tr><tr>
+<td class="mark dark">11-12 Noon</td>
+<td id="tableSlot=2"><div id="eventId=116&type=1" class="drag green">LEC-431<br/>S-303<br/>MM</div></td>
+<td id="tableSlot=10">  </td>
+<td id="tableSlot=18">  </td>
+<td id="tableSlot=26">  </td>
+<td id="tableSlot=34">  </td></tr><tr>
+<td class="mark dark">12-1 PM</td>
+<td id="tableSlot=3">  </td>
+<td id="tableSlot=11">  </td>
+<td id="tableSlot=19"><div id="eventId=101&type=1" class="drag green">LEC-426<br/>Audi<br/>MM</div></td>
+<td id="tableSlot=27">  </td>
+<td id="tableSlot=35"><div id="eventId=113&type=1" class="drag green">LEC-431<br/>S-301<br/>MM</div></td></tr><tr>
+<td class="mark dark">1-2 PM</td>
+<td class="mark lunch" colspan="5">Break</td></tr><tr>
+<td class="mark dark">2-3 PM</td>
+<td id="tableSlot=4">  </td>
+<td id="tableSlot=12"><div id="eventId=97&type=3" class="drag green">PEC-425<br/>w-206<br/>PK</div></td>
+<td id="tableSlot=20"><div id="eventId=112&type=3" class="drag green">PEC-430<br/>w-201<br/>PK</div></td>
+<td id="tableSlot=28"><div id="eventId=119&type=1" class="drag green">LEC-432<br/>Audi<br/>KKG</div></td>
+<td id="tableSlot=36">  </td></tr><tr>
+<td class="mark dark">3-4 PM</td>
+<td id="tableSlot=5">  </td>
+<td id="tableSlot=13"><div id="eventId=97&type=3" class="drag green">PEC-425<br/>w-206<br/>PK</div></td>
+<td id="tableSlot=21"><div id="eventId=112&type=3" class="drag green">PEC-430<br/>w-201<br/>PK</div></td>
+<td id="tableSlot=29">  </td>
+<td id="tableSlot=37">  </td></tr><tr>
+<td class="mark dark">4-5 PM</td>
+<td id="tableSlot=6">  </td>
+<td id="tableSlot=14"><div id="eventId=97&type=3" class="drag green">PEC-425<br/>w-206<br/>PK</div></td>
+<td id="tableSlot=22"><div id="eventId=112&type=3" class="drag green">PEC-430<br/>w-201<br/>PK</div></td>
+<td id="tableSlot=30"><div id="eventId=115&type=1" class="drag green">LEC-431<br/>S-301<br/>MM</div></td>
+<td id="tableSlot=38">  </td></tr><tr>
+<td class="mark dark">5-6 PM</td>
+<td id="tableSlot=7">  </td>
+<td id="tableSlot=15"><div id="eventId=98&type=1" class="drag green">LEC-426<br/>S-302<br/>MM</div></td>
+<td id="tableSlot=23"><div id="eventId=117&type=1" class="drag green">LEC-432<br/>S-301<br/>KKG</div></td>
+<td id="tableSlot=31">  </td>
+<td id="tableSlot=39"><div id="eventId=120&type=1" class="drag green">TEC-432<br/>w-201<br/>KKG</div></td></tr></tbody></table></div><!-- right container --></div><!-- drag container --></div><!-- main container --></body></html>

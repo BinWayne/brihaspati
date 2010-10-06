@@ -6,12 +6,13 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.Date;
+import java.util.*;
 
 import org.apache.turbine.modules.actions.VelocityAction;
 import org.apache.turbine.om.security.User;
 import org.apache.turbine.util.RunData;
 import org.apache.velocity.context.Context;
-import org.iitk.brihaspati.modules.screens.call.timetable.*;
+import org.iitk.brihaspati.modules.screens.call.Timetable.*;
 
 import com.lowagie.text.DocumentException;
  
@@ -84,34 +85,6 @@ public class GenerateTimeTable extends VelocityAction {
 		System.out.println("Total time taken : " + (System.currentTimeMillis() - start)/60 + " seconds\n");
 		start = System.currentTimeMillis();
 		
-		/*// Swap slots
-		for(int i=1;i<100000;i++) {
-			tmp.sequenceSlots();
-			if(tmp.isBetterThan(sST)) {
-				sST = new SingleSlotTimetable(tmp);
-				best = new SingleSlotTimetable(tmp).mergeWithParent();
-			}
-		}
-		
-		System.out.println("After again swapping slots");
-		best.displayPenalty();
-		System.out.println("Total time taken : " + (System.currentTimeMillis() - start)/60 + " seconds\n");
-		start = System.currentTimeMillis();
-		
-		//Exchange rooms
-		for(int i=1;i<100000;i++) {
-			tmp.exchangeRooms();
-			if(tmp.isBetterThan(sST)) {
-				sST = new SingleSlotTimetable(tmp);
-				best = new SingleSlotTimetable(tmp).mergeWithParent();
-			}
-		}
-		
-		System.out.println("After rooms exchange");
-		best.displayPenalty();
-		System.out.println("Total time taken : " + (System.currentTimeMillis() - start)/60 + " seconds\n");
-		start = System.currentTimeMillis();*/
-		
 	}
 	
 	public STimetable getBest() {
@@ -120,7 +93,7 @@ public class GenerateTimeTable extends VelocityAction {
 	
 	public void doGenerate(RunData data, Context context) throws Exception {
 		System.out.println("------------------------- Entering Generate------------------------------");
-		String msg = "There was an error in generating timetables.<br/>";
+		String msg = "There was an error in generating Timetables.<br/>";
 		boolean error = false;
 		String xmlFile = (String)data.getParameters().getString("xmlFile", "");
 		String uploadDir = (String)data.getParameters().getString("uploadDir", "");
@@ -138,6 +111,9 @@ public class GenerateTimeTable extends VelocityAction {
 		+ " " + date.getHours() + ":" + date.getMinutes()+ ":" + date.getSeconds()	;
 		String path = data.getServletContext().getRealPath("/reports/" + username + "/" + department + "/" +
 								uploadDir + "/report~" + newDir + "/");
+		data.getSession().setAttribute("reportDir", ("report~"+newDir));
+		data.getSession().setAttribute("uploadDir", uploadDir);
+		data.getSession().setAttribute("path", username + "/" + department + "/" + uploadDir + "/report~" + newDir );
 		try {
 			Methods.checkDirectoryPath(path);
 		} catch (Exception e) {
@@ -170,21 +146,16 @@ public class GenerateTimeTable extends VelocityAction {
 //			best.display();
 			best.displayPenalty();
 			System.out.println("\n");
-			searchBestTimetable();
-			best.setEventData();
-//			best.newInsertIntoDB(Data.getInstance().getEventList());
-//			best.saveBestTimetable();
-//			System.out.println(Test.counter);
-//			best.displayPenalty();
+			searchBestTimetable(); best.setEventData();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		/*
-		 * Here the path of the file in which timetable is stored is to be given.
+		 * Here the path of the file in which Timetable is stored is to be given.
 		 */
 		try {
-			tableId = best.newInsert(username, department, path);
+			tableId = best.savePath(username, department, path);
 			best.saveTable(tableId, username, department, path, Data.getInstance().getEventList());
 			System.out.println("TableId saved is: " + tableId);
 		} catch (Exception e) {
@@ -276,6 +247,20 @@ public class GenerateTimeTable extends VelocityAction {
 		ArrayList<Event> eventsToVerify = new ArrayList<Event>();
 		Event event = null;
 		eventSlotMap = null;
+		
+	        String filePath = best.getPath(tableId);	
+		String []output = filePath.split("/");
+		Vector qwer = new Vector();
+		String finals = "";
+		for(int i = output.length - 1; i>=0; i--) {
+			if(output[i].equals("reports")) break;
+			qwer.add(output[i]);
+		}
+		for(int i = qwer.size() - 1; i >= 0; i--) {
+			finals += qwer.get(i) + "/";
+		}
+
+		data.getSession().setAttribute("path", finals);
 
 		System.out.println("TableId while verification: " + tableId);
 		try {
@@ -321,14 +306,14 @@ public class GenerateTimeTable extends VelocityAction {
 			}
 			else {
 				System.out.println("weareheretoo6");
-				throw new TimetableException("You made no changes to the timetable.");
+				throw new TimetableException("You made no changes to the Timetable.");
 			}
 		} catch (TimetableException e) {
 			valid = false;
 			msg = e.getMessage();
 			System.out.println(msg);
 		} catch (Exception e) {
-			System.out.println("error while validating changed timetable");
+			System.out.println("error while validating changed Timetable");
 			e.printStackTrace();
 		}
 		System.out.println("Exiting validation: " + valid);
@@ -355,8 +340,8 @@ public class GenerateTimeTable extends VelocityAction {
 				}
 				
 //				best.loadFromDB(Data.getConnection(), eventList);
-				best.newInsertIntoDB(Data.getInstance().getEventList());
-				String path = "E:\\course_timetables\\";
+				//best.newInsertIntoDB(Data.getInstance().getEventList());
+				String path = "E:\\course_Timetables\\";
 				PDFGenerator reportGen = new PDFGenerator();
 				reportGen.publishAllBatchesTimetables(path);
 				reportGen.publishAllFacultyTimetables(path);

@@ -14,8 +14,8 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.logging.*;
 
 import org.iitk.brihaspati.modules.utils.MultilingualUtil;
-import org.iitk.brihaspati.modules.screens.call.timetable.TimetableException;
-import org.iitk.brihaspati.modules.screens.call.timetable.Methods;
+import org.iitk.brihaspati.modules.screens.call.Timetable.TimetableException;
+import org.iitk.brihaspati.modules.screens.call.Timetable.Methods;
 
 public class TimetableAction extends SecureAction
 {
@@ -85,6 +85,99 @@ public class TimetableAction extends SecureAction
 		new XML(w,System.out, encoding, formatInfo, xmlFile);
 	}
 	
+	public void doInit( RunData data, Context context) throws Exception
+	{
+		getDepartments(data,context);
+		String department = (String)data.getSession().getAttribute("department");
+		if(department.equals("")) 
+			return;
+		
+		getUploadedFiles(data, department);
+		return;
+	}
+	
+	public void doManagedepartment(RunData data, Context context) throws Exception
+	{
+		User user = data.getUser();
+		String username = user.getName();
+		String path = "/reports/" + username + "/" ;
+		String filesPath=data.getServletContext().getRealPath(path);
+		String mode = data.getParameters().getString("mode");
+		File directory = new File(filesPath);
+		File[] dir = directory.listFiles();	
+
+		if(mode.equals("get")) {
+			/*Vector dirs = new Vector();	
+			for(int index = 0 ; index < dir.length; ++index)
+			{
+				File uploadDir = dir[index].getAbsoluteFile();
+				if(uploadDir.isDirectory()) {
+					String dirName = uploadDir.toString();
+					StringTokenizer st = new StringTokenizer(dirName, "-");
+					while(st.hasMoreElements())
+						dirName = st.nextToken();
+					dirs.add(dirName);
+				}
+			}
+			System.out.println("Entering the page to manage departments.");
+			data.getRequest().setAttribute("dirList", dirs);*/
+		}
+		else if(mode.equals("update")) {
+			System.out.println("Updating department list.");
+			String[] departments = data.getParameters().getStrings("department");
+			int len = departments.length;
+
+			/** DELETE **/
+			for(int index = 0 ; index < dir.length; ++index)
+			{
+				File uploadDir = dir[index].getAbsoluteFile();
+				if(uploadDir.isDirectory()) {
+					String dirName = uploadDir.getName();
+					System.out.println(dirName);
+					//	StringTokenizer st = new StringTokenizer(dirName, "-");
+					//	dirName = st.nextToken();
+					boolean flag = false;
+					for(int i = 0 ; i < len; ++i)
+						if(dirName.equals(departments[i])) {
+							flag = true;
+							break;
+						}
+					if(!flag) {
+						boolean success = deleteDirectory(uploadDir);
+						if(!success)
+							System.out.println(uploadDir + " Not Deleted");
+						else 
+							System.out.println(uploadDir + " Deleted");
+					}
+				}
+			}
+			/** CREATE **/
+			directory = new File(filesPath);
+			dir = directory.listFiles();	
+			for(int i = 0; i < len; ++i)
+			{
+				System.out.println(departments[i]);
+				boolean flag = false;
+				for(int index = 0 ; index < dir.length; ++index)
+				{
+					File uploadDir = dir[index].getAbsoluteFile();
+					String dirName = uploadDir.getName();
+					if(departments[i].equals(dirName)) {
+						flag = true;
+						break;
+					}	
+				}
+				if(!flag) {
+					String filePath = filesPath + "/" + departments[i];
+					Methods.checkDirectoryPath(filePath);
+				}
+			}
+			data.getSession().setAttribute("department", "");
+			doInit(data, context);
+		}
+	}
+
+	
 	public void doSetdepartment( RunData data, Context context) throws Exception
 	{
 		String department = data.getParameters().getString("department", "");
@@ -92,19 +185,36 @@ public class TimetableAction extends SecureAction
 		
 		System.out.println("Department is " + department);
 		log.info("Department is " + department);
-		
 		getUploadedFiles(data, department);
+		
+		StringTokenizer st = new StringTokenizer(department, "~");
+		data.getSession().setAttribute("department_display", st.nextToken());
 		return;
 	}
 	
-	public void doInit( RunData data, Context context) throws Exception
+	public void getDepartments( RunData data, Context context) throws Exception
 	{
-		String department = (String)data.getSession().getAttribute("department");
-		if(department == null)
-			return;
+		User user = data.getUser();
+		String username = user.getName();
+		String path = "/reports/" + username + "/" ;
+		String filesPath=data.getServletContext().getRealPath(path);
+		Methods.checkDirectoryPath(filesPath);
 		
-		getUploadedFiles(data, department);
-		return;
+		Hashtable<String, String> dirs = new Hashtable<String, String>();
+		File directory = new File(filesPath);
+		File[] dir = directory.listFiles();	
+		for (int index = 0; index < dir.length; index++) {
+			File uploadDir = dir[index].getAbsoluteFile();
+			if(uploadDir.isDirectory()) {
+				String dirName = uploadDir.getName();
+				StringTokenizer st = new StringTokenizer(dirName, "~");
+				String value = st.nextToken();
+				String key = st.nextToken();
+				System.out.println("dir: " + dirName);
+				dirs.put(key, value);
+			}
+		}
+		data.getSession().setAttribute("directories", dirs);
 	}
 
 
@@ -169,6 +279,21 @@ public class TimetableAction extends SecureAction
 		return longFile.substring( (loc+1), longFile.length() );
 	}
 	
+	static public boolean deleteDirectory(File path) {
+		if( path.exists() ) {
+			File[] files = path.listFiles();
+			for(int i=0; i<files.length; i++) {
+				if(files[i].isDirectory()) {
+					deleteDirectory(files[i]);
+				}
+				else {
+					files[i].delete();
+				}
+			}
+		}
+		return( path.delete() );
+	}
+
 	/*
 	 * Default action to perform if the specified action cannot be executed.
 	 */

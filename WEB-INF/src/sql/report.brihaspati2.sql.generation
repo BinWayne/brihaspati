@@ -1,6 +1,29 @@
 
         
   
+  File to be created: Timetable-schema.sql
+  
+        Primary Key: No           
+          Primary Key: Yes           
+          Primary Key: No           
+          Primary Key: No           
+          Primary Key: No           
+          Primary Key: No           
+          Primary Key: No           
+          Primary Key: No           
+          
+            
+                
+                
+                
+                
+                
+                
+                
+      
+  
+        
+  
   File to be created: brihaspati-schema.sql
   
         Primary Key: Yes           
@@ -73,29 +96,6 @@
         Primary Key: Yes           
           
             
-      
-  
-        
-  
-  File to be created: timetable-schema.sql
-  
-        Primary Key: No           
-          Primary Key: Yes           
-          Primary Key: No           
-          Primary Key: No           
-          Primary Key: No           
-          Primary Key: No           
-          Primary Key: No           
-          Primary Key: No           
-          
-            
-                
-                
-                
-                
-                
-                
-                
       
   
         

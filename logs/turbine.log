@@ -1,0 +1,139 @@
+2010-10-06 19:58:53,410 [main] INFO  org.apache.turbine.Turbine - Configured log4j from /home/gen/brihaspati/tdk-2.3_01/webapps/brihaspati2/WEB-INF/conf/Log4j.properties
+2010-10-06 19:58:53,410 [main] INFO  org.apache.turbine.Turbine - Loaded configuration  (Properties) from /WEB-INF/conf/TurbineResources.properties (/home/gen/brihaspati/tdk-2.3_01/webapps/brihaspati2/WEB-INF/conf/TurbineResources.properties)
+2010-10-06 19:58:53,418 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Added Mapping for Service: CryptoService
+2010-10-06 19:58:53,418 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Added Mapping for Service: ComponentService
+2010-10-06 19:58:53,418 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Added Mapping for Service: FactoryService
+2010-10-06 19:58:53,418 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Added Mapping for Service: PoolService
+2010-10-06 19:58:53,419 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Added Mapping for Service: RunDataService
+2010-10-06 19:58:53,419 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Added Mapping for Service: ServletService
+2010-10-06 19:58:53,419 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Added Mapping for Service: AssemblerBrokerService
+2010-10-06 19:58:53,419 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Added Mapping for Service: LocalizationService
+2010-10-06 19:58:53,419 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Added Mapping for Service: MimeTypeService
+2010-10-06 19:58:53,419 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Added Mapping for Service: GlobalCacheService
+2010-10-06 19:58:53,419 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Added Mapping for Service: SchedulerService
+2010-10-06 19:58:53,419 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Added Mapping for Service: XmlRpcService
+2010-10-06 19:58:53,419 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Added Mapping for Service: UniqueIdService
+2010-10-06 19:58:53,419 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Added Mapping for Service: UploadService
+2010-10-06 19:58:53,419 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Added Mapping for Service: SecurityService
+2010-10-06 19:58:53,419 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Added Mapping for Service: PullService
+2010-10-06 19:58:53,419 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Added Mapping for Service: IntakeService
+2010-10-06 19:58:53,419 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Added Mapping for Service: TemplateService
+2010-10-06 19:58:53,419 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Added Mapping for Service: XSLTService
+2010-10-06 19:58:53,420 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Added Mapping for Service: SessionService
+2010-10-06 19:58:53,420 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Added Mapping for Service: VelocityService
+2010-10-06 19:58:53,424 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Start Initializing service (early): ComponentService
+2010-10-06 19:58:53,426 [main] WARN  org.apache.turbine.services.component.TurbineComponentService - The ComponentService is deprecated!
+2010-10-06 19:58:53,427 [main] DEBUG org.apache.turbine.services.component.TurbineComponentService - Fixing up /WEB-INF/conf/Torque.properties
+2010-10-06 19:58:53,427 [main] DEBUG org.apache.turbine.services.component.TurbineComponentService - Now: /home/gen/brihaspati/tdk-2.3_01/webapps/brihaspati2/WEB-INF/conf/Torque.properties
+2010-10-06 19:58:53,427 [main] INFO  org.apache.turbine.services.component.TurbineComponentService - Added torque as a component
+2010-10-06 19:58:53,484 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Finish Initializing service (early): ComponentService
+2010-10-06 19:58:53,489 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Start Initializing service (early): SchedulerService
+2010-10-06 19:58:53,732 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Finish Initializing service (early): SchedulerService
+2010-10-06 19:58:53,733 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Start Initializing service (early): PullService
+2010-10-06 19:58:53,739 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Start Initializing service (late): PoolService
+2010-10-06 19:58:53,742 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Start Initializing service (late): FactoryService
+2010-10-06 19:58:53,742 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Finish Initializing service (late): FactoryService
+2010-10-06 19:58:53,742 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Finish Initializing service (late): PoolService
+2010-10-06 19:58:53,742 [main] INFO  org.apache.turbine.services.pull.TurbinePullService - Pull Model tools will be refreshed on a per request basis.
+2010-10-06 19:58:53,747 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Start Initializing service (late): VelocityService
+2010-10-06 19:58:53,767 [main] DEBUG org.apache.turbine.services.velocity.TurbineVelocityService - Translating /templates/app
+2010-10-06 19:58:53,767 [main] DEBUG org.apache.turbine.services.velocity.TurbineVelocityService - Result (normal fs reference): /home/gen/brihaspati/tdk-2.3_01/webapps/brihaspati2/templates/app
+2010-10-06 19:58:53,767 [main] DEBUG org.apache.turbine.services.velocity.TurbineVelocityService - Adding file.resource.loader.path -> /home/gen/brihaspati/tdk-2.3_01/webapps/brihaspati2/templates/app
+2010-10-06 19:58:53,767 [main] DEBUG org.apache.turbine.services.velocity.TurbineVelocityService - Translating /templates/flux
+2010-10-06 19:58:53,767 [main] DEBUG org.apache.turbine.services.velocity.TurbineVelocityService - Result (normal fs reference): /home/gen/brihaspati/tdk-2.3_01/webapps/brihaspati2/templates/flux
+2010-10-06 19:58:53,767 [main] DEBUG org.apache.turbine.services.velocity.TurbineVelocityService - Adding file.resource.loader.path -> /home/gen/brihaspati/tdk-2.3_01/webapps/brihaspati2/templates/flux
+2010-10-06 19:58:53,881 [main] DEBUG org.apache.turbine.services.velocity.TurbineVelocityService - Activated Pull Tools
+2010-10-06 19:58:53,884 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Start Initializing service (late): TemplateService
+2010-10-06 19:58:53,885 [main] DEBUG org.apache.turbine.services.template.TurbineTemplateService - Default Extension: 
+2010-10-06 19:58:53,885 [main] DEBUG org.apache.turbine.services.template.TurbineTemplateService - Default Template:  Default
+2010-10-06 19:58:53,885 [main] DEBUG org.apache.turbine.services.template.TurbineTemplateService - Use Caching:       false
+2010-10-06 19:58:53,894 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Start Initializing service (late): AssemblerBrokerService
+2010-10-06 19:58:53,894 [main] INFO  org.apache.turbine.services.assemblerbroker.TurbineAssemblerBrokerService - Registering 1 action factories.
+2010-10-06 19:58:53,897 [main] INFO  org.apache.turbine.services.assemblerbroker.TurbineAssemblerBrokerService - Registering 1 screen factories.
+2010-10-06 19:58:53,898 [main] INFO  org.apache.turbine.services.assemblerbroker.TurbineAssemblerBrokerService - Registering 1 navigation factories.
+2010-10-06 19:58:53,898 [main] INFO  org.apache.turbine.services.assemblerbroker.TurbineAssemblerBrokerService - Registering 1 layout factories.
+2010-10-06 19:58:53,899 [main] INFO  org.apache.turbine.services.assemblerbroker.TurbineAssemblerBrokerService - Registering 1 page factories.
+2010-10-06 19:58:53,900 [main] INFO  org.apache.turbine.services.assemblerbroker.TurbineAssemblerBrokerService - Registering 1 scheduledjob factories.
+2010-10-06 19:58:53,900 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Finish Initializing service (late): AssemblerBrokerService
+2010-10-06 19:58:53,904 [main] INFO  org.apache.turbine.services.template.TurbineTemplateService - Using org.apache.turbine.services.template.mapper.DirectMapper to map page elements
+2010-10-06 19:58:53,904 [main] INFO  org.apache.turbine.services.template.TurbineTemplateService - Using org.apache.turbine.services.template.mapper.ClassMapper to map screen elements
+2010-10-06 19:58:53,904 [main] DEBUG org.apache.turbine.services.template.mapper.ClassMapper - Loader is {}
+2010-10-06 19:58:53,904 [main] INFO  org.apache.turbine.services.template.TurbineTemplateService - Using org.apache.turbine.services.template.mapper.ClassMapper to map layout elements
+2010-10-06 19:58:53,904 [main] DEBUG org.apache.turbine.services.template.mapper.ClassMapper - Loader is {}
+2010-10-06 19:58:53,905 [main] INFO  org.apache.turbine.services.template.TurbineTemplateService - Using org.apache.turbine.services.template.mapper.ClassMapper to map navigation elements
+2010-10-06 19:58:53,905 [main] DEBUG org.apache.turbine.services.template.mapper.ClassMapper - Loader is {}
+2010-10-06 19:58:53,905 [main] INFO  org.apache.turbine.services.template.TurbineTemplateService - Using org.apache.turbine.services.template.mapper.LayoutTemplateMapper to map layout.template elements
+2010-10-06 19:58:53,905 [main] INFO  org.apache.turbine.services.template.TurbineTemplateService - Using org.apache.turbine.services.template.mapper.ScreenTemplateMapper to map screen.template elements
+2010-10-06 19:58:53,905 [main] INFO  org.apache.turbine.services.template.TurbineTemplateService - Using org.apache.turbine.services.template.mapper.DirectTemplateMapper to map navigation.template elements
+2010-10-06 19:58:53,905 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Finish Initializing service (late): TemplateService
+2010-10-06 19:58:53,905 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Finish Initializing service (late): VelocityService
+2010-10-06 19:58:53,905 [main] DEBUG org.apache.turbine.services.pull.TurbinePullService - Global Tools:
+2010-10-06 19:58:53,909 [main] INFO  org.apache.turbine.services.pull.TurbinePullService - Tool org.apache.turbine.services.pull.util.UIManager to add to the context as '$ui'
+2010-10-06 19:58:53,909 [main] DEBUG org.apache.turbine.services.pull.TurbinePullService - Request Tools:
+2010-10-06 19:58:53,912 [main] INFO  org.apache.turbine.services.pull.TurbinePullService - Tool org.apache.turbine.services.pull.tools.TemplateLink to add to the context as '$link'
+2010-10-06 19:58:53,913 [main] INFO  org.apache.turbine.services.pull.TurbinePullService - Tool org.apache.turbine.util.template.HtmlPageAttributes to add to the context as '$page'
+2010-10-06 19:58:53,914 [main] INFO  org.apache.turbine.services.pull.TurbinePullService - Tool org.apache.turbine.services.pull.tools.ContentTool to add to the context as '$content'
+2010-10-06 19:58:53,915 [main] INFO  org.apache.turbine.services.pull.TurbinePullService - Tool org.apache.turbine.services.localization.LocalizationTool to add to the context as '$l10n'
+2010-10-06 19:58:53,916 [main] INFO  org.apache.turbine.services.pull.TurbinePullService - Tool org.apache.turbine.flux.tools.FluxTool to add to the context as '$flux'
+2010-10-06 19:58:53,917 [main] INFO  org.apache.turbine.services.pull.TurbinePullService - Tool org.apache.turbine.services.pull.util.DateFormatter to add to the context as '$dateFormatter'
+2010-10-06 19:58:53,918 [main] INFO  org.apache.turbine.services.pull.TurbinePullService - Tool org.apache.turbine.om.OMTool to add to the context as '$om'
+2010-10-06 19:58:53,920 [main] INFO  org.apache.turbine.services.pull.TurbinePullService - Tool org.apache.turbine.services.intake.IntakeTool to add to the context as '$intake'
+2010-10-06 19:58:53,921 [main] ERROR org.apache.turbine.services.pull.TurbinePullService - Cannot instantiate tool class org.apache.turbine.services.SchedulerTool: 
+java.lang.ClassNotFoundException: org.apache.turbine.services.SchedulerTool
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1443)
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1289)
+	at java.lang.ClassLoader.loadClassInternal(ClassLoader.java:319)
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:164)
+	at org.apache.turbine.services.pull.TurbinePullService.getTools(TurbinePullService.java:369)
+	at org.apache.turbine.services.pull.TurbinePullService.initPullTools(TurbinePullService.java:326)
+	at org.apache.turbine.services.pull.TurbinePullService.init(TurbinePullService.java:245)
+	at org.apache.turbine.services.BaseServiceBroker.initService(BaseServiceBroker.java:321)
+	at org.apache.turbine.services.BaseServiceBroker.doInitService(BaseServiceBroker.java:401)
+	at org.apache.turbine.services.BaseServiceBroker.initServices(BaseServiceBroker.java:373)
+	at org.apache.turbine.services.BaseServiceBroker.init(BaseServiceBroker.java:190)
+	at org.apache.turbine.Turbine.configure(Turbine.java:423)
+	at org.apache.turbine.Turbine.init(Turbine.java:230)
+	at javax.servlet.GenericServlet.init(GenericServlet.java:256)
+	at org.apache.catalina.core.StandardWrapper.loadServlet(StandardWrapper.java:935)
+	at org.apache.catalina.core.StandardWrapper.load(StandardWrapper.java:823)
+	at org.apache.catalina.core.StandardContext.loadOnStartup(StandardContext.java:3422)
+	at org.apache.catalina.core.StandardContext.start(StandardContext.java:3623)
+	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:821)
+	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:807)
+	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:595)
+	at org.apache.catalina.core.StandardHostDeployer.install(StandardHostDeployer.java:307)
+	at org.apache.catalina.core.StandardHost.install(StandardHost.java:788)
+	at org.apache.catalina.startup.HostConfig.deployDirectories(HostConfig.java:559)
+	at org.apache.catalina.startup.HostConfig.deployApps(HostConfig.java:401)
+	at org.apache.catalina.startup.HostConfig.start(HostConfig.java:718)
+	at org.apache.catalina.startup.HostConfig.lifecycleEvent(HostConfig.java:358)
+	at org.apache.catalina.util.LifecycleSupport.fireLifecycleEvent(LifecycleSupport.java:166)
+	at org.apache.catalina.core.ContainerBase.start(ContainerBase.java:1196)
+	at org.apache.catalina.core.StandardHost.start(StandardHost.java:754)
+	at org.apache.catalina.core.ContainerBase.start(ContainerBase.java:1188)
+	at org.apache.catalina.core.StandardEngine.start(StandardEngine.java:363)
+	at org.apache.catalina.core.StandardService.start(StandardService.java:497)
+	at org.apache.catalina.core.StandardServer.start(StandardServer.java:2190)
+	at org.apache.catalina.startup.Catalina.start(Catalina.java:512)
+	at org.apache.catalina.startup.Catalina.execute(Catalina.java:400)
+	at org.apache.catalina.startup.Catalina.process(Catalina.java:180)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:203)
+2010-10-06 19:58:53,922 [main] DEBUG org.apache.turbine.services.pull.TurbinePullService - Session Tools:
+2010-10-06 19:58:53,923 [main] INFO  org.apache.turbine.services.pull.TurbinePullService - Tool org.apache.turbine.services.pull.util.SessionData to add to the context as '$sessionData'
+2010-10-06 19:58:53,923 [main] DEBUG org.apache.turbine.services.pull.TurbinePullService - Authorized Tools:
+2010-10-06 19:58:53,923 [main] DEBUG org.apache.turbine.services.pull.TurbinePullService - Persistent Tools:
+2010-10-06 19:58:53,924 [main] DEBUG org.apache.turbine.services.pull.util.UIManager - UI Manager scope is global
+2010-10-06 19:58:53,925 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Finish Initializing service (early): PullService
+2010-10-06 19:58:53,925 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Start Initializing service (early): SessionService
+2010-10-06 19:58:53,926 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Finish Initializing service (early): SessionService
+2010-10-06 19:58:53,926 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Start Initializing service (early): VelocityService
+2010-10-06 19:58:53,926 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Finish Initializing service (early): VelocityService
+2010-10-06 19:58:53,926 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Finished initializing all services!
+2010-10-06 19:58:53,944 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Start Initializing service (late): RunDataService
+2010-10-06 19:58:53,944 [main] INFO  org.apache.turbine.services.BaseServiceBroker - Finish Initializing service (late): RunDataService
+2010-10-06 19:58:53,944 [main] INFO  org.apache.turbine.Turbine - Turbine: init() Ready to Rumble!
