@@ -1,0 +1,6 @@
+#if($msg=="success")
+Exam Created Successfully
+
+#else
+Please Create again.
+#end

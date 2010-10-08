@@ -1,0 +1,22 @@
+$page.DefaultDoctype
+$page.setBgColor("$ui.bgcolor")
+
+#set($Brihaspatilanguage = $data.getUser().getTemp("lang" ).toString()) 
+#set($user = $data.getUser().getName())
+
+<table>
+	<tr>
+		<td width="300px"></td>
+		<td valign="top">
+		#if($user == "admin")
+		
+		#parse("screens/$Brihaspatilanguage/OnlineExam/CreateExamOne.vm")
+		
+		#else
+		
+		#parse("screens/$Brihaspatilanguage/OnlineExam/ExamBegun.vm")
+		
+		#end
+		</td>
+	</tr>
+</table>

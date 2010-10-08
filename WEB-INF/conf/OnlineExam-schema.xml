@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE database SYSTEM "database_3_1.dtd">
+
+<!-- ==================================================================== -->
+<!--                                                                      -->
+<!-- O N L I N E - E X A M   M O D U L E   S C H E M A                    -->
+<!--                                                                      -->
+<!-- ==================================================================== -->
+
+<database defaultIdMethod="idbroker">
+	<table name="answer" description="Contains The Answers given by each user to each question">
+		<column
+			name="answer_id"
+			primaryKey="true"
+			autoIncrement="true"
+			required="true"
+			type="INTEGER"/>
+		<column
+			name="exam_id"
+			required="true"
+			type="INTEGER"/>
+		<column
+			name="question_id"
+			required="true"
+			type="INTEGER"/>
+		<column
+			name="username"
+			required="true"
+			size="255"
+			type="VARCHAR"/>
+		<column
+			name="option_id"
+			required="true"
+			type="INTEGER"/>
+	</table>
+
+	<table name="exam" description="Contains Exam details">
+		<column
+			name="exam_id"
+			primaryKey="true"
+			autoIncrement="true"
+			required="true"
+			type="INTEGER"/>
+		<column
+			name="title"
+			size="255"
+			type="VARCHAR"/>
+		<column
+			name="time_of_exam"
+			type="DATE"/>
+		<column
+			name="uploaded_by"
+			size="255"
+			type="VARCHAR"/>
+		<column
+			name="date_uploaded"
+			type="DATE"/>
+		<column
+			name="instructions"
+			size="255"
+			type="VARCHAR"/>
+	</table>
+
+	<table name="question" description="Contains Question statements">
+		<column
+			name="question_id"
+			primaryKey="true"
+			autoIncrement="true"
+			required="true"
+			type="INTEGER"/>
+		<column
+			name="statement"
+			required="true"
+			size="255"
+			type="VARCHAR"/>
+		<column
+			name="type"
+			required="true"
+			size="10"
+			type="VARCHAR"/>
+		<column
+			name="exam_id"
+			required="true"
+			type="INTEGER"/>
+		<column
+			name="no_of_options"
+			required="true"
+			type="INTEGER"/>
+		<column
+			name="marks"
+			type="INTEGER"/>
+	</table>
+
+	<table name="option_desc" description="Contains the option description">
+		<column
+			name="option_id"
+			primaryKey="true"
+			autoIncrement="true"
+			required="true"
+			type="INTEGER"/>
+		<column
+			name="statement"
+			size="255"
+			type="VARCHAR"/>
+		<column
+			name="question_id"
+			required="true"
+			type="INTEGER"/>
+		<column
+			name="correct_answer"
+			type="INTEGER"/>
+	</table>
+
+</database>

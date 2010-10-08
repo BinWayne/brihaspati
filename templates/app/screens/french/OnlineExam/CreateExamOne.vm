@@ -1,0 +1,20 @@
+$page.DefaultDoctype
+$page.setBgColor("$ui.bgcolor")
+
+#set($Brihaspatilanguage = $data.getUser().getTemp("lang" ).toString()) 
+#set($user = $data.getUser().getName())
+
+<table>
+<form action="$link.setPage("call,OnlineExam,CreateExamTwo.vm").setAction("OnlineExamAction")" method="post">
+	<tr>
+		<td>Exam Title:<input type="text" name="title"/></td>
+	</tr>
+	<tr>
+		<td>Instructions:<input type="text" name="inst"/></td>
+	</tr>
+	<tr>
+		<td><input type="hidden" name="user" value=$user /></td>
+		<td><input type="submit" value=Next name="eventSubmit_doInputexamdetails" /></td>
+	</tr>
+</form>
+</table>

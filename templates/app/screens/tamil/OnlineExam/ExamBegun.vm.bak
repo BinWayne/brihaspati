@@ -1,0 +1,27 @@
+#set($ques = $data.getSession().getAttribute("ques"))
+
+#if(!ques || !options)
+<form action="$link.setPage("call,OnlineExam,ExamBegun.vm").setAction("OnlineExamAction")" method="post">
+	<tr>
+		<td>Exam ID:<input type="text" name="exam_id"/></td>
+	</tr>
+	<tr>
+		<td><input type="submit" value=Next name="eventSubmit_doSelectquestion" />
+</form>
+
+#else
+
+<form action="$link.setPage("call,OnlineExam,ExamBegun.vm").setAction("OnlineExamAction")" method="post">
+<table>
+		<tr><td>$ques.get(1).getStatement()</td></tr>
+
+		<tr><td>$options.get(0).getStatement()</td></tr>
+		<tr><td>$options.get(1).getStatement()</td></tr>
+
+		
+		<tr><td><input type="hidden" name="next_qid" value="$ques.get(1).getQuestionId()" /></td></tr>
+		<tr><td><input type="submit" value=Next name="eventSubmit_doSelectoptions" /></td></tr>
+        	   
+</table>
+</form>
+#end

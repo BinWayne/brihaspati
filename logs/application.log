@@ -1,1 +1,0 @@
-2010-10-06 19:58:53,428 [main] INFO  org.apache.stratum.component.ComponentLoader - loading component: name=torque class=org.apache.torque.Torque config=/home/gen/brihaspati/tdk-2.3_01/webapps/brihaspati2/WEB-INF/conf/Torque.properties

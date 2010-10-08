@@ -1,0 +1,28 @@
+$page.DefaultDoctype
+$page.setBgColor("$ui.bgcolor")
+
+#set($Brihaspatilanguage = $data.getUser().getTemp("lang" ).toString()) 
+<table>
+<form action="$link.setPage("call,OnlineExam,ExamCreated.vm").setAction("OnlineExamAction")" method="post">
+	<tr>
+		<td>Question Statement:<input type="text" name="ques"/></td>
+	</tr>
+	<tr>
+		<td>Answer:<input type="text" name="c_ans"/></td>
+	</tr>
+	<tr>
+		<td>No of Options:<input type="text" name="noOfOptions"/></td>
+	</tr>
+	<tr>
+		<td>Option 1<input type="text" name="op1"/></td>
+	</tr>
+	<tr>
+		<td>Option 2<input type="text" name="op2"/></td>
+	</tr>
+	<tr>
+		<td><input type="hidden" name="exam_id" value=$exam_id /></td>
+		<td><input type="submit" value=Next name="eventSubmit_doInputquestion" /></td>
+	</tr>
+</form>
+</table>
+

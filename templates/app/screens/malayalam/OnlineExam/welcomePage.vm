@@ -1,0 +1,4 @@
+#set($username = $data.getSession().getAttribute("username"))
+
+Welcome $username
+

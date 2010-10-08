@@ -1,12 +1,14 @@
 #Sqlfile -> Database map
-#Wed Oct 06 19:25:24 GMT+05:30 2010
+#Fri Oct 08 19:47:03 GMT+05:30 2010
+OnlineExam-schema-idtable-init.sql=default
 brihaspati-schema.sql=brihaspati
 Timetable-schema-idtable-init.sql=default
 turbine-schema.sql=brihaspati
 Timetable-schema.sql=default
 timetable-schema-idtable-init.sql=default
-id-table-schema.sql=brihaspati
 turbine-schema-idtable-init.sql=brihaspati
+id-table-schema.sql=brihaspati
+OnlineExam-schema.sql=default
 timetable-schema.sql=default
 brihaspati-schema-idtable-init.sql=brihaspati
 turbine-security.sql=brihaspati

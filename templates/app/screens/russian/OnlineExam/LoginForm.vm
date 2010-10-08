@@ -1,0 +1,11 @@
+$page.DefaultDoctype
+$page.setBgColor("$ui.bgcolor")
+
+#set($Brihaspatilanguage = $data.getUser().getTemp("lang" ).toString()) 
+
+<form action="$link.setPage("call,OnlineExam,welcomePage.vm").setAction("OnlineExamAction")" method="post">
+	Username:<input type="text" name="username" length="30"> <br /><br />
+	Password:<input type="password" name="passwd" length="30">
+	<input type="submit" name="eventSubmit_doLogin" value=Submit>
+</form>
+<br />

@@ -1,0 +1,25 @@
+#set($exam_id = $data.getSession().getAttribute("exam_id"))
+#if($exam_id && $next_ques)
+<form action="$link.setPage("call,OnlineExam,ExamBegun.vm").setAction("OnlineExamAction")" method="post">
+<table>
+		<tr><td>$next_ques.getStatement()</td></tr>
+		<tr><td><input type="radio" name="option" value="$options.get(0).getOptionId()" />$options.get(0).getStatement()</td></tr>
+		<tr><td><input type="radio" name="option" value="$options.get(1).getOptionId()" />$options.get(1).getStatement()</td></tr>
+		
+		<tr><td><input type="hidden" name="current_ques" value="$next_ques.getQuestionId()" /></td></tr>
+		<tr><td><input type="submit" value=Next name="eventSubmit_doNextques" /></td></tr>
+        	   
+</table>
+</form>
+#elseif($exam_id)
+Exam ended...
+#else
+<form action="$link.setPage("call,OnlineExam,ExamBegun.vm").setAction("OnlineExamAction")" method="post">
+	<tr>
+		<td>Exam ID:<input type="text" name="exam_id"/></td>
+	</tr>
+	<tr>
+		<td><input type="submit" value=Next name="eventSubmit_doStartexam" />
+</form>
+
+#end
